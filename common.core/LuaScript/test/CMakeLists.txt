@@ -1,0 +1,8 @@
+project(testxxx)
+cmake_minimum_required(VERSION 3.0)
+set(CMAKE_CXX_FLAGS "-std=c++0x")
+include_directories($ENV{BOOST})
+aux_source_directory(. SRC_LIST)
+aux_source_directory(../lua SRC_LIST0)
+aux_source_directory(.. SRC_LIST1)
+add_executable(testxxx ${SRC_LIST} ${SRC_LIST0} ${SRC_LIST1})
