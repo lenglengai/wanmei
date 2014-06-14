@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../DefInc.h"
-
 namespace std {
 
 	template<class T>

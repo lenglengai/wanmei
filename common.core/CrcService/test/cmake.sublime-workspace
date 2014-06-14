@@ -1,0 +1,414 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"inc",
+				"include"
+			],
+			[
+				"def",
+				"define"
+			],
+			[
+				"run",
+				"runScript"
+			],
+			[
+				"n",
+				"nLuaScript"
+			],
+			[
+				"fun",
+				"fun0"
+			],
+			[
+				"My",
+				"MyBase"
+			],
+			[
+				"in",
+				"include"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "Main.cpp",
+			"settings":
+			{
+				"buffer_size": 497,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/E/wanmei/common.core/CrcService/CrcService.cpp",
+			"settings":
+			{
+				"buffer_size": 2304,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/E/wanmei/common.core/CrcService/CMakeLists.txt",
+			"settings":
+			{
+				"buffer_size": 69,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "CMakeLists.txt",
+			"settings":
+			{
+				"buffer_size": 374,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Packages/User/mingw.sublime-build",
+	"command_palette":
+	{
+		"height": 207.0,
+		"selected_items":
+		[
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/E/wanmei/common.core/Common/Singleton.h",
+		"/E/wanmei/common.core/LuaScript/test/Main.cpp",
+		"/E/wanmei/common.core/Shiny/test/Main.cpp",
+		"/E/wanmei/common.core/LuaScript/LuaScript.h",
+		"/E/wanmei/common.core/LuaScript/lua_tinker.cpp",
+		"/E/wanmei/common.core/Common/Convert.h",
+		"/E/wanmei/common.core/Common/Default.h",
+		"/E/wanmei/common.core/Common/test/Main.cpp",
+		"/E/wanmei/common.core/CrcService/test/CMakeLists.txt",
+		"/E/wanmei/common.core/CrcService/test/Main.cpp",
+		"/E/wanmei/common.core/CrcService/CMakeLists.txt",
+		"/E/wanmei/common.core/CrcService/CrcService.cpp",
+		"/E/wanmei/common.core/CrcService/CrcService.h",
+		"/E/wanmei/common.core/CrcService/crypt_buf.h",
+		"/E/wanmei/common.core/Common/test/CMakeLists.txt",
+		"/E/wanmei/common.core/Include.h",
+		"/E/wanmei/common.core/LuaScript/CMakeLists.txt",
+		"/E/wanmei/common.core/Common/test/Makefile",
+		"/E/wanmei/common.core/Common/ERRORINT.h",
+		"/E/wanmei/common.core/Shiny/CMakeLists.txt",
+		"/E/wanmei/common.core/Shiny/test/CMakeLists.txt",
+		"/E/wanmei/common.core/LuaScript/test/CMakeLists.txt",
+		"/E/wanmei/common.core/DefInc.h",
+		"/E/wanmei/common.core/Convert.h",
+		"/E/wanmei/common.core/Shiny/test/cmake.sublime-project",
+		"/E/wanmei/common.core/Shiny/ShinyPrereqs.h",
+		"/E/wanmei/common.core/Shiny/ShinyOutput.h",
+		"/E/wanmei/common.core/Shiny/ShinyData.h",
+		"/E/wanmei/common.core/Shiny/ShinyManager.cpp",
+		"/E/wanmei/common.core/Shiny/ShinyNode.cpp",
+		"/E/wanmei/common.core/Shiny/ShinyMacros.h",
+		"/E/wanmei/common.core/Shiny/ShinyTools.h",
+		"/E/wanmei/common.core/Shiny/Shiny.h",
+		"/E/wanmei/common.core/Shiny/ShinyConfig.h",
+		"/E/wanmei/common.core/Shiny/ShinyManager.h",
+		"/E/wanmei/common.core/Shiny/ShinyNode.h",
+		"/E/wanmei/common.core/Shiny/ShinyOutput.cpp",
+		"/E/wanmei/common.core/Shiny/ShinyNodePool.h",
+		"/E/wanmei/common.core/Shiny/ShinyZone.h",
+		"/E/wanmei/common.core/Shiny/ShinyTools.cpp",
+		"/E/wanmei/common.core/OutInc.h",
+		"/E/wanmei/common.core/LuaScript/lua_tinker.h",
+		"/e/setup/gnustep/include/winbase.h",
+		"/E/wanmei/common.core/LuaScript/test/cmake.sublime-project",
+		"/D/cmake1/Main.cpp",
+		"/E/wanmei/common.core/LuaScript/LuaInc.h",
+		"/E/wanmei/common.core/LuaScript/lua/CMakeLists.txt",
+		"/E/wanmei/common.core/LuaScript/lua/lcode.c",
+		"/E/wanmei/common.core/LuaScript/test/test0.lua",
+		"/E/wanmei/common.core/LuaScript/test/test2.lua",
+		"/E/wanmei/common.core/LuaScript/test/test3.lua",
+		"/C/Users/zyh/AppData/Roaming/Sublime Text 3/Packages/User/mingw.sublime-build",
+		"/E/wanmei/common.core/LuaScript/LuaScript.cpp",
+		"/E/wanmei/common.core/LuaScript/test/test1.lua",
+		"/E/wanmei/common.core/LuaScript/test/test.lua",
+		"/D/cmake1/cmake.sublime-project",
+		"/C/Users/zyh/AppData/Roaming/Sublime Text 3/Packages/User/cmake.sublime-build",
+		"/D/cmake1/CMakeLists.txt",
+		"/D/cmake1/CMakeList.txt",
+		"/D/cmake1/Main",
+		"/E/wanmei/cmake.test/common.core/LuaScript/CMakeLists.txt",
+		"/E/wanmei/cmake.test/common.core/LuaScript/LuaScriptMain.cpp",
+		"/D/zyh/zyh/com.core/lua.h",
+		"/E/wanmei/cmake.server/CMakeLists.txt",
+		"/E/wanmei/cmake.client/CMakeLists.txt",
+		"/E/wanmei/cmake.sublime-project",
+		"/E/setup/Sublime Text 3/Packages/C++.sublime-package",
+		"/D/cmake/src/CMakeLists.txt",
+		"/C/Users/zyh/AppData/Roaming/Sublime Text 3/Packages/User/make.sublime-build",
+		"/C/Users/zyh/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/zyh/AppData/Roaming/Sublime Text 3/Packages/User/nmake.sublime-build",
+		"/D/cmake/src/Main/CMakeLists.txt",
+		"/D/cmake/src/Main/Main.cpp",
+		"/D/cmake/src/Main/test",
+		"/D/cmake/build/hello.sublime-project",
+		"/D/cmake/src/Hello0/Hello0.cpp",
+		"/C/MinGW/msys/1.0/src/mingw/main.c",
+		"/D/cmake/src/Hello1/Hello1.cpp",
+		"/D/cmake/src/Hello0/Hello0.h",
+		"/D/cmake/src/Hello1/Hello1.h"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"__ShinyBlock",
+			"SHINY_INLINE"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "Main.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 497,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								497,
+								497
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/E/wanmei/common.core/CrcService/CrcService.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2304,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								518,
+								518
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/E/wanmei/common.core/CrcService/CMakeLists.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 69,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/CMake.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "CMakeLists.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 374,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								374,
+								374
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/CMake.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 337.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "cmake.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 367.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

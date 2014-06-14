@@ -1,3 +1,4 @@
+#include "../../DefInc.h"
 #include "../Convert.h"
 #include "../Default.h"
 #include "../ERRORINT.h"

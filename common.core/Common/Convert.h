@@ -3,9 +3,6 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
 
-
-#include "../DefInc.h"
-
 namespace std {
 
 	enum ConvertType_
