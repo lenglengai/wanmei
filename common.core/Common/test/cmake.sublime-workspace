@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"inc",
+				"include"
+			],
+			[
 				"def",
 				"define"
 			],
@@ -59,17 +63,22 @@
 	},
 	"file_history":
 	[
+		"/E/wanmei/common.core/Common/Convert.h",
+		"/E/wanmei/common.core/Common/test/Main.cpp",
+		"/E/wanmei/common.core/Common/test/CMakeLists.txt",
+		"/E/wanmei/common.core/Common/test/Makefile",
 		"/E/wanmei/common.core/Common/Default.h",
+		"/E/wanmei/common.core/Common/ERRORINT.h",
+		"/E/wanmei/common.core/Shiny/CMakeLists.txt",
+		"/E/wanmei/common.core/Shiny/test/CMakeLists.txt",
+		"/E/wanmei/common.core/LuaScript/CMakeLists.txt",
+		"/E/wanmei/common.core/LuaScript/test/CMakeLists.txt",
 		"/E/wanmei/common.core/Include.h",
 		"/E/wanmei/common.core/DefInc.h",
 		"/E/wanmei/common.core/Common/Singleton.h",
-		"/E/wanmei/common.core/Common/Convert.h",
 		"/E/wanmei/common.core/Convert.h",
-		"/E/wanmei/common.core/Shiny/CMakeLists.txt",
-		"/E/wanmei/common.core/Shiny/test/CMakeLists.txt",
 		"/E/wanmei/common.core/Shiny/test/Main.cpp",
 		"/E/wanmei/common.core/Shiny/test/cmake.sublime-project",
-		"/E/wanmei/common.core/LuaScript/test/CMakeLists.txt",
 		"/E/wanmei/common.core/Shiny/ShinyPrereqs.h",
 		"/E/wanmei/common.core/Shiny/ShinyOutput.h",
 		"/E/wanmei/common.core/Shiny/ShinyData.h",
@@ -85,7 +94,6 @@
 		"/E/wanmei/common.core/Shiny/ShinyNodePool.h",
 		"/E/wanmei/common.core/Shiny/ShinyZone.h",
 		"/E/wanmei/common.core/Shiny/ShinyTools.cpp",
-		"/E/wanmei/common.core/LuaScript/CMakeLists.txt",
 		"/E/wanmei/common.core/OutInc.h",
 		"/E/wanmei/common.core/LuaScript/LuaScript.h",
 		"/E/wanmei/common.core/LuaScript/lua_tinker.h",
@@ -202,7 +210,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 150.0
+		"height": 416.0
 	},
 	"output.find_results":
 	{
