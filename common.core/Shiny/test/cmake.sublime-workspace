@@ -59,12 +59,32 @@
 	},
 	"file_history":
 	[
+		"/E/wanmei/common.core/DefInc.h",
+		"/E/wanmei/common.core/Include.h",
+		"/E/wanmei/common.core/Shiny/CMakeLists.txt",
+		"/E/wanmei/common.core/Shiny/test/CMakeLists.txt",
+		"/E/wanmei/common.core/Shiny/test/Main.cpp",
+		"/E/wanmei/common.core/Shiny/test/cmake.sublime-project",
+		"/E/wanmei/common.core/LuaScript/test/CMakeLists.txt",
+		"/E/wanmei/common.core/Shiny/ShinyPrereqs.h",
+		"/E/wanmei/common.core/Shiny/ShinyOutput.h",
+		"/E/wanmei/common.core/Shiny/ShinyData.h",
+		"/E/wanmei/common.core/Shiny/ShinyManager.cpp",
+		"/E/wanmei/common.core/Shiny/ShinyNode.cpp",
+		"/E/wanmei/common.core/Shiny/ShinyMacros.h",
+		"/E/wanmei/common.core/Shiny/ShinyTools.h",
+		"/E/wanmei/common.core/Shiny/Shiny.h",
+		"/E/wanmei/common.core/Shiny/ShinyConfig.h",
+		"/E/wanmei/common.core/Shiny/ShinyManager.h",
+		"/E/wanmei/common.core/Shiny/ShinyNode.h",
+		"/E/wanmei/common.core/Shiny/ShinyOutput.cpp",
+		"/E/wanmei/common.core/Shiny/ShinyNodePool.h",
+		"/E/wanmei/common.core/Shiny/ShinyZone.h",
+		"/E/wanmei/common.core/Shiny/ShinyTools.cpp",
 		"/E/wanmei/common.core/LuaScript/CMakeLists.txt",
 		"/E/wanmei/common.core/OutInc.h",
 		"/E/wanmei/common.core/LuaScript/LuaScript.h",
-		"/E/wanmei/common.core/LuaScript/test/CMakeLists.txt",
 		"/E/wanmei/common.core/LuaScript/lua_tinker.h",
-		"/E/wanmei/common.core/DefInc.h",
 		"/e/setup/gnustep/include/winbase.h",
 		"/E/wanmei/common.core/LuaScript/test/cmake.sublime-project",
 		"/D/cmake1/Main.cpp",
@@ -79,7 +99,6 @@
 		"/E/wanmei/common.core/LuaScript/LuaScript.cpp",
 		"/E/wanmei/common.core/LuaScript/test/test1.lua",
 		"/E/wanmei/common.core/LuaScript/test/test.lua",
-		"/E/wanmei/common.core/Include.h",
 		"/D/cmake1/cmake.sublime-project",
 		"/C/Users/zyh/AppData/Roaming/Sublime Text 3/Packages/User/cmake.sublime-build",
 		"/D/cmake1/CMakeLists.txt",
@@ -108,7 +127,7 @@
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 23.0
 	},
 	"find_in_files":
 	{
@@ -122,6 +141,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"__ShinyBlock",
+			"SHINY_INLINE"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -177,7 +198,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 288.0
+		"height": 150.0
 	},
 	"output.find_results":
 	{
@@ -220,7 +241,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 191.0,
+	"side_bar_width": 367.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
