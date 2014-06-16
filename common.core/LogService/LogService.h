@@ -1,7 +1,5 @@
 #pragma once
 
-#include <boost/log/common.hpp>
-#include <boost/log/sinks.hpp>
 #include <boost/log/sources/logger.hpp>
 #include <boost/format.hpp>
 

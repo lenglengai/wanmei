@@ -7,7 +7,9 @@ public:
     void fun()
     {
         std::LogService logService;
+        logService.runPreinit();
         logService.logError(log_1("hello world!"));
+        std::cin.get();
     }
 };
 
