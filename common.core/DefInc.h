@@ -20,5 +20,9 @@ typedef long long __i64;
 #define INITTIME "2014-09-23 23:59:59.000"
 
 #include <boost/noncopyable.hpp>
+#include <boost/smart_ptr.hpp>
 
 #include <string>
+#include <list>
+#include <map>
+#include <stack>

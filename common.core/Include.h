@@ -10,3 +10,5 @@
 #include "Common/Default.h"
 #include "Common/Convert.h"
 #include "CrcService/CrcService.h"
+#include "LogService/LogService.h"
+#include "SettingService/SettingService.h"
