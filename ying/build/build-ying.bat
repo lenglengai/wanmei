@@ -1,3 +1,3 @@
 @echo off
-@ ../../build/client.build.bat ..
+@ ../../build/client.build.bat ../Include/
 @echo on
