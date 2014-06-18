@@ -1,6 +1,0 @@
-project(testMain)
-cmake_minimum_required(VERSION 3.0)
-set(CMAKE_CXX_FLAGS "-std=c++0x")
-aux_source_directory(.. SRC_LIST0)
-aux_source_directory(. SRC_LIST)
-add_executable(testMain ${SRC_LIST} ${SRC_LIST0})
