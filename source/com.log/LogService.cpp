@@ -33,9 +33,7 @@ namespace std {
                 % expr::format_date_time< boost::posix_time::ptime >("TimeStamp", "%Y-%m-%d %H:%M:%S")
                 % expr::smessage
         );
-
 		logging::core::get()->add_sink(testSink);
-
 		logging::core::get()->add_global_attribute("TimeStamp", attrs::local_clock());
 	}
 
