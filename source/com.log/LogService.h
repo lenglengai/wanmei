@@ -21,6 +21,7 @@ namespace std {
 	{
 	public:
 		void logError(boost::format& nValue);
+		vodi logInfo(boost::format& nValue);
 		void runPreinit();
 
 		LogService();

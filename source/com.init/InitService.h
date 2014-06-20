@@ -1,21 +1,23 @@
 #pragma once
 
-namespace std {
+#include <boost/signals2.hpp>
 
-	enum InitType_ : __i8
-	{
-		mInitTypeNone_ = 0,
-		mInitTypePreinit_ = 1,
-		mInitTypeLoad_ = 2,
-		mInitTypeInit_ = 3,
-		mInitTypeStart_ = 4,
-		mInitTypeRun_ = 5,
-		mInitTypeStop_ = 6,
-		mInitTypeExit_ = 7
-	};
+namespace std {
 
 	class InitService : boost::noncopyable
 	{
+	private:
+		enum InitType_ : __i8
+		{
+			mInitTypeNone_ = 0,
+			mInitTypePreinit_ = 1,
+			mInitTypeLoad_ = 2,
+			mInitTypeInit_ = 3,
+			mInitTypeStart_ = 4,
+			mInitTypeRun_ = 5,
+			mInitTypeStop_ = 6,
+			mInitTypeExit_ = 7
+		};
 	public:
 		void runPreinit(const string& nPath);
 		

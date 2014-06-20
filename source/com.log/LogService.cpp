@@ -20,6 +20,11 @@ namespace std {
 		BOOST_LOG(mLogger) << "[error]" << nFormat;
 	}
 
+	vodi LogService::logInfo(boost::format& nValue)
+	{
+		BOOST_LOG(mLogger) << "[info]" << nFormat;
+	}
+
 	void LogService::runPreinit()
 	{
 		typedef sinks::asynchronous_sink< sinks::text_file_backend > text_sink;

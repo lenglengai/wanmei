@@ -4,6 +4,8 @@
 #include "rapidxml_utils.hpp"
 #include "rapidxml_print.hpp"
 
+#include <stack>
+
 using namespace rapidxml;
 
 namespace std {

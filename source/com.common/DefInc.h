@@ -25,8 +25,12 @@ typedef long long __i64;
 #include <string>
 #include <list>
 #include <map>
-#include <stack>
 
 #ifdef __STARTUP__
 #include <Startup.h>
 #endif
+
+#include "Singleton.h"
+#include "Convert.h"
+#include "Default.h"
+#include "ERRORINT..h"

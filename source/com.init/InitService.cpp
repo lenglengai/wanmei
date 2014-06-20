@@ -1,4 +1,5 @@
-#include "Include.h"
+#include "../com.common/DefInc.h"
+#include "SettingService.h"
 
 namespace std {
 
@@ -18,6 +19,11 @@ namespace std {
 		Server& server_ = Singleton<Server>::instance();
 		server_.runPreinit();
 		mPreinited = true;
+	}
+
+	void InitService::runLoad()
+	{
+		
 	}
 
 	void InitService::runInit()
