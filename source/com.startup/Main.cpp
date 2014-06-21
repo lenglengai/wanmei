@@ -1,10 +1,10 @@
 #include "../com.common/DefInc.h"
-#include "InitServer.h"
+#include "../com.init/InitService.h"
 
 int main( int argc, char * argv[] )
 {
-	InitService& initService = 
-		Singleton<InitService>::instance();
+	std::InitService& initService = 
+		std::Singleton<std::InitService>::instance();
 	initService.runPreinit("");
 	initService.runLoad();
 	initService.runInit();

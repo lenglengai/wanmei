@@ -1,5 +1,7 @@
 #include "../com.common/DefInc.h"
-#include "SettingService.h"
+#include "../com.log/LogService.h"
+#include "InitService.h"
+
 
 namespace std {
 
@@ -8,62 +10,63 @@ namespace std {
 		if (mInitType > mInitTypeNone_) return;
 		LogService& loginService_ = Singleton<LogService>::instance();
 		loginService_.runPreinit();
-		CrcService& crcService = Singleton<CrcService>::instance();
-		crcService.runPreinit();
-		SettingService& settingService_ = Singleton<SettingService>::instance();
-		settingService_.runPreinit(nPath);
-		HandleService& handleService_ = Singleton<HandleService>::instance();
-		handleService_.runPreinit();
-		IoService& ioService_ = Singleton<IoService>::instance();
-		ioService_.runPreinit();
-		Server& server_ = Singleton<Server>::instance();
-		server_.runPreinit();
-		mPreinited = true;
+		mInitType = mInitTypePreinit_;
 	}
 
 	void InitService::runLoad()
 	{
-		
+		if (mInitTypePreinit_ != mInitType) {
+			LogService& loginService_ = Singleton<LogService>::instance();
+			loginService_.logInfo(log_2("InitService runload error!", mInitType));
+			return;
+		}
+		mInitType = mInitTypeLoad_;
+		this->m_tRunLoad();
 	}
 
 	void InitService::runInit()
 	{
-		//PROFILE_FUNC()
-		if (mInited) return;
+		if (mInitTypeLoad_ != mInitType) {
+			return;
+		}
+		mInitType = mInitTypeInit_;
 		this->m_tRunInit();
-		mInited = true;
 	}
 
 	void InitService::runStart()
 	{
-		if (mStarted) return;
-		IoService& ioService_ = Singleton<IoService>::instance();
-		mSignals.reset(new asio::signal_set(ioService_.getIoService()));
-		mSignals->add(SIGINT);
-		mSignals->add(SIGTERM);
-		mSignals->async_wait(boost::bind(&InitService::runStop, this));
+		if (mInitTypeInit_ != mInitType) {
+			return;
+		}
+		mInitType = mInitTypeStart_;
 		this->m_tRunStart();
-		mStarted = true;
-	}
-
-	void InitService::runStop()
-	{
-		if (false == mStarted) return;
-		this->m_tRunStop();
-		mStarted = false;
 	}
 
 	void InitService::runRun()
 	{
+		if (mInitTypeStart_ != mInitType) {
+			return;
+		}
+		mInitType = mInitTypeRun_;
 		this->m_tRunRun();
+	}
+
+	void InitService::runStop()
+	{
+		if (mInitTypeRun_ != mInitType) {
+			return;
+		}
+		mInitType = mInitTypeStop_;
+		this->m_tRunStop();
 	}
 
 	void InitService::runExit()
 	{
+		if (mInitTypeStop_ != mInitType) {
+			return;
+		}
+		mInitType = mInitTypeExit_;
 		this->m_tRunExit();
-		mPreinited = false;
-		mInited = false;
-		mStarted = false;
 	}
 
 	void InitService::runSave()
@@ -87,12 +90,12 @@ namespace std {
 
 	InitService::InitService()
 	{
-		this.runClear();
+		this->runClear();
 	}
 
 	InitService::~InitService()
 	{
-		this.runClear();
+		this->runClear();
 	}
 
 }

@@ -1,6 +1,7 @@
 #include "../com.common/DefInc.h"
-#include "Handle.h"
 #include "HandleService.h"
+#include "../com.setting/SettingService.h"
+#include "../com.init/InitService.h"
 
 namespace std {
 

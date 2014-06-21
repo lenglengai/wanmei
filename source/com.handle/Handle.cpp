@@ -1,5 +1,4 @@
 #include "../com.common/DefInc.h"
-#include "Context.h"
 #include "Handle.h"
 
 namespace std {
@@ -47,12 +46,12 @@ namespace std {
 
 	Handle::Handle()
 	{
-		this.runClear();
+		this->runClear();
 	}
 
 	Handle::~Handle()
 	{
-		this.runClear();
+		this->runClear();
 	}
 
 }

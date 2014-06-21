@@ -6,6 +6,7 @@
 #include <boost/log/support/date_time.hpp>
 #include <boost/log/expressions.hpp>
 #include <boost/log/attributes.hpp>
+#include <boost/log/utility/setup/console.hpp>
 
 namespace std {
 
@@ -20,13 +21,23 @@ namespace std {
 		BOOST_LOG(mLogger) << "[error]" << nFormat;
 	}
 
-	vodi LogService::logInfo(boost::format& nValue)
+	void LogService::logInfo(boost::format& nFormat)
 	{
 		BOOST_LOG(mLogger) << "[info]" << nFormat;
 	}
 
 	void LogService::runPreinit()
 	{
+    #ifdef _DEBUG
+		auto console_sink = logging::add_console_log();
+		console_sink->set_formatter
+        (
+            expr::format("[%1%]%2%")
+                % expr::format_date_time< boost::posix_time::ptime >("TimeStamp", "%Y-%m-%d %H:%M:%S")
+                % expr::smessage
+        );
+        logging::core::get()->add_sink(console_sink);
+    #else
 		typedef sinks::asynchronous_sink< sinks::text_file_backend > text_sink;
 		boost::shared_ptr< text_sink > testSink(new text_sink(keywords::file_name = "%y-%m-%d-%H-%M.log",
 			keywords::rotation_size = 10 * 1024 * 1024,
@@ -38,7 +49,8 @@ namespace std {
                 % expr::format_date_time< boost::posix_time::ptime >("TimeStamp", "%Y-%m-%d %H:%M:%S")
                 % expr::smessage
         );
-		logging::core::get()->add_sink(testSink);
+    	logging::core::get()->add_sink(testSink);
+    #endif
 		logging::core::get()->add_global_attribute("TimeStamp", attrs::local_clock());
 	}
 

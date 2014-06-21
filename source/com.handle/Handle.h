@@ -1,5 +1,10 @@
 #pragma once
 
+#include <boost/thread.hpp>
+#include <boost/atomic.hpp>
+
+#include "Context.h"
+
 namespace std {
 
 	class Handle : boost::noncopyable
@@ -12,6 +17,7 @@ namespace std {
 	private:
 		bool runInternal();
 		void runHandle();
+		void runClear();
 
 	public:
 		Handle();

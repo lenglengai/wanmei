@@ -20,8 +20,8 @@ namespace std {
 	class LogService : boost::noncopyable
 	{
 	public:
-		void logError(boost::format& nValue);
-		vodi logInfo(boost::format& nValue);
+		void logError(boost::format& nFormat);
+		void logInfo(boost::format& nFormat);
 		void runPreinit();
 
 		LogService();

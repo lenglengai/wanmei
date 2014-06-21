@@ -33,4 +33,5 @@ typedef long long __i64;
 #include "Singleton.h"
 #include "Convert.h"
 #include "Default.h"
-#include "ERRORINT..h"
+#include "ERRORINT.h"
+#include "../com.shiny/Shiny.h"

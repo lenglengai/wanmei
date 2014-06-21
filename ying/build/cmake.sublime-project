@@ -1,0 +1,17 @@
+{
+	"folders":
+	[
+		{
+			"path": "$(project_path)/../../.."
+		}
+	],
+	"build_systems":
+	[
+		{
+			"name": "wanmei-build",
+			"cmd": ["build-ying.bat"],
+			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+			"working_dir": "${project_path}"
+		}
+	]
+}

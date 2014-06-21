@@ -44,9 +44,10 @@ namespace std {
 		
 		InitService();
 		~InitService();
-
 	private:
-		boost::shared_ptr<asio::signal_set> mSignals;
+		void runClear();
+		
+	private:
 		InitType_ mInitType;
 	};
 
