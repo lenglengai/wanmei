@@ -4,8 +4,12 @@ AUX_SOURCE_DIRECTORY(../com.lua/lua LUA_LIST1)
 AUX_SOURCE_DIRECTORY(../com.log LOG_LIST)
 AUX_SOURCE_DIRECTORY(../com.crc CRC_LIST)
 AUX_SOURCE_DIRECTORY(../com.setting SETTING_LIST)
+configure_file("../com.setting/config/setting.xml"
+                "${PROJECT_BINARY_DIR}/config/setting.xml" COPYONLY)
 AUX_SOURCE_DIRECTORY(../com.shiny SHINY_LIST)
 AUX_SOURCE_DIRECTORY(../com.handle HANDLE_LIST)
+configure_file("../com.handle/config/handle.xml"
+                "${PROJECT_BINARY_DIR}/config/handle.xml" COPYONLY)
 AUX_SOURCE_DIRECTORY(../com.init INIT_LIST)
 add_executable(${PROJECT_NAME}  ${STARTUP_LIST} ${LUA_LIST0} ${LUA_LIST1} ${LOG_LIST}
  ${CRC_LIST} ${SETTING_LIST} ${SHINY_LIST} ${HANDLE_LIST} ${INIT_LIST})

@@ -1,7 +1,6 @@
 #include "../com.common/DefInc.h"
-#include "../com.common/Convert.h"
-#include "../com.common/ERRORINT.h"
-
+#include "../com.log/LogService.h"
+#include "../com.init/InitService.h"
 #include "SettingService.h"
 
 namespace std {
@@ -59,7 +58,16 @@ namespace std {
 	void SettingService::runPreinit(const string& nPath)
 	{
 		mSystemPath = nPath;
+		InitService& initService_ = Singleton<InitService>::instance();
+		initService_.m_tRunLoad.connect(boost::bind(&SettingService::ruLoad, this));
+	}
+
+	void SettingService::ruLoad()
+	{
+		LogService& loginService_ = Singleton<LogService>::instance();
+		loginService_.logInfo(log_1("程序加载配置"));
 		this->initUrlStream(this);
+		loginService_.logInfo(log_1("配置加载完成!"));
 	}
 
 	const string& SettingService::systemPath()

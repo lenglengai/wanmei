@@ -14,6 +14,7 @@ namespace std {
 		void addContext(ContextPtr& nContext, __i32 nMax, __i32 nIndex);
 		int getHandleCount();
 		void runPreinit();
+		void runLoad();
 		void runInit();
 		void runStart();
 		void runStop();

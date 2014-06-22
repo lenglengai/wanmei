@@ -19,6 +19,7 @@ namespace std {
 		__i32 checkVersion(__i32 nVersion);
 		bool multiThread();
 		void runPreinit(const string& nPath);
+		void ruLoad();
 		template<class T>
 		void initUrlStream(T * nUrlStream);
 		const string& systemPath();
