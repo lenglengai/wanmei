@@ -3,6 +3,7 @@
 #include "../com.crc/CrcService.h"
 #include "../com.setting/SettingService.h"
 #include "../com.handle/HandleService.h"
+#include "../com.ioservice/IoService.h"
 #include "InitService.h"
 
 namespace std {
@@ -18,6 +19,8 @@ namespace std {
 		settingService_.runPreinit("");
 		HandleService& handleService_ = Singleton<HandleService>::instance();
 		handleService_.runPreinit();
+		IoService& ioService_ = Singleton<IoService>::instance();
+		ioService_.runPreinit();
 		mInitType = mInitTypePreinit_;
 	}
 
@@ -25,11 +28,11 @@ namespace std {
 	{
 		if (mInitTypePreinit_ != mInitType) {
 			LogService& loginService_ = Singleton<LogService>::instance();
-			loginService_.logError(log_2("åŠ è½½èµ„æºå¤±è´¥,åˆå§‹åŒ–ç±»å‹ä¸º!", mInitType));
+			loginService_.logError(log_2("¼ÓÔØ×ÊÔ´Ê§°Ü,³õÊ¼»¯ÀàĞÍÎª!", mInitType));
 			return;
 		}
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("å¼€å§‹åŠ è½½èµ„æº"));
+		loginService_.logInfo(log_1("¿ªÊ¼¼ÓÔØ×ÊÔ´"));
 		mInitType = mInitTypeLoad_;
 		this->m_tRunLoad();
 	}
@@ -38,11 +41,11 @@ namespace std {
 	{
 		if (mInitTypeLoad_ != mInitType) {
 			LogService& loginService_ = Singleton<LogService>::instance();
-			loginService_.logError(log_2("åˆå§‹åŒ–å¤±è´¥,åˆå§‹åŒ–ç±»å‹ä¸º!", mInitType));
+			loginService_.logError(log_2("³õÊ¼»¯Ê§°Ü,³õÊ¼»¯ÀàĞÍÎª!", mInitType));
 			return;
 		}
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("ç¨‹åºåˆå§‹åŒ–"));
+		loginService_.logInfo(log_1("³ÌĞò³õÊ¼»¯"));
 		mInitType = mInitTypeInit_;
 		this->m_tRunInit();
 	}
@@ -51,11 +54,11 @@ namespace std {
 	{
 		if (mInitTypeInit_ != mInitType) {
 			LogService& loginService_ = Singleton<LogService>::instance();
-			loginService_.logError(log_2("å¯åŠ¨å¤±è´¥,åˆå§‹åŒ–ç±»å‹ä¸º!", mInitType));
+			loginService_.logError(log_2("Æô¶¯Ê§°Ü,³õÊ¼»¯ÀàĞÍÎª!", mInitType));
 			return;
 		}
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("å¯åŠ¨ç¨‹åº"));
+		loginService_.logInfo(log_1("Æô¶¯³ÌĞò"));
 		mInitType = mInitTypeStart_;
 		this->m_tRunStart();
 	}
@@ -64,11 +67,11 @@ namespace std {
 	{
 		if (mInitTypeStart_ != mInitType) {
 			LogService& loginService_ = Singleton<LogService>::instance();
-			loginService_.logError(log_2("è¿è¡Œå¤±è´¥,åˆå§‹åŒ–ç±»å‹ä¸º!", mInitType));
+			loginService_.logError(log_2("ÔËĞĞÊ§°Ü,³õÊ¼»¯ÀàĞÍÎª!", mInitType));
 			return;
 		}
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("ç¨‹åºè¿è¡Œ"));
+		loginService_.logInfo(log_1("³ÌĞòÔËĞĞ"));
 		mInitType = mInitTypeRun_;
 		this->m_tRunRun();
 	}
@@ -77,11 +80,11 @@ namespace std {
 	{
 		if (mInitTypeRun_ != mInitType) {
 			LogService& loginService_ = Singleton<LogService>::instance();
-			loginService_.logError(log_2("åœæ­¢å¤±è´¥,åˆå§‹åŒ–ç±»å‹ä¸º!", mInitType));
+			loginService_.logError(log_2("Í£Ö¹Ê§°Ü,³õÊ¼»¯ÀàĞÍÎª!", mInitType));
 			return;
 		}
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("ç¨‹åºåœæ­¢"));
+		loginService_.logInfo(log_1("³ÌĞòÍ£Ö¹"));
 		mInitType = mInitTypeStop_;
 		this->m_tRunStop();
 	}
@@ -90,24 +93,24 @@ namespace std {
 	{
 		if (mInitTypeStop_ != mInitType) {
 			LogService& loginService_ = Singleton<LogService>::instance();
-			loginService_.logError(log_2("ç¨‹åºé€€å‡ºå¤±è´¥,åˆå§‹åŒ–ç±»å‹ä¸º!", mInitType));
+			loginService_.logError(log_2("³ÌĞòÍË³öÊ§°Ü,³õÊ¼»¯ÀàĞÍÎª!", mInitType));
 			return;
 		}
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("ç¨‹åºé€€å‡º"));
+		loginService_.logInfo(log_1("³ÌĞòÍË³ö"));
 		mInitType = mInitTypeExit_;
 		this->m_tRunExit();	
-		loginService_.logInfo(log_1("é€€å‡ºæˆåŠŸ!"));
+		loginService_.logInfo(log_1("ÍË³ö³É¹¦!"));
 	}
 
 	void InitService::runSave()
 	{
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("ä¿å­˜"));
+		loginService_.logInfo(log_1("±£´æÊı¾İ"));
 		PROFILER_UPDATE();
 		PROFILER_OUTPUT("profile.prof");
 		this->m_tRunSave();	
-		loginService_.logInfo(log_1("ä¿å­˜æˆåŠŸ!"));
+		loginService_.logInfo(log_1("Êı¾İ±£´æ³É¹¦!"));
 	}
 
 	void InitService::runClear()
