@@ -14,6 +14,8 @@ AUX_SOURCE_DIRECTORY(../com.ioservice IOSERVICE_LIST)
 configure_file("../com.ioService/config/ioService.xml"
                 "${PROJECT_BINARY_DIR}/config/ioService.xml" COPYONLY)
 AUX_SOURCE_DIRECTORY(../com.init INIT_LIST)
+AUX_SOURCE_DIRECTORY(../com.block BLOCK_LIST)
 add_executable(${PROJECT_NAME}  ${STARTUP_LIST} ${LUA_LIST0} ${LUA_LIST1} ${LOG_LIST}
- ${CRC_LIST} ${SETTING_LIST} ${SHINY_LIST} ${HANDLE_LIST} ${INIT_LIST} ${IOSERVICE_LIST})
+ ${CRC_LIST} ${SETTING_LIST} ${SHINY_LIST} ${HANDLE_LIST} ${INIT_LIST}  ${IOSERVICE_LIST} 
+ ${BLOCK_LIST})
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} wsock32.lib)

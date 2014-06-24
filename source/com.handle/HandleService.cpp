@@ -42,16 +42,16 @@ namespace std {
 	void HandleService::runLoad()
 	{
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("加载线程处理器配置"));
+		loginService_.logInfo(log_1("run loading handle service"));
 		SettingService& settingService_ = Singleton<SettingService>::instance();
 		settingService_.initUrlStream(this);
-		loginService_.logInfo(log_1("线程处理器配置加载完成"));
+		loginService_.logInfo(log_1("loading handle service sucess!"));
 	}
 
 	void HandleService::runInit()
 	{
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("初始化线程处理器"));
+		loginService_.logInfo(log_1("init handle service"));
 		for (int i = 0; i < mHandleCount; ++i) {
 			HandlePtr handle(new Handle());
 			mHandles[i] = handle;
@@ -61,7 +61,7 @@ namespace std {
 	void HandleService::runStart()
 	{
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("启动线程处理器"));
+		loginService_.logInfo(log_1("start handle service"));
 		map<int, HandlePtr>::iterator it = mHandles.begin();
 		for ( ; it != mHandles.end(); ++it ) {
 			HandlePtr& handle = it->second;
@@ -72,7 +72,7 @@ namespace std {
 	void HandleService::runStop()
 	{
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("停止线程处理器"));
+		loginService_.logInfo(log_1("stop handle service"));
 		map<int, HandlePtr>::iterator it = mHandles.begin();
 		for (; it != mHandles.end(); ++it) {
 			HandlePtr& handle = it->second;

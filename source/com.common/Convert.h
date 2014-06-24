@@ -2,6 +2,7 @@
 
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/locale.hpp>
 
 namespace std {
 
@@ -9,7 +10,9 @@ namespace std {
 	{
 		mConvertTypeCommon_ = 1,
 		mConvertTypeBinary_ = 2,
-		mConvertTypeText_ = 3
+		mConvertTypeText_ = 3,
+		mConvertTypeToUtf8_ = 4,
+		mConvertTypeFromUtf8_ = 5
 	};
 
 	namespace convert_namespace {

@@ -28,11 +28,11 @@ namespace std {
 	{
 		if (mInitTypePreinit_ != mInitType) {
 			LogService& loginService_ = Singleton<LogService>::instance();
-			loginService_.logError(log_2("加载资源失败,初始化类型为!", mInitType));
+			loginService_.logError(log_2("initService load fail, initType is ", mInitType));
 			return;
 		}
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("开始加载资源"));
+		loginService_.logInfo(log_1("initService run load!"));
 		mInitType = mInitTypeLoad_;
 		this->m_tRunLoad();
 	}
@@ -41,11 +41,11 @@ namespace std {
 	{
 		if (mInitTypeLoad_ != mInitType) {
 			LogService& loginService_ = Singleton<LogService>::instance();
-			loginService_.logError(log_2("初始化失败,初始化类型为!", mInitType));
+			loginService_.logError(log_2("initService init fail, initType is ", mInitType));
 			return;
 		}
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("程序初始化"));
+		loginService_.logInfo(log_1("initService run init!"));
 		mInitType = mInitTypeInit_;
 		this->m_tRunInit();
 	}
@@ -54,11 +54,11 @@ namespace std {
 	{
 		if (mInitTypeInit_ != mInitType) {
 			LogService& loginService_ = Singleton<LogService>::instance();
-			loginService_.logError(log_2("启动失败,初始化类型为!", mInitType));
+			loginService_.logError(log_2("initService start fail, initType is ", mInitType));
 			return;
 		}
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("启动程序"));
+		loginService_.logInfo(log_1("initService run start!"));
 		mInitType = mInitTypeStart_;
 		this->m_tRunStart();
 	}
@@ -67,11 +67,11 @@ namespace std {
 	{
 		if (mInitTypeStart_ != mInitType) {
 			LogService& loginService_ = Singleton<LogService>::instance();
-			loginService_.logError(log_2("运行失败,初始化类型为!", mInitType));
+			loginService_.logError(log_2("initService run fail, initType is ", mInitType));
 			return;
 		}
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("程序运行"));
+		loginService_.logInfo(log_1("initService is running!"));
 		mInitType = mInitTypeRun_;
 		this->m_tRunRun();
 	}
@@ -80,11 +80,11 @@ namespace std {
 	{
 		if (mInitTypeRun_ != mInitType) {
 			LogService& loginService_ = Singleton<LogService>::instance();
-			loginService_.logError(log_2("停止失败,初始化类型为!", mInitType));
+			loginService_.logError(log_2("initService stop fail, initType is ", mInitType));
 			return;
 		}
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("程序停止"));
+		loginService_.logInfo(log_1("initService is stopped!"));
 		mInitType = mInitTypeStop_;
 		this->m_tRunStop();
 	}
@@ -93,24 +93,24 @@ namespace std {
 	{
 		if (mInitTypeStop_ != mInitType) {
 			LogService& loginService_ = Singleton<LogService>::instance();
-			loginService_.logError(log_2("程序退出失败,初始化类型为!", mInitType));
+			loginService_.logError(log_2("initService exit fail, initType is ", mInitType));
 			return;
 		}
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("程序退出"));
+		loginService_.logInfo(log_1("initService is exited!"));
 		mInitType = mInitTypeExit_;
 		this->m_tRunExit();	
-		loginService_.logInfo(log_1("退出成功!"));
+		loginService_.logInfo(log_1("initService exit sucess!"));
 	}
 
 	void InitService::runSave()
 	{
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("保存数据"));
+		loginService_.logInfo(log_1("initService save data!"));
 		PROFILER_UPDATE();
 		PROFILER_OUTPUT("profile.prof");
 		this->m_tRunSave();	
-		loginService_.logInfo(log_1("数据保存成功!"));
+		loginService_.logInfo(log_1("initService save data sucess!"));
 	}
 
 	void InitService::runClear()

@@ -39,7 +39,12 @@ namespace std {
 	template<class T>
 	void IoService::headSerialize(T& nSerialize)
 	{
-		nSerialize.runInt32(mIoServiceCount, "ioServiceCount", 4);
+	#ifdef __CLIENT__
+		nSerialize.runInt32(mIoServiceCount, "clientIoCount", 2);
+	#endif
+	#ifdef __SERVER__
+		nSerialize.runInt32(mIoServiceCount, "serverIoCount", 4);
+	#endif
 	}
 
 }

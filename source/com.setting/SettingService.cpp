@@ -65,9 +65,9 @@ namespace std {
 	void SettingService::ruLoad()
 	{
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("程序加载配置"));
+		loginService_.logInfo(log_1("run loading setting"));
 		this->initUrlStream(this);
-		loginService_.logInfo(log_1("配置加载完成!"));
+		loginService_.logInfo(log_1("load setting sucess!"));
 	}
 
 	const string& SettingService::systemPath()

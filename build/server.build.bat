@@ -9,5 +9,4 @@ set include=%1%
 @echo run building....
 @mingw32-make
 @echo build finish!
-@com.startup\server.startup.exe
 @cd ..

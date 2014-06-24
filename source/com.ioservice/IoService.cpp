@@ -19,7 +19,7 @@ namespace std {
 	void IoService::runLoad()
 	{
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("加载IO服务"));
+		loginService_.logInfo(log_1("run loading ioService"));
 		SettingService& settingService_ = Singleton<SettingService>::instance();
 		settingService_.initUrlStream(this);
 	}
@@ -36,7 +36,7 @@ namespace std {
 	void IoService::runInit()
 	{
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("初始化IO服务"));
+		loginService_.logInfo(log_1("init ioService"));
 		for (__i32 i = 0; i < mIoServiceCount; ++i) {
 			IoServicePtr ioService(new asio::io_service());
 			WorkPtr work(new asio::io_service::work(*ioService));
@@ -48,7 +48,7 @@ namespace std {
 	void IoService::runRun()
 	{
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("运行IO服务"));
+		loginService_.logInfo(log_1("run ioService"));
 		vector<shared_ptr<boost::thread>> threads;
 		for (size_t i = 0; i < mIoServices.size(); ++i) {
 			shared_ptr<boost::thread> thread_(new boost::thread(boost::bind(&asio::io_service::run, mIoServices[i])));
@@ -62,7 +62,7 @@ namespace std {
 	void IoService::runStop()
 	{
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("停止IO服务"));
+		loginService_.logInfo(log_1("stop ioService"));
 		for (size_t i = 0; i < mIoServices.size(); ++i) {
 			mIoServices[i]->stop();
 		}
