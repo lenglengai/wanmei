@@ -17,6 +17,7 @@ namespace std {
 			logService.logError(log_1(nError.message()));
 			return;
 		}
+		mSession->runStart();
 	}
 
 	void Client::handleConnectTimeout(const boost::system::error_code& nError)

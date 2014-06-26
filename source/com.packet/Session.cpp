@@ -92,7 +92,7 @@ namespace std {
 		if (mSocket.is_open()) {
 			try {
 				boost::system::error_code error_;
-				//mSocket.shutdown(asio::ip::tcp::socket_base::shutdown_both, error_);
+				mSocket.shutdown(asio::ip::tcp::socket_base::shutdown_both, error_);
 				mSocket.close(error_);
 			} catch (boost::system::system_error& e) {
 				LogService& logService = Singleton<LogService>::instance();
