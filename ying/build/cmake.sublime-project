@@ -8,8 +8,14 @@
 	"build_systems":
 	[
 		{
-			"name": "wanmei-build",
-			"cmd": ["build-ying.bat"],
+			"name": "server-build",
+			"cmd": ["build-server.bat"],
+			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+			"working_dir": "${project_path}"
+		},
+		{
+			"name": "client-build",
+			"cmd": ["build-client.bat"],
 			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
 			"working_dir": "${project_path}"
 		}

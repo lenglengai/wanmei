@@ -5,7 +5,7 @@
 
 namespace std {
 
-	class Client : boost::noncopyable
+	class Client : public boost::enable_shared_from_this<Client>, boost::noncopyable
 	{
 	public:
 		enum { connect_timeout = 90 };

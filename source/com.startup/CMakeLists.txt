@@ -19,7 +19,8 @@ AUX_SOURCE_DIRECTORY(../com.packet PACKET_LIST)
 AUX_SOURCE_DIRECTORY(../com.server SERVER_LIST)
 configure_file("../com.server/config/server.xml"
                 "${PROJECT_BINARY_DIR}/config/server.xml" COPYONLY)
+AUX_SOURCE_DIRECTORY(../com.client CLIENT_LIST)
 add_executable(${PROJECT_NAME}  ${STARTUP_LIST} ${LUA_LIST0} ${LUA_LIST1} ${LOG_LIST}
  ${CRC_LIST} ${SETTING_LIST} ${SHINY_LIST} ${HANDLE_LIST} ${INIT_LIST}  ${IOSERVICE_LIST} 
- ${BLOCK_LIST} ${PACKET_LIST} ${SERVER_LIST})
+ ${BLOCK_LIST} ${PACKET_LIST} ${SERVER_LIST} ${CLIENT_LIST})
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} libws2_32.a libwsock32.a)
