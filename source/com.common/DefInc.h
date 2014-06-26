@@ -21,6 +21,7 @@ typedef long long __i64;
 
 #include <boost/noncopyable.hpp>
 #include <boost/smart_ptr.hpp>
+#include <boost/enable_shared_from_this.hpp>
 
 #include <string>
 #include <list>

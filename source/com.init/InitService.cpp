@@ -4,6 +4,8 @@
 #include "../com.setting/SettingService.h"
 #include "../com.handle/HandleService.h"
 #include "../com.ioservice/IoService.h"
+#include "../com.server/Server.h"
+#include "../com.client/Client.h"
 #include "InitService.h"
 
 namespace std {
@@ -21,6 +23,14 @@ namespace std {
 		handleService_.runPreinit();
 		IoService& ioService_ = Singleton<IoService>::instance();
 		ioService_.runPreinit();
+	#ifdef __SERVER__
+		Server& server_ = Singleton<Server>::instance();
+		server_.runPreinit();
+	#endif
+	#ifdef __CLIENT__
+		Client& client_ = Singleton<Client>::instance();
+		client_.runPreinit();
+	#endif
 		mInitType = mInitTypePreinit_;
 	}
 

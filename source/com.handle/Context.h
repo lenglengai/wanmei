@@ -7,6 +7,7 @@ namespace std {
 	public:
 		virtual void runContext();
 	};
+	typedef boost::weak_ptr<Context> ContextWtr;
 	typedef boost::shared_ptr<Context> ContextPtr;
 
 }
