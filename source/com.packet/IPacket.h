@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../com.block/ReadBlock.h"
+#include "../com.block/Block.h"
 
 namespace std {
 
@@ -11,5 +11,11 @@ namespace std {
 		virtual bool isDefault() = 0;
 	};
 	typedef boost::shared_ptr<IPacket> PacketPtr;
+
+	template<class T>
+	PacketPtr internalCreatePacket()
+	{
+		return PacketPtr(new T());
+	}
 
 }

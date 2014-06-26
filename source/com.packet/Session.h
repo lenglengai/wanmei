@@ -8,6 +8,7 @@
 #include <deque>
 
 #include "../com.block/WriteBlock.h"
+#include "../com.block/ReadBlock.h"
 #include "IPacket.h"
 
 using namespace boost;
