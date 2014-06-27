@@ -9,7 +9,8 @@
 
 namespace std {
 
-	class C2SPing : public IPacket, boost::noncopyable
+	class PingProtocol;
+	class C2SPing : public Packet<PingProtocol>, boost::noncopyable
 	{
 	public:
 		bool runBlock(BlockPtr& nBlock);
@@ -26,7 +27,7 @@ namespace std {
 	
 	typedef boost::shared_ptr<C2SPing> C2SPingPtr;
 
-	class S2CPing : public IPacket, boost::noncopyable
+	class S2CPing : public Packet<PingProtocol>, boost::noncopyable
 	{
 	public:
 		bool runBlock(BlockPtr& nBlock);
@@ -67,13 +68,13 @@ namespace std {
 	class PingService : public boost::enable_shared_from_this<PingService>, public Context, boost::noncopyable
 	{
 	public:
-		void runContext();
 		void setSendTick(clock_t nSendTick);
 		clock_t getSendTick();
 		void begPing();
 		void endPing();
 		void runPreinit();
 		void runStart();
+		void runContext();
 
 		PingService();
 		~PingService();

@@ -1,19 +1,20 @@
 #include "../com.common/DefInc.h"
 #include "../com.log/LogService.h"
+#include "../com.crc/CrcService.h"
 #include "IProtocol.h"
 
 namespace std {
 
 	bool IProtocol::runReadBlock(ReadBlockPtr& nReadBlock, SessionPtr& nSession)
 	{
-		__i16 packetType_ = 0; nReadBlock->runInt16(packetType_);
-		const PacketRun * packetRun_ = this->getPacketRun(packetType_);
-		if (nullptr == packetRun_) {
+		__i32 packetType_ = 0; nReadBlock->runInt32(packetType_);
+		PacketIdPtr& packetId_ = this->getPacketId(packetType_);
+		if (!packetId_) {
 			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_2("getPacketRun ", packetType_));
+			logService.logError(log_2("getPacketId ", packetType_));
 			return false;
 		}
-		PacketPtr packet_ = packetRun_->mPacketCreator();
+		PacketPtr packet_ = packetId_->createPacket();
 		BlockPtr block_ = nReadBlock;
 		packet_->runBlock(block_);
 		if (packet_->isDefault()) {
@@ -22,6 +23,51 @@ namespace std {
 			return false;
 		}
 		return (packetRun_->mPacketHandle)(packet_, nSession);
+	}
+
+	PacketIdPtr& IProtocol::getPacketId(__i32 nPacketType)
+	{
+		map<__i32, PacketIdPtr>::iterator it = mPacketIds.find(nPacketType);
+		if (it == mPacketIds.end()) {
+			LogService& logService = Singleton<LogService>::instance();
+			logService.logError(log_1(packetId_));
+			return PacketIdPtr(nullptr);
+		}
+		return mPacketIds[nPacketType];
+	}
+
+	void IProtocol::addPacketId(PacketIdPtr& nPacketId)
+	{
+		__i32 packetId_ = nPacketId->getPacketId();
+		map<__i32, PacketIdPtr>::iterator it = mPacketIds.find(packetId_);
+		if (it != mPacketIds.end()) {
+			LogService& logService = Singleton<LogService>::instance();
+			logService.logError(log_1(packetId_));
+			return;
+		}
+		mPacketIds[packetId_] = nPacketId;
+	}
+
+	__i32 IProtocol::getProtocolId()
+	{
+		if (0 == mProtocolId)
+		{
+			CrcService& crcService_ = Singleton<CrcService>::instance();
+			mProtocolId = crcService_.runCommon(this->getProtocolName());
+		}
+		return mProtocolId;
+	}
+
+	IProtocol::IProtocol()
+		: mProtocolId(0)
+	{
+		mPacketIds.clear();
+	}
+
+	IProtocol::~IProtocol()
+	{
+		mPacketIds.clear();
+		mProtocolId = 0;
 	}
 
 }

@@ -6,18 +6,19 @@
 
 namespace std {
 
-	struct PacketRun
-	{
-		boost::function<PacketPtr()> mPacketCreator;
-		boost::function<bool (PacketPtr&, SessionPtr&)> mPacketHandle;
-	};
-
 	class IProtocol
 	{
 	public:
-		virtual PacketRun * getPacketRun(__i16 nPacketType) = 0;
-		virtual const char * getProtocolName() = 0;
 		bool runReadBlock(ReadBlockPtr& nReadBlock, SessionPtr& nSession);
+		virtual const char * getProtocolName() = 0;
+		IPacketId * getPacketId(__i32 nPacketType);
+		void addPacketId(PacketIdPtr& nPacketId);
+		__i32 getProtocolId();
+		IProtocol();
+		virtual ~IProtocol();
+	private:
+		map<__i32, PacketIdPtr> mPacketIds;
+		__i32 mProtocolId;
 	};
 
 }

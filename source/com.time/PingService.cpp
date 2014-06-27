@@ -38,13 +38,15 @@ namespace std {
 
 	bool S2CPing::runBlock(BlockPtr& nBlockPtr)
 	{
+		IPacket::runBlock(nBlock);
 		nBlockPtr->runInt32(mSecond);
 		return true;
 	}
 
 	bool S2CPing::isDefault()
 	{
-		return (0 == mSecond);
+		if (0 == mSecond) return true;
+		return IPacket::isDefault();
 	}
 
 	void S2CPing::setSecond(__i32 nSecond)
