@@ -5,9 +5,13 @@
 
 namespace std {
 
+	class Session;
+	typedef boost::weak_ptr<Session> SessionWtr;
+	typedef boost::shared_ptr<Session> SessionPtr;
 	class IPacket
 	{
 	public:
+		virtual bool handleRun(SessionPtr& nSession);
 		virtual bool runBlock(BlockPtr& nBlock);
 		virtual bool isDefault();
 

@@ -8,6 +8,22 @@
 
 namespace std {
 
+#ifdef __SERVER__
+	bool C2SPing::handleRun(SessionPtr& nSession)
+	{
+		__i32 second_ = nSession->getSecond();
+		if (second_ != mSecond) {
+			return false;
+		}
+		RandomService& randomService_ = Singleton<RandomService>::instance();
+		S2CPingPtr pingPacket_(new S2CPing()); 
+		pingPacket_->setSecond(randomService_.runRandom());
+		PacketPtr packet_ = pingPacket_;
+		nSession->runSend(packet_);
+		return true;
+	}
+#endif
+
 	bool C2SPing::runBlock(BlockPtr& nBlock)
 	{
 		IPacket::runBlock(nBlock);
@@ -17,7 +33,6 @@ namespace std {
 
 	void C2SPing::setSecond(__i32 nSecond)
 	{
-	std::cout << "c2sping set second" << mSecond << std::endl;
 		mSecond = nSecond;
 	}
 
@@ -35,6 +50,16 @@ namespace std {
 	{
 		mSecond = 0;
 	}
+
+#ifdef __CLIENT__
+	bool S2CPing::handleRun(SessionPtr& nSession)
+	{
+		nSession->setSecond(mSecond);
+		PingService& pingService_ = Singleton<PingService>::instance();
+		pingService_.endPing();
+		return true;
+	}
+#endif
 
 	bool S2CPing::runBlock(BlockPtr& nBlockPtr)
 	{
@@ -68,51 +93,26 @@ namespace std {
 	{
 		mSecond = 0;
 	}
-#define PACKETRUNREG(x) internalCreatePacket<x>, boost::bind(&PingProtocol::run##x, &(Singleton<PingProtocol>::instance()), _1, _2)
 
-#ifdef __SERVER__
-	#define PACKETRUNSIZE 1
- 	static PacketRun sPacketRun[PACKETRUNSIZE] = {
- 		{ PACKETRUNREG(C2SPing) }
- 	};
- 	bool PingProtocol::runC2SPing(PacketPtr& nPacket, SessionPtr& nSession)
-	{
-		C2SPingPtr recvPacket_ = boost::dynamic_pointer_cast<C2SPing>(nPacket);
-		__i32 second_ = nSession->getSecond();
-		if (second_ != recvPacket_->getSecond()) {
-			return false;
-		}
-		RandomService& randomService_ = Singleton<RandomService>::instance();
-		S2CPingPtr pingPacket_(new S2CPing()); 
-		pingPacket_->setSecond(randomService_.runRandom());
-		PacketPtr packet_ = pingPacket_;
-		nSession->runSend(packet_);
-		return true;
-	}
-#endif
-#ifdef __CLIENT__
-	#define PACKETRUNSIZE 1
- 	static PacketRun sPacketRun[PACKETRUNSIZE] = {
- 		{ PACKETRUNREG(S2CPing) }
- 	};
- 	bool PingProtocol::runS2CPing(PacketPtr& nPacket, SessionPtr& nSession)
-	{
-		S2CPingPtr recvPacket_ = boost::dynamic_pointer_cast<S2CPing>(nPacket);
-		__i32 second_ = recvPacket_->getSecond();
-		nSession->setSecond(second_);
-		PingService& pingService_ = Singleton<PingService>::instance();
-		pingService_.endPing();
-		return true;
-	}
-#endif
 
 	void PingProtocol::runPreinit()
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
+		initService_.m_tRunInit.connect(boost::bind(&PingService::runInit, this));
 		initService_.m_tRunStart.connect(boost::bind(&PingService::runStart, this));
 	#ifdef __CLIENT__
 		PingServicePtr& pingService_ = SingletonPtr<PingService>::instance();
 		pingService_->runPreinit();
+	#endif
+	}
+
+	void PingProtocol::runInit()
+	{
+	#ifdef __CLIENT__
+		this->addPacketId(PacketIdPtr(PacketId<S2CPing>()));
+	#endif
+	#ifdef __SERVER__
+		this->addPacketId(PacketIdPtr(PacketId<C2SPing>()));
 	#endif
 	}
 
@@ -122,13 +122,6 @@ namespace std {
 		PingServicePtr& pingService_ = SingletonPtr<PingService>::instance();
 		pingService_->runStart();
 	#endif
-	}
-	PacketRun * PingProtocol::getPacketRun(__i16 nPacketType)
-	{
- 		if ( (nPacketType <= PACKETRUNSIZE) && (nPacketType > 0) ) {
- 			return (&sPacketRun[nPacketType]);
- 		}
-		return nullptr;
 	}
 
 	const char *  PingProtocol::getProtocolName()
@@ -143,8 +136,8 @@ namespace std {
 	PingProtocol::~PingProtocol()
 	{
 	}
-#ifdef __CLIENT__
 
+#ifdef __CLIENT__
 	void PingService::runContext()
 	{
 		clock_t clock_ = clock() - mSendTick;
@@ -208,6 +201,6 @@ namespace std {
 		mClock = 0;
 		mPing = 0;
 	}
-
 #endif
+
 }

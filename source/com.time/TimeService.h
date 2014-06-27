@@ -9,6 +9,7 @@ namespace std {
 	public:
 		void setServerTime(__i64 nTime);
 		__i64 getServerTime();
+		__i64 getNowSecond();
 		void runPreinit();
 		TimeService();
 		~TimeService();

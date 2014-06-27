@@ -66,7 +66,5 @@ namespace std {
 		asio::ip::tcp::socket mSocket;
 		PlayerWtr mPlayer;
 	};
-	typedef boost::weak_ptr<Session> SessionWtr;
-	typedef boost::shared_ptr<Session> SessionPtr;
 
 }

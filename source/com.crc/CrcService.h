@@ -5,6 +5,8 @@ namespace std {
 	class CrcService : boost::noncopyable
 	{
 	public:
+		__i64 runId(const char * nName);
+		__i64 runId(__i32 nId);
 		__i32 runCommon(const char * nName);
 		__i32 runComputer();
 		__i32 runCellphone();

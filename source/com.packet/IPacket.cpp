@@ -2,6 +2,11 @@
 
 namespace std {
 
+	bool IPacket::handleRun(SessionPtr& nSession)
+	{
+		return true;
+	}
+
 	bool IPacket::runBlock(BlockPtr& nBlock)
 	{
 		nBlock->runInt32(mProtocol);

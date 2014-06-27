@@ -13,8 +13,10 @@ namespace std {
 	class C2SPing : public Packet<PingProtocol>, boost::noncopyable
 	{
 	public:
+	#ifdef __SERVER__
+		bool handleRun(SessionPtr& nSession);
+	#endif
 		bool runBlock(BlockPtr& nBlock);
-
 		void setSecond(__i32 nSecond);
 		__i32 getSecond();
 
@@ -30,9 +32,11 @@ namespace std {
 	class S2CPing : public Packet<PingProtocol>, boost::noncopyable
 	{
 	public:
+	#ifdef __CLIENT__
+		bool handleRun(SessionPtr& nSession);
+	#endif
 		bool runBlock(BlockPtr& nBlock);
 		bool isDefault();
-
 		void setSecond(__i32 nSecond);
 		__i32 getSecond();
 
@@ -46,20 +50,12 @@ namespace std {
 
 	class PingProtocol : public IProtocol, boost::noncopyable
 	{
-#ifdef __SERVER__
 	public:
-		bool runC2SPing(PacketPtr& nPacket, SessionPtr& nSession);
-#endif
-
-#ifdef __CLIENT__
-	public:
-		bool runS2CPing(PacketPtr& nPacket, SessionPtr& nSession);
-#endif
-	public:
-		void runPreinit();
-		void runStart();
-		PacketRun * getPacketRun(__i16 nPacketType);
 		const char * getProtocolName();
+		void runPreinit();
+		void runInit();
+		void runStart();
+
 		PingProtocol();
 		~PingProtocol();
 	};

@@ -1,9 +1,32 @@
 #include "../com.common/DefInc.h"
+#include "../com.time/TimeService.h"
 
 #include "CrcService.h"
 #include "crypt_buf.h"
 
 namespace std {
+
+	__i64 CrcService::runId(const char * nName)
+	{
+		TimeService& timeService_ = Singleton<TimeService>::instance();
+		__i64 seconds_ = timeService_.getNowSecond();
+		seconds_ /= 10;
+		__i64 result_ = this->runCommon(nName);
+		result_ <<= 32;
+		result_ += seconds_;
+		return result_;
+	}
+
+	__i64 CrcService::runId(__i32 nId)
+	{
+		TimeService& timeService_ = Singleton<TimeService>::instance();
+		__i64 seconds_ = timeService_.getNowSecond();
+		seconds_ /= 10;
+		__i64 result_ = nId;
+		result_ <<= 32;
+		result_ += seconds_;
+		return result_;
+	}
 
 	__i32 CrcService::runCommon(const char * nName)
 	{

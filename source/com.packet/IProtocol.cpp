@@ -22,7 +22,7 @@ namespace std {
 			logService.logError(log_1("packet isDefault"));
 			return false;
 		}
-		return (packetRun_->mPacketHandle)(packet_, nSession);
+		return packet_->handleRun(nSession);
 	}
 
 	PacketIdPtr& IProtocol::getPacketId(__i32 nPacketType)
