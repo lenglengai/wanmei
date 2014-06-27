@@ -2,10 +2,11 @@
 
 #ifdef __CLIENT__
 #include "../com.packet/Session.h"
+#include <ctime>
 
 namespace std {
 
-	class Client : public boost::enable_shared_from_this<Client>, boost::noncopyable
+	class Client : public boost::noncopyable
 	{
 	public:
 		enum { connect_timeout = 90 };
@@ -16,6 +17,7 @@ namespace std {
 		void runPreinit();
 		void runLoad();
 		void runStart();
+		SessionPtr& getSession();
 
 		Client();
 		~Client();
@@ -32,6 +34,7 @@ namespace std {
 		std::string mAddress;
 		std::string mPort;
 	};
+	typedef boost::shared_ptr<Client> ClientPtr;
 	template<class T>
 	void Client::headSerialize(T& nSerialize)
 	{

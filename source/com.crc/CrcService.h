@@ -1,14 +1,10 @@
 #pragma once
 
-#include <boost/date_time.hpp>
-
 namespace std {
 
 	class CrcService : boost::noncopyable
 	{
 	public:
-		__i64 runId(const char * nName);
-		__i64 runId(__i32 nId);
 		__i32 runCommon(const char * nName);
 		__i32 runComputer();
 		__i32 runCellphone();
@@ -25,9 +21,6 @@ namespace std {
 
 	private:
 		__i32 hashString(const char * nKey, __i16 nOffset);
-
-	private:
-		boost::posix_time::ptime mTime;
 	};
 
 }

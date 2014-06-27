@@ -2,6 +2,8 @@
 
 #include "IBlock.h"
 
+#include <iostream>
+
 namespace std {
 
 	class WriteBlock : public IBlock, boost::noncopyable
@@ -56,6 +58,7 @@ namespace std {
 		if ((mLength + sizeof(__i16)+sizeof(T)) > write_size) {
 			return false;
 		}
+		std::cout << "WriteBlock::runCopy" << mLength << std::endl;
 		memcpy((mBuffer + mLength + sizeof(__i16)), &nT, sizeof(T));
 		mLength += sizeof(T);
 		return true;

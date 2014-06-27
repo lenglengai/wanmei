@@ -5,32 +5,6 @@
 
 namespace std {
 
-	__i64 CrcService::runId(const char * nName)
-	{
-		boost::posix_time::ptime time_(boost::posix_time::second_clock::local_time());
-		boost::posix_time::time_period timePeriod(mTime, time_);
-		boost::posix_time::time_duration timeDuration = timePeriod.length();
-		__i64 seconds_ = timeDuration.total_seconds();
-		seconds_ /= 10;
-		__i64 result_ = this->runCommon(nName);
-		result_ <<= 32;
-		result_ += seconds_;
-		return result_;
-	}
-
-	__i64 CrcService::runId(__i32 nId)
-	{
-		boost::posix_time::ptime time_(boost::posix_time::second_clock::local_time());
-		boost::posix_time::time_period timePeriod(mTime, time_);
-		boost::posix_time::time_duration timeDuration = timePeriod.length();
-		__i64 seconds_ = timeDuration.total_seconds();
-		seconds_ /= 10;
-		__i64 result_ = nId;
-		result_ <<= 32;
-		result_ += seconds_;
-		return result_;
-	}
-
 	__i32 CrcService::runCommon(const char * nName)
 	{
 		return this->hashString(nName, 0x100);
@@ -96,7 +70,6 @@ namespace std {
 
 	void CrcService::runPreinit()
 	{
-		mTime = boost::posix_time::time_from_string(string(INITTIME));
 	}
 
 	CrcService::CrcService()

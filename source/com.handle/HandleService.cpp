@@ -16,12 +16,10 @@ namespace std {
 		return "config/handle.xml";
 	}
 
-	void HandleService::addContext(ContextPtr& nContext, __i32 nMax, __i32 nIndex)
+	void HandleService::addContext(ContextPtr& nContext, __i32 nIndex)
 	{
-		__i32 temp = nMax / mHandleCount;
-		__i32 index = nIndex / temp;
-		if ((nIndex % index) > 0) ++index;
-		HandlePtr& handle = mHandles[index];
+		__i32 index_ = nIndex % mHandleCount;
+		HandlePtr& handle = mHandles[index_];
 		handle->addContext(nContext);
 	}
 

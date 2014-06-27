@@ -11,7 +11,7 @@ namespace std {
 		void headSerialize(T& nSerialize);
 		const char * streamName();
 		const char * streamUrl();
-		void addContext(ContextPtr& nContext, __i32 nMax, __i32 nIndex);
+		void addContext(ContextPtr& nContext, __i32 nIndex);
 		int getHandleCount();
 		void runPreinit();
 		void runLoad();

@@ -12,7 +12,7 @@ namespace std {
 		boost::function<bool (PacketPtr&, SessionPtr&)> mPacketHandle;
 	};
 
-	class IProtocol : boost::noncopyable
+	class IProtocol
 	{
 	public:
 		virtual PacketRun * getPacketRun(__i16 nPacketType) = 0;

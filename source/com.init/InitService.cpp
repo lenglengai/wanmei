@@ -6,6 +6,10 @@
 #include "../com.ioservice/IoService.h"
 #include "../com.server/Server.h"
 #include "../com.client/Client.h"
+#include "../com.packet/ProtocolService.h"
+#include "../com.random/RandomService.h"
+#include "../com.time/TimeService.h"
+#include "../com.time/PingService.h"
 #include "InitService.h"
 
 namespace std {
@@ -17,20 +21,31 @@ namespace std {
 		loginService_.runPreinit();
 		CrcService& crcService_ = Singleton<CrcService>::instance();
 		crcService_.runPreinit();
+		RandomService& randomService_ = Singleton<RandomService>::instance();
+		randomService_.runPreinit();
+		TimeService& timeService_ = Singleton<TimeService>::instance();
+		timeService_.runPreinit();
 		SettingService& settingService_ = Singleton<SettingService>::instance();
 		settingService_.runPreinit("");
 		HandleService& handleService_ = Singleton<HandleService>::instance();
 		handleService_.runPreinit();
 		IoService& ioService_ = Singleton<IoService>::instance();
 		ioService_.runPreinit();
+		ProtocolService& protocolService_ = Singleton<ProtocolService>::instance();
+		protocolService_.runPreinit();
+
 	#ifdef __SERVER__
 		Server& server_ = Singleton<Server>::instance();
 		server_.runPreinit();
 	#endif
+
 	#ifdef __CLIENT__
 		Client& client_ = Singleton<Client>::instance();
 		client_.runPreinit();
+		PingProtocol& pingProtocol_ = Singleton<PingProtocol>::instance();
+		pingProtocol_.runPreinit();
 	#endif
+		
 		mInitType = mInitTypePreinit_;
 	}
 

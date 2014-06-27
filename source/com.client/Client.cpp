@@ -17,22 +17,23 @@ namespace std {
 			logService.logError(log_1(nError.message()));
 			return;
 		}
-		mSession->runStart();
+		mSession->openSession();
 	}
 
 	void Client::handleConnectTimeout(const boost::system::error_code& nError)
 	{
-		this->runStop();
-		LogService& logService = Singleton<LogService>::instance();
-		logService.logError(log_1(nError.message()));
+		if (mConnectTimer->expires_at() <= asio::deadline_timer::traits_type::now())
+		{
+			this->runStop();
+			LogService& logService = Singleton<LogService>::instance();
+			logService.logError(log_1(nError.message()));
+			mConnectTimer->expires_at(boost::posix_time::pos_infin);
+		}
 	}
 
 	void Client::startConnect()
 	{
 		try {
-			mConnectTimer->expires_from_now(boost::posix_time::seconds(Client::connect_timeout));
-			mConnectTimer->async_wait(boost::bind(&Client::handleConnectTimeout, 
-				shared_from_this(), boost::asio::placeholders::error));
 			IoService& ioService_ = Singleton<IoService>::instance();
 			asio::io_service& ioservice = ioService_.getIoService();
 			asio::ip::tcp::resolver resolver_(ioservice);
@@ -41,6 +42,9 @@ namespace std {
 			boost::asio::async_connect(mSession->getSocket(), iterator_,
 				boost::bind(&Client::handleConnect, this,
 				boost::asio::placeholders::error));
+			mConnectTimer->expires_from_now(boost::posix_time::seconds(Client::connect_timeout));
+			mConnectTimer->async_wait(boost::bind(&Client::handleConnectTimeout, 
+				this, boost::asio::placeholders::error));
 		} catch (boost::system::system_error& e) {
 			LogService& logService = Singleton<LogService>::instance();
 			logService.logError(log_1(e.what()));
@@ -88,6 +92,11 @@ namespace std {
 	{
 		IoService& ioService = Singleton<IoService>::instance();
 		ioService.runStop();
+	}
+
+	SessionPtr& Client::getSession()
+	{
+		return mSession;
 	}
 
 	Client::Client()

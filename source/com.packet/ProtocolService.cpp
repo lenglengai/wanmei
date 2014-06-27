@@ -32,14 +32,24 @@ namespace std {
 		mProtocols[protocolId] = nProtocol;
 	}
 
-	ProtocolService::ProtocolService()
+	void ProtocolService::runPreinit()
+	{
+		this->runClear();
+	}
+
+	void ProtocolService::runClear()
 	{
 		mProtocols.clear();
 	}
 
+	ProtocolService::ProtocolService()
+	{
+		this->runClear();
+	}
+
 	ProtocolService::~ProtocolService()
 	{
-		mProtocols.clear();
+		this->runClear();
 	}
 
 }

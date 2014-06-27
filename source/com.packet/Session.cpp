@@ -6,6 +6,16 @@
 
 namespace std {
 
+	void Session::setSecond(__i32 nSecond)
+	{
+		mSecond = nSecond;
+	}
+
+	__i32 Session::getSecond()
+	{
+		return mSecond;
+	}
+
 	void Session::setPlayer(PlayerPtr& nPlayer)
 	{
 		mPlayer = nPlayer;
@@ -44,6 +54,7 @@ namespace std {
 			logService.logError(log_2("read error", nError.message()));
 			return;
 		}
+		std::cout << "[bytes haha]" << nBytes << std::endl;
 		if (!mReadBlock->runPush(mReadBuffer.data(), nBytes)) {
 			this->runClose();
 			LogService& logService = Singleton<LogService>::instance();
@@ -87,12 +98,24 @@ namespace std {
 		logService.logError(log_1(nError.message()));
 	}
 
+	__i32 Session::getSessionState()
+	{
+		return mSessionState;
+	}
+
+	void Session::openSession()
+	{
+		mSessionState = SessionState_::mOpened_;
+		this->runStart();
+	}
+
 	void Session::runClose()
 	{
+		mSessionState = SessionState_::mClosed_;
 		if (mSocket.is_open()) {
 			try {
 				boost::system::error_code error_;
-				mSocket.shutdown(asio::ip::tcp::socket_base::shutdown_both, error_);
+				mSocket.shutdown(asio::socket_base::shutdown_both, error_);
 				mSocket.close(error_);
 			} catch (boost::system::system_error& e) {
 				LogService& logService = Singleton<LogService>::instance();
@@ -136,7 +159,7 @@ namespace std {
 			mWriteTimer.expires_from_now(boost::posix_time::seconds(Session::write_timeout));
 			mWriteTimer.async_wait(boost::bind(&Session::handleWriteTimeout,
 				shared_from_this(), boost::asio::placeholders::error));
-			asio::async_write(mSocket, boost::asio::buffer(mWriteBlockPtr->getBuffer(), mWriteBlockPtr->getLength()),
+			asio::async_write(mSocket, boost::asio::buffer(mWriteBlockPtr->getBuffer(), (mWriteBlockPtr->getLength())),
 				boost::bind(&Session::handleWrite, shared_from_this(),
 				asio::placeholders::error));
 			mSending = true;
@@ -159,14 +182,18 @@ namespace std {
 		, mReadTimer(nIoService)
 		, mWriteTimer(nIoService)
 		, mSending(false)
+		, mSecond(0)
+		, mSessionState(SessionState_::mClosed_)
 	{
 		mReadBuffer.fill(0);
 	}
 
 	Session::~Session()
 	{
+		mSessionState = SessionState_::mClosed_;
 		mReadBuffer.fill(0);
 		mSending = false;
+		mSecond = 0;
 	}
 
 }

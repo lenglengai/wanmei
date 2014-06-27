@@ -154,10 +154,10 @@ namespace std {
 
 	bool WriteBlock::runCopy(const char * nValue, __i16 nLength)
 	{
-		if ((mLength + sizeof(__i16)+ nLength) > write_size) {
+		if ((mLength + nLength) > write_size) {
 			return false;
 		}
-		memcpy((mBuffer + mLength + sizeof(__i16)), nValue, nLength);
+		memcpy((mBuffer + mLength), nValue, nLength);
 		mLength += nLength;
 		return true;
 	}
@@ -165,7 +165,7 @@ namespace std {
 	void WriteBlock::runClear()
 	{
 		memset(mBuffer, 0, sizeof(mBuffer));
-		mLength = 0;
+		mLength = 2;
 	}
 
 	void WriteBlock::runEnd()
@@ -180,6 +180,7 @@ namespace std {
 
 	__i16 WriteBlock::getLength()
 	{
+		std::cout << "WriteBlock::getLength" << mLength << std::endl;
 		return mLength;
 	}
 
