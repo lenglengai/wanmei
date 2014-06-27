@@ -29,6 +29,7 @@ namespace std {
 		virtual __i32 getPacketId() = 0;
 		virtual PacketPtr createPacket() = 0;
 	};
+	typedef boost::weak_ptr<IPacketId> PacketIdWtr;
 	typedef boost::shared_ptr<IPacketId> PacketIdPtr;
 
 	template<class T>
@@ -45,7 +46,7 @@ namespace std {
 			if (0 == mPacketId)
 			{
 				CrcService& crcService_ = Singleton<CrcService>::instance();
-				mPacketId = crcService_.runCommon(##T);
+				mPacketId = crcService_.runCommon(typeid(T).name());
 			}
 			return mPacketId;
 		}

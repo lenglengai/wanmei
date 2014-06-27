@@ -8,8 +8,8 @@ namespace std {
 	bool IProtocol::runReadBlock(ReadBlockPtr& nReadBlock, SessionPtr& nSession)
 	{
 		__i32 packetType_ = 0; nReadBlock->runInt32(packetType_);
-		PacketIdPtr& packetId_ = this->getPacketId(packetType_);
-		if (!packetId_) {
+		IPacketId * packetId_ = this->getPacketId(packetType_);
+		if (nullptr == packetId_) {
 			LogService& logService = Singleton<LogService>::instance();
 			logService.logError(log_2("getPacketId ", packetType_));
 			return false;
@@ -25,15 +25,16 @@ namespace std {
 		return packet_->handleRun(nSession);
 	}
 
-	PacketIdPtr& IProtocol::getPacketId(__i32 nPacketType)
+	IPacketId * IProtocol::getPacketId(__i32 nPacketType)
 	{
 		map<__i32, PacketIdPtr>::iterator it = mPacketIds.find(nPacketType);
 		if (it == mPacketIds.end()) {
 			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1(packetId_));
-			return PacketIdPtr(nullptr);
+			logService.logError(log_1(nPacketType));
+			return nullptr;
 		}
-		return mPacketIds[nPacketType];
+		PacketIdPtr& packetId_ = mPacketIds[nPacketType];
+		return packetId_.get();
 	}
 
 	void IProtocol::addPacketId(PacketIdPtr& nPacketId)

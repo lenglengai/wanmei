@@ -11,7 +11,7 @@ namespace std {
 	public:
 		bool runReadBlock(ReadBlockPtr& nReadBlock, SessionPtr& nSession);
 		virtual const char * getProtocolName() = 0;
-		PacketIdPtr& getPacketId(__i32 nPacketType);
+		IPacketId * getPacketId(__i32 nPacketType);
 		void addPacketId(PacketIdPtr& nPacketId);
 		__i32 getProtocolId();
 		IProtocol();

@@ -61,10 +61,10 @@ namespace std {
 	}
 #endif
 
-	bool S2CPing::runBlock(BlockPtr& nBlockPtr)
+	bool S2CPing::runBlock(BlockPtr& nBlock)
 	{
 		IPacket::runBlock(nBlock);
-		nBlockPtr->runInt32(mSecond);
+		nBlock->runInt32(mSecond);
 		return true;
 	}
 

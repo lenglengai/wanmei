@@ -1,4 +1,5 @@
 #include "../com.common/DefInc.h"
+#include "IPacket.h"
 
 namespace std {
 
@@ -10,7 +11,7 @@ namespace std {
 	bool IPacket::runBlock(BlockPtr& nBlock)
 	{
 		nBlock->runInt32(mProtocol);
-		nBlock->runInt16(mPacket);
+		nBlock->runInt32(mPacket);
 	}
 
 	bool IPacket::isDefault()
