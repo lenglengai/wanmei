@@ -18,6 +18,18 @@
 			"cmd": ["build-client.bat"],
 			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
 			"working_dir": "${project_path}"
+		},
+		{
+			"name": "server-visual",
+			"cmd": ["visual-server.bat"],
+			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+			"working_dir": "${project_path}"
+		},
+		{
+			"name": "client-visual",
+			"cmd": ["visual-client.bat"],
+			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+			"working_dir": "${project_path}"
 		}
 	]
 }

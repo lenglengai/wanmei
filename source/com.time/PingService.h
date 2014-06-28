@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../com.packet/IPacket.h"
 #include "../com.packet/IProtocol.h"
 
 #ifdef __CLIENT__
@@ -17,6 +16,7 @@ namespace std {
 		bool handleRun(SessionPtr& nSession);
 	#endif
 		bool runBlock(BlockPtr& nBlock);
+		const char * getPacketName();
 		void setSecond(__i32 nSecond);
 		__i32 getSecond();
 
@@ -36,6 +36,7 @@ namespace std {
 		bool handleRun(SessionPtr& nSession);
 	#endif
 		bool runBlock(BlockPtr& nBlock);
+		const char * getPacketName();
 		bool isDefault();
 		void setSecond(__i32 nSecond);
 		__i32 getSecond();

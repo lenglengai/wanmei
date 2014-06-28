@@ -6,7 +6,7 @@
 #define __funapi
 #endif
 
-#ifdef WIN32
+#ifdef _WIN32
 #define __FUN__ __FUNCTION__
 #else
 #define __FUN__ __PRETTY_FUNCTION__

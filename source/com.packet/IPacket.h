@@ -12,16 +12,34 @@ namespace std {
 	{
 	public:
 		virtual bool handleRun(SessionPtr& nSession);
+		virtual const char * getPacketName() = 0;
 		virtual bool runBlock(BlockPtr& nBlock);
 		virtual bool isDefault();
 
 		IPacket();
 		virtual ~IPacket();
+
 	protected:
 		__i32 mProtocol;
 		__i32 mPacket;
 	};
 	typedef boost::shared_ptr<IPacket> PacketPtr;
+
+	template<class T>
+	class Packet : public IPacket
+	{
+	public:
+		Packet()
+		{
+			T& t_ = Singleton<T>::instance();
+			mProtocol = t_.getProtocolId();
+		}
+
+		virtual ~Packet()
+		{
+			mProtocol = 0;
+		}
+	};
 
 	class IPacketId
 	{
@@ -67,24 +85,6 @@ namespace std {
 		static __i32 mPacketId;;
 	};
 	template<class T>
-	__i32 PacketId<T>::mPacketId;
-
-	template<class T>
-	class Packet : public IPacket
-	{
-	public:
-		Packet()
-		{
-			T& t_ = Singleton<T>::instance();
-			mProtocol = t_.getProtocolId();
-			mPacket = PacketId<T>::getClassId();
-		}
-
-		virtual ~Packet()
-		{
-			mProtocol = 0;
-			mPacket = 0;
-		}
-	};
+	__i32 PacketId<T>::mPacketId = 0;
 
 }

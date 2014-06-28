@@ -24,6 +24,11 @@ namespace std {
 	}
 #endif
 
+	const char * C2SPing::getPacketName()
+	{
+		return "C2SPing";
+	}
+
 	bool C2SPing::runBlock(BlockPtr& nBlock)
 	{
 		IPacket::runBlock(nBlock);
@@ -60,6 +65,11 @@ namespace std {
 		return true;
 	}
 #endif
+
+	const char * S2CPing::getPacketName()
+	{
+		return "C2SPing";
+	}
 
 	bool S2CPing::runBlock(BlockPtr& nBlock)
 	{
