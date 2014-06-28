@@ -37,7 +37,7 @@ namespace std {
 		return packetId_.get();
 	}
 
-	void IProtocol::addPacketId(PacketIdPtr& nPacketId)
+	void IProtocol::addPacketId(PacketIdPtr nPacketId)
 	{
 		__i32 packetId_ = nPacketId->getPacketId();
 		map<__i32, PacketIdPtr>::iterator it = mPacketIds.find(packetId_);

@@ -98,8 +98,8 @@ namespace std {
 	void PingProtocol::runPreinit()
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunInit.connect(boost::bind(&PingService::runInit, this));
-		initService_.m_tRunStart.connect(boost::bind(&PingService::runStart, this));
+		initService_.m_tRunInit.connect(boost::bind(&PingProtocol::runInit, this));
+		initService_.m_tRunStart.connect(boost::bind(&PingProtocol::runStart, this));
 	#ifdef __CLIENT__
 		PingServicePtr& pingService_ = SingletonPtr<PingService>::instance();
 		pingService_->runPreinit();
@@ -109,10 +109,10 @@ namespace std {
 	void PingProtocol::runInit()
 	{
 	#ifdef __CLIENT__
-		this->addPacketId(PacketIdPtr(PacketId<S2CPing>()));
+		this->addPacketId(PacketIdPtr(new PacketId<S2CPing>()));
 	#endif
 	#ifdef __SERVER__
-		this->addPacketId(PacketIdPtr(PacketId<C2SPing>()));
+		this->addPacketId(PacketIdPtr(new PacketId<C2SPing>()));
 	#endif
 	}
 

@@ -17,7 +17,7 @@ namespace std {
 
 		IPacket();
 		virtual ~IPacket();
-	private:
+	protected:
 		__i32 mProtocol;
 		__i32 mPacket;
 	};
@@ -63,6 +63,7 @@ namespace std {
 		~PacketId()
 		{
 		}
+	private:
 		static __i32 mPacketId;;
 	};
 	template<class T>
