@@ -31,7 +31,6 @@ namespace std {
 
 	bool C2SPing::runBlock(BlockPtr& nBlock)
 	{
-		IPacket::runBlock(nBlock);
 		nBlock->runInt32(mSecond);
 		return true;
 	}
@@ -73,7 +72,6 @@ namespace std {
 
 	bool S2CPing::runBlock(BlockPtr& nBlock)
 	{
-		IPacket::runBlock(nBlock);
 		nBlock->runInt32(mSecond);
 		return true;
 	}

@@ -5,6 +5,6 @@ set include=%1%
 @if not exist %buildir% mkdir %buildir%
 @cd %buildir%
 @echo run create project files
-@cmake ../../../source/ -G " Visual Studio 12 2013" -D__CLIENT__=ON -D__INCLUDE__=%include%
-@echo project create finish!
+@cmake ../../../source/ -G "Visual Studio 12 2013" -D__CLIENT__=ON -D__INCLUDE__=%include%
+@echo create project finish!
 @cd ..

@@ -150,6 +150,10 @@ namespace std {
 		}
 		mWriteBlockPtr->runClear();
 		BlockPtr blockPtr_ = mWriteBlockPtr;
+		if (!packet_->runHeader(blockPtr_)) {
+			this->runClose();
+			return;
+		}
 		if (!packet_->runBlock(blockPtr_)) {
 			this->runClose();
 			return;

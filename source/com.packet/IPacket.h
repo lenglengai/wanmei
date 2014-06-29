@@ -13,8 +13,11 @@ namespace std {
 	public:
 		virtual bool handleRun(SessionPtr& nSession);
 		virtual const char * getPacketName() = 0;
-		virtual bool runBlock(BlockPtr& nBlock);
+		virtual bool runBlock(BlockPtr& nBlock) = 0;
+		bool runHeader(BlockPtr& nBlock);
 		virtual bool isDefault();
+		void setSend(bool nSend);
+		virtual void runInit();
 
 		IPacket();
 		virtual ~IPacket();
@@ -22,6 +25,7 @@ namespace std {
 	protected:
 		__i32 mProtocol;
 		__i32 mPacket;
+		bool mSend;
 	};
 	typedef boost::shared_ptr<IPacket> PacketPtr;
 
@@ -29,15 +33,19 @@ namespace std {
 	class Packet : public IPacket
 	{
 	public:
-		Packet()
+		virtual void runInit()
 		{
 			T& t_ = Singleton<T>::instance();
 			mProtocol = t_.getProtocolId();
+			IPacket::runInit();
+		}
+
+		Packet()
+		{
 		}
 
 		virtual ~Packet()
 		{
-			mProtocol = 0;
 		}
 	};
 
