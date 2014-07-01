@@ -42,10 +42,9 @@ namespace std {
 	#ifdef __CLIENT__
 		Client& client_ = Singleton<Client>::instance();
 		client_.runPreinit();
+	#endif
 		PingProtocol& pingProtocol_ = Singleton<PingProtocol>::instance();
 		pingProtocol_.runPreinit();
-	#endif
-		
 		mInitType = mInitTypePreinit_;
 	}
 

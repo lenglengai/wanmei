@@ -4,6 +4,7 @@
 #include "../com.client/Client.h"
 #include "../com.handle/HandleService.h"
 #include "../com.init/InitService.h"
+#include "../com.packet/ProtocolService.h"
 #include "PingService.h"
 
 namespace std {
@@ -116,6 +117,8 @@ namespace std {
 
 	void PingProtocol::runInit()
 	{
+		ProtocolService& protocolService_ = Singleton<ProtocolService>::instance();
+		protocolService_.runRegister(this);
 	#ifdef __CLIENT__
 		this->addPacketId(PacketIdPtr(new PacketId<S2CPing>()));
 	#endif

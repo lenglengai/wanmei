@@ -12,6 +12,7 @@ namespace std {
 	{
 		nBlock->runInt32(mProtocol);
 		nBlock->runInt32(mPacket);
+		return true;
 	}
 
 	bool IPacket::isDefault()
@@ -30,7 +31,6 @@ namespace std {
 		const char * packetName_ = this->getPacketName();
 		mPacket = crcService_.runCommon(packetName_);
 	}
-
 
 	IPacket::IPacket()
 		: mProtocol(0)

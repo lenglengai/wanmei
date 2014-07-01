@@ -4,6 +4,12 @@
 
 namespace std{
 
+	enum BlockPushType_ : __i8
+	{
+		mBlockPushTypeError_ = 0,
+		mBlockPushTypeLength_ = 1,
+		mBlockPushTypeFinish_ = 2
+	};
 	class ReadBlock : public IBlock, boost::noncopyable
 	{
 	public:
@@ -30,7 +36,7 @@ namespace std{
 		bool runDouble(double& nValue);
 		bool runDoubles(list<double>& nValue);
 
-		bool runPush(char * nBuffer, __i16 nSize);
+		BlockPushType_ runPush(char * nBuffer, __i16 nSize);
 
 		ReadBlock();
 		~ReadBlock();

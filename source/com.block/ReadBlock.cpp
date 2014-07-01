@@ -5,13 +5,11 @@ namespace std {
 
 	bool ReadBlock::runBool(bool& nValue)
 	{
-		char * buffer = this->getBuffer(sizeof(bool));
-		if (nullptr == buffer) {
+		__i8 value_ = 0;
+		if (!this->runInt8(value_)) {
 			return false;
 		}
-		__i8 value_ = *(__i8 *)(buffer);
-		nValue = ((value_ == 1) ? true : false);
-		return true;
+		return __convert<bool, __i8>(value_);
 	}
 
 	bool ReadBlock::runInt8(__i8& nValue)
@@ -44,7 +42,6 @@ namespace std {
 	{
 		char * buffer = this->getBuffer(sizeof(__i16));
 		if (nullptr == buffer) {
-			std::cout << "ReadBlock::runInt16 nullptr == buffer" << std::endl;
 			return false;
 		}
 		nValue = *(__i16 *)(buffer);
@@ -201,34 +198,31 @@ namespace std {
 		return true;
 	}
 
-	bool ReadBlock::runPush(char * nBuffer, __i16 nSize)
+	BlockPushType_ ReadBlock::runPush(char * nBuffer, __i16 nSize)
 	{
 		if (nSize <= 0) {
-			std::cout << "ReadBlock::runPush nSize <= 0" << std::endl;
-			return false;
+			return mBlockPushTypeError_;
 		}
 		mBuffer = nBuffer; mSize = nSize;
 		if (0 == mLength) {
 			if (!this->runInt16(mLength)) {
-				std::cout << "ReadBlock::runPush 0 == mLength" << std::endl;
-				return false;
+				return mBlockPushTypeError_;
 			}
 		}
-		if ((mLength <= 0) || (mLength > 1024)) {
-			std::cout << "ReadBlock::runPush mLength > 1024)" << std::endl;
-			return false;
+		if ((mLength <= 0) || (mLength > 1022)) {
+			return mBlockPushTypeError_;
 		}
 		if (mLength > (mSize + mLeft)) {
 			memcpy((mValue + mLeft), mBuffer, mSize);
 			mLeft += mSize; mBuffer = nullptr; mSize = 0;
+			return mBlockPushTypeLength_;
 		}
-		return true;
+		return mBlockPushTypeFinish_;
 	}
 
 	char * ReadBlock::getBuffer(__i16 nSize)
 	{
 		if ( (mPos + nSize) > mSize ) {
-			std::cout << "mPos + nSize) > mLength" << mPos << ":" << nSize << std::endl;
 			return nullptr;
 		}
 		char * result_ = nullptr;

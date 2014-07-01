@@ -5,7 +5,8 @@ namespace std {
 
 	bool WriteBlock::runBool(bool& nValue)
 	{
-		return this->runCopy(nValue);
+		__i8 value_ = __convert<__i8, bool>(nValue);
+		return this->runInt8(value_);
 	}
 
 	bool WriteBlock::runInt8(__i8& nValue)
@@ -154,10 +155,10 @@ namespace std {
 
 	bool WriteBlock::runCopy(const char * nValue, __i16 nLength)
 	{
-		if ((mLength + nLength) > write_size) {
+		if ((mLength + nLength + sizeof(__i16)) > write_size) {
 			return false;
 		}
-		memcpy((mBuffer + mLength), nValue, nLength);
+		memcpy((mBuffer + mLength + sizeof(__i16)), nValue, nLength);
 		mLength += nLength;
 		return true;
 	}
@@ -165,7 +166,7 @@ namespace std {
 	void WriteBlock::runClear()
 	{
 		memset(mBuffer, 0, sizeof(mBuffer));
-		mLength = 2;
+		mLength = 0;
 	}
 
 	void WriteBlock::runEnd()
@@ -180,8 +181,12 @@ namespace std {
 
 	__i16 WriteBlock::getLength()
 	{
-		std::cout << "WriteBlock::getLength" << mLength << std::endl;
 		return mLength;
+	}
+
+	__i16 WriteBlock::getTotal()
+	{
+		return (mLength + 2);
 	}
 
 	WriteBlock::WriteBlock()

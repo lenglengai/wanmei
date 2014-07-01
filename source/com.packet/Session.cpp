@@ -23,6 +23,7 @@ namespace std {
 
 	void Session::runSend(PacketPtr& nPacket)
 	{
+		nPacket->runInit();
 		this->pushPacket(nPacket);
 		if (false == mSending) {
 			this->internalSend();
@@ -51,16 +52,17 @@ namespace std {
 		if (nError) {
 			this->runClose();
 			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_2("read error", nError.message()));
+			logService.logError(log_2("read message error", nError.message()));
 			return;
 		}
-		std::cout << "[bytes haha]" << nBytes << std::endl;
-		if (!mReadBlock->runPush(mReadBuffer.data(), nBytes)) {
+		BlockPushType_ blockPushType_ = mReadBlock->runPush(mReadBuffer.data(), nBytes);
+		if (mBlockPushTypeError_ == blockPushType_) {
 			this->runClose();
 			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1("push error"));
+			logService.logError(log_1("block push error"));
 			return;
 		}
+		if (mBlockPushTypeLength_ == blockPushType_) return;
 		ProtocolService& protocolService_ = Singleton<ProtocolService>::instance();
 		if (!protocolService_.runReadBlock(mReadBlock, shared_from_this())) {
 			this->runClose();
@@ -163,7 +165,7 @@ namespace std {
 			mWriteTimer.expires_from_now(boost::posix_time::seconds(Session::write_timeout));
 			mWriteTimer.async_wait(boost::bind(&Session::handleWriteTimeout,
 				shared_from_this(), boost::asio::placeholders::error));
-			asio::async_write(mSocket, boost::asio::buffer(mWriteBlockPtr->getBuffer(), (mWriteBlockPtr->getLength())),
+			asio::async_write(mSocket, boost::asio::buffer(mWriteBlockPtr->getBuffer(), (mWriteBlockPtr->getTotal())),
 				boost::bind(&Session::handleWrite, shared_from_this(),
 				asio::placeholders::error));
 			mSending = true;

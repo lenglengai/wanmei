@@ -37,6 +37,7 @@ namespace std {
 
 		char * getBuffer();
 		__i16 getLength();
+		__i16 getTotal();
 
 		WriteBlock();
 		~WriteBlock();
@@ -55,10 +56,9 @@ namespace std {
 	template<typename T>
 	bool WriteBlock::runCopy(T& nT)
 	{
-		if ((mLength + sizeof(__i16)+sizeof(T)) > write_size) {
+		if ((mLength + sizeof(__i16) + sizeof(T)) > write_size) {
 			return false;
 		}
-		std::cout << "WriteBlock::runCopy" << mLength << std::endl;
 		memcpy((mBuffer + mLength + sizeof(__i16)), &nT, sizeof(T));
 		mLength += sizeof(T);
 		return true;
