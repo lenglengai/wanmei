@@ -28,4 +28,4 @@ set(Boost_USE_STATIC_LIBS ON)
 FIND_PACKAGE(Boost 1.55.0 COMPONENTS log log_setup system thread filesystem date_time REQUIRED)
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
-add_subdirectory(com.startup)
+add_subdirectory(startup)
