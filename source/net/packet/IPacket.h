@@ -14,6 +14,7 @@ namespace std {
 	public:
 		virtual bool handleRun(SessionPtr& nSession);
 		virtual bool runBlock(BlockPtr& nBlock) = 0;
+		void setHeader(__i32 nProtocol, __i32 nPacket);
 		bool runHeader(BlockPtr& nBlock);
 		virtual bool isDefault();
 		virtual void runInit() = 0;
@@ -71,7 +72,7 @@ namespace std {
 			if (0 == mPacketId)
 			{
 				CrcService& crcService_ = Singleton<CrcService>::instance();
-				mPacketId = crcService_.runCommon(typeid(T).name());
+				mPacketId = crcService_.runCommon(T::sPacketName);
 			}
 			return mPacketId;
 		}

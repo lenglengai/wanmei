@@ -9,6 +9,12 @@ namespace std {
 		return true;
 	}
 
+	void IPacket::setHeader(__i32 nProtocol, __i32 nPacket)
+	{
+		mProtocol = nProtocol;
+		mPacket = nPacket;
+	}
+
 	bool IPacket::runHeader(BlockPtr& nBlock)
 	{
 		nBlock->runInt32(mProtocol);

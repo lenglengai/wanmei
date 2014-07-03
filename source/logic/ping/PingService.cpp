@@ -217,7 +217,7 @@ namespace std {
 #ifdef __CLIENT__
 	bool PingProtocol::runPacket(PacketPtr& nPacket, SessionPtr& nSession)
 	{
-		mPingTick->pushPacket(nPacket);
+		//mPingTick->pushPacket(nPacket);
 		return true;
 	}
 

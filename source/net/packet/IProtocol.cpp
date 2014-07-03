@@ -17,6 +17,8 @@ namespace std {
 			return false;
 		}
 		PacketPtr packet_ = packetId_->createPacket();
+		__i32 protocolId_ = this->getProtocolId();
+		packet_->setHeader(protocolId_, packetType_);
 		BlockPtr block_ = nReadBlock;
 		packet_->runBlock(block_);
 		if (packet_->isDefault()) {
