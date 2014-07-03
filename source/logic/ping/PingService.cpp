@@ -1,4 +1,3 @@
-
 #include "../../common/DefInc.h"
 
 #include "../../service/random/RandomService.h"
@@ -163,7 +162,7 @@ namespace std {
 			Singleton<InitService>::instance();
 		if (initService_.isPause()) return;
 		PacketPtr packet_ = this->popPacket();
-		if (!packet_) {
+		if (packet_) {
 			packet_->handleRun(SessionPtr());
 		}
 		this->handlePing();
