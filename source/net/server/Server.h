@@ -1,11 +1,13 @@
 #pragma once
 
 #ifdef __SERVER__
+#include "../../common/property/PropertySink.h"
+
 #include "../packet/Session.h"
 
 namespace std {
 
-	class Server : boost::noncopyable
+	class Server : public PropertySink
 	{
 	public:
 		template<class T>

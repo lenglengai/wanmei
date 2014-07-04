@@ -32,9 +32,9 @@ namespace std {
 	void HandleService::runPreinit()
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunLoad.connect(boost::bind(&HandleService::runLoad, this));
-		initService_.m_tRunInit.connect(boost::bind(&HandleService::runInit, this));
-		initService_.m_tRunStart.connect(boost::bind(&HandleService::runStart, this));
+		initService_.m_tRunLoad0.connect(boost::bind(&HandleService::runLoad, this));
+		initService_.m_tRunInit0.connect(boost::bind(&HandleService::runInit, this));
+		initService_.m_tRunRun0.connect(boost::bind(&HandleService::runRun, this));
 		initService_.m_tRunStop.connect(boost::bind(&HandleService::runStop, this));
 	}
 
@@ -57,10 +57,10 @@ namespace std {
 		}
 	}
 
-	void HandleService::runStart()
+	void HandleService::runRun()
 	{
 		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("start handle service"));
+		loginService_.logInfo(log_1("run handle service"));
 		map<int, HandlePtr>::iterator it = mHandles.begin();
 		for ( ; it != mHandles.end(); ++it ) {
 			HandlePtr& handle = it->second;

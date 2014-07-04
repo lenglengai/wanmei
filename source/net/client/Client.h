@@ -1,11 +1,13 @@
 #pragma once
 
 #ifdef __CLIENT__
+#include "../../common/property/PropertySink.h"
+
 #include "../packet/Session.h"
 
 namespace std {
 
-	class Client : public boost::noncopyable
+	class Client : public PropertySink
 	{
 	public:
 		enum { connect_timeout = 90 };

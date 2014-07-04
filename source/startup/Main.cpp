@@ -1,15 +1,21 @@
 #include "../common/DefInc.h"
 #include "../service/init/InitService.h"
 
+using namespace std;
+
 int main( int argc, char * argv[] )
 {
-	std::InitService& initService = 
-		std::Singleton<std::InitService>::instance();
+	InitService& initService = 
+		Singleton<InitService>::instance();
 	initService.runPreinit("");
-	initService.runLoad();
-	initService.runInit();
-	initService.runStart();
-	initService.runRun();
+	initService.runLoad0();
+	initService.runLoad1();
+	initService.runInit0();
+	initService.runInit1();
+	initService.runStart0();
+	initService.runStart1();
+	initService.runRun0();
+	initService.runRun1();
 	initService.runStop();
 	initService.runSave();
 	initService.runExit();

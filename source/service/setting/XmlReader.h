@@ -126,7 +126,7 @@ namespace std {
 		for (; xmlNode_ != nullptr; xmlNode_ = xmlNode_->next_sibling())
 		{
 			mXmlNode = xmlNode_;
-			shared_ptr<T0> t_(new T0());
+			boost::shared_ptr<T0> t_(new T0());
 			t_->serialize(this, nCount);
 			if (t_->isDefault()) continue;
 			nValue.push_back(t_);
@@ -144,7 +144,7 @@ namespace std {
 		for (; xmlNode_ != nullptr; xmlNode_ = xmlNode_->next_sibling())
 		{
 			mXmlNode = xmlNode_;
-			shared_ptr<T1> t_(new T1());
+			boost::shared_ptr<T1> t_(new T1());
 			t_->serialize(this, nCount);
 			if (t_->isDefault()) continue;
 			nValue[t_->getKey()] = t_;

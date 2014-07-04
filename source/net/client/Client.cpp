@@ -24,8 +24,11 @@ namespace std {
 
 	void Client::handleConnectTimeout(const boost::system::error_code& nError)
 	{
-		if (mConnectTimer->expires_at() <= asio::deadline_timer::traits_type::now())
-		{
+		if (nError) {
+			LogService& logService = Singleton<LogService>::instance();
+			logService.logError(log_1(nError.message()));
+		}
+		if (mConnectTimer->expires_at() <= asio::deadline_timer::traits_type::now()) {
 			this->runStop();
 			LogService& logService = Singleton<LogService>::instance();
 			logService.logError(log_1(nError.message()));
@@ -66,8 +69,8 @@ namespace std {
 	void Client::runPreinit()
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunLoad.connect(boost::bind(&Client::runLoad, this));
-		initService_.m_tRunStart.connect(boost::bind(&Client::runStart, this));
+		initService_.m_tRunLoad0.connect(boost::bind(&Client::runLoad, this));
+		initService_.m_tRunStart0.connect(boost::bind(&Client::runStart, this));
 	}
 
 	void Client::runLoad()
@@ -86,6 +89,8 @@ namespace std {
 		IoService& ioService_ = Singleton<IoService>::instance();
 		asio::io_service& ioservice = ioService_.getIoService();
 		mSession.reset(new Session(ioservice));
+		PropertyMgrPtr propertyMgrPtr_ = boost::dynamic_pointer_cast<PropertyMgr, Session>(mSession);
+		this->runCreate(propertyMgrPtr_);
 		mConnectTimer.reset(new asio::deadline_timer(ioservice));
 		this->startConnect();
 	}

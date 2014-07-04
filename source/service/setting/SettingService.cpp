@@ -59,7 +59,7 @@ namespace std {
 	{
 		mSystemPath = nPath;
 		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunLoad.connect(boost::bind(&SettingService::ruLoad, this));
+		initService_.m_tRunLoad0.connect(boost::bind(&SettingService::ruLoad, this));
 	}
 
 	void SettingService::ruLoad()

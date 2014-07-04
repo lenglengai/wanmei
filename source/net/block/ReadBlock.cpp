@@ -222,6 +222,15 @@ namespace std {
 		return mBlockPushTypeFinish_;
 	}
 
+	void ReadBlock::endPush()
+	{
+		if (mPos >= mLeft) {
+			memset(mValue, 0, sizeof(mValue));
+			memcpy(mValue, (mBuffer + mPos - mLeft), (mSize - mPos + mLeft));
+			mBuffer = nullptr; mLength = 0; mLeft = mSize - mPos + mLeft;
+		}
+	}
+
 	char * ReadBlock::getBuffer(__i16 nSize)
 	{
 		if ( (mPos + nSize) > mSize ) {

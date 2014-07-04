@@ -11,6 +11,8 @@
 #include "../block/WriteBlock.h"
 #include "../block/ReadBlock.h"
 
+#include "../../common/property/PropertyMgr.h"
+
 using namespace boost;
 
 namespace std {
@@ -23,7 +25,7 @@ namespace std {
 	class IPlayer;
 	typedef boost::weak_ptr<IPlayer> PlayerWtr;
 	typedef boost::shared_ptr<IPlayer> PlayerPtr;
-	class Session : public boost::enable_shared_from_this<Session>, boost::noncopyable
+	class Session : public PropertyMgr, public boost::enable_shared_from_this<Session>
 	{
 	public:
 		enum { write_timeout = 90 };

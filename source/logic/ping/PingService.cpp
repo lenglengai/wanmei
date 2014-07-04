@@ -5,7 +5,9 @@
 #include "../../service/handle/HandleService.h"
 #include "../../service/init/InitService.h"
 #include "../../net/packet/ProtocolService.h"
+#include "../../common/property/PropertyId.h"
 #include "../../net/client/Client.h"
+#include "../../net/server/Server.h"
 
 #include "PingService.h"
 
@@ -16,14 +18,14 @@ namespace std {
 #ifdef __SERVER__
 	bool C2SPing::handleRun(SessionPtr& nSession)
 	{
-		PingProtocol& pingProtocol_ = 
-			Singleton<PingProtocol>::instance();
-		__i32 second_ = pingProtocol_.getSecond();
+		PropertyId<PingSecond> pingSecondId;
+		PropertyPtr& property_ = nSession->getProperty(pingSecondId);
+		PingSecondPtr pingSecondPtr_ = boost::dynamic_pointer_cast<PingSecond, Property>(property_);
+		__i32 second_ = pingSecondPtr_->getSecond();
 		if (second_ != mSecond) return false;
-		RandomService& randomService_ =
-			Singleton<RandomService>::instance();
+		RandomService& randomService_ = Singleton<RandomService>::instance();
 		second_ = randomService_.runRandom();
-		pingProtocol_.setSecond(second_);
+		pingSecondPtr_->setSecond(second_);
 		PacketPtr packet_(new S2CPing(second_));
 		nSession->runSend(packet_);
 		return true;
@@ -66,9 +68,12 @@ namespace std {
 #ifdef __CLIENT__
 	bool S2CPing::handleRun(SessionPtr& nSession)
 	{
-		PingProtocol& pingProtocol_ = 
-			Singleton<PingProtocol>::instance();
-		pingProtocol_.setSecond(mSecond);
+		PingProtocol& pingProtocol_ = Singleton<PingProtocol>::instance();
+		pingProtocol_.endPing();
+		PropertyId<PingSecond> pingSecondId;
+		PropertyPtr& property_ = nSession->getProperty(pingSecondId);
+		PingSecondPtr pingSecondPtr_ = boost::dynamic_pointer_cast<PingSecond, Property>(property_);
+		pingSecondPtr_->setSecond(mSecond);
 		return true;
 	}
 #endif
@@ -135,35 +140,33 @@ namespace std {
 
 	void PingTick::handlePing()
 	{
-		InitService& initService_ = 
-			Singleton<InitService>::instance();
+		InitService& initService_ = Singleton<InitService>::instance();
 		if (initService_.isPause()) return;
-		TimeService& timeService_ = 
-			Singleton<TimeService>::instance();
+		TimeService& timeService_ = Singleton<TimeService>::instance();
 		__i64 second_ = timeService_.getNowSecond();
 		__i64 clock_ = second_ - mSendTick;
-		if (clock_ < 90) return;
-		__i32 pingSecond_ = mPingProtocol->getSecond();
-		PacketPtr packet_(new C2SPing(pingSecond_));
+		if (clock_ < 70) return;
 		Client& client_ = Singleton<Client>::instance();
 		SessionPtr& session_ = client_.getSession();
+		PropertyPtr& property_ = session_->getProperty(PropertyId<PingSecond>());
+		PingSecondPtr pingSecondPtr_ = boost::dynamic_pointer_cast<PingSecond, Property>(property_);
+		__i32 pingSecond_ = pingSecondPtr_->getSecond();
+		PacketPtr packet_(new C2SPing(pingSecond_));
 		if (session_->runSend(packet_)) {
 			mPingProtocol->begPing();
 			mSendTick = second_;
-		}
-		else {
-			initService_.runPause(true);
 		}
 	}
 
 	void PingTick::runContext()
 	{
-		InitService& initService_ = 
-			Singleton<InitService>::instance();
+		InitService& initService_ = Singleton<InitService>::instance();
 		if (initService_.isPause()) return;
 		PacketPtr packet_ = this->popPacket();
 		if (packet_) {
-			packet_->handleRun(SessionPtr());
+			Client& client_ = Singleton<Client>::instance();
+			SessionPtr& session_ = client_.getSession();
+			packet_->handleRun(session_);
 		}
 		this->handlePing();
 	}
@@ -183,11 +186,31 @@ namespace std {
 	}
 #endif
 
+	void PingSecond::setSecond(__i32 nSecond)
+	{
+		mSecond = nSecond;
+	}
+
+	__i32 PingSecond::getSecond()
+	{
+		return mSecond;
+	}
+
+	PingSecond::PingSecond()
+		: mSecond(0)
+	{
+	}
+
+	PingSecond::~PingSecond()
+	{
+		mSecond = 0;
+	}
+
 	void PingProtocol::runPreinit()
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunInit.connect(boost::bind(&PingProtocol::runInit, this));
-		initService_.m_tRunStart.connect(boost::bind(&PingProtocol::runStart, this));
+		initService_.m_tRunInit0.connect(boost::bind(&PingProtocol::runInit, this));
+		initService_.m_tRunStart0.connect(boost::bind(&PingProtocol::runStart, this));
 	}
 
 	void PingProtocol::runInit()
@@ -195,11 +218,20 @@ namespace std {
 		ProtocolService& protocolService_ = 
 			Singleton<ProtocolService>::instance();
 		protocolService_.runRegister(this);
+
 	#ifdef __CLIENT__
-		this->addPacketId(PacketIdPtr(new PacketId<S2CPing>()));
+		Client& client_ = Singleton<Client>::instance();
+		client_.registerCreate(PropertyIdPtr(new PropertyId<PingSecond>()));
+
 		mPingTick.reset(new PingTick(this));
+
+		this->addPacketId(PacketIdPtr(new PacketId<S2CPing>()));
 	#endif
+
 	#ifdef __SERVER__
+		Server& server_ = Singleton<Server>::instance();
+		server_.registerCreate(PropertyIdPtr(new PropertyId<PingSecond>()));
+
 		this->addPacketId(PacketIdPtr(new PacketId<C2SPing>()));
 	#endif
 	}
@@ -217,7 +249,7 @@ namespace std {
 #ifdef __CLIENT__
 	bool PingProtocol::runPacket(PacketPtr& nPacket, SessionPtr& nSession)
 	{
-		//mPingTick->pushPacket(nPacket);
+		mPingTick->pushPacket(nPacket);
 		return true;
 	}
 
@@ -235,7 +267,6 @@ namespace std {
 		__i64 second_ = timeService_.getNowSecond();
 		mPing = second_ - mClock;
 	}
-
 #endif
 
 	const char * PingProtocol::getProtocolName()
@@ -243,29 +274,16 @@ namespace std {
 		return "PingProtocol";
 	}
 
-	void PingProtocol::setSecond(__i32 nSecond)
-	{
-		mSecond = nSecond;
-	}
-
-	__i32 PingProtocol::getSecond()
-	{
-		return mSecond;
-	}
-
 	PingProtocol::PingProtocol()
-		: mSecond(0)
 #ifdef __CLIENT__
-		, mClock(0)
+		: mClock(0)
 		, mPing(0)
 #endif
 	{
-
 	}
 
 	PingProtocol::~PingProtocol()
 	{
-		mSecond = 0;
 #ifdef __CLIENT__
 		mClock = 0;
 		mPing = 0;

@@ -3,6 +3,7 @@
 #include <boost/thread.hpp>
 
 #include "../../net/packet/IProtocol.h"
+#include "../../common/property/Property.h"
 
 #ifdef __CLIENT__
 #include "../../service/handle/Context.h"
@@ -79,6 +80,21 @@ namespace std {
 	typedef boost::shared_ptr<PingTick> PingTickPtr;
 #endif
 
+	class PingSecond : public Property
+	{
+	public:
+		void setSecond(__i32 nSecond);
+		__i32 getSecond();
+
+		PingSecond();
+		~PingSecond();
+
+	private:
+		__i32 mSecond;
+	};
+
+	typedef boost::shared_ptr<PingSecond> PingSecondPtr;
+
 	class PingProtocol : public IProtocol, boost::noncopyable
 	{
 	public:
@@ -88,8 +104,6 @@ namespace std {
 		void endPing();
 #endif
 		const char * getProtocolName();
-		void setSecond(__i32 nSecond);
-		__i32 getSecond();
 
 		void runPreinit();
 		void runInit();
@@ -99,7 +113,6 @@ namespace std {
 		~PingProtocol();
 
 	private:
-		__i32 mSecond;
 	#ifdef __CLIENT__
 		PingTickPtr mPingTick;
 		__i64 mClock;

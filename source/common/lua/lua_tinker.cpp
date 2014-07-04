@@ -6,7 +6,7 @@
 //
 // please check Licence.txt file for licence and legal issues.
 
-#include "../../common/DefInc.h"
+#include "../DefInc.h"
 #include "lua_tinker.h"
 
 

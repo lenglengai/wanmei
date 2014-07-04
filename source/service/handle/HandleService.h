@@ -16,7 +16,7 @@ namespace std {
 		void runPreinit();
 		void runLoad();
 		void runInit();
-		void runStart();
+		void runRun();
 		void runStop();
 
 		HandleService();

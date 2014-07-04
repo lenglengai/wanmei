@@ -38,6 +38,7 @@ namespace std {
 			mProtocol = protocol_.getProtocolId();
 			CrcService& crcService_ = Singleton<CrcService>::instance();
 			mPacket = crcService_.runCommon(T0::sPacketName);
+			std::cout << mProtocol << ":" << mPacket << std::endl;
 		}
 
 		Packet()

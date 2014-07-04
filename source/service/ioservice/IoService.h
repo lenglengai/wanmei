@@ -28,8 +28,8 @@ namespace std {
 		~IoService();
 
 	private:
-		typedef shared_ptr<asio::io_service> IoServicePtr;
-		typedef shared_ptr<asio::io_service::work> WorkPtr;
+		typedef boost::shared_ptr<asio::io_service> IoServicePtr;
+		typedef boost::shared_ptr<asio::io_service::work> WorkPtr;
 		boost::shared_ptr<asio::signal_set> mSignals;
 		vector<IoServicePtr> mIoServices;
 		vector<WorkPtr> mWork;

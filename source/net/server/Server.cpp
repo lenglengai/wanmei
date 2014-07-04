@@ -19,7 +19,7 @@ namespace std {
 			logService.logError(log_1(nError.message()));
 			return;
 		}
-		mNewSession->runStart();
+		mNewSession->openSession();
 		startAccept();
 	}
 
@@ -28,6 +28,8 @@ namespace std {
 		try {
 			IoService& ioService_ = Singleton<IoService>::instance();
 			mNewSession.reset(new Session(ioService_.getIoService()));
+			PropertyMgrPtr propertyMgrPtr_ = boost::dynamic_pointer_cast<PropertyMgr, Session>(mNewSession);
+			this->runCreate(propertyMgrPtr_);
 			mAcceptor->async_accept(mNewSession->getSocket(),
 				boost::bind(&Server::handleAccept, this,
 				boost::asio::placeholders::error));
@@ -50,8 +52,8 @@ namespace std {
 	void Server::runPreinit()
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunLoad.connect(boost::bind(&Server::runLoad, this));
-		initService_.m_tRunStart.connect(boost::bind(&Server::runStart, this));
+		initService_.m_tRunLoad0.connect(boost::bind(&Server::runLoad, this));
+		initService_.m_tRunStart0.connect(boost::bind(&Server::runStart, this));
 	}
 
 	void Server::runLoad()

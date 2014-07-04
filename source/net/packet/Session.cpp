@@ -74,9 +74,16 @@ namespace std {
 
 	void Session::handleReadTimeout(const boost::system::error_code& nError)
 	{
-		this->runClose();
-		LogService& logService = Singleton<LogService>::instance();
-		logService.logError(log_1(nError.message()));
+		if (nError) {
+			LogService& logService = Singleton<LogService>::instance();
+			logService.logError(log_1(nError.message()));
+		}
+		if (mReadTimer.expires_at() <= asio::deadline_timer::traits_type::now()) {
+			this->runClose();
+			LogService& logService = Singleton<LogService>::instance();
+			logService.logError(log_1(nError.message()));
+			mReadTimer.expires_at(boost::posix_time::pos_infin);
+		}
 	}
 
 	void Session::handleWrite(const boost::system::error_code& nError)
@@ -93,9 +100,16 @@ namespace std {
 
 	void Session::handleWriteTimeout(const boost::system::error_code& nError)
 	{
-		this->runClose();
-		LogService& logService = Singleton<LogService>::instance();
-		logService.logError(log_1(nError.message()));
+		if (nError) {
+			LogService& logService = Singleton<LogService>::instance();
+			logService.logError(log_1(nError.message()));
+		}
+		if (mWriteTimer.expires_at() <= asio::deadline_timer::traits_type::now()) {
+			this->runClose();
+			LogService& logService = Singleton<LogService>::instance();
+			logService.logError(log_1(nError.message()));
+			mWriteTimer.expires_at(boost::posix_time::pos_infin);
+		}
 	}
 
 	__i32 Session::getSessionState()

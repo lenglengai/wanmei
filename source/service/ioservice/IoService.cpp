@@ -10,10 +10,10 @@ namespace std {
 	void IoService::runPreinit()
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunLoad.connect(boost::bind(&IoService::runLoad, this));
-		initService_.m_tRunInit.connect(boost::bind(&IoService::runInit, this));
-		initService_.m_tRunStart.connect(boost::bind(&IoService::runStart, this));
-		initService_.m_tRunRun.connect(boost::bind(&IoService::runRun, this));
+		initService_.m_tRunLoad0.connect(boost::bind(&IoService::runLoad, this));
+		initService_.m_tRunInit0.connect(boost::bind(&IoService::runInit, this));
+		initService_.m_tRunStart0.connect(boost::bind(&IoService::runStart, this));
+		initService_.m_tRunRun1.connect(boost::bind(&IoService::runRun, this));
 		initService_.m_tRunStop.connect(boost::bind(&IoService::runStop, this));
 	}
 
@@ -50,9 +50,9 @@ namespace std {
 	{
 		LogService& loginService_ = Singleton<LogService>::instance();
 		loginService_.logInfo(log_1("run ioService"));
-		vector<shared_ptr<boost::thread>> threads;
+		vector<boost::shared_ptr<boost::thread>> threads;
 		for (size_t i = 0; i < mIoServices.size(); ++i) {
-			shared_ptr<boost::thread> thread_(new boost::thread(boost::bind(&asio::io_service::run, mIoServices[i])));
+			boost::shared_ptr<boost::thread> thread_(new boost::thread(boost::bind(&asio::io_service::run, mIoServices[i])));
 			threads.push_back(thread_);
 		}
 		for (size_t i = 0; i < threads.size(); ++i) {
