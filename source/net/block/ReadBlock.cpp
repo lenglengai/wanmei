@@ -118,7 +118,7 @@ namespace std {
 		return true;
 	}
 
-	bool ReadBlock::runString(string& nValue)
+	bool ReadBlock::runString(std::string& nValue)
 	{
 		__i16 count_ = 0;
 		if (!this->runInt16(count_)) {
@@ -132,14 +132,14 @@ namespace std {
 		return true;
 	}
 
-	bool ReadBlock::runStrings(list<string>& nValue)
+	bool ReadBlock::runStrings(list<std::string>& nValue)
 	{
 		__i16 count_ = 0;
 		if (!this->runInt16(count_)) {
 			return false;
 		}
 		for (__i16 i = 0; i < count_; ++i) {
-			string value_ = 0;
+			std::string value_ = 0;
 			if (!this->runString(value_)) {
 				return false;
 			}
@@ -206,15 +206,15 @@ namespace std {
 			return mBlockPushTypeError_;
 		}
 		mBuffer = nBuffer; mSize = nSize;
-		if (0 == mLength) {
+		if (0 >= mLength) {
 			if (!this->runInt16(mLength)) {
 				return mBlockPushTypeError_;
 			}
 		}
-		if ((mLength <= 0) || (mLength > 1022)) {
+		if ( (mLength <= 0) || (mLength > (PACKETMAX - 2)) ) {
 			return mBlockPushTypeError_;
 		}
-		if (mLength > (mSize + mLeft)) {
+		if (mLength > (mSize + mLeft - 2)) {
 			memcpy((mValue + mLeft), mBuffer, mSize);
 			mLeft += mSize; mBuffer = nullptr; mSize = 0;
 			return mBlockPushTypeLength_;
@@ -224,16 +224,26 @@ namespace std {
 
 	void ReadBlock::endPush()
 	{
+		if (mPos >= (mLeft + mSize)) {
+			this->runClear();
+			return;
+		}
 		if (mPos >= mLeft) {
 			memset(mValue, 0, sizeof(mValue));
-			memcpy(mValue, (mBuffer + mPos - mLeft), (mSize - mPos + mLeft));
-			mBuffer = nullptr; mLength = 0; mLeft = mSize - mPos + mLeft;
+			memcpy(mValue, (mBuffer + mPos - mLeft), (mSize + mLeft - mPos));
+			mBuffer = nullptr; mLeft = mSize + mLeft - mPos;
+			mSize = 0; mPos = 0; mLength = 0;
+			return;
 		}
+		memcpy(mValue, (mValue + mPos), (mLeft - mPos));
+		memcpy((mValue + mLeft - mPos), mBuffer, mSize);
+		mBuffer = nullptr; mLeft -= mPos; mLeft += mSize;
+		mPos = 0; mSize = 0; mLength = 0; 
 	}
 
 	char * ReadBlock::getBuffer(__i16 nSize)
 	{
-		if ( (mPos + nSize) > mSize ) {
+		if ( (mPos + nSize) > (mLeft + mSize) ) {
 			return nullptr;
 		}
 		char * result_ = nullptr;

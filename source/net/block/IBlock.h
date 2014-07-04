@@ -2,6 +2,7 @@
 
 namespace std {
 
+	#define PACKETMAX 1024
 	class IBlock : public boost::enable_shared_from_this<IBlock>
 	{
 	public:

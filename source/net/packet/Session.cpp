@@ -68,6 +68,7 @@ namespace std {
 			logService.logError(log_1("runReadBlock error"));
 			return;
 		}
+		mReadBlock->endPush();
 		mReadBuffer.assign(0);
 		this->runStart();
 	}

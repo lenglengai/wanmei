@@ -25,8 +25,8 @@ namespace std{
 		bool runInt64(__i64& nValue);
 		bool runInt64s(list<__i64>& nValue);
 
-		bool runString(string& nValue);
-		bool runStrings(list<string>& nValue);
+		bool runString(std::string& nValue);
+		bool runStrings(list<std::string>& nValue);
 
 		bool runFloat(float& nValue);
 		bool runFloats(list<float>& nValue);
@@ -45,7 +45,7 @@ namespace std{
 		void runClear();
 
 	private:
-		char mValue[1024];
+		char mValue[PACKETMAX];
 		__i16 mLeft;
 		char * mBuffer;
 		__i16 mSize;

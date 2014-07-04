@@ -157,7 +157,7 @@ namespace std {
 
 	bool WriteBlock::runCopy(const char * nValue, __i16 nLength)
 	{
-		if ((mLength + nLength + sizeof(__i16)) > write_size) {
+		if ((mLength + nLength + sizeof(__i16)) > PACKETMAX) {
 			return false;
 		}
 		memcpy((mBuffer + mLength + sizeof(__i16)), nValue, nLength);

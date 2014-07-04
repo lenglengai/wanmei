@@ -40,25 +40,22 @@ namespace std {
 	
 	private:
 		template<typename T>
-		bool runCopy(T& nT);
+		bool runCopy(T& nT)
+		{
+			if ((mLength + sizeof(__i16)+sizeof(T)) > PACKETMAX) {
+				return false;
+			}
+			memcpy((mBuffer + mLength + sizeof(__i16)), &nT, sizeof(T));
+			mLength += sizeof(T);
+			return true;
+		}
 
 		bool runCopy(const char * nValue, __i16 nLength);
 
 	private:
-		enum { write_size = 1024 };
-		char mBuffer[write_size];
+		char mBuffer[PACKETMAX];
 		__i16 mLength;
 	};
-	template<typename T>
-	bool WriteBlock::runCopy(T& nT)
-	{
-		if ((mLength + sizeof(__i16) + sizeof(T)) > write_size) {
-			return false;
-		}
-		memcpy((mBuffer + mLength + sizeof(__i16)), &nT, sizeof(T));
-		mLength += sizeof(T);
-		return true;
-	}
 	typedef boost::shared_ptr<WriteBlock> WriteBlockPtr;
 
 }

@@ -148,7 +148,8 @@ namespace std {
 		if (clock_ < 70) return;
 		Client& client_ = Singleton<Client>::instance();
 		SessionPtr& session_ = client_.getSession();
-		PropertyPtr& property_ = session_->getProperty(PropertyId<PingSecond>());
+		PropertyId<PingSecond> proertyId_;
+		PropertyPtr& property_ = session_->getProperty(proertyId_);
 		PingSecondPtr pingSecondPtr_ = boost::dynamic_pointer_cast<PingSecond, Property>(property_);
 		__i32 pingSecond_ = pingSecondPtr_->getSecond();
 		PacketPtr packet_(new C2SPing(pingSecond_));
@@ -221,7 +222,8 @@ namespace std {
 
 	#ifdef __CLIENT__
 		Client& client_ = Singleton<Client>::instance();
-		client_.registerCreate(PropertyIdPtr(new PropertyId<PingSecond>()));
+		PropertyIdPtr propertyIdPtr_ = PropertyIdPtr(new PropertyId<PingSecond>());
+		client_.registerCreate(propertyIdPtr_);
 
 		mPingTick.reset(new PingTick(this));
 
@@ -230,7 +232,8 @@ namespace std {
 
 	#ifdef __SERVER__
 		Server& server_ = Singleton<Server>::instance();
-		server_.registerCreate(PropertyIdPtr(new PropertyId<PingSecond>()));
+		PropertyIdPtr propertyIdPtr_ = PropertyIdPtr(new PropertyId<PingSecond>());
+		server_.registerCreate(propertyIdPtr_);
 
 		this->addPacketId(PacketIdPtr(new PacketId<C2SPing>()));
 	#endif
