@@ -55,7 +55,7 @@ namespace std {
 		mutable boost::atomic<__i32> mSessionState;
 		boost::asio::deadline_timer mReadTimer;
 		boost::asio::deadline_timer mWriteTimer;
-		boost::array<__i8, 1024> mReadBuffer;
+		boost::array<__i8, PACKETMAX> mReadBuffer;
 		mutable boost::atomic<bool> mSending;
 		WriteBlockPtr mWriteBlockPtr;
 		boost::shared_mutex mMutex;
