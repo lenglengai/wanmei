@@ -1,47 +1,83 @@
 {
-	"folders":
-	[
-		{
-			"path": "$(project_path)/../../.."
-		}
-	],
 	"build_systems":
 	[
 		{
-			"name": "server-build",
-			"cmd": ["build-server.bat"],
-			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+			"cmd":
+			[
+				"python",
+				"-u",
+				"serverIDE.py"
+			],
+			"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+			"name": "server-ide",
+			"selector": "source.python",
 			"working_dir": "${project_path}"
 		},
 		{
-			"name": "client-build",
-			"cmd": ["build-client.bat"],
-			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+			"cmd":
+			[
+				"python",
+				"-u",
+				"serverMak.py"
+			],
+			"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+			"name": "server-make",
+			"selector": "source.python",
 			"working_dir": "${project_path}"
 		},
 		{
-			"name": "server-visual",
-			"cmd": ["visual-server.bat"],
-			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+			"cmd":
+			[
+				"python",
+				"-u",
+				"clientIDE.py"
+			],
+			"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+			"name": "client-ide",
+			"selector": "source.python",
 			"working_dir": "${project_path}"
 		},
 		{
-			"name": "client-visual",
-			"cmd": ["visual-client.bat"],
-			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+			"cmd":
+			[
+				"python",
+				"-u",
+				"clientMak.py"
+			],
+			"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+			"name": "client-make",
+			"selector": "source.python",
 			"working_dir": "${project_path}"
 		},
 		{
-			"name": "client-mac",
-			"cmd": ["./mac-client.sh"],
-			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+			"cmd":
+			[
+				"python",
+				"-u",
+				"loginIDE.py"
+			],
+			"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+			"name": "login-ide",
+			"selector": "source.python",
 			"working_dir": "${project_path}"
 		},
 		{
-			"name": "server-mac",
-			"cmd": ["chmod +x ${project_path}/mac-server.sh"],
-			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+			"cmd":
+			[
+				"python",
+				"-u",
+				"loginMak.py"
+			],
+			"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+			"name": "login-make",
+			"selector": "source.python",
 			"working_dir": "${project_path}"
+		}
+	],
+	"folders":
+	[
+		{
+			"path": "/E/wanmei"
 		}
 	]
 }

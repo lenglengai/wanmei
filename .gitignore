@@ -1,6 +1,8 @@
-/ying/build/build-server
 /ying/build/profile.prof
 /ying/build/cmake.sublime-workspace
-/ying/build/build-client
-/ying/build/visual-server
-/ying/build/visual-client
+
+/ying/build/CLIENT-ide
+/ying/build/CLIENT-mak
+/ying/build/SERVER-ide
+/ying/build/SERVER-mak
+/build/*.pyc
