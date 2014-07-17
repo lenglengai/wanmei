@@ -1,0 +1,2 @@
+1¡¢ sublime text in mac must run command:
+	sudo ln -s /Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl /usr/bin/subl
