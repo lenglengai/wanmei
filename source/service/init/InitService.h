@@ -10,19 +10,19 @@ namespace std {
 	private:
 		struct InitType_
 		{
-			static const __i16 mNone_ = 0;
-			static const __i16 mPreinit_ = 1;
-			static const __i16 mLoad0_ = 2;
-			static const __i16 mLoad1_ = 3;
-			static const __i16 mInit0_ = 4;
-			static const __i16 mInit1_ = 5;
-			static const __i16 mStart0_ = 6;
-			static const __i16 mStart1_ = 7;
-			static const __i16 mRun0_ = 8;
-			static const __i16 mRun1_ = 9;
-			static const __i16 mPause_ = 10;
-			static const __i16 mStop_ = 11;
-			static const __i16 mExit_ = 12;
+			static const int mNone_ = 0;
+			static const int mPreinit_ = 1;
+			static const int mLoad0_ = 2;
+			static const int mLoad1_ = 3;
+			static const int mInit0_ = 4;
+			static const int mInit1_ = 5;
+			static const int mStart0_ = 6;
+			static const int mStart1_ = 7;
+			static const int mRun0_ = 8;
+			static const int mRun1_ = 9;
+			static const int mPause_ = 10;
+			static const int mStop_ = 11;
+			static const int mExit_ = 12;
 		};
 	public:
 		void runPreinit(const string& nPath);
@@ -69,7 +69,7 @@ namespace std {
 		void runClear();
 		
 	private:
-		mutable boost::atomic<__i16> mInitType;
+		mutable boost::atomic<int> mInitType;
 	};
 
 }
