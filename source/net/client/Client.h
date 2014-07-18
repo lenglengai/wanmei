@@ -1,10 +1,10 @@
 #pragma once
 
-#ifdef __CLIENT__
 #include "../../common/property/PropertySink.h"
 
 #include "../packet/Session.h"
 
+#ifdef __CLIENTNET__
 namespace std {
 
 	class Client : public PropertySink
@@ -45,4 +45,3 @@ namespace std {
 
 }
 #endif
-

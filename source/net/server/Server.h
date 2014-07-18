@@ -1,10 +1,10 @@
 #pragma once
 
-#ifdef __SERVER__
 #include "../../common/property/PropertySink.h"
 
 #include "../packet/Session.h"
 
+#ifdef __SERVERNET__
 namespace std {
 
 	class Server : public PropertySink

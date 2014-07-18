@@ -27,8 +27,16 @@ typedef long long __i64;
 #include <list>
 #include <map>
 
-#ifdef __STARTUP__
-#include <Startup.h>
+#ifdef __CLIENT__
+#include <ClientInclude.h>
+#endif
+
+#ifdef __SERVER__
+#include <ServerInclude.h>
+#endif
+
+#ifdef __LOGIN__
+#include <LoginInclude.h>
 #endif
 
 #include "utility/Singleton.h"

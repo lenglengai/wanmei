@@ -7,7 +7,7 @@
 
 #include "Client.h"
 
-#ifdef __CLIENT__
+#ifdef __CLIENTNET__
 namespace std {
 
 	void Client::handleConnect(const boost::system::error_code& nError)

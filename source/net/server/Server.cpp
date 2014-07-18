@@ -7,8 +7,7 @@
 
 #include "Server.h"
 
-#ifdef __SERVER__
-
+#ifdef __SERVERNET__
 namespace std {
 
 	void Server::handleAccept(const boost::system::error_code& nError)

@@ -77,10 +77,7 @@
 	"folders":
 	[
 		{
-			"path": "/E/wanmei"
-		},
-		{
-			"path": "/Users/lengai/wanmei"
+			"path": "${project_path}/../../../"
 		}
 	]
 }

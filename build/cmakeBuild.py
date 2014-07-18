@@ -52,7 +52,6 @@ def runBuild(nInclude, nBinName, nIDE):
     subprocess.call('mingw32-make', shell=True)
   else:
     subprocess.call('make', shell=True)
-
 ########################################################################
   print '[4]binary file generate finish, bye bye!'
  
