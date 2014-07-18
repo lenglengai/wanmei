@@ -47,11 +47,11 @@ namespace std {
 		pingProtocol_.runPreinit();
 
 
-	#ifdef __SERVER__
+	#ifdef __SERVERNET__
 		Server& server_ = Singleton<Server>::instance();
 		server_.runPreinit();
 	#endif
-	#ifdef __CLIENT__
+	#ifdef __CLIENTNET__
 		Client& client_ = Singleton<Client>::instance();
 		client_.runPreinit();
 	#endif
