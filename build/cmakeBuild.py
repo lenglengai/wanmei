@@ -25,6 +25,11 @@ def runBuild(nInclude, nBinName, nIDE):
       cmakeCmd += '\"Visual Studio 12 2013\"'
     else:
       cmakeCmd += '\"MinGW Makefiles\"'
+  elif 'Darwin' == sysName:
+    if True == nIDE:
+      cmakeCmd += '\"Xcode\"'
+    else:
+      cmakeCmd += '\"Unix Makefiles\"'
   else:
     if True == nIDE:
       cmakeCmd += '\"Visual Studio 12 2013\"'
@@ -32,7 +37,7 @@ def runBuild(nInclude, nBinName, nIDE):
       cmakeCmd += '\"Unix Makefiles\"'
       
   cmakeCmd += ' -D__'
-  cmakeCmd += nBinName
+  cmakeCmd += nBinName.upper()
   cmakeCmd += '__=ON -D__INCLUDE__='
   cmakeCmd += nInclude
 
@@ -50,4 +55,4 @@ def runBuild(nInclude, nBinName, nIDE):
 
 ########################################################################
   print '[4]binary file generate finish, bye bye!'
-  
+ 
