@@ -33,7 +33,7 @@ set(CMAKE_CXX_FLAGS "-std=c++11 ")
 
 if(WIN32)
 	FIND_PACKAGE(Boost 1.55.0 COMPONENTS log log_setup system thread filesystem date_time REQUIRED)
-else()
+elseif(APPLE)
 	FIND_PACKAGE(Boost 1.55.0 COMPONENTS log log_setup system filesystem date_time REQUIRED)
 endif()
 
