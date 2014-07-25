@@ -6,7 +6,7 @@
 	CLASSPATH
 	.;%JAVA_HOME%\lib\tools.jar;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib;
 	PATH
-	.;%JAVA_HOME%\bin;E:\android\adt-bundle-windows-x86_64-20140702\sdk\tools;E:\android\adt-bundle-windows-x86_64-20140702\sdk\platform-tools;
+	.;%JAVA_HOME%\bin;C:\Users\zyh\Desktop\setup\android\adt-bundle-windows\sdk\tools;C:\Users\zyh\Desktop\setup\android\adt-bundle-windows\sdk\platform-tools;
 	
 3、 http://dl.google.com/android/ndk/android-ndk-r9d-windows-x86_64.zip
 	http://blog.csdn.net/w18767104183/article/details/22449465
@@ -22,3 +22,6 @@
 	cocos compile -p android -j 4 --ap 20
 	adb install -r some.apk
 	adb logcat
+
+6、	https://dl-ssl.google.com//android/repository/latest_usb_driver_windows.zip
+

@@ -8,3 +8,7 @@
 /ying/build/login-ide
 /ying/build/login-mak
 /build/*.pyc
+/ying/build/visual-client
+/ying/build/visual-server
+/ying/build/build-client
+/ying/build/build-server
