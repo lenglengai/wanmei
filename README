@@ -8,5 +8,17 @@
 	PATH
 	.;%JAVA_HOME%\bin;E:\android\adt-bundle-windows-x86_64-20140702\sdk\tools;E:\android\adt-bundle-windows-x86_64-20140702\sdk\platform-tools;
 	
-3、http://dl.google.com/android/ndk/android-ndk-r9d-windows-x86_64.zip
-http://blog.csdn.net/w18767104183/article/details/22449465
+3、 http://dl.google.com/android/ndk/android-ndk-r9d-windows-x86_64.zip
+	http://blog.csdn.net/w18767104183/article/details/22449465
+
+4、 python setup.py  
+	NDK_ROOT = d:\adt-bundle-windows-x86\android-ndk-r8e
+	ANDROID_SDK_ROOT = D:\adt-bundle-windows-x86\sdk
+	ANT_ROOT = d:\adt-bundle-windows-x86\apache-ant-1.9.3\bin
+	COCOS_CONSOLE_ROOT=F:\cocos2dx\cocos2d-x-3.0rc0\tools/cocos2d-console/bin
+
+
+5、 cocos new mygame1 -p com.colin.mbgame -l cpp -d mbgame
+	cocos compile -p android -j 4 --ap 20
+	adb install -r some.apk
+	adb logcat
