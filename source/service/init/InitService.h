@@ -1,7 +1,7 @@
 #pragma once
 
 #include <boost/signals2.hpp>
-#include <boost/atomic.hpp>
+#include <atomic>
 
 namespace std {
 
@@ -69,7 +69,7 @@ namespace std {
 		void runClear();
 		
 	private:
-		mutable boost::atomic<__i16> mInitType;
+		volatile atomic<__i16> mInitType;
 	};
 
 }

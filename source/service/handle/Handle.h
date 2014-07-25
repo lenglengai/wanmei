@@ -1,7 +1,7 @@
 #pragma once
 
 #include <boost/thread.hpp>
-#include <boost/atomic.hpp>
+#include <atomic.hpp>
 
 #include "Context.h"
 
@@ -25,7 +25,7 @@ namespace std {
 
 	private:
 		boost::shared_ptr<boost::thread> mThread;
-		mutable boost::atomic<bool> mStop;
+		volatile atomic<bool> mStop;
 		list<ContextPtr> mContexts;
 	};
 	typedef boost::shared_ptr<Handle> HandlePtr;

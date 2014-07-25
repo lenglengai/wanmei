@@ -3,8 +3,8 @@
 namespace std {
 
 	class PropertyMgr;
-	typedef boost::shared_ptr<PropertyMgr> PropertyMgrPtr;
-	typedef boost::weak_ptr<PropertyMgr> PropertyMgrWtr;
+	typedef std::shared_ptr<PropertyMgr> PropertyMgrPtr;
+	typedef std::weak_ptr<PropertyMgr> PropertyMgrWtr;
 	class Property : public boost::noncopyable
 	{
 	public:
@@ -23,6 +23,6 @@ namespace std {
 	private:
 		PropertyMgrWtr mPropertyMgr;
 	};
-	typedef boost::shared_ptr<Property> PropertyPtr;
+	typedef std::shared_ptr<Property> PropertyPtr;
 
 }

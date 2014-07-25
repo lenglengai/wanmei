@@ -11,6 +11,6 @@ namespace std {
 		virtual PropertyPtr createProperty() = 0;
 		virtual __i32 getPropertyId() = 0;
 	};
-	typedef boost::shared_ptr<IPropertyId> PropertyIdPtr;
+	typedef std::shared_ptr<IPropertyId> PropertyIdPtr;
 
 }

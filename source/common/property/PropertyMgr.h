@@ -5,7 +5,7 @@
 namespace std {
 
 	class IPropertyId;
-	typedef boost::shared_ptr<IPropertyId> PropertyIdPtr;
+	typedef std::shared_ptr<IPropertyId> PropertyIdPtr;
 	class PropertyMgr : public boost::noncopyable
 	{
 	public:

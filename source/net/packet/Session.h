@@ -1,6 +1,6 @@
 #pragma once
 
-#include <boost/atomic.hpp>
+#include <atomic.hpp>
 #include <boost/array.hpp>
 #include <boost/date_time.hpp>
 #include <boost/asio.hpp>
@@ -35,6 +35,7 @@ namespace std {
 		bool runSend(PacketPtr& nPacket);
 		asio::ip::tcp::socket& getSocket();
 		void runStart();
+		void runClose();
 		__i32 getSessionState();
 		void openSession();
 
@@ -49,14 +50,13 @@ namespace std {
 		void pushPacket(PacketPtr& nPacket);
 		PacketPtr popPacket();
 		void internalSend();
-		void runClose();
 
 	private:
 		mutable boost::atomic<__i32> mSessionState;
 		boost::asio::deadline_timer mReadTimer;
 		boost::asio::deadline_timer mWriteTimer;
 		boost::array<__i8, PACKETMAX> mReadBuffer;
-		mutable boost::atomic<bool> mSending;
+		volatile atomic<bool> mSending;
 		WriteBlockPtr mWriteBlockPtr;
 		boost::shared_mutex mMutex;
 		deque<PacketPtr> mPackets;
