@@ -3,7 +3,7 @@
 namespace std {
 
 	#define PACKETMAX 1024
-	class IBlock : public boost::enable_shared_from_this<IBlock>
+	class IBlock
 	{
 	public:
 		virtual bool runBool(bool& nValue) = 0;
@@ -29,6 +29,6 @@ namespace std {
 		virtual bool runDouble(double& nValue) = 0;
 		virtual bool runDoubles(list<double>& nValue) = 0;
 	};
-	typedef boost::shared_ptr<IBlock> BlockPtr;
+	typedef std::shared_ptr<IBlock> BlockPtr;
 
 }

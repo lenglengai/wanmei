@@ -32,7 +32,7 @@ namespace std {
 		__i32 mSecond;
 	};
 	
-	typedef boost::shared_ptr<C2SPing> C2SPingPtr;
+	typedef std::shared_ptr<C2SPing> C2SPingPtr;
 
 	class S2CPing : public Packet<S2CPing, PingProtocol>, boost::noncopyable
 	{
@@ -55,7 +55,7 @@ namespace std {
 	private:
 		__i32 mSecond;
 	};
-	typedef boost::shared_ptr<S2CPing> S2CPingPtr;
+	typedef std::shared_ptr<S2CPing> S2CPingPtr;
 
 #ifdef __CLIENT__
 	class PingTick : public Context, boost::noncopyable
@@ -77,7 +77,7 @@ namespace std {
 		deque<PacketPtr> mPackets;
 		__i64 mSendTick;
 	};
-	typedef boost::shared_ptr<PingTick> PingTickPtr;
+	typedef std::shared_ptr<PingTick> PingTickPtr;
 #endif
 
 	class PingSecond : public Property
@@ -93,7 +93,7 @@ namespace std {
 		__i32 mSecond;
 	};
 
-	typedef boost::shared_ptr<PingSecond> PingSecondPtr;
+	typedef std::shared_ptr<PingSecond> PingSecondPtr;
 
 	class PingProtocol : public IProtocol, boost::noncopyable
 	{

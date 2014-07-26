@@ -52,6 +52,6 @@ namespace std{
 		__i16 mLength;
 		__i16 mPos;
 	};
-	typedef boost::shared_ptr<ReadBlock> ReadBlockPtr;
+	typedef std::shared_ptr<ReadBlock> ReadBlockPtr;
 
 }

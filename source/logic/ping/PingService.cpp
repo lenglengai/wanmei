@@ -20,7 +20,7 @@ namespace std {
 	{
 		PropertyId<PingSecond> pingSecondId;
 		PropertyPtr& property_ = nSession->getProperty(pingSecondId);
-		PingSecondPtr pingSecondPtr_ = boost::dynamic_pointer_cast<PingSecond, Property>(property_);
+		PingSecondPtr pingSecondPtr_ = std::dynamic_pointer_cast<PingSecond, Property>(property_);
 		__i32 second_ = pingSecondPtr_->getSecond();
 		if (second_ != mSecond) return false;
 		RandomService& randomService_ = Singleton<RandomService>::instance();
@@ -72,7 +72,7 @@ namespace std {
 		pingProtocol_.endPing();
 		PropertyId<PingSecond> pingSecondId;
 		PropertyPtr& property_ = nSession->getProperty(pingSecondId);
-		PingSecondPtr pingSecondPtr_ = boost::dynamic_pointer_cast<PingSecond, Property>(property_);
+		PingSecondPtr pingSecondPtr_ = std::dynamic_pointer_cast<PingSecond, Property>(property_);
 		pingSecondPtr_->setSecond(mSecond);
 		return true;
 	}
@@ -150,7 +150,7 @@ namespace std {
 		SessionPtr& session_ = client_.getSession();
 		PropertyId<PingSecond> proertyId_;
 		PropertyPtr& property_ = session_->getProperty(proertyId_);
-		PingSecondPtr pingSecondPtr_ = boost::dynamic_pointer_cast<PingSecond, Property>(property_);
+		PingSecondPtr pingSecondPtr_ = std::dynamic_pointer_cast<PingSecond, Property>(property_);
 		__i32 pingSecond_ = pingSecondPtr_->getSecond();
 		PacketPtr packet_(new C2SPing(pingSecond_));
 		if (session_->runSend(packet_)) {
