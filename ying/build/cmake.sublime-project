@@ -1,0 +1,83 @@
+{
+	"build_systems":
+	[
+		{
+			"cmd":
+			[
+				"python",
+				"-u",
+				"serverIDE.py"
+			],
+			"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+			"name": "server-ide",
+			"selector": "source.python",
+			"working_dir": "${project_path}"
+		},
+		{
+			"cmd":
+			[
+				"python",
+				"-u",
+				"serverMak.py"
+			],
+			"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+			"name": "server-make",
+			"selector": "source.python",
+			"working_dir": "${project_path}"
+		},
+		{
+			"cmd":
+			[
+				"python",
+				"-u",
+				"clientIDE.py"
+			],
+			"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+			"name": "client-ide",
+			"selector": "source.python",
+			"working_dir": "${project_path}"
+		},
+		{
+			"cmd":
+			[
+				"python",
+				"-u",
+				"clientMak.py"
+			],
+			"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+			"name": "client-make",
+			"selector": "source.python",
+			"working_dir": "${project_path}"
+		},
+		{
+			"cmd":
+			[
+				"python",
+				"-u",
+				"loginIDE.py"
+			],
+			"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+			"name": "login-ide",
+			"selector": "source.python",
+			"working_dir": "${project_path}"
+		},
+		{
+			"cmd":
+			[
+				"python",
+				"-u",
+				"loginMak.py"
+			],
+			"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+			"name": "login-make",
+			"selector": "source.python",
+			"working_dir": "${project_path}"
+		}
+	],
+	"folders":
+	[
+		{
+			"path": "${project_path}/../../../"
+		}
+	]
+}
