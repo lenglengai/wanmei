@@ -2,7 +2,6 @@
 
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
-#include <boost/locale.hpp>
 
 namespace std {
 
@@ -22,7 +21,7 @@ namespace std {
 		{
 			T1 operator () (T2& nValue, ConvertType_ nConvertType)
 			{
-				return boost::numeric_cast<T1>(nValue);
+				return static_cast<T1>(nValue);
 			}
 		};
 
@@ -57,18 +56,18 @@ namespace std {
 		};
 		
 		template<typename T1>
-		struct Convert<T1, string>
+		struct Convert<T1, std::string>
 		{
-			T1 operator () (const string& nValue, ConvertType_ nConvertType)
+			T1 operator () (const std::string& nValue, ConvertType_ nConvertType)
 			{
 				return boost::lexical_cast<T1>(nValue);
 			}
 		};
 
 		template<typename T1>
-		struct Convert<T1, const string>
+		struct Convert<T1, const std::string>
 		{
-			T1 operator () (const string& nValue, ConvertType_ nConvertType)
+			T1 operator () (const std::string& nValue, ConvertType_ nConvertType)
 			{
 				return boost::lexical_cast<T1>(nValue);
 			}
@@ -110,10 +109,10 @@ namespace std {
 					__i8 value_ = *((__i8 *)nValue);
 					return ((1 == value_) ? true : false);
 				} else if (mConvertTypeText_ == nConvertType) {
-					string value_(nValue); boost::trim(value_);
+					std::string value_(nValue); boost::trim(value_);
 					return (("true" == value_) ? true : false);
 				} else {
-					string value_(nValue); boost::trim(value_);
+					std::string value_(nValue); boost::trim(value_);
 					return (("1" == value_) ? true : false);
 				}
 				return false;
@@ -126,10 +125,10 @@ namespace std {
 			bool operator () (const char * nValue, ConvertType_ nConvertType)
 			{
 				if (mConvertTypeText_ == nConvertType) {
-					string value_(nValue); boost::trim(value_);
+					std::string value_(nValue); boost::trim(value_);
 					return (("true" == value_) ? true : false);
 				} else if (mConvertTypeCommon_ == nConvertType) {
-					string value_(nValue); boost::trim(value_);
+					std::string value_(nValue); boost::trim(value_);
 					return (("1" == value_) ? true : false);
 				} else {
 					return false;
@@ -139,15 +138,15 @@ namespace std {
 		};
 
 		template<>
-		struct Convert<bool, string>
+		struct Convert<bool, std::string>
 		{
-			bool operator () (string& nValue, ConvertType_ nConvertType)
+			bool operator () (std::string& nValue, ConvertType_ nConvertType)
 			{
 				if (mConvertTypeText_ == nConvertType) {
-					string value_(nValue); boost::trim(value_);
+					std::string value_(nValue); boost::trim(value_);
 					return (("true" == value_) ? true : false);
 				} else if (mConvertTypeCommon_ == nConvertType) {
-					string value_(nValue); boost::trim(value_);
+					std::string value_(nValue); boost::trim(value_);
 					return (("1" == value_) ? true : false);
 				} else {
 					return false;
@@ -157,15 +156,15 @@ namespace std {
 		};
 
 		template<>
-		struct Convert<bool, const string>
+		struct Convert<bool, const std::string>
 		{
-			bool operator () (const string& nValue, ConvertType_ nConvertType)
+			bool operator () (const std::string& nValue, ConvertType_ nConvertType)
 			{
 				if (mConvertTypeText_ == nConvertType) {
-					string value_(nValue); boost::trim(value_);
+					std::string value_(nValue); boost::trim(value_);
 					return (("true" == value_) ? true : false);
 				} else if (mConvertTypeCommon_ == nConvertType) {
-					string value_(nValue); boost::trim(value_);
+					std::string value_(nValue); boost::trim(value_);
 					return (("1" == value_) ? true : false);
 				} else {
 					return false;
@@ -198,9 +197,9 @@ namespace std {
 		};
 
 		template<>
-		struct Convert<__i8, string>
+		struct Convert<__i8, std::string>
 		{
-			__i8 operator () (string& nValue, ConvertType_ nConvertType)
+			__i8 operator () (std::string& nValue, ConvertType_ nConvertType)
 			{
 				__i32 result32_ = boost::lexical_cast<__i32>(nValue);
 				return boost::numeric_cast<__i8>(result32_);
@@ -208,9 +207,9 @@ namespace std {
 		};
 
 		template<>
-		struct Convert<__i8, const string>
+		struct Convert<__i8, const std::string>
 		{
-			__i8 operator () (const string& nValue, ConvertType_ nConvertType)
+			__i8 operator () (const std::string& nValue, ConvertType_ nConvertType)
 			{
 				__i32 result32_ = boost::lexical_cast<__i32>(nValue);
 				return boost::numeric_cast<__i8>(result32_);
@@ -218,18 +217,18 @@ namespace std {
 		};
 
 		template<typename __t1>
-		struct Convert<string, __t1>
+		struct Convert<std::string, __t1>
 		{
-			string operator () (__t1& nValue, ConvertType_ nConvertType)
+			std::string operator () (__t1& nValue, ConvertType_ nConvertType)
 			{
-				return boost::lexical_cast<string>(nValue);
+				return boost::lexical_cast<std::string>(nValue);
 			}
 		};
 
 		template<>
-		struct Convert<string, bool>
+		struct Convert<std::string, bool>
 		{
-			string operator () (bool nValue, ConvertType_ nConvertType)
+			std::string operator () (bool nValue, ConvertType_ nConvertType)
 			{
 				if (mConvertTypeText_ == nConvertType) {
 					return ((true == nValue) ? "true" : "false");
@@ -239,12 +238,12 @@ namespace std {
 		};
 
 		template<>
-		struct Convert<string, __i8>
+		struct Convert<std::string, __i8>
 		{
-			string operator () (__i8 nValue, ConvertType_ nConvertType)
+			std::string operator () (__i8 nValue, ConvertType_ nConvertType)
 			{
 				__i32 result32_ = boost::numeric_cast<__i32>(nValue);
-				return boost::lexical_cast<string>(result32_);
+				return boost::lexical_cast<std::string>(result32_);
 			}
 		};
 
