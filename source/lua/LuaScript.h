@@ -29,6 +29,8 @@ namespace std {
 	private:
 		lua_State * L;
 	};
+	
+	typedef boost::shared_ptr<LuaScript> LuaScriptPtr;
 
 	template<typename R, typename... A>
 	R LuaScript::runCall(const char * nName, A... nArgs)
