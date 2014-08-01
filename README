@@ -1,0 +1,3 @@
+file(READ FileList.txt STARTUP_LIST)
+
+LOCAL_SRC_FILES := $(shell cat $(LOCAL_PATH)/list.txt)
