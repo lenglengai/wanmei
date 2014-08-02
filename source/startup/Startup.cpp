@@ -6,8 +6,6 @@ namespace std {
 
 	void Startup::runStart() 
 	{
-		std::cout << "hello startup runstart" << std::endl;
 	}
-
 
 } // std

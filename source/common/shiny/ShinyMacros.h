@@ -26,7 +26,7 @@ restrictions:
 
 #include "ShinyManager.h"
 
-#if SHINY_PROFILER == TRUE
+#ifdef SHINY_PROFILER
 
 
 //-----------------------------------------------------------------------------

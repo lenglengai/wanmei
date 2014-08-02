@@ -27,14 +27,9 @@ restrictions:
 
 //-----------------------------------------------------------------------------
 
-#ifndef SHINY_PROFILER
-#define SHINY_PROFILER				TRUE
-#endif
-
 #ifndef SHINY_PROFILER_LOOKUPRATE
 #define SHINY_PROFILER_LOOKUPRATE	TRUE
 #endif
-
 
 //-----------------------------------------------------------------------------
 

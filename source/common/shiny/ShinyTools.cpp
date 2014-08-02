@@ -23,6 +23,8 @@ restrictions:
 
 #include "ShinyTools.h"
 
+#ifdef SHINY_PROFILER
+
 #if SHINY_PLATFORM == SHINY_PLATFORM_WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -98,3 +100,5 @@ namespace Shiny {
 
 #endif
 } // namespace Shiny
+
+#endif

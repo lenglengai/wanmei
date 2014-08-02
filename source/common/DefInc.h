@@ -27,6 +27,10 @@ typedef long long __i64;
 #include <list>
 #include <map>
 
+#ifdef __ANDROID__
+#include <AndroidInclude.h>
+#endif
+
 #ifdef __CLIENT__
 #include <ClientInclude.h>
 #endif

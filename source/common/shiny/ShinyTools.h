@@ -26,6 +26,7 @@ restrictions:
 
 #include "ShinyPrereqs.h"
 
+#ifdef SHINY_PROFILER
 
 namespace Shiny {
 
@@ -66,5 +67,6 @@ namespace Shiny {
 
 
 } // namespace Shiny
+#endif
 
 #endif // ifndef SHINY_*_H
