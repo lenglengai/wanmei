@@ -22,3 +22,5 @@
 /mbclient/cocos2d/cocos/platform/android/java/res
 /mbclient/cocos2d/cocos/platform/android/java/bin
 /mbclient/cocos2d/cocos/platform/android/java/gen
+/mbclient/cocos2d/cocos/platform/android/java/local.properties
+/mbclient/proj.android/local.properties
