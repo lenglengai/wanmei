@@ -1,5 +1,7 @@
 LOCAL_PATH := $(call my-dir)
 
+SRC_PATH := $(LOCAL_PATH)../../../source
+
 include $(CLEAR_VARS)
 
 $(call import-add-path,$(LOCAL_PATH)/../../cocos2d)
@@ -11,13 +13,14 @@ LOCAL_MODULE := cocos2dcpp_shared
 LOCAL_MODULE_FILENAME := libcocos2dcpp
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
-                   ../../Classes/AppDelegate.cpp \
-                   ../../Classes/HelloWorldScene.cpp
+	../../Classes/AppDelegate.cpp \
+	../../Classes/HelloWorldScene.cpp
+	
+LOCAL_SRC_FILES += $(shell cat $(LOCAL_PATH)/../../../source/CPPLISTS) \
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
 					$(BOOST_ROOT) \
 					$(WANMEI_INCLUDE)
-					
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static

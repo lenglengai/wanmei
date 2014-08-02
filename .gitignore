@@ -12,3 +12,13 @@
 /ying/build/visual-server
 /ying/build/build-client
 /ying/build/build-server
+/mbclient/proj.android/gen
+/mbclient/proj.android/libs
+/mbclient/proj.android/obj
+/mbclient/proj.android/bin
+/mbclient/proj.android/assets
+/mbclient/bin
+/mbclient/cocos2d/cocos/platform/android/java/libs
+/mbclient/cocos2d/cocos/platform/android/java/res
+/mbclient/cocos2d/cocos/platform/android/java/bin
+/mbclient/cocos2d/cocos/platform/android/java/gen

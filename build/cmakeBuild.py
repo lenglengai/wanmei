@@ -16,7 +16,7 @@ def runBuild(nInclude, nBinName, nIDE):
   print '[2]run cmake generate makefiles'
   os.chdir(dirName)
   cmakeCmd = 'cmake '
-  cmakeCmd += '../../../source/'
+  cmakeCmd += '../../../build/build-cmake/source/'
   cmakeCmd += ' -G'
 
   sysName = platform.system()
