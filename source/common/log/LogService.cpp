@@ -1,15 +1,18 @@
 #include "../DefInc.h"
 #include "LogService.h"
 
+#ifndef COCOSLOG
 #include <boost/log/sinks.hpp>
 #include <boost/log/common.hpp>
 #include <boost/log/support/date_time.hpp>
 #include <boost/log/expressions.hpp>
 #include <boost/log/attributes.hpp>
 #include <boost/log/utility/setup/console.hpp>
+#endif
 
 namespace std {
 
+	#ifndef COCOSLOG
 	namespace logging = boost::log;
 	namespace sinks = boost::log::sinks;
 	namespace keywords = boost::log::keywords;
@@ -25,9 +28,11 @@ namespace std {
 	{
 		BOOST_LOG(mLogger) << "[info]" << nFormat;
 	}
+	#endif
 
 	void LogService::runPreinit()
 	{
+	#ifndef COCOSLOG
 		auto console_sink = logging::add_console_log();
 		console_sink->set_formatter
         (
@@ -49,6 +54,7 @@ namespace std {
         );
     	logging::core::get()->add_sink(testSink);
 		logging::core::get()->add_global_attribute("TimeStamp", attrs::local_clock());
+	#endif
 	}
 
 	LogService::LogService()
