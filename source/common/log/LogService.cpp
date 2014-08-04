@@ -28,6 +28,16 @@ namespace std {
 	{
 		BOOST_LOG(mLogger) << "[info]" << nFormat;
 	}
+	#else
+	void LogService::logError(const char * nFormat)
+	{
+		CCLOGERROR(nFormat);
+	}
+	
+	void LogService::logError(const char * nFormat)
+	{
+		CCLOGINFO(nFormat);
+	}
 	#endif
 
 	void LogService::runPreinit()

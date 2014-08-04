@@ -45,6 +45,8 @@ namespace std {
 		void logError(boost::format& nFormat);
 		void logInfo(boost::format& nFormat);
 		#else
+		void logError(const char * nFormat);
+		void logInfo(const char * nFormat);
 		template<typename... A>
 		void logError(const char * nFormat, A... nArgs)
 		{
