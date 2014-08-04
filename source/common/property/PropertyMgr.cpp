@@ -13,7 +13,7 @@ namespace std {
 		if (it == mPropertys.end()) {
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1(propertyId_));
-			throw exception();
+			return it->second;
 		}
 		return it->second;
 	}
@@ -25,7 +25,7 @@ namespace std {
 		if (it != mPropertys.end()) {
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1(propertyId_));
-			throw exception();
+			return;
 		}
 		mPropertys[propertyId_] = nProperty;
 	}

@@ -26,7 +26,7 @@ namespace std {
 		if (it != mPropertyIds.end()) {
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1(propertyId_));
-			throw exception();
+			return;
 		}
 		mPropertyIds[propertyId_] = nPropertyId;
 	}

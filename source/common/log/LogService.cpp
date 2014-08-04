@@ -17,28 +17,26 @@ namespace std {
 	namespace sinks = boost::log::sinks;
 	namespace keywords = boost::log::keywords;
 	namespace expr = boost::log::expressions;
-	namespace attrs = boost::log::attributes;
+	namespace attrs = boost::log::attributes;+
+	#endif
 
 	void LogService::logError(boost::format& nFormat)
 	{
+	#ifndef COCOSLOG
 		BOOST_LOG(mLogger) << "[error]" << nFormat;
+	#else
+		CCLOGERROR(nFormat.str().c_str());
+	#endif
 	}
 
 	void LogService::logInfo(boost::format& nFormat)
 	{
+	#ifndef COCOSLOG
 		BOOST_LOG(mLogger) << "[info]" << nFormat;
-	}
 	#else
-	void LogService::logError(const char * nFormat)
-	{
-		CCLOGERROR(nFormat);
-	}
-	
-	void LogService::logError(const char * nFormat)
-	{
-		CCLOGINFO(nFormat);
-	}
+		CCLOGINFO(nFormat.str()c_str());
 	#endif
+	}
 
 	void LogService::runPreinit()
 	{
