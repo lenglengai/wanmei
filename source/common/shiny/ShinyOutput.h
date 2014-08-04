@@ -29,7 +29,8 @@ restrictions:
 
 #include <string>
 
-#if SHINY_PROFILER == TRUE
+#ifdef SHINY_PROFILER
+    
 namespace Shiny {
 
 

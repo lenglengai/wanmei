@@ -33,7 +33,7 @@ restrictions:
 #include <iostream>
 
 
-#if SHINY_PROFILER == TRUE
+#ifdef SHINY_PROFILER
 namespace Shiny {
 
 

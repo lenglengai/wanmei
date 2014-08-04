@@ -27,7 +27,7 @@ restrictions:
 #include "ShinyData.h"
 #include "ShinyTools.h"
 
-#if SHINY_PROFILER == TRUE
+#ifdef SHINY_PROFILER
 namespace Shiny {
 
 

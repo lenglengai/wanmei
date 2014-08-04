@@ -27,7 +27,7 @@ restrictions:
 #include <memory.h>
 #include <malloc.h>
 
-#if SHINY_PROFILER == TRUE
+#ifdef SHINY_PROFILER
 namespace Shiny {
 
 

@@ -24,7 +24,9 @@ restrictions:
 #ifndef SHINY_CONFIG_H
 #define SHINY_CONFIG_H
 
+#include "../DefInc.h"
 
+#ifdef SHINY_PROFILER
 //-----------------------------------------------------------------------------
 
 #ifndef SHINY_PROFILER_LOOKUPRATE
@@ -74,6 +76,8 @@ restrictions:
 
 #else
 #   define SHINY_COMPILER	SHINY_COMPILER_OTHER
+#endif
+
 #endif
 
 #endif // ifndef SHINY_*_H

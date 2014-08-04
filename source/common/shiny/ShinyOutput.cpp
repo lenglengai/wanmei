@@ -25,6 +25,8 @@ restrictions:
 
 #include <stdio.h>
 
+#ifdef SHINY_PROFILER
+
 #if SHINY_COMPILER == SHINY_COMPILER_MSVC
 #	pragma warning(disable: 4996)
 #	define snprintf		_snprintf
@@ -34,7 +36,7 @@ restrictions:
 #	define TRAILING		1
 #endif
 
-#if SHINY_PROFILER == TRUE
+
 namespace Shiny {
 
 

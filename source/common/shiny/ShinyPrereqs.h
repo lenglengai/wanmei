@@ -26,6 +26,9 @@ restrictions:
 
 #include "ShinyConfig.h"
 
+
+#ifdef SHINY_PROFILER
+
 #if SHINY_PLATFORM == SHINY_PLATFORM_POSIX
 #include <sys/types.h>
 #endif
@@ -35,13 +38,13 @@ namespace Shiny {
 
 //-----------------------------------------------------------------------------
 
-#if SHINY_PROFILER == TRUE
+
 	struct ProfileNode;
 	struct ProfileZone;
 
 	typedef ProfileNode* ProfileNodeCache;
 	typedef ProfileNode* ProfileNodeTable;
-#endif
+
 
 
 //-----------------------------------------------------------------------------
@@ -83,5 +86,7 @@ namespace Shiny {
 	typedef uint64_t			tick_t;
 
 } // namespace Shiny
+
+#endif
 
 #endif // ifndef SHINY_*_H

@@ -17,9 +17,9 @@ namespace std {
 	class SingletonPtr : boost::noncopyable
 	{
 	public:
-		static boost::shared_ptr<T>& instance()
+		static std::shared_ptr<T>& instance()
 		{
-			static boost::shared_ptr<T> t(new T());
+			static std::shared_ptr<T> t(new T());
 			return t;
 		}
 	};
