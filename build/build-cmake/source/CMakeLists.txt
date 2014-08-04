@@ -40,7 +40,6 @@ AUX_SOURCE_DIRECTORY(. MAIN_SRC)
 
 file(STRINGS ../../../source/CPPLISTS SOURCELISTS)
 separate_arguments(SOURCELISTS)
-message(${SOURCELISTS})
 add_executable(${PROJECT_NAME} ${MAIN_SRC} ${SOURCELISTS})
 
 if(MINGW)

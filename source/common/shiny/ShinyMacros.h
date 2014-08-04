@@ -203,35 +203,22 @@ restrictions:
 
 #else // #if SHINY_PROFILER == TRUE
 
-namespace Shiny {
-
-	SHINY_INLINE ProfileData GetEmptyData() {
-		ProfileData a = { { 0, 0 }, { 0, 0 }, { 0, 0 } };
-		return a;
-	}
-	
-	SHINY_INLINE void DummyUpdate(float a = 0.0f) { /* meditate */ }
-	SHINY_INLINE bool DummyOutput(const char *a = NULL) { return false; }
-	SHINY_INLINE bool DummyOutput(std::ostream &a) { return false; }
-	
-}
-
-#define PROFILER_UPDATE					DummyUpdate
-#define PROFILER_OUTPUT					DummyOutput
-#define PROFILER_OUTPUT_TREE_STRING()	std::string()
-#define PROFILER_OUTPUT_FLAT_STRING()	std::string()
+#define PROFILER_UPDATE
+#define PROFILER_OUTPUT(name)
+#define PROFILER_OUTPUT_TREE_STRING()
+#define PROFILER_OUTPUT_FLAT_STRING()
 #define PROFILER_DESTROY()
 #define PROFILE_BEGIN(name)
 #define PROFILE_BLOCK(name)
 #define PROFILE_FUNC()
-#define PROFILE_CODE(code)				{ code; }
+#define PROFILE_CODE(code)
 #define PROFILE_SHARED_EXTERN(name)
 #define PROFILE_SHARED_STATIC(name)
 #define PROFILE_SHARED_DEFINE(name)
 #define PROFILE_SHARED_BEGIN(name)
 #define PROFILE_SHARED_BLOCK(name)
-#define PROFILE_SHARED_DATA(name)		Shiny::GetEmptyData()
-#define PROFILE_ROOT_DATA()				Shiny::GetEmptyData()
+#define PROFILE_SHARED_DATA(name)
+#define PROFILE_ROOT_DATA()
 
 #endif
 

@@ -24,8 +24,10 @@ restrictions:
 #ifndef SHINY_CONFIG_H
 #define SHINY_CONFIG_H
 
-#include "../DefInc.h"
-
+#ifdef __PROFILER__
+#define  SHINY_PROFILER
+#endif
+    
 #ifdef SHINY_PROFILER
 //-----------------------------------------------------------------------------
 

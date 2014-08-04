@@ -1,4 +1,4 @@
 #pragma once
 
 #define __SERVERNET__
-#define SHINY_PROFILER
+#define __PROFILER__
