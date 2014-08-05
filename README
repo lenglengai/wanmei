@@ -22,4 +22,15 @@
 	adb logcat
 	
 二、Macosx
-	sudo ln -s "/Applications/CMake.app/Contents/bin/cmake" /usr/bin/cmake
+	
+1、 sudo ln -s "/Applications/CMake.app/Contents/bin/cmake" /usr/bin/cmake
+
+2、 /Library/Java/JavaVirtualMachines/jdkXXXXX.jdk/Contents/Info.plist
+	<key>JVMCapabilities</key>
+	<array>
+　　	<string>JNI</string>
+　　	<string>BundledApp</string>
+　　	<string>WebStart</string>
+　　	<string>Applets</string>
+　　	<string>CommandLine</string>
+	</array>
