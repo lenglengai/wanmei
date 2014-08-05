@@ -16,14 +16,14 @@
 	PATH
 	.;%JAVA_HOME%\bin;%ANDROID_SDK_ROOT%\tools;%ANDROID_SDK_ROOT%\platform-tools;
 
-3、 C:\WINDOWS\system32\drivers\etc\hosts
+4、 C:\WINDOWS\system32\drivers\etc\hosts
 	203.208.46.146 dl.google.com
 	203.208.46.146 dl-ssl.google.com
 
-4、 在SDK Manager下Tools->Options打开了SDK Manager的Settings，
+5、 在SDK Manager下Tools->Options打开了SDK Manager的Settings，
     选中“Force https://… sources to be fetched using http://…”，强制使用http协议。
 
-5、 cocos new mbclient -p com.wanmei.mbclient -l cpp -d wanmei
+6、 cocos new mbclient -p com.wanmei.mbclient -l cpp -d wanmei
 	cocos compile -p android -j 4 --ap 20
 	adb install -r some.apk
 	adb logcat

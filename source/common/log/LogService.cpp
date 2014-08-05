@@ -8,6 +8,7 @@
 #include <boost/log/expressions.hpp>
 #include <boost/log/attributes.hpp>
 #include <boost/log/utility/setup/console.hpp>
+#include <boost/smart_ptr.hpp>
 #endif
 
 namespace std {

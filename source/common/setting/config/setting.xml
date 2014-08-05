@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<settingService serverCount="1"
+                serverId="1"
+                high="1"
+                lower="1"
+                thread="true" />
