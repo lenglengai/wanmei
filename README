@@ -1,0 +1,25 @@
+一、Windows
+
+1、 http://dl.google.com/android/ndk/android-ndk-r9d-windows-x86_64.zip
+	https://dl-ssl.google.com//android/repository/latest_usb_driver_windows.zip
+
+2、 python setup.py
+	NDK_ROOT = d:\adt-bundle-windows-x86\android-ndk-r8e
+	ANDROID_SDK_ROOT = D:\adt-bundle-windows-x86\sdk
+	ANT_ROOT = d:\adt-bundle-windows-x86\apache-ant-1.9.3\bin
+	COCOS_CONSOLE_ROOT=F:\cocos2dx\cocos2d-x-3.0rc0\tools/cocos2d-console/bin
+
+3、 JAVA_HOME
+	C:\Program Files\Java\jdk1.7.0_25
+	CLASSPATH
+	.;%JAVA_HOME%\lib\tools.jar;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib;
+	PATH
+	.;%JAVA_HOME%\bin;%ANDROID_SDK_ROOT%\tools;%ANDROID_SDK_ROOT%\platform-tools;
+
+4、 cocos new mbclient -p com.wanmei.mbclient -l cpp -d wanmei
+	cocos compile -p android -j 4 --ap 20
+	adb install -r some.apk
+	adb logcat
+	
+二、Macosx
+	sudo ln -s "/Applications/CMake.app/Contents/bin/cmake" /usr/bin/cmake
