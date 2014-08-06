@@ -11,7 +11,7 @@ namespace std {
 
 	void Handle::runStart()
 	{
-		mThread.reset(new std::thread(boost::bind(&Handle::runHandle, this)));
+		mThread.reset(new std::thread(std::bind(&Handle::runHandle, this)));
 	}
 
 	void Handle::runHandle()
@@ -41,7 +41,8 @@ namespace std {
 			ContextPtr& context_ = (*it);
 			context_->runContext();
 		}
-		std::this_thread::sleep(boost::posix_time::seconds(1));
+		std::chrono::milliseconds dura(10);
+		std::this_thread::sleep_for(dura);
 		return true;
 	}
 

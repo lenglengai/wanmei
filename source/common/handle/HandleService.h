@@ -30,12 +30,7 @@ namespace std {
 	template<class T>
 	void HandleService::headSerialize(T& nSerialize)
 	{
-	#ifdef __CLIENT__
-		nSerialize.runInt32(mHandleCount, "clientHandleCount", 2);
-	#endif
-	#ifdef __SERVER__
-		nSerialize.runInt32(mHandleCount, "serverHandleCount", 4);
-	#endif
+		nSerialize.runInt32(mHandleCount, "handleCount", 2);
 	}
 
 }

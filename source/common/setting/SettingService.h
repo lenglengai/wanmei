@@ -11,13 +11,15 @@ namespace std {
 		void headSerialize(T& nSerialize);
 		const char * streamName();
 		const char * streamUrl();
+
+	#if (defined __SERVER__) || (defined __LOGIN__)
 		__i32 checkServerId(__i32 nServerId);
 		void setServerId(__i16 nServerId);
 		__i16 getServerId();
 		void setServerCount(__i16 nServerCount);
 		__i16 getServerCount();
+	#endif
 		__i32 checkVersion(__i32 nVersion);
-		bool multiThread();
 		void runPreinit(const std::string& nPath);
 		void ruLoad();
 		template<class T>
@@ -30,7 +32,6 @@ namespace std {
 		std::string mSystemPath;
 		__i16 mServerCount;
 		__i16 mServerId;
-		bool mThread;
 		__i16 mLower;
 		__i32 mHigh;
 	};
@@ -38,11 +39,13 @@ namespace std {
 	template<class T>
 	void SettingService::headSerialize(T& nSerialize)
 	{
+	#if (defined __SERVER__) || (defined __LOGIN__)
 		nSerialize.runInt16(mServerCount, "serverCount");
 		nSerialize.runInt16(mServerId, "serverId");
+	#else
 		nSerialize.runInt16(mLower, "lower");
 		nSerialize.runInt32(mHigh, "high");
-		nSerialize.runBool(mThread, "thread");
+	#endif
 	}
 
 	template<class T>

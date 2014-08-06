@@ -1,4 +1,4 @@
-#include "../../common/DefInc.h"
+#include "../DefInc.h"
 #include "../log/LogService.h"
 #include "../init/InitService.h"
 #include "SettingService.h"
@@ -15,6 +15,7 @@ namespace std {
 		return "config/setting.xml";
 	}
 
+	#if (defined __SERVER__) || (defined __LOGIN__)
 	__i32 SettingService::checkServerId(__i32 nServerId)
 	{
 		if (mServerId == nServerId) return ERRORINT::SUCESS;
@@ -40,6 +41,7 @@ namespace std {
 	{
 		return mServerCount;
 	}
+	#endif
 
 	__i32 SettingService::checkVersion(__i32 nVersion)
 	{
@@ -48,11 +50,6 @@ namespace std {
 		if (high != mHigh) return ERRORINT::MUSTUPDATE;
 		if (lower != mLower) return ERRORINT::HAVEUPDATE;
 		return ERRORINT::SUCESS;
-	}
-
-	bool SettingService::multiThread()
-	{
-		return mThread;
 	}
 
 	void SettingService::runPreinit(const string& nPath)
@@ -77,8 +74,10 @@ namespace std {
 
 	SettingService::SettingService()
 		: mSystemPath("")
+	#if (defined __SERVER__) || (defined __LOGIN__)
 		, mServerCount(0)
 		, mServerId(0)
+	#endif
 		, mLower(0)
 		, mHigh(0)
 	{
@@ -87,8 +86,10 @@ namespace std {
 	SettingService::~SettingService()
 	{
 		mSystemPath = "";
+	#if (defined __SERVER__) || (defined __LOGIN__)
 		mServerCount = 0;
 		mServerId = 0;
+	#endif
 		mLower = 0;
 		mHigh = 0;
 	}

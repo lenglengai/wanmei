@@ -18,7 +18,7 @@ namespace std {
 	namespace sinks = boost::log::sinks;
 	namespace keywords = boost::log::keywords;
 	namespace expr = boost::log::expressions;
-	namespace attrs = boost::log::attributes;+
+	namespace attrs = boost::log::attributes;
 	#endif
 
 	void LogService::logError(boost::format& nFormat)

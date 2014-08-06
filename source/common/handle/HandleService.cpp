@@ -14,7 +14,18 @@ namespace std {
 
 	const char * HandleService::streamUrl()
 	{
-		return "config/handle.xml";
+	#ifdef __CLIENT__
+		return "config/clientHandle.xml";
+	#elif 
+	#ifdef __LOGIN__
+		return "config/loginHandle.xml";
+	#elif 
+	#ifdef __SERVER__
+		return "config/serverHandle.xml";
+	#elif 
+	#ifdef __ANDROID__
+		return "config/androidHandle.xml";
+	#elif
 	}
 
 	void HandleService::addContext(ContextPtr& nContext, __i32 nIndex)
@@ -61,7 +72,7 @@ namespace std {
 	{
 		LogService& loginService_ = Singleton<LogService>::instance();
 		loginService_.logInfo(log_1("run handle service"));
-		map<int, HandlePtr>::iterator it = mHandles.begin();
+		std::map<int, HandlePtr>::iterator it = mHandles.begin();
 		for ( ; it != mHandles.end(); ++it ) {
 			HandlePtr& handle = it->second;
 			handle->runStart();
@@ -72,7 +83,7 @@ namespace std {
 	{
 		LogService& loginService_ = Singleton<LogService>::instance();
 		loginService_.logInfo(log_1("stop handle service"));
-		map<int, HandlePtr>::iterator it = mHandles.begin();
+		std::map<int, HandlePtr>::iterator it = mHandles.begin();
 		for (; it != mHandles.end(); ++it) {
 			HandlePtr& handle = it->second;
 			handle->runStop();
