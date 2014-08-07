@@ -15,15 +15,19 @@ namespace std {
 
 	__i64 TimeService::getNowSecond()
 	{
-		boost::posix_time::ptime time_(boost::posix_time::second_clock::local_time());
-		boost::posix_time::time_period timePeriod(mBegin, time_);
-		boost::posix_time::time_duration timeDuration = timePeriod.length();
-		return timeDuration.total_seconds();
+		system_clock::time_point time_ = system_clock::now();
+		duration<__i64> timePeriod = duration_cast<duration<__i64>>(time_ - mBegin);
+		return timeDuration.count();
 	}
 
 	void TimeService::runPreinit()
 	{
-		mBegin = boost::posix_time::time_from_string(string(INITTIME));
+		tm begTm;
+		begTm.tm_year = 2014-1900; begTm.tm_mon = 0;
+		begTm.tm_mday = 1; begTm.tm_hour = 23;
+		begTm.tm_min = 59; begTm.tm_sec = 59;
+		time_t begTime = mktime(&begTm);
+		mBegin = system_clock::from_time_t(begTime);
 	}
 
 	TimeService::TimeService()

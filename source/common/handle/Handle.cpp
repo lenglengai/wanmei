@@ -41,7 +41,7 @@ namespace std {
 			ContextPtr& context_ = (*it);
 			context_->runContext();
 		}
-		std::chrono::milliseconds dura(10);
+		std::chrono::milliseconds dura(1000);
 		std::this_thread::sleep_for(dura);
 		return true;
 	}

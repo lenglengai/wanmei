@@ -1,6 +1,8 @@
 #pragma once
 
-#include <boost/date_time.hpp>
+#include <chrono>
+
+using namespace std::chrono;
 
 namespace std {
 
@@ -14,7 +16,7 @@ namespace std {
 		TimeService();
 		~TimeService();
 	private:
-		boost::posix_time::ptime mBegin;
+		system_clock::time_point mBegin;
 		__i64 mCurrent;
 	};
 

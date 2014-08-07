@@ -40,4 +40,12 @@
 ../../../source/common/property/PropertyMgr.cpp
 ../../../source/common/property/PropertySink.cpp
 ../../../source/common/log/LogService.cpp
-
+../../../source/common/crc/CrcService.cpp
+../../../source/common/random/RandomService.cpp
+../../../source/common/time/TimeService.cpp
+../../../source/common/setting/SettingService.cpp
+../../../source/common/setting/XmlReader.cpp
+../../../source/common/handle/Handle.cpp
+../../../source/common/handle/Context.cpp
+../../../source/common/handle/HandleService.cpp
+../../../source/common/ioservice/IoService.cpp

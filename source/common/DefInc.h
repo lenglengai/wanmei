@@ -17,8 +17,6 @@ typedef short __i16;
 typedef long __i32;
 typedef long long __i64;
 
-#define INITTIME "2014-01-01 23:59:59.000"
-
 #include <boost/noncopyable.hpp>
 
 #include <memory>
