@@ -1,0 +1,19 @@
+modules.poke : NO_BZIP2 : 1 ;
+ANDROID_NDK = ../.. ;
+using gcc : android4.8 : $(ANDROID_NDK)/toolchains/arm-linux-androideabi-4.8/prebuilt/windows-x86_64/bin/arm-linux-androideabi-g++ :
+<archiver>$(ANDROID_NDK)/toolchains/arm-linux-androideabi-4.8/prebuilt/windows-x86_64/bin/arm-linux-androideabi-ar
+<ranlib>$(ANDROID_NDK)/toolchains/arm-linux-androideabi-4.8/prebuilt/windows-x86_64/bin/arm-linux-androideabi-ranlib
+<compileflags>--sysroot=$(ANDROID_NDK)/platforms/android-9/arch-arm
+<compileflags>-I$(ANDROID_NDK)/sources/cxx-stl/gnu-libstdc++/4.8/include
+<compileflags>-I$(ANDROID_NDK)/sources/cxx-stl/gnu-libstdc++/4.8/libs/armeabi/include
+<compileflags>-DNDEBUG
+<compileflags>-D__GLIBC__
+<compileflags>-DBOOST_FILESYSTEM_VERSION=3
+<compileflags>-lstdc++
+<compileflags>-lgnustl_shared
+<compileflags>-mthumb
+<compileflags>-fno-strict-aliasing
+<compileflags>-std=gnu++11
+<compileflags>-O2
+;
+ 
