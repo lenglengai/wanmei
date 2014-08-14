@@ -5,7 +5,7 @@
 
 namespace std {
 
-	class InitService : boost::noncopyable
+	class __funapi InitService : boost::noncopyable
 	{
 	private:
 		struct InitType_

@@ -7,11 +7,14 @@ using namespace boost;
 
 namespace std {
 
-	class IoService : boost::noncopyable
+	class __funapi IoService : boost::noncopyable
 	{
 	public:
 		template<class T>
-		void headSerialize(T& nSerialize);
+		void headSerialize(T& nSerialize)
+		{
+			nSerialize.runInt32(mIoServiceCount, "IoCount", 2);
+		}
 		const char * streamName();
 		const char * streamUrl();
 
@@ -26,6 +29,9 @@ namespace std {
 
 		IoService();
 		~IoService();
+		
+	private:
+		void runClear();
 
 	private:
 		typedef std::shared_ptr<asio::io_service> IoServicePtr;
@@ -36,15 +42,5 @@ namespace std {
 		std::size_t mNextIoService;
 		__i32 mIoServiceCount;
 	};
-	template<class T>
-	void IoService::headSerialize(T& nSerialize)
-	{
-	#ifdef __CLIENT__
-		nSerialize.runInt32(mIoServiceCount, "clientIoCount", 2);
-	#endif
-	#ifdef __SERVER__
-		nSerialize.runInt32(mIoServiceCount, "serverIoCount", 4);
-	#endif
-	}
 
 }

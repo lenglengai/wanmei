@@ -2,7 +2,7 @@
 
 namespace std {
 
-	class Context
+	class __funapi Context
 	{
 	public:
 		virtual void runContext();

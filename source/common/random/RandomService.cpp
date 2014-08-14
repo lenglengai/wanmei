@@ -5,7 +5,6 @@
 #include <cstdlib>
 #include <ctime>
 
-
 namespace std {
 
 	__i32 RandomService::runRandom(__i32 nMin, __i32 nMax)

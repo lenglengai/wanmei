@@ -1,8 +1,13 @@
 #include "../DefInc.h"
 #include "../crc/CrcService.h"
 #include "XmlReader.h"
+#include "../libmpq/mpq.h"
 
 #include "SettingService.h"
+
+#ifdef __COCOS2DX__
+#include <cocos2d.h>
+#endif
 
 namespace std {
 
@@ -480,14 +485,32 @@ namespace std {
 		}
 	}
 
-	void XmlReader::openUrl(const char * nUrl)
+	bool XmlReader::openUrl(const char * nUrl)
 	{
+	#ifdef __COCOS2DX__
+		if (FileUtils::getInstance()->isFileExist(nUrl)) {
+			std::string data_ = cocos2d::FileUtils::getInstance()->getStringFromFile(nUrl);
+			mXmlDocument.parse<0>(data_.c_str());
+			mXmlNode = mXmlDocument.first_node();
+			return true;
+		}
+		return false;
+	#else
 		SettingService& settingService_ = Singleton<SettingService>::instance();
 		std::string url_ = settingService_.systemPath();
 		if ("" != url_) url_ += "/"; url_ += nUrl;
 		mFileDoc.reset(new file<char>(url_.c_str()));
 		mXmlDocument.parse<0>(mFileDoc->data());
 		mXmlNode = mXmlDocument.first_node();
+		return true;
+	#endif
+	}
+
+	void XmlReader::openKey(const char * nUrl, const char * nKey)
+	{
+	#ifdef __COCOS2DX__
+
+	#endif
 	}
 
 	void XmlReader::selectStream(const char * nStreamName) {

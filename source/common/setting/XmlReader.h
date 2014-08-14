@@ -10,7 +10,7 @@ using namespace rapidxml;
 
 namespace std {
 
-	class XmlReader : boost::noncopyable
+	class __funapi XmlReader : boost::noncopyable
 	{
 	public:
 		void runBool(bool& nValue, const char * nName, bool nOptimal = false);
@@ -72,7 +72,8 @@ namespace std {
 		template<class T0, class T1>
 		void runKeyStreamsCount(map<T0, std::shared_ptr<T1>>& nValue, const char * nNames, const char * nName, __i32 nCount = 0);
 
-		void openUrl(const char * nUrl);
+		bool openUrl(const char * nUrl);
+		bool openKey(const char * nUrl, const char * nKey);
 		void selectStream(const char * nStreamName);
 		__i32 pushStream(const char * nName);
 		void popStream();

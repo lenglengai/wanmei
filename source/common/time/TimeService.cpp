@@ -22,9 +22,9 @@ namespace std {
 
 	void TimeService::runPreinit()
 	{
-		tm begTm;
-		begTm.tm_year = 2014-1900; begTm.tm_mon = 0;
-		begTm.tm_mday = 1; begTm.tm_hour = 23;
+		tm begTm; begTm.tm_year = INITYEAR-1900; 
+		begTm.tm_mon = INITMONTH - 1;
+		begTm.tm_mday = INITDAY; begTm.tm_hour = 23;
 		begTm.tm_min = 59; begTm.tm_sec = 59;
 		time_t begTime = mktime(&begTm);
 		mBegin = system_clock::from_time_t(begTime);

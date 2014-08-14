@@ -49,9 +49,9 @@ namespace std {
 	{
 		LogService& loginService_ = Singleton<LogService>::instance();
 		loginService_.logInfo(log_1("run ioService"));
-		vector<shared_ptr<thread>> threads;
+		vector<std::shared_ptr<std::thread>> threads;
 		for (size_t i = 0; i < mIoServices.size(); ++i) {
-			shared_ptr<thread> thread_(new thread(std::bind(&asio::io_service::run, mIoServices[i])));
+			std::shared_ptr<std::thread> thread_(new std::thread(boost::bind(&asio::io_service::run, mIoServices[i])));
 			threads.push_back(thread_);
 		}
 		for (size_t i = 0; i < threads.size(); ++i) {
@@ -85,17 +85,35 @@ namespace std {
 
 	const char * IoService::streamUrl()
 	{
-		return "config/ioService.xml";
+	#ifdef __CLIENT__
+		return "config/clientIoService.xml";
+	#elif 
+	#ifdef __LOGIN__
+		return "config/loginIoService.xml";
+	#elif 
+	#ifdef __SERVER__
+		return "config/serverIoService.xml";
+	#elif 
+	#ifdef __ANDROID__
+		return "config/androidIoService.xml";
+	#elif
+	}
+
+	void IoService::runClear()
+	{
+		mIoServices.clear();
+		mWork.clear();
+		mNextIoService = 0;
+		mIoServiceCount = 0;
 	}
 
 	IoService::IoService()
-		: mNextIoService(0)
 	{
 	}
 
 	IoService::~IoService()
 	{
-		mNextIoService = 0;
+		this->runClear();
 	}
 
 }

@@ -36,7 +36,7 @@ namespace std {
 	bool Handle::runInternal()
 	{
 		if (true == mStop) return false;
-		list<ContextPtr>::iterator it = mContexts.begin();
+		std::list<ContextPtr>::iterator it = mContexts.begin();
 		for (; it != mContexts.end(); ++it) {
 			ContextPtr& context_ = (*it);
 			context_->runContext();

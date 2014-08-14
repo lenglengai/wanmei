@@ -2,7 +2,7 @@
 
 namespace std {
 	
-	class Startup
+	class APIEXPORT Startup
 	{
 	public:
 		void runStart();

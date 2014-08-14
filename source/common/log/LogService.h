@@ -3,7 +3,7 @@
 #include "../DefInc.h"
 #include <boost/format.hpp>
 
-#ifdef __COCOSLOG__
+#ifdef __COCOS2DX__
 #define COCOSLOG
 #endif
 #ifndef COCOSLOG
@@ -27,7 +27,7 @@ namespace std {
 	#ifndef COCOSLOG
 	namespace src = boost::log::sources;
 	#endif
-	class LogService : boost::noncopyable
+	class __funapi LogService : boost::noncopyable
 	{
 	public:
 		void logError(boost::format& nFormat);

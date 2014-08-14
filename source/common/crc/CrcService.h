@@ -2,7 +2,7 @@
 
 namespace std {
 
-	class CrcService : boost::noncopyable
+	class __funapi CrcService : boost::noncopyable
 	{
 	public:
 		__i64 runId(const char * nName);

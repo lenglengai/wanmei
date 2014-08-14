@@ -18,6 +18,7 @@ typedef long __i32;
 typedef long long __i64;
 
 #include <boost/noncopyable.hpp>
+#include <boost/bind.hpp>
 
 #include <memory>
 #include <string>
@@ -46,3 +47,8 @@ typedef long long __i64;
 #include "utility/ERRORINT.h"
 #include "shiny/Shiny.h"
 #include "lua/LuaScript.h"
+
+#define INITYEAR	2014
+#define INITMONTH	9
+#define INITDAY		1
+

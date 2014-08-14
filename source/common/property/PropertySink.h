@@ -4,7 +4,7 @@
 
 namespace std {
 
-	class PropertySink : public boost::noncopyable
+	class __funapi PropertySink : public boost::noncopyable
 	{
 	public:
 		void runCreate(PropertyMgrPtr& nPropertyMgr);

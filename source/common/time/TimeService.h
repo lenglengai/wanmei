@@ -6,7 +6,7 @@ using namespace std::chrono;
 
 namespace std {
 
-	class TimeService : boost::noncopyable
+	class __funapi TimeService : boost::noncopyable
 	{
 	public:
 		void setServerTime(__i64 nTime);

@@ -8,7 +8,7 @@
 
 namespace std {
 
-	class Handle : boost::noncopyable
+	class __funapi Handle : boost::noncopyable
 	{
 	public:
 		void addContext(ContextPtr& nContext);

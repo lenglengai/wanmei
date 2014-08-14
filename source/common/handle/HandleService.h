@@ -4,11 +4,15 @@
 
 namespace std {
 
-	class HandleService : boost::noncopyable
+	class __funapi HandleService : boost::noncopyable
 	{
 	public:
 		template<class T>
-		void headSerialize(T& nSerialize);
+		void headSerialize(T& nSerialize)
+		{
+			nSerialize.runInt32(mHandleCount, "handleCount", 2);
+		}
+
 		const char * streamName();
 		const char * streamUrl();
 		void addContext(ContextPtr& nContext, __i32 nIndex);
@@ -26,11 +30,5 @@ namespace std {
 		std::map<int, HandlePtr> mHandles;
 		__i32 mHandleCount;
 	};
-
-	template<class T>
-	void HandleService::headSerialize(T& nSerialize)
-	{
-		nSerialize.runInt32(mHandleCount, "handleCount", 2);
-	}
 
 }

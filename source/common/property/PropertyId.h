@@ -7,7 +7,7 @@
 namespace std {
 
 	template<class T>
-	class PropertyId : public IPropertyId
+	class __funapi PropertyId : public IPropertyId
 	{
 	public:
 		PropertyPtr createProperty()

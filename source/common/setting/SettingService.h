@@ -4,7 +4,7 @@
 
 namespace std {
 
-	class SettingService : boost::noncopyable
+	class __funapi SettingService : boost::noncopyable
 	{
 	public:
 		template<class T>
@@ -30,8 +30,10 @@ namespace std {
 
 	private:
 		std::string mSystemPath;
+	#if (defined __SERVER__) || (defined __LOGIN__)
 		__i16 mServerCount;
 		__i16 mServerId;
+	#endif
 		__i16 mLower;
 		__i32 mHigh;
 	};
@@ -42,10 +44,9 @@ namespace std {
 	#if (defined __SERVER__) || (defined __LOGIN__)
 		nSerialize.runInt16(mServerCount, "serverCount");
 		nSerialize.runInt16(mServerId, "serverId");
-	#else
+	#endif
 		nSerialize.runInt16(mLower, "lower");
 		nSerialize.runInt32(mHigh, "high");
-	#endif
 	}
 
 	template<class T>

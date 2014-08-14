@@ -5,7 +5,7 @@ namespace std {
 	class PropertyMgr;
 	typedef std::shared_ptr<PropertyMgr> PropertyMgrPtr;
 	typedef std::weak_ptr<PropertyMgr> PropertyMgrWtr;
-	class Property : public boost::noncopyable
+	class __funapi Property : public boost::noncopyable
 	{
 	public:
 		void setPropertyMgr(PropertyMgrPtr& nPropertyMgr);
