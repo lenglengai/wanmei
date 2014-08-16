@@ -509,11 +509,13 @@ namespace std {
 	void XmlReader::openKey(const char * nUrl, const char * nKey)
 	{
 	#ifdef __COCOS2DX__
-
+		std::string path_ = FileUtils::getInstance()->getWritablePath();
+		path_ += nUrl;
 	#endif
 	}
 
-	void XmlReader::selectStream(const char * nStreamName) {
+	void XmlReader::selectStream(const char * nStreamName) 
+	{
 	}
 
 	__i32 XmlReader::pushStream(const char * nName)

@@ -18,11 +18,10 @@ namespace std {
 			static const __i16 mInit1_ = 5;
 			static const __i16 mStart0_ = 6;
 			static const __i16 mStart1_ = 7;
-			static const __i16 mRun0_ = 8;
-			static const __i16 mRun1_ = 9;
-			static const __i16 mPause_ = 10;
-			static const __i16 mStop_ = 11;
-			static const __i16 mExit_ = 12;
+			static const __i16 mRun_ = 8;
+			static const __i16 mPause_ = 9;
+			static const __i16 mStop_ = 10;
+			static const __i16 mExit_ = 11;
 		};
 	public:
 		void runPreinit(const string& nPath);
@@ -46,10 +45,7 @@ namespace std {
 		void runStart1();
 
 		boost::signals2::signal<void()> m_tRunRun0;
-		void runRun0();
-
-		boost::signals2::signal<void()> m_tRunRun1;
-		void runRun1();
+		void runRun();
 
 		void runPause(bool nPause);
 		bool isPause();

@@ -136,7 +136,7 @@ namespace std {
 		this->m_tRunStart1();
 	}
 
-	void InitService::runRun0()
+	void InitService::runRun()
 	{
 		if (InitType_::mStart1_ != mInitType) {
 			LogService& loginService_ = Singleton<LogService>::instance();
@@ -145,8 +145,8 @@ namespace std {
 		}
 		LogService& loginService_ = Singleton<LogService>::instance();
 		loginService_.logInfo(log_1("initService is running0!"));
-		mInitType = InitType_::mRun0_;
-		this->m_tRunRun0();
+		mInitType = InitType_::mRun_;
+		this->m_tRunRun();
 	}
 
 	void InitService::runRun1()
