@@ -1,6 +1,7 @@
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
-#include "../../source/startup/Startup.h"
+#include "../../source/common/DefInc.h"
+#include "../../source/common/init/InitService.h"
 
 USING_NS_CC;
 
@@ -14,8 +15,6 @@ AppDelegate::~AppDelegate()
 
 bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
-	std::Startup startup;
-	startup.runStart();
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
@@ -34,6 +33,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // run
     director->runWithScene(scene);
+
+
+
 
     return true;
 }

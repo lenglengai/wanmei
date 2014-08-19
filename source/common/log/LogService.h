@@ -6,10 +6,10 @@
 #ifdef __COCOS2DX__
 #define COCOSLOG
 #endif
-#ifndef COCOSLOG
-#include <boost/log/sources/logger.hpp>
-#else
+#ifdef COCOSLOG
 #include <cocos2d.h>
+#else
+#include <boost/log/sources/logger.hpp>
 #endif
 
 #define log_1(y) boost::format("[%1%]%2%") % __FUN__ % y

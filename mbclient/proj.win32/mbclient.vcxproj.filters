@@ -10,6 +10,33 @@
     <Filter Include="resource">
       <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
     </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{82c2ccad-e2bd-461f-88ca-b796907e1d25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\init">
+      <UniqueIdentifier>{749f0277-0ef1-451d-ab13-f73403750a3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\log">
+      <UniqueIdentifier>{1c11d266-dc53-43d6-bd8f-be38617045ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\time">
+      <UniqueIdentifier>{b44956c4-c247-441f-9432-508632501436}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\random">
+      <UniqueIdentifier>{23e1683e-8d57-429a-bfae-2005498edecf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\crc">
+      <UniqueIdentifier>{f7acfe70-6413-4f9f-a7cd-14bd63f9433f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\setting">
+      <UniqueIdentifier>{1334a6bc-f696-4c4d-98db-2ee6fa661061}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\utility">
+      <UniqueIdentifier>{b37cb9ec-3d23-4041-b18a-e37ca42c4f4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\archive">
+      <UniqueIdentifier>{f53e65a0-393b-42b2-bdb8-871fb71c4374}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -20,6 +47,39 @@
     </ClCompile>
     <ClCompile Include="..\Classes\HelloWorldScene.cpp">
       <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\common\init\InitService.cpp">
+      <Filter>common\init</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\common\log\LogService.cpp">
+      <Filter>common\log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\common\time\TimeService.cpp">
+      <Filter>common\time</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\common\random\RandomService.cpp">
+      <Filter>common\random</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\common\crc\CrcService.cpp">
+      <Filter>common\crc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\common\setting\SettingService.cpp">
+      <Filter>common\setting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\common\setting\XmlReader.cpp">
+      <Filter>common\setting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\common\archive\Archive.cpp">
+      <Filter>common\archive</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\common\libmpq\mpq.cpp">
+      <Filter>common\archive</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\common\archive\BinWriter.cpp">
+      <Filter>common\archive</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\common\archive\BinReader.cpp">
+      <Filter>common\archive</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -32,10 +92,78 @@
     <ClInclude Include="..\Classes\HelloWorldScene.h">
       <Filter>Classes</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\common\init\InitService.h">
+      <Filter>common\init</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\log\LogService.h">
+      <Filter>common\log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\time\TimeService.h">
+      <Filter>common\time</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\random\RandomService.h">
+      <Filter>common\random</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\crc\CrcService.h">
+      <Filter>common\crc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\crc\crypt_buf.h">
+      <Filter>common\crc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\setting\rapidxml.hpp">
+      <Filter>common\setting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\setting\rapidxml_iterators.hpp">
+      <Filter>common\setting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\setting\rapidxml_print.hpp">
+      <Filter>common\setting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\setting\rapidxml_utils.hpp">
+      <Filter>common\setting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\setting\SettingService.h">
+      <Filter>common\setting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\setting\XmlReader.h">
+      <Filter>common\setting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\utility\Convert.h">
+      <Filter>common\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\utility\Default.h">
+      <Filter>common\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\utility\ERRORINT.h">
+      <Filter>common\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\utility\Singleton.h">
+      <Filter>common\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\archive\ArchiveService.h">
+      <Filter>common\archive</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\archive\Archive.h">
+      <Filter>common\archive</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\libmpq\mpq.h">
+      <Filter>common\archive</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\archive\BinWriter.h">
+      <Filter>common\archive</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\archive\BinReader.h">
+      <Filter>common\archive</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
       <Filter>resource</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\source\common\archive\ArchiveService.cpp">
+      <Filter>common\archive</Filter>
+    </Text>
   </ItemGroup>
 </Project>

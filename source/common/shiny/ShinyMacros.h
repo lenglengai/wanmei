@@ -203,7 +203,7 @@ restrictions:
 
 #else // #if SHINY_PROFILER == TRUE
 
-#define PROFILER_UPDATE
+#define PROFILER_UPDATE()
 #define PROFILER_OUTPUT(name)
 #define PROFILER_OUTPUT_TREE_STRING()
 #define PROFILER_OUTPUT_FLAT_STRING()

@@ -17,12 +17,12 @@ namespace std {
 	{
 		system_clock::time_point time_ = system_clock::now();
 		duration<__i64> timePeriod = duration_cast<duration<__i64>>(time_ - mBegin);
-		return timeDuration.count();
+		return timePeriod.count();
 	}
 
 	void TimeService::runPreinit()
 	{
-		tm begTm; begTm.tm_year = INITYEAR-1900; 
+		tm begTm; begTm.tm_year = INITYEAR-1900;
 		begTm.tm_mon = INITMONTH - 1;
 		begTm.tm_mday = INITDAY; begTm.tm_hour = 23;
 		begTm.tm_min = 59; begTm.tm_sec = 59;

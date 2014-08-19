@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -23,6 +23,7 @@
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '10.0'">v100</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '11.0'">v110</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '11.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v110_xp</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -30,6 +31,7 @@
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '10.0'">v100</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '11.0'">v110</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '11.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v110_xp</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -69,7 +71,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;$(BOOST_ROOT);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -133,11 +135,43 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\source\common\archive\Archive.cpp" />
+    <ClCompile Include="..\..\source\common\archive\BinReader.cpp" />
+    <ClCompile Include="..\..\source\common\archive\BinWriter.cpp" />
+    <ClCompile Include="..\..\source\common\crc\CrcService.cpp" />
+    <ClCompile Include="..\..\source\common\init\InitService.cpp" />
+    <ClCompile Include="..\..\source\common\libmpq\mpq.cpp" />
+    <ClCompile Include="..\..\source\common\log\LogService.cpp" />
+    <ClCompile Include="..\..\source\common\random\RandomService.cpp" />
+    <ClCompile Include="..\..\source\common\setting\SettingService.cpp" />
+    <ClCompile Include="..\..\source\common\setting\XmlReader.cpp" />
+    <ClCompile Include="..\..\source\common\time\TimeService.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\source\common\archive\Archive.h" />
+    <ClInclude Include="..\..\source\common\archive\ArchiveService.h" />
+    <ClInclude Include="..\..\source\common\archive\BinReader.h" />
+    <ClInclude Include="..\..\source\common\archive\BinWriter.h" />
+    <ClInclude Include="..\..\source\common\crc\CrcService.h" />
+    <ClInclude Include="..\..\source\common\crc\crypt_buf.h" />
+    <ClInclude Include="..\..\source\common\init\InitService.h" />
+    <ClInclude Include="..\..\source\common\libmpq\mpq.h" />
+    <ClInclude Include="..\..\source\common\log\LogService.h" />
+    <ClInclude Include="..\..\source\common\random\RandomService.h" />
+    <ClInclude Include="..\..\source\common\setting\rapidxml.hpp" />
+    <ClInclude Include="..\..\source\common\setting\rapidxml_iterators.hpp" />
+    <ClInclude Include="..\..\source\common\setting\rapidxml_print.hpp" />
+    <ClInclude Include="..\..\source\common\setting\rapidxml_utils.hpp" />
+    <ClInclude Include="..\..\source\common\setting\SettingService.h" />
+    <ClInclude Include="..\..\source\common\setting\XmlReader.h" />
+    <ClInclude Include="..\..\source\common\time\TimeService.h" />
+    <ClInclude Include="..\..\source\common\utility\Convert.h" />
+    <ClInclude Include="..\..\source\common\utility\Default.h" />
+    <ClInclude Include="..\..\source\common\utility\ERRORINT.h" />
+    <ClInclude Include="..\..\source\common\utility\Singleton.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="main.h" />
@@ -156,6 +190,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\source\common\archive\ArchiveService.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

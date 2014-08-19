@@ -1,8 +1,6 @@
 #include "../DefInc.h"
 #include "../crc/CrcService.h"
-#include "XmlReader.h"
-
-#include "SettingService.h"
+#include "BinWriter.h"
 
 #ifdef __COCOS2DX__
 #include <cocos2d.h>
@@ -10,34 +8,25 @@
 
 namespace std {
 
-	void XmlReader::runBool(bool& nValue, const char * nName, bool nOptimal)
+	void BinWriter::runBool(bool& nValue, const char * nName, bool nOptimal)
 	{
-		nValue = nOptimal;
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
-		if (nullptr == xmlAttribute_) return;
-		char * text_ = xmlAttribute_->value();
-		nValue = __convert<bool, char *>(text_, mConvertTypeText_);
+		__i8 value_ = ((true == nValue) ? 1 : 0);
+		mStream.write((char *)(&value_), sizeof(__i8));
 	}
 
-	void XmlReader::runInt8(__i8& nValue, const char * nName, __i8 nOptimal)
+	void BinWriter::runInt8(__i8& nValue, const char * nName, __i8 nOptimal)
 	{
-		nValue = nOptimal;
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
-		if (nullptr == xmlAttribute_) return;
-		char * text_ = xmlAttribute_->value();
-		nValue = __convert<__i8, char *>(text_);
+		mStream.write((char *)(&nValue), sizeof(__i8));
 	}
 
-	void XmlReader::runInt8s(list<__i8>& nValue, const char * nNames, const char * nName)
+	void BinWriter::runInt8s(list<__i8>& nValue, const char * nNames, const char * nName)
 	{
-		xml_node<char> * xmlNode_ = mXmlNode->first_node(nNames);
-		if (nullptr == xmlNode_) return;
-		xmlNode_ = xmlNode_->first_node();
-		for ( ; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling() )
-		{
-			char * text_ = xmlNode_->value();
-			__i8 value_ = __convert<__i8, char *>(text_);
-			nValue.push_back(value_);
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		mStream.write((char *)(&count_), sizeof(__i16));
+		std::list<__i8>::iterator it = nValue.begin();
+		for (; it != nValue.end(); ++it) {
+			__i8 t_ = (*it);
+			this->runInt8(t_, "__i8");
 		}
 	}
 
@@ -92,7 +81,7 @@ namespace std {
 		xml_node<char> * xmlNode_ = mXmlNode->first_node(nNames);
 		if (nullptr == xmlNode_) return;
 		xmlNode_ = xmlNode_->first_node();
-		for ( ; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling() ) {
+		for (; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling()) {
 			char * text_ = xmlNode_->value();
 			__i16 value_ = __convert<__i16, char *>(text_);
 			nValue.push_back(value_);
@@ -151,7 +140,7 @@ namespace std {
 		xml_node<char> * xmlNode_ = mXmlNode->first_node(nNames);
 		if (nullptr == xmlNode_) return;
 		xmlNode_ = xmlNode_->first_node();
-		for ( ; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling() )
+		for (; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling())
 		{
 			char * text_ = xmlNode_->value();
 			__i32 value_ = __convert<__i32, char *>(text_);
@@ -272,7 +261,7 @@ namespace std {
 		xml_node<char> * xmlNode_ = mXmlNode->first_node(nNames);
 		if (nullptr == xmlNode_) return;
 		xmlNode_ = xmlNode_->first_node();
-		for ( ; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling() ) {
+		for (; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling()) {
 			char * text_ = xmlNode_->value();
 			__i64 value_ = __convert<__i64, char *>(text_);
 			nValue.push_back(value_);
@@ -329,7 +318,7 @@ namespace std {
 		xml_node<char> * xmlNode_ = mXmlNode->first_node(nNames);
 		if (nullptr == xmlNode_) return;
 		xmlNode_ = xmlNode_->first_node();
-		for ( ; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling() )
+		for (; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling())
 		{
 			string value_ = xmlNode_->value();
 			nValue.push_back(value_);
@@ -379,7 +368,7 @@ namespace std {
 		xml_node<char> * xmlNode_ = mXmlNode->first_node(nNames);
 		if (nullptr == xmlNode_) return;
 		xmlNode_ = xmlNode_->first_node();
-		for ( ; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling() ) {
+		for (; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling()) {
 			char * text_ = xmlNode_->value();
 			float value_ = __convert<float, char *>(text_);
 			nValue.push_back(value_);
@@ -440,7 +429,7 @@ namespace std {
 		xml_node<char> * xmlNode_ = mXmlNode->first_node(nNames);
 		if (nullptr == xmlNode_) return;
 		xmlNode_ = xmlNode_->first_node();
-		for ( ; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling() )
+		for (; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling())
 		{
 			char * text_ = xmlNode_->value();
 			double value_ = __convert<double, char *>(text_);
@@ -486,7 +475,7 @@ namespace std {
 
 	bool XmlReader::openUrl(const char * nUrl)
 	{
-	#ifdef __COCOS2DX__
+#ifdef __COCOS2DX__
 		if (FileUtils::getInstance()->isFileExist(nUrl)) {
 			std::string data_ = cocos2d::FileUtils::getInstance()->getStringFromFile(nUrl);
 			mXmlDocument.parse<0>(data_.c_str());
@@ -494,7 +483,7 @@ namespace std {
 			return true;
 		}
 		return false;
-	#else
+#else
 		SettingService& settingService_ = Singleton<SettingService>::instance();
 		std::string url_ = settingService_.systemPath();
 		if ("" != url_) url_ += "/"; url_ += nUrl;
@@ -502,21 +491,21 @@ namespace std {
 		mXmlDocument.parse<0>(mFileDoc->data());
 		mXmlNode = mXmlDocument.first_node();
 		return true;
-	#endif
+#endif
 	}
 
 	bool XmlReader::openKey(const char * nUrl, const char * nKey)
 	{
-	#ifdef __COCOS2DX__
+#ifdef __COCOS2DX__
 		std::string path_ = FileUtils::getInstance()->getWritablePath();
 		path_ += nUrl;
 		if (FileUtils.is)
 		{
 		}
-	#endif
+#endif
 	}
 
-	void XmlReader::selectStream(const char * nStreamName) 
+	void XmlReader::selectStream(const char * nStreamName)
 	{
 	}
 

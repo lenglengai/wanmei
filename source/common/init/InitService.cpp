@@ -149,25 +149,12 @@ namespace std {
 		this->m_tRunRun();
 	}
 
-	void InitService::runRun1()
-	{
-		if (InitType_::mRun0_ != mInitType) {
-			LogService& loginService_ = Singleton<LogService>::instance();
-			loginService_.logError(log_2("initService run1 fail, initType is ", mInitType));
-			return;
-		}
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("initService is running1!"));
-		mInitType = InitType_::mRun1_;
-		this->m_tRunRun1();
-	}
-
 	void InitService::runPause(bool nPause)
 	{
 		if (nPause) {
 			mInitType = InitType_::mPause_;
 		} else {
-			mInitType = InitType_::mRun1_;
+			mInitType = InitType_::mRun_;
 		}
 	}
 
@@ -178,7 +165,7 @@ namespace std {
 
 	void InitService::runStop()
 	{
-		if (InitType_::mRun1_ != mInitType) {
+		if (InitType_::mRun_ != mInitType) {
 			LogService& loginService_ = Singleton<LogService>::instance();
 			loginService_.logError(log_2("initService stop fail, initType is ", mInitType));
 			return;
@@ -221,8 +208,7 @@ namespace std {
 		m_tRunInit1.disconnect_all_slots();
 		m_tRunStart0.disconnect_all_slots();
 		m_tRunStart1.disconnect_all_slots();
-		m_tRunRun0.disconnect_all_slots();
-		m_tRunRun1.disconnect_all_slots();
+		m_tRunRun.disconnect_all_slots();
 		m_tRunStop.disconnect_all_slots();
 		m_tRunSave.disconnect_all_slots();
 		m_tRunExit.disconnect_all_slots();

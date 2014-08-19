@@ -44,7 +44,7 @@ namespace std {
 		boost::signals2::signal<void()> m_tRunStart1;
 		void runStart1();
 
-		boost::signals2::signal<void()> m_tRunRun0;
+		boost::signals2::signal<void()> m_tRunRun;
 		void runRun();
 
 		void runPause(bool nPause);

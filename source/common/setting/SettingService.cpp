@@ -15,7 +15,7 @@ namespace std {
 		return "config/setting.xml";
 	}
 
-	#if (defined __SERVER__) || (defined __LOGIN__)
+#if (defined __SERVER__) || (defined __LOGIN__)
 	__i32 SettingService::checkServerId(__i32 nServerId)
 	{
 		if (mServerId == nServerId) return ERRORINT::SUCESS;
@@ -41,7 +41,7 @@ namespace std {
 	{
 		return mServerCount;
 	}
-	#endif
+#endif
 
 	__i32 SettingService::checkVersion(__i32 nVersion)
 	{
@@ -56,15 +56,12 @@ namespace std {
 	{
 		mSystemPath = nPath;
 		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunLoad0.connect(boost::bind(&SettingService::ruLoad, this));
+		initService_.m_tRunLoad0.connect(boost::bind(&SettingService::runLoad, this));
 	}
 
-	void SettingService::ruLoad()
+	void SettingService::runLoad()
 	{
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("run loading setting"));
 		this->initUrlStream(this);
-		loginService_.logInfo(log_1("load setting sucess!"));
 	}
 
 	const string& SettingService::systemPath()
@@ -74,24 +71,24 @@ namespace std {
 
 	SettingService::SettingService()
 		: mSystemPath("")
-	#if (defined __SERVER__) || (defined __LOGIN__)
-		, mServerCount(0)
-		, mServerId(0)
-	#endif
 		, mLower(0)
 		, mHigh(0)
+#if (defined __SERVER__) || (defined __LOGIN__)
+		, mServerCount(0)
+		, mServerId(0)
+#endif
 	{
 	}
 
 	SettingService::~SettingService()
 	{
 		mSystemPath = "";
-	#if (defined __SERVER__) || (defined __LOGIN__)
-		mServerCount = 0;
-		mServerId = 0;
-	#endif
 		mLower = 0;
 		mHigh = 0;
+#if (defined __SERVER__) || (defined __LOGIN__)
+		mServerCount = 0;
+		mServerId = 0;
+#endif
 	}
 
 }
