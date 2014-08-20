@@ -67,7 +67,6 @@ namespace std {
 		void runKeyStreamsCount(map<T0, std::shared_ptr<T1>>& nValue, const char * nNames, const char * nName, __i32 nCount = 0);
 
 		bool openUrl(const char * nUrl);
-		bool openKey(const char * nUrl, const char * nKey);
 		void selectStream(const char * nStreamName);
 		__i32 pushStream(const char * nName);
 		void popStream();
@@ -97,11 +96,11 @@ namespace std {
 	void BinWriter::runStreamsCount(list<std::shared_ptr<T0> >& nValue, const char * nNames, const char * nName, __i32 nCount)
 	{
 		__i16 count_ = static_cast<__i16>(nValue.size());
-		mStream.write((char *)(&count_), sizeof(__i16));
+		this->runInt16(count_, "count");
 		std::list<shared_ptr<T0>>::iterator it = nValue.begin();
 		for (; it != nValue.end(); ++it) {
 			std::shared_ptr<T0>& t_ = (*it);
-			t_->serialize(this);
+			t_->serialize(this, count_);
 		}
 	}
 
@@ -109,11 +108,11 @@ namespace std {
 	void BinWriter::runKeyStreamsCount(map<T0, std::shared_ptr<T1>>& nValue, const char * nNames, const char * nName, __i32 nCount)
 	{
 		__i16 count_ = static_cast<__i16>(nValue.size());
-		mStream.write((char *)(&count_), sizeof(__i16));
+		this->runInt16(count_, "count");
 		map<T0, std::shared_ptr<T1>>::iterator it = nValue.begin();
 		for (; it != nValue.end(); ++it) {
 			std::shared_ptr<T1>& t_ = it->second;
-			t_->serialize(this);
+			t_->serialize(this, count_);
 		}
 	}
 }

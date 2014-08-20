@@ -37,6 +37,12 @@
     <Filter Include="common\archive">
       <UniqueIdentifier>{f53e65a0-393b-42b2-bdb8-871fb71c4374}</UniqueIdentifier>
     </Filter>
+    <Filter Include="common\compress">
+      <UniqueIdentifier>{fbb4207e-2c6e-499d-aae7-3f2c492f4854}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\compress\bzlib">
+      <UniqueIdentifier>{5cb371eb-3441-497c-bd6c-919fb089a083}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -72,14 +78,47 @@
     <ClCompile Include="..\..\source\common\archive\Archive.cpp">
       <Filter>common\archive</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\common\libmpq\mpq.cpp">
-      <Filter>common\archive</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\source\common\archive\BinWriter.cpp">
       <Filter>common\archive</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\common\archive\BinReader.cpp">
       <Filter>common\archive</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\common\archive\ArchiveHash.cpp">
+      <Filter>common\archive</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\common\archive\ArchiveHead.cpp">
+      <Filter>common\archive</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\common\archive\ArchiveReader.cpp">
+      <Filter>common\archive</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\common\archive\ArchiveWriter.cpp">
+      <Filter>common\archive</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\common\compress\CompressService.cpp">
+      <Filter>common\compress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\common\compress\bzlib\blocksort.c">
+      <Filter>common\compress\bzlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\common\compress\bzlib\bzlib.c">
+      <Filter>common\compress\bzlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\common\compress\bzlib\compress.c">
+      <Filter>common\compress\bzlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\common\compress\bzlib\crctable.c">
+      <Filter>common\compress\bzlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\common\compress\bzlib\decompress.c">
+      <Filter>common\compress\bzlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\common\compress\bzlib\huffman.c">
+      <Filter>common\compress\bzlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\common\compress\bzlib\randtable.c">
+      <Filter>common\compress\bzlib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -146,14 +185,32 @@
     <ClInclude Include="..\..\source\common\archive\Archive.h">
       <Filter>common\archive</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\source\common\libmpq\mpq.h">
-      <Filter>common\archive</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\source\common\archive\BinWriter.h">
       <Filter>common\archive</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\common\archive\BinReader.h">
       <Filter>common\archive</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\archive\ArchiveHash.h">
+      <Filter>common\archive</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\archive\ArchiveHead.h">
+      <Filter>common\archive</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\archive\ArchiveReader.h">
+      <Filter>common\archive</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\archive\ArchiveWriter.h">
+      <Filter>common\archive</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\compress\CompressService.h">
+      <Filter>common\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\compress\bzlib\bzlib.h">
+      <Filter>common\compress\bzlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\common\compress\bzlib\bzlib_private.h">
+      <Filter>common\compress\bzlib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

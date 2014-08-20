@@ -17,6 +17,7 @@ namespace std {
 	void ArchiveService::switchJourney(__i16 nJourney)
 	{
 		mJourney = nJourney;
+		mArchiveReader
 	}
 
 	ArchiveService::ArchiveService()

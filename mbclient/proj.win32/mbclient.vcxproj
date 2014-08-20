@@ -86,7 +86,7 @@
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OutDir);$(BOOST_ROOT)/stage/lib/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -136,11 +136,22 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\common\archive\Archive.cpp" />
+    <ClCompile Include="..\..\source\common\archive\ArchiveHash.cpp" />
+    <ClCompile Include="..\..\source\common\archive\ArchiveHead.cpp" />
+    <ClCompile Include="..\..\source\common\archive\ArchiveReader.cpp" />
+    <ClCompile Include="..\..\source\common\archive\ArchiveWriter.cpp" />
     <ClCompile Include="..\..\source\common\archive\BinReader.cpp" />
     <ClCompile Include="..\..\source\common\archive\BinWriter.cpp" />
+    <ClCompile Include="..\..\source\common\compress\bzlib\blocksort.c" />
+    <ClCompile Include="..\..\source\common\compress\bzlib\bzlib.c" />
+    <ClCompile Include="..\..\source\common\compress\bzlib\compress.c" />
+    <ClCompile Include="..\..\source\common\compress\bzlib\crctable.c" />
+    <ClCompile Include="..\..\source\common\compress\bzlib\decompress.c" />
+    <ClCompile Include="..\..\source\common\compress\bzlib\huffman.c" />
+    <ClCompile Include="..\..\source\common\compress\bzlib\randtable.c" />
+    <ClCompile Include="..\..\source\common\compress\CompressService.cpp" />
     <ClCompile Include="..\..\source\common\crc\CrcService.cpp" />
     <ClCompile Include="..\..\source\common\init\InitService.cpp" />
-    <ClCompile Include="..\..\source\common\libmpq\mpq.cpp" />
     <ClCompile Include="..\..\source\common\log\LogService.cpp" />
     <ClCompile Include="..\..\source\common\random\RandomService.cpp" />
     <ClCompile Include="..\..\source\common\setting\SettingService.cpp" />
@@ -152,13 +163,19 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\common\archive\Archive.h" />
+    <ClInclude Include="..\..\source\common\archive\ArchiveHash.h" />
+    <ClInclude Include="..\..\source\common\archive\ArchiveHead.h" />
+    <ClInclude Include="..\..\source\common\archive\ArchiveReader.h" />
     <ClInclude Include="..\..\source\common\archive\ArchiveService.h" />
+    <ClInclude Include="..\..\source\common\archive\ArchiveWriter.h" />
     <ClInclude Include="..\..\source\common\archive\BinReader.h" />
     <ClInclude Include="..\..\source\common\archive\BinWriter.h" />
+    <ClInclude Include="..\..\source\common\compress\bzlib\bzlib.h" />
+    <ClInclude Include="..\..\source\common\compress\bzlib\bzlib_private.h" />
+    <ClInclude Include="..\..\source\common\compress\CompressService.h" />
     <ClInclude Include="..\..\source\common\crc\CrcService.h" />
     <ClInclude Include="..\..\source\common\crc\crypt_buf.h" />
     <ClInclude Include="..\..\source\common\init\InitService.h" />
-    <ClInclude Include="..\..\source\common\libmpq\mpq.h" />
     <ClInclude Include="..\..\source\common\log\LogService.h" />
     <ClInclude Include="..\..\source\common\random\RandomService.h" />
     <ClInclude Include="..\..\source\common\setting\rapidxml.hpp" />

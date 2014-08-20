@@ -1,5 +1,5 @@
 #include "../DefInc.h"
-#include "../crc/CrcService.h"
+#include "../setting/SettingService.h"
 #include "BinWriter.h"
 
 #ifdef __COCOS2DX__
@@ -11,7 +11,7 @@ namespace std {
 	void BinWriter::runBool(bool& nValue, const char * nName, bool nOptimal)
 	{
 		__i8 value_ = ((true == nValue) ? 1 : 0);
-		mStream.write((char *)(&value_), sizeof(__i8));
+		this->runInt8(value_, nName, nOptimal);
 	}
 
 	void BinWriter::runInt8(__i8& nValue, const char * nName, __i8 nOptimal)
@@ -22,458 +22,348 @@ namespace std {
 	void BinWriter::runInt8s(list<__i8>& nValue, const char * nNames, const char * nName)
 	{
 		__i16 count_ = static_cast<__i16>(nValue.size());
-		mStream.write((char *)(&count_), sizeof(__i16));
+		this->runInt16(count_, "count");
 		std::list<__i8>::iterator it = nValue.begin();
 		for (; it != nValue.end(); ++it) {
 			__i8 t_ = (*it);
-			this->runInt8(t_, "__i8");
+			this->runInt8(t_, nName);
 		}
 	}
 
-	void XmlReader::runInt8Count(__i8& nValue, const char * nName, __i32 nCount, __i8 nOptimal)
+	void BinWriter::runInt8Count(__i8& nValue, const char * nName, __i32 nCount, __i8 nOptimal)
 	{
-		nValue = nOptimal; string name_ = nName; name_ += "_";
-		name_.append(__convert<string, __i32>(nCount));
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(name_.c_str());
-		if (nullptr == xmlAttribute_) return;
-		char * text_ = xmlAttribute_->value();
-		nValue = __convert<__i8, char *>(text_);
+		this->runInt8(nValue, nName);
 	}
 
-	void XmlReader::runInt8sCount(list<__i8>& nValue, const char * nName, __i32 nCount)
+	void BinWriter::runInt8sCount(list<__i8>& nValue, const char * nName, __i32 nCount)
 	{
-		for (__i32 i = 0; i < nCount; ++i) {
-			__i8 temp = 0; std::string name_ = nName;
-			name_.append(__convert<std::string, __i32>(i));
-			this->runInt8(temp, name_.c_str());
-			if (0 != temp){
-				nValue.push_back(temp);
-			}
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		std::list<__i8>::iterator it = nValue.begin();
+		for (; it != nValue.end(); ++it) {
+			__i8 t_ = (*it);
+			this->runInt8(t_, nName);
 		}
 	}
 
-	void XmlReader::runInt8Semi(list<__i8>& nValue, const char * nName)
+	void BinWriter::runInt8Semi(list<__i8>& nValue, const char * nName)
 	{
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
-		if (nullptr == xmlAttribute_) return;
-		std::string text_ = xmlAttribute_->value();
-		boost::trim_if(text_, boost::is_any_of("; "));
-		list<std::string> splits;
-		boost::split(splits, text_, boost::is_any_of(";"));
-		list<std::string>::iterator it = splits.begin();
-		for (; it != splits.end(); ++it) {
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		std::list<__i8>::iterator it = nValue.begin();
+		for (; it != nValue.end(); ++it) {
+			__i8 t_ = (*it);
+			this->runInt8(t_, nName);
+		}
+	}
+
+	void BinWriter::runInt16(__i16& nValue, const char * nName, __i16 nOptimal)
+	{
+		mStream.write((char *)(&nValue), sizeof(__i16));
+	}
+
+	void BinWriter::runInt16s(std::list<__i16>& nValue, const char * nNames, const char * nName)
+	{
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		std::list<__i16>::iterator it = nValue.begin();
+		for (; it != nValue.end(); ++it) {
+			__i16 t_ = (*it);
+			this->runInt16(t_, nName);
+		}
+	}
+
+	void BinWriter::runInt16Count(__i16& nValue, const char * nName, __i32 nCount, __i16 nOptimal)
+	{
+		this->runInt16(nValue, nName);
+	}
+
+	void BinWriter::runInt16sCount(std::list<__i16>& nValue, const char * nName, __i32 nCount)
+	{
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		std::list<__i16>::iterator it = nValue.begin();
+		for (; it != nValue.end(); ++it) {
+			__i16 t_ = (*it);
+			this->runInt16(t_, nName);
+		}
+	}
+
+	void BinWriter::runInt16Semi(std::list<__i16>& nValue, const char * nName)
+	{
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		std::list<__i16>::iterator it = nValue.begin();
+		for (; it != nValue.end(); ++it) {
+			__i16 t_ = (*it);
+			this->runInt16(t_, nName);
+		}
+	}
+
+	void BinWriter::runInt32(__i32& nValue, const char * nName, __i32 nOptimal)
+	{
+		mStream.write((char *)(&nValue), sizeof(__i32));
+	}
+
+	void BinWriter::runInt32s(std::list<__i32>& nValue, const char * nNames, const char * nName)
+	{
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		std::list<__i32>::iterator it = nValue.begin();
+		for (; it != nValue.end(); ++it) {
+			__i32 t_ = (*it);
+			this->runInt32(t_, nName);
+		}
+	}
+
+	void BinWriter::runInt32Count(__i32& nValue, const char * nName, __i32 nCount, __i32 nOptimal)
+	{
+		mStream.write((char *)(&nValue), sizeof(__i32));
+	}
+
+	void BinWriter::runInt32sCount(list<__i32>& nValue, const char * nName, __i32 nCount)
+	{
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		std::list<__i32>::iterator it = nValue.begin();
+		for (; it != nValue.end(); ++it) {
+			__i32 t_ = (*it);
+			this->runInt32(t_, nName);
+		}
+	}
+
+	void BinWriter::runInt32Semi(list<__i32>& nValue, const char * nName)
+	{
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		std::list<__i32>::iterator it = nValue.begin();
+		for (; it != nValue.end(); ++it) {
+			__i32 t_ = (*it);
+			this->runInt32(t_, nName);
+		}
+	}
+
+	void BinWriter::runCrc32(__i32& nValue, const char * nName, __i32 nOptimal)
+	{
+		this->runInt32(nValue, nName);
+	}
+
+	void BinWriter::runCrc32s(list<__i32>& nValue, const char * nNames, const char * nName)
+	{
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		std::list<__i32>::iterator it = nValue.begin();
+		for (; it != nValue.end(); ++it) {
+			__i32 t_ = (*it);
+			this->runInt32(t_, nName);
+		}
+	}
+
+	void BinWriter::runCrc32Count(__i32& nValue, const char * nName, __i32 nCount, __i32 nOptimal)
+	{
+		this->runInt32(nValue, nName);
+	}
+
+
+	void BinWriter::runCrc32sCount(list<__i32>& nValue, const char * nName, __i32 nCount)
+	{
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		std::list<__i32>::iterator it = nValue.begin();
+		for (; it != nValue.end(); ++it) {
+			__i32 t_ = (*it);
+			this->runInt32(t_, nName);
+		}
+	}
+
+	void BinWriter::runCrc32Semi(list<__i32>& nValue, const char * nName)
+	{
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		std::list<__i32>::iterator it = nValue.begin();
+		for (; it != nValue.end(); ++it) {
+			__i32 t_ = (*it);
+			this->runInt32(t_, nName);
+		}
+	}
+
+	void BinWriter::runInt64(__i64& nValue, const char * nName, __i64 nOptimal)
+	{
+		mStream.write((char *)(&nValue), sizeof(__i64));
+	}
+
+	void BinWriter::runInt64s(list<__i64>& nValue, const char * nNames, const char * nName)
+	{
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		std::list<__i64>::iterator it = nValue.begin();
+		for (; it != nValue.end(); ++it) {
+			__i64 t_ = (*it);
+			this->runInt64(t_, nName);
+		}
+	}
+
+	void BinWriter::runInt64Count(__i64& nValue, const char * nName, __i32 nCount, __i64 nOptimal)
+	{
+		this->runInt64(nValue, nName);
+	}
+
+	void BinWriter::runInt64sCount(std::list<__i64>& nValue, const char * nName, __i32 nCount)
+	{
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		std::list<__i64>::iterator it = nValue.begin();
+		for (; it != nValue.end(); ++it) {
+			__i64 t_ = (*it);
+			this->runInt64(t_, nName);
+		}
+	}
+
+	void BinWriter::runInt64Semi(list<__i64>& nValue, const char * nName)
+	{
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		std::list<__i64>::iterator it = nValue.begin();
+		for (; it != nValue.end(); ++it) {
+			__i64 t_ = (*it);
+			this->runInt64(t_, nName);
+		}
+	}
+
+	void BinWriter::runString(std::string& nValue, const char * nName, const char * nOptimal)
+	{
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		mStream.write((char *)(&nValue[0]), sizeof(char) * count_);
+	}
+
+	void BinWriter::runStrings(std::list<std::string>& nValue, const char * nNames, const char * nName)
+	{
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		std::list<std::string>::iterator it = nValue.begin();
+		for ( ; it != nValue.end(); ++it ) {
 			std::string& tempStr = (*it);
-			nValue.push_back(__convert<__i8, std::string>(tempStr));
+			this->runString(tempStr, nName);
 		}
 	}
 
-	void XmlReader::runInt16(__i16& nValue, const char * nName, __i16 nOptimal)
+	void BinWriter::runStringCount(std::string& nValue, const char * nName, __i32 nCount, const char * nOptimal)
 	{
-		nValue = nOptimal;
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
-		if (nullptr == xmlAttribute_) return;
-		char * text_ = xmlAttribute_->value();
-		nValue = __convert<__i16, char *>(text_);
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		mStream.write((char *)(&nValue[0]), sizeof(char)* count_);
 	}
 
-	void XmlReader::runInt16s(list<__i16>& nValue, const char * nNames, const char * nName)
+	void BinWriter::runStringsCount(std::list<std::string>& nValue, const char * nName, __i32 nCount)
 	{
-		xml_node<char> * xmlNode_ = mXmlNode->first_node(nNames);
-		if (nullptr == xmlNode_) return;
-		xmlNode_ = xmlNode_->first_node();
-		for (; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling()) {
-			char * text_ = xmlNode_->value();
-			__i16 value_ = __convert<__i16, char *>(text_);
-			nValue.push_back(value_);
-		}
-	}
-
-	void XmlReader::runInt16Count(__i16& nValue, const char * nName, __i32 nCount, __i16 nOptimal)
-	{
-		nValue = nOptimal; std::string name_ = nName; name_ += "_";
-		name_.append(__convert<string, __i32>(nCount));
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(name_.c_str());
-		if (nullptr == xmlAttribute_) return;
-		char * text_ = xmlAttribute_->value();
-		nValue = __convert<__i16, char *>(text_);
-	}
-
-	void XmlReader::runInt16sCount(list<__i16>& nValue, const char * nName, __i32 nCount)
-	{
-		for (__i32 i = 0; i < nCount; ++i) {
-			__i16 temp = 0; std::string name_ = nName;
-			name_.append(__convert<string, __i32>(i));
-			this->runInt16(temp, name_.c_str());
-			if (0 != temp){
-				nValue.push_back(temp);
-			}
-		}
-	}
-
-	void XmlReader::runInt16Semi(list<__i16>& nValue, const char * nName)
-	{
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
-		if (nullptr == xmlAttribute_) return;
-		string text_ = xmlAttribute_->value();
-		boost::trim_if(text_, boost::is_any_of("; "));
-		list<string> splits;
-		boost::split(splits, text_, boost::is_any_of(";"));
-		list<string>::iterator it = splits.begin();
-		for (; it != splits.end(); ++it)
-		{
-			string& tempStr = (*it);
-			nValue.push_back(__convert<__i16, string>(tempStr));
-		}
-	}
-
-	void XmlReader::runInt32(__i32& nValue, const char * nName, __i32 nOptimal)
-	{
-		nValue = nOptimal;
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
-		if (nullptr == xmlAttribute_) return;
-		char * text_ = xmlAttribute_->value();
-		nValue = __convert<__i32, char *>(text_);
-	}
-
-	void XmlReader::runInt32s(list<__i32>& nValue, const char * nNames, const char * nName)
-	{
-		xml_node<char> * xmlNode_ = mXmlNode->first_node(nNames);
-		if (nullptr == xmlNode_) return;
-		xmlNode_ = xmlNode_->first_node();
-		for (; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling())
-		{
-			char * text_ = xmlNode_->value();
-			__i32 value_ = __convert<__i32, char *>(text_);
-			nValue.push_back(value_);
-		}
-	}
-
-	void XmlReader::runInt32Count(__i32& nValue, const char * nName, __i32 nCount, __i32 nOptimal)
-	{
-		nValue = nOptimal; string name_ = nName; name_ += "_";
-		name_.append(__convert<string, __i32>(nCount));
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(name_.c_str());
-		if (nullptr == xmlAttribute_) return;
-		char * text_ = xmlAttribute_->value();
-		nValue = __convert<__i32, char *>(text_);
-	}
-
-	void XmlReader::runInt32sCount(list<__i32>& nValue, const char * nName, __i32 nCount)
-	{
-		for (__i32 i = 0; i < nCount; ++i) {
-			__i32 temp = 0; string name_ = nName;
-			name_.append(__convert<string, __i32>(i));
-			this->runInt32(temp, name_.c_str());
-			if (0 != temp){
-				nValue.push_back(temp);
-			}
-		}
-	}
-
-	void XmlReader::runInt32Semi(list<__i32>& nValue, const char * nName)
-	{
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
-		if (nullptr == xmlAttribute_) return;
-		std::string text_ = xmlAttribute_->value();
-		boost::trim_if(text_, boost::is_any_of("; "));
-		list<std::string> splits;
-		boost::split(splits, text_, boost::is_any_of(";"));
-		list<string>::iterator it = splits.begin();
-		for (; it != splits.end(); ++it) {
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		std::list<std::string>::iterator it = nValue.begin();
+		for (; it != nValue.end(); ++it) {
 			std::string& tempStr = (*it);
-			nValue.push_back(__convert<__i32, std::string>(tempStr));
+			this->runString(tempStr, nName);
 		}
 	}
 
-	void XmlReader::runCrc32(__i32& nValue, const char * nName, __i32 nOptimal)
+	void BinWriter::runStringSemi(std::list<std::string>& nValue, const char * nName)
 	{
-		nValue = nOptimal;
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
-		if (nullptr == xmlAttribute_) return;
-		char * text_ = xmlAttribute_->value();
-		CrcService& crcService = Singleton<CrcService>::instance();
-		nValue = crcService.runCommon(text_);
-	}
-
-	void XmlReader::runCrc32s(list<__i32>& nValue, const char * nNames, const char * nName)
-	{
-		xml_node<char> * xmlNode_ = mXmlNode->first_node(nNames);
-		if (nullptr == xmlNode_) return;
-		CrcService& crcService = Singleton<CrcService>::instance();
-		xmlNode_ = xmlNode_->first_node();
-		for (; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling()) {
-			char * text_ = xmlNode_->value();
-			__i32 value_ = crcService.runCommon(text_);
-			nValue.push_back(value_);
-		}
-	}
-
-	void XmlReader::runCrc32Count(__i32& nValue, const char * nName, __i32 nCount, __i32 nOptimal)
-	{
-		nValue = nOptimal; std::string name_ = nName; name_ += "_";
-		name_.append(__convert<std::string, __i32>(nCount));
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(name_.c_str());
-		if (nullptr == xmlAttribute_) return;
-		char * text_ = xmlAttribute_->value();
-		CrcService& crcService = Singleton<CrcService>::instance();
-		nValue = crcService.runCommon(text_);
-	}
-
-
-	void XmlReader::runCrc32sCount(list<__i32>& nValue, const char * nName, __i32 nCount)
-	{
-		for (__i32 i = 0; i < nCount; ++i) {
-			__i32 tempI32 = 0; std::string name_ = nName;
-			name_.append(__convert<std::string, __i32>(i));
-			this->runCrc32(tempI32, name_.c_str());
-			if (0 != tempI32) nValue.push_back(tempI32);
-		}
-	}
-
-	void XmlReader::runCrc32Semi(list<__i32>& nValue, const char * nName)
-	{
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
-		if (nullptr == xmlAttribute_) return;
-		CrcService& crcService = Singleton<CrcService>::instance();
-		std::string text_ = xmlAttribute_->value();
-		boost::trim_if(text_, boost::is_any_of("; "));
-		list<std::string> splits;
-		boost::split(splits, text_, boost::is_any_of(";"));
-		list<std::string>::iterator it = splits.begin();
-		for (; it != splits.end(); ++it) {
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		std::list<std::string>::iterator it = nValue.begin();
+		for (; it != nValue.end(); ++it) {
 			std::string& tempStr = (*it);
-			nValue.push_back(crcService.runCommon(tempStr.c_str()));
+			this->runString(tempStr, nName);
 		}
 	}
 
-	void XmlReader::runInt64(__i64& nValue, const char * nName, __i64 nOptimal)
+	void BinWriter::runFloat(float& nValue, const char * nName, float nOptimal)
 	{
-		nValue = nOptimal;
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
-		if (nullptr == xmlAttribute_) {
-			char * text_ = xmlAttribute_->value();
-			nValue = __convert<__i64, char *>(text_);
+		mStream.write((char *)(&nValue), sizeof(float));
+	}
+
+	void BinWriter::runFloats(list<float>& nValue, const char * nNames, const char * nName)
+	{
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		std::list<float>::iterator it = nValue.begin();
+		for (; it != nValue.end(); ++it) {
+			float& value_ = (*it);
+			this->runFloat(value_, nName);
 		}
 	}
 
-	void XmlReader::runInt64s(list<__i64>& nValue, const char * nNames, const char * nName)
+	void BinWriter::runFloatCount(float& nValue, const char * nName, __i32 nCount, float nOptimal)
 	{
-		xml_node<char> * xmlNode_ = mXmlNode->first_node(nNames);
-		if (nullptr == xmlNode_) return;
-		xmlNode_ = xmlNode_->first_node();
-		for (; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling()) {
-			char * text_ = xmlNode_->value();
-			__i64 value_ = __convert<__i64, char *>(text_);
-			nValue.push_back(value_);
+		mStream.write((char *)(&nValue), sizeof(float));
+	}
+
+	void BinWriter::runFloatsCount(std::list<float>& nValue, const char * nName, __i32 nCount)
+	{
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		std::list<float>::iterator it = nValue.begin();
+		for (; it != nValue.end(); ++it) {
+			float& value_ = (*it);
+			this->runFloat(value_, nName);
 		}
 	}
 
-	void XmlReader::runInt64Count(__i64& nValue, const char * nName, __i32 nCount, __i64 nOptimal)
+	void BinWriter::runFloatSemi(std::list<float>& nValue, const char * nName)
 	{
-		nValue = nOptimal; std::string name_ = nName; name_ += "_";
-		name_.append(__convert<string, __i32>(nCount));
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(name_.c_str());
-		if (nullptr == xmlAttribute_) return;
-		char * text_ = xmlAttribute_->value();
-		nValue = __convert<__i64, char *>(text_);
-	}
-
-	void XmlReader::runInt64sCount(list<__i64>& nValue, const char * nName, __i32 nCount)
-	{
-		for (__i32 i = 0; i < nCount; ++i) {
-			__i64 temp = 0; std::string name_ = nName;
-			name_.append(__convert<string, __i32>(i));
-			this->runInt64(temp, name_.c_str());
-			if (0 != temp){
-				nValue.push_back(temp);
-			}
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		std::list<float>::iterator it = nValue.begin();
+		for (; it != nValue.end(); ++it) {
+			float& value_ = (*it);
+			this->runFloat(value_, nName);
 		}
 	}
 
-	void XmlReader::runInt64Semi(list<__i64>& nValue, const char * nName)
+	void BinWriter::runDouble(double& nValue, const char * nName, double nOptimal)
 	{
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
-		if (nullptr == xmlAttribute_) return;
-		std::string text_ = xmlAttribute_->value();
-		boost::trim_if(text_, boost::is_any_of("; "));
-		list<std::string> splits;
-		boost::split(splits, text_, boost::is_any_of(";"));
-		list<std::string>::iterator it = splits.begin();
-		for (; it != splits.end(); ++it) {
-			std::string& tempStr = (*it);
-			nValue.push_back(__convert<__i64, string>(tempStr));
+		mStream.write((char *)(&nValue), sizeof(double));
+	}
+
+	void BinWriter::runDoubles(std::list<double>& nValue, const char * nNames, const char * nName)
+	{
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		std::list<double>::iterator it = nValue.begin();
+		for (; it != nValue.end(); ++it) {
+			double& value_ = (*it);
+			this->runDouble(value_, nName);
 		}
 	}
 
-	void XmlReader::runString(std::string& nValue, const char * nName, const char * nOptimal)
+	void BinWriter::runDoubleCount(double& nValue, const char * nName, __i32 nCount, double nOptimal)
 	{
-		nValue = nOptimal;
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
-		if (nullptr == xmlAttribute_) return;
-		nValue = xmlAttribute_->value();
+		mStream.write((char *)(&nValue), sizeof(double));
 	}
 
-	void XmlReader::runStrings(list<std::string>& nValue, const char * nNames, const char * nName)
+	void BinWriter::runDoublesCount(std::list<double>& nValue, const char * nName, __i32 nCount)
 	{
-		xml_node<char> * xmlNode_ = mXmlNode->first_node(nNames);
-		if (nullptr == xmlNode_) return;
-		xmlNode_ = xmlNode_->first_node();
-		for (; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling())
-		{
-			string value_ = xmlNode_->value();
-			nValue.push_back(value_);
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		std::list<double>::iterator it = nValue.begin();
+		for (; it != nValue.end(); ++it) {
+			double& value_ = (*it);
+			this->runDouble(value_, nName);
 		}
 	}
 
-	void XmlReader::runStringCount(std::string& nValue, const char * nName, __i32 nCount, const char * nOptimal)
+	void BinWriter::runDoubleSemi(list<double>& nValue, const char * nName)
 	{
-		nValue = nOptimal; string name_ = nName; name_ += "_";
-		name_.append(__convert<string, __i32>(nCount));
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(name_.c_str());
-		nValue = xmlAttribute_->value();
-	}
-
-	void XmlReader::runStringsCount(list<std::string>& nValue, const char * nName, __i32 nCount)
-	{
-		for (__i32 i = 0; i < nCount; ++i) {
-			std::string temp = ""; std::string name_ = nName;
-			name_.append(__convert<std::string, __i32>(i));
-			this->runString(temp, name_.c_str());
-			if ("" != temp){
-				nValue.push_back(temp);
-			}
+		__i16 count_ = static_cast<__i16>(nValue.size());
+		this->runInt16(count_, "count");
+		std::list<double>::iterator it = nValue.begin();
+		for (; it != nValue.end(); ++it) {
+			double& value_ = (*it);
+			this->runDouble(value_, nName);
 		}
 	}
 
-	void XmlReader::runStringSemi(list<std::string>& nValue, const char * nName)
-	{
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
-		if (nullptr == xmlAttribute_) return;
-		std::string text_ = xmlAttribute_->value();
-		boost::trim_if(text_, boost::is_any_of("; "));
-		boost::split(nValue, text_, boost::is_any_of(";"));
-	}
-
-	void XmlReader::runFloat(float& nValue, const char * nName, float nOptimal)
-	{
-		nValue = nOptimal;
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
-		if (nullptr == xmlAttribute_) return;
-		char * text_ = xmlAttribute_->value();
-		nValue = __convert<float, char *>(text_);
-	}
-
-	void XmlReader::runFloats(list<float>& nValue, const char * nNames, const char * nName)
-	{
-		xml_node<char> * xmlNode_ = mXmlNode->first_node(nNames);
-		if (nullptr == xmlNode_) return;
-		xmlNode_ = xmlNode_->first_node();
-		for (; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling()) {
-			char * text_ = xmlNode_->value();
-			float value_ = __convert<float, char *>(text_);
-			nValue.push_back(value_);
-		}
-	}
-
-	void XmlReader::runFloatCount(float& nValue, const char * nName, __i32 nCount, float nOptimal)
-	{
-		nValue = nOptimal; std::string name_ = nName; name_ += "_";
-		name_.append(__convert<std::string, __i32>(nCount));
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(name_.c_str());
-		char * text_ = xmlAttribute_->value();
-		nValue = __convert<float, char *>(text_);
-	}
-
-	void XmlReader::runFloatsCount(list<float>& nValue, const char * nName, __i32 nCount)
-	{
-		for (__i32 i = 0; i < nCount; ++i)
-		{
-			float temp = 0.f; std::string name_ = nName;
-			name_.append(__convert<std::string, __i32>(i));
-			this->runFloat(temp, name_.c_str());
-			if (0.f != temp){
-				nValue.push_back(temp);
-			}
-		}
-	}
-
-	void XmlReader::runFloatSemi(list<float>& nValue, const char * nName)
-	{
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
-		if (nullptr == xmlAttribute_) return;
-		std::string text_ = xmlAttribute_->value();
-		boost::trim_if(text_, boost::is_any_of("; "));
-		list<std::string> splits;
-		boost::split(splits, text_, boost::is_any_of(";"));
-		list<std::string>::iterator it = splits.begin();
-		for (; it != splits.end(); ++it)
-		{
-			std::string& tempStr = (*it);
-			nValue.push_back(__convert<float, std::string>(tempStr));
-		}
-	}
-
-	void XmlReader::runDouble(double& nValue, const char * nName, double nOptimal)
-	{
-		nValue = nOptimal;
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
-		if (nullptr == xmlAttribute_)
-		{
-			char * text_ = xmlAttribute_->value();
-			nValue = __convert<double, char *>(text_);
-		}
-	}
-
-	void XmlReader::runDoubles(list<double>& nValue, const char * nNames, const char * nName)
-	{
-		xml_node<char> * xmlNode_ = mXmlNode->first_node(nNames);
-		if (nullptr == xmlNode_) return;
-		xmlNode_ = xmlNode_->first_node();
-		for (; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling())
-		{
-			char * text_ = xmlNode_->value();
-			double value_ = __convert<double, char *>(text_);
-			nValue.push_back(value_);
-		}
-	}
-
-	void XmlReader::runDoubleCount(double& nValue, const char * nName, __i32 nCount, double nOptimal)
-	{
-		nValue = nOptimal; std::string name_ = nName; name_ += "_";
-		name_.append(__convert<std::string, __i32>(nCount));
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(name_.c_str());
-		char * text_ = xmlAttribute_->value();
-		nValue = __convert<double, char *>(text_);
-	}
-
-	void XmlReader::runDoublesCount(list<double>& nValue, const char * nName, __i32 nCount)
-	{
-		for (__i32 i = 0; i < nCount; ++i) {
-			double temp = 0.; std::string name_ = nName;
-			name_.append(__convert<std::string, __i32>(i));
-			this->runDouble(temp, name_.c_str());
-			if (0. != temp){
-				nValue.push_back(temp);
-			}
-		}
-	}
-
-	void XmlReader::runDoubleSemi(list<double>& nValue, const char * nName)
-	{
-		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
-		if (nullptr == xmlAttribute_) return;
-		std::string text_ = xmlAttribute_->value();
-		boost::trim_if(text_, boost::is_any_of("; "));
-		list<std::string> splits;
-		boost::split(splits, text_, boost::is_any_of(";"));
-		list<std::string>::iterator it = splits.begin();
-		for (; it != splits.end(); ++it) {
-			std::string& tempStr = (*it);
-			nValue.push_back(__convert<double, std::string>(tempStr));
-		}
-	}
-
-	bool XmlReader::openUrl(const char * nUrl)
+	bool BinWriter::openUrl(const char * nUrl)
 	{
 #ifdef __COCOS2DX__
 		if (FileUtils::getInstance()->isFileExist(nUrl)) {
@@ -487,55 +377,35 @@ namespace std {
 		SettingService& settingService_ = Singleton<SettingService>::instance();
 		std::string url_ = settingService_.systemPath();
 		if ("" != url_) url_ += "/"; url_ += nUrl;
-		mFileDoc.reset(new file<char>(url_.c_str()));
-		mXmlDocument.parse<0>(mFileDoc->data());
-		mXmlNode = mXmlDocument.first_node();
+		mStream.open(nUrl, ios::binary | ios::out);
 		return true;
 #endif
 	}
 
-	bool XmlReader::openKey(const char * nUrl, const char * nKey)
-	{
-#ifdef __COCOS2DX__
-		std::string path_ = FileUtils::getInstance()->getWritablePath();
-		path_ += nUrl;
-		if (FileUtils.is)
-		{
-		}
-#endif
-	}
-
-	void XmlReader::selectStream(const char * nStreamName)
+	void BinWriter::selectStream(const char * nStreamName)
 	{
 	}
 
-	__i32 XmlReader::pushStream(const char * nName)
+	__i32 BinWriter::pushStream(const char * nName)
 	{
-		mXmlNodes.push(mXmlNode);
 		return 0;
 	}
 
-	void XmlReader::popStream()
-	{
-		mXmlNode = mXmlNodes.top();
-		mXmlNodes.pop();
-	}
-
-	void XmlReader::runClose()
+	void BinWriter::popStream()
 	{
 	}
 
-	XmlReader::XmlReader()
-		: mXmlDocument()
-		, mXmlNode(nullptr)
-		, mXmlNodes()
+	void BinWriter::runClose()
+	{
+		mStream.close();
+	}
+
+	BinWriter::BinWriter()
 	{
 	}
 
-	XmlReader::~XmlReader()
+	BinWriter::~BinWriter()
 	{
-		mXmlDocument.clear();
-		mXmlNode = nullptr;
 	}
 
 }

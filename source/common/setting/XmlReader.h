@@ -73,7 +73,6 @@ namespace std {
 		void runKeyStreamsCount(map<T0, std::shared_ptr<T1>>& nValue, const char * nNames, const char * nName, __i32 nCount = 0);
 
 		bool openUrl(const char * nUrl);
-		bool openKey(const char * nUrl, const char * nKey);
 		void selectStream(const char * nStreamName);
 		__i32 pushStream(const char * nName);
 		void popStream();
@@ -94,8 +93,7 @@ namespace std {
 	{
 		mXmlNodes.push(mXmlNode);
 		mXmlNode = mXmlNode->first_node(nName);
-		if (nullptr != mXmlNode)
-		{
+		if (nullptr != mXmlNode) {
 			nValue.serialize(this, 0);
 		}
 		mXmlNode = mXmlNodes.top();
@@ -106,12 +104,10 @@ namespace std {
 	void XmlReader::runStreamCount(T& nValue, const char * nName, __i32 nCount)
 	{
 		mXmlNodes.push(mXmlNode);
-		string name_ = nName;
-		name_ += "_";
+		string name_ = nName; name_ += "_";
 		name_.append(__convert<string, __i32>(nCount));
 		mXmlNode = mXmlNode->first_node(name_.c_str());
-		if (nullptr != mXmlNode)
-		{
+		if (nullptr != mXmlNode) {
 			nValue.serialize(this, nCount);
 		}
 		mXmlNode = mXmlNodes.top();
@@ -124,8 +120,7 @@ namespace std {
 		mXmlNodes.push(mXmlNode);
 		xml_node<char> * xmlNode_ = mXmlNode->first_node(nNames);
 		xmlNode_ = xmlNode_->first_node();
-		for (; xmlNode_ != nullptr; xmlNode_ = xmlNode_->next_sibling())
-		{
+		for (; xmlNode_ != nullptr; xmlNode_ = xmlNode_->next_sibling()) {
 			mXmlNode = xmlNode_;
 			std::shared_ptr<T0> t_(new T0());
 			t_->serialize(this, nCount);

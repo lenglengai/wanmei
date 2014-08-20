@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Archive.h"
+#include "ArchiveReader.h"
 
 namespace std {
 
@@ -24,7 +24,7 @@ namespace std {
 		~ArchiveService();
 
 	private:
-		Archive mArchive;
+		ArchiveReader mArchiveReader;
 		__i16 mJourney;
 	};
 
