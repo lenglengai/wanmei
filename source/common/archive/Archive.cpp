@@ -1,6 +1,7 @@
 #include "../DefInc.h"
-#include "../crc/CrcService.h"
 #include "Archive.h"
+#include "../crc/CrcService.h"
+
 
 namespace std {
 
@@ -13,6 +14,11 @@ namespace std {
 			return ArchiveHashPtr(new ArchiveHash());
 		}
 		return it->second;
+	}
+
+	void Archive::runClear()
+	{
+		mArchiveHashs.clear();
 	}
 
 	Archive::Archive()

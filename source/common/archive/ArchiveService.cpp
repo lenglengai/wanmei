@@ -1,5 +1,4 @@
 #include "../DefInc.h"
-
 #include "ArchiveService.h"
 
 namespace std {
@@ -16,8 +15,10 @@ namespace std {
 
 	void ArchiveService::switchJourney(__i16 nJourney)
 	{
-		mJourney = nJourney;
-		mArchiveReader
+		if (mJourney == nJourney) return;
+		mJourney = nJourney; std::string journey_ = "journey_";
+		journey_ += __convert<std::string, __i16>(nJourney);
+		m
 	}
 
 	ArchiveService::ArchiveService()

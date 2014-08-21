@@ -5,17 +5,7 @@ namespace std {
 
 	__i32 ArchiveHead::hashSize()
 	{
-		return 7;
-	}
-
-	__i32 ArchiveHead::getSize()
-	{
-		return mSize;
-	}
-
-	__i16 ArchiveHead::getCount()
-	{
-		return mCount;
+		return 1;
 	}
 
 	bool ArchiveHead::getCompress()
@@ -23,19 +13,19 @@ namespace std {
 		return mCompress;
 	}
 
-	ArchiveHead::ArchiveHead()
-		: mSize(0)
-		, mCount(0)
-		, mCompress(false)
+	void ArchiveHead::runClear()
 	{
+		mCompress = false;
+	}
 
+	ArchiveHead::ArchiveHead()
+	{
+		this->runClear();
 	}
 
 	ArchiveHead::~ArchiveHead()
 	{
-		mSize = 0;
-		mCount = 0;
-		mCompress = false;
+		this->runClear();
 	}
 
 }

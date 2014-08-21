@@ -2,7 +2,7 @@
 
 namespace std {
 
-	class ArchiveHash : boost::noncopyable
+	class __funapi ArchiveHash : boost::noncopyable
 	{
 	public:
 		static __i32 hashSize();
@@ -17,7 +17,7 @@ namespace std {
 		bool isDefault();
 
 		template<class T>
-		void serialize(T * nSerialize, int nCount)
+		void serialize(T * nSerialize, __i32 nCount)
 		{
 			nSerialize->runInt32(mHash, "hash");
 			nSerialize->runInt32(mBeg, "beg");

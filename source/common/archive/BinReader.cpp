@@ -1,6 +1,6 @@
 #include "../DefInc.h"
-#include "../setting/SettingService.h"
 #include "BinReader.h"
+#include "../setting/SettingService.h"
 
 #ifdef __COCOS2DX__
 #include <cocos2d.h>
@@ -395,6 +395,16 @@ namespace std {
 
 	void BinReader::popStream()
 	{
+	}
+
+	void BinReader::runRead(char * nValue, __i32 nLength)
+	{
+		mStream.read(nValue, nLength);
+	}
+
+	void BinReader::runSeek(__i32 nPos)
+	{
+		mStream.seekg(nPos, ios::beg);
 	}
 
 	void BinReader::runClose()

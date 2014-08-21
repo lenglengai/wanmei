@@ -9,6 +9,7 @@ namespace std {
 	{
 	public:
 		ArchiveHashPtr getArchiveHash(const char * nKey);
+		void runClear();
 
 		template<class T>
 		void headSerialize(T& nSerialize)

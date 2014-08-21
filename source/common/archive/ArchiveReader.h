@@ -1,10 +1,11 @@
 #pragma once
 
 #include "Archive.h"
+#include "BinReader.h"
 
 namespace std {
 
-	class ArchiveReader
+	class __funapi ArchiveReader
 	{
 	public:
 		void runOpen(const char * nPath);
@@ -16,6 +17,7 @@ namespace std {
 		~ArchiveReader();
 
 	private:
+		char mCommon[5 * 1024 * 1024];
 		BinReader mBinReader;
 		Archive mArchive;
 	};

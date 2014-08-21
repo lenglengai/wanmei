@@ -70,6 +70,8 @@ namespace std {
 		void selectStream(const char * nStreamName);
 		__i32 pushStream(const char * nName);
 		void popStream();
+		void runRead(char * nValue, __i32 nLength);
+		void runSeek(__i32 nPos);
 		void runClose();
 
 		BinReader();
@@ -95,10 +97,10 @@ namespace std {
 	void BinReader::runStreamsCount(list<std::shared_ptr<T0> >& nValue, const char * nNames, const char * nName, __i32 nCount)
 	{
 		__i16 count_ = 0; __i8 value_ = 0;
-		mStream.read((char *)(&count_), sizeof(__i16));
+		this->runInt16(count_, "count");
 		for (__i16 i = 0; i < count_; ++i) {
-			shared_ptr<T0> t_(new T0());
-			t_->_serialize(this, nCount);
+			std::shared_ptr<T0> t_(new T0());
+			t_->serialize(this, nCount);
 			nValue.push_back(t_);
 		}
 	}
@@ -107,10 +109,10 @@ namespace std {
 	void BinReader::runKeyStreamsCount(map<T0, std::shared_ptr<T1>>& nValue, const char * nNames, const char * nName, __i32 nCount)
 	{
 		__i16 count_ = 0; __i8 value_ = 0;
-		mStream.read((char *)(&count_), sizeof(__i16));
+		this->runInt16(count_, "count");
 		for (__i16 i = 0; i < count_; ++i) {
-			shared_ptr<T0> t_(new T0());
-			t_->_serialize(this, nCount);
+			std::shared_ptr<T1> t_(new T1());
+			t_->serialize(this, nCount);
 			nValue[t_->getKey()] = t_;
 		}
 	}

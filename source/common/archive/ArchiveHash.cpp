@@ -1,12 +1,11 @@
 #include "../DefInc.h"
-
 #include "ArchiveHash.h"
 
 namespace std {
 
 	__i32 ArchiveHash::hashSize()
 	{
-		return (sizeof(__i32)* 5);
+		return (sizeof(__i32)* 4);
 	}
 
 	void ArchiveHash::setHash(__i32 nHash)

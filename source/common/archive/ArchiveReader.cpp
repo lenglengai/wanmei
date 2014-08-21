@@ -1,6 +1,6 @@
 #include "../DefInc.h"
-#include "BinReader.h"
 #include "ArchiveReader.h"
+#include "../compress/CompressService.h"
 
 namespace std {
 
@@ -12,14 +12,14 @@ namespace std {
 
 	bool ArchiveReader::readKey(const char * nKey, char ** nBuf, __i32 * nSize)
 	{
-		ArchiveHashPtr archiveHash = mArchive.getArchiveHash(nKey);
 		memset(mCommon, 0, sizeof(mCommon));
-		mBinReader._runSeek(mpqHash->_getBeg());
-		mBinReader.(mCommon, mpqHash->_getEnd());
-		(*nBuf) = new char[mpqHash->_getSize()];
-		(*nSize) = mpqHash->_getSize();
-		CompressSingleton& compressSingleton_ = __singleton<CompressSingleton>::_instance();
-		compressSingleton_._unBZip2(mCommon, mpqHash->_getEnd(), (*nBuf), nSize);
+		ArchiveHashPtr archiveHash = mArchive.getArchiveHash(nKey);
+		mBinReader.runSeek(archiveHash->getBeg());
+		mBinReader.runRead(mCommon, archiveHash->getEnd());
+		(*nBuf) = new char[archiveHash->getSize()];
+		(*nSize) = archiveHash->getSize();
+		CompressService& compressService = Singleton<CompressService>::instance();
+		compressService.unBZip2(mCommon, archiveHash->getEnd(), (*nBuf), nSize);
 	}
 
 	void ArchiveReader::freeBuf(char * nBuf, __i32 nSize)
@@ -29,17 +29,19 @@ namespace std {
 
 	void ArchiveReader::runClose()
 	{
+		memset(mCommon, 0, sizeof(mCommon));
 		mBinReader.runClose();
+		mArchive.runClear();
 	}
 
 	ArchiveReader::ArchiveReader()
 	{
-
+		memset(mCommon, 0, sizeof(mCommon));
 	}
 
 	ArchiveReader::~ArchiveReader()
 	{
-
+		memset(mCommon, 0, sizeof(mCommon));
 	}
 
 }

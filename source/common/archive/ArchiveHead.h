@@ -2,19 +2,16 @@
 
 namespace std {
 
-	class ArchiveHead : boost::noncopyable
+	class __funapi ArchiveHead : boost::noncopyable
 	{
 	public:
 		static __i32 hashSize();
-		__i32 getSize();
-		__i16 getCount();
 		bool getCompress();
+		void runClear();
 
 		template<class T>
-		void serialize(T * nSerialize, int nCount)
+		void serialize(T * nSerialize, __i32 nCount)
 		{
-			nSerialize->runInt32(mSize, "hash1");
-			nSerialize->runInt32(mCount, "hash2");
 			nSerialize->runBool(mCompress, "compress");
 		}
 
@@ -22,8 +19,6 @@ namespace std {
 		~ArchiveHead();
 
 	private:
-		__i32 mSize;
-		__i16 mCount;
 		bool mCompress;
 	};
 
