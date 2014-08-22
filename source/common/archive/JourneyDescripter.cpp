@@ -13,13 +13,15 @@ namespace std {
 		}
 
 		JourneyDescripter::JourneyDescripter()
+			: mJourney("")
 		{
-
+			mJourneys.clear();
 		}
 
 		JourneyDescripter::~JourneyDescripter()
 		{
-
+			mJourneys.clear();
+			mJourney = "";
 		}
 
 }
