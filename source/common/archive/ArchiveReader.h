@@ -13,13 +13,17 @@ namespace std {
 		void freeBuf(char * nBuf, __i32 nSize);
 		void runClose();
 
+	private:
+		void runClear();
+
+	public:
 		ArchiveReader();
 		~ArchiveReader();
 
 	private:
-		char mCommon[5 * 1024 * 1024];
 		BinReader mBinReader;
 		Archive mArchive;
+		char * mCommon;
 	};
 
 }

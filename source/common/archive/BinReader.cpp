@@ -380,7 +380,10 @@ namespace std {
 		std::string url_ = settingService_.systemPath();
 		if ("" != url_) url_ += "/"; url_ += nUrl;
 		mStream.open(url_, ios::binary | ios::in);
-		return true;
+		if (mStream.is_open()) {
+			return true;
+		}
+		return false;
 #endif
 	}
 

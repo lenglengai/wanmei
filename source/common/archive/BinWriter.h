@@ -70,6 +70,9 @@ namespace std {
 		void selectStream(const char * nStreamName);
 		__i32 pushStream(const char * nName);
 		void popStream();
+		void runWrite(char * nValue, __i32 nLength);
+		void runSeek(__i32 nPos);
+		__i32 runTell();
 		void runClose();
 
 	public:

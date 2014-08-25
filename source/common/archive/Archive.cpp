@@ -16,6 +16,11 @@ namespace std {
 		return it->second;
 	}
 
+	void Archive::pushArchiveHash(ArchiveHashPtr& nArchiveHash)
+	{
+		mArchiveHashs[nArchiveHash->getKey()] = nArchiveHash;
+	}
+
 	void Archive::runClear()
 	{
 		mArchiveHashs.clear();

@@ -1,27 +1,38 @@
 #include "../DefInc.h"
+#include "JourneyDescripter.h"
 
 namespace std {
 
-		std::list<std::string>& JourneyDescripter::getJourneys()
-		{
-			return mJourneys;
-		}
+	const char * JourneyDescripter::streamName()
+	{
+		return "journeyDescripter";
+	}
 
-		std::string& JourneyDescripter::getJourney()
-		{
-			return mJourney;
-		}
+	const char * JourneyDescripter::streamUrl()
+	{
+		return "journeyDescripter.xml";
+	}
 
-		JourneyDescripter::JourneyDescripter()
-			: mJourney("")
-		{
-			mJourneys.clear();
-		}
+	std::list<std::string>& JourneyDescripter::getJourneys()
+	{
+		return mJourneys;
+	}
 
-		JourneyDescripter::~JourneyDescripter()
-		{
-			mJourneys.clear();
-			mJourney = "";
-		}
+	__i32 JourneyDescripter::getJourney()
+	{
+		return mJourney;
+	}
+
+	JourneyDescripter::JourneyDescripter()
+		: mJourney(0)
+	{
+		mJourneys.clear();
+	}
+
+	JourneyDescripter::~JourneyDescripter()
+	{
+		mJourneys.clear();
+		mJourney = 0;
+	}
 
 }

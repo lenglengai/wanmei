@@ -384,6 +384,21 @@ namespace std {
 	{
 	}
 
+	void BinWriter::runWrite(char * nValue, __i32 nLength)
+	{
+		mStream.write(nValue, nLength);
+	}
+
+	void BinWriter::runSeek(__i32 nPos)
+	{
+		mStream.seekp(nPos, ios::beg);
+	}
+
+	__i32 BinWriter::runTell()
+	{
+		return static_cast<__i32>(mStream.tellp());
+	}
+
 	void BinWriter::runClose()
 	{
 		mStream.close();

@@ -53,6 +53,11 @@ namespace std {
 		return (0 == mHash);
 	}
 
+	__i32 ArchiveHash::getKey()
+	{
+		return mHash;
+	}
+
 	ArchiveHash::ArchiveHash()
 		: mHash(0)
 		, mBeg(0)

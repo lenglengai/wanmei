@@ -15,6 +15,7 @@ namespace std {
 		void setSize(__i32 nSize);
 		__i32 getSize();
 		bool isDefault();
+		__i32 getKey();
 
 		template<class T>
 		void serialize(T * nSerialize, __i32 nCount)
