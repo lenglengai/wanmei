@@ -2,6 +2,10 @@
 #include "BinWriter.h"
 #include "../setting/SettingService.h"
 
+#ifdef __COCOS2DX__
+#include <cocos2d.h>
+#endif
+
 namespace std {
 
 	void BinWriter::runBool(bool& nValue, const char * nName, bool nOptimal)
@@ -361,6 +365,15 @@ namespace std {
 
 	bool BinWriter::openUrl(const char * nUrl)
 	{
+#ifdef __COCOS2DX__
+		std::string writePath = FileUtils::getInstance()->getWritablePath();
+		writePath += "/"; writePath += nUrl;
+		mStream.open(writePath.c_str(), ios::binary | ios::out);
+		if (mStream.is_open()) {
+			return true;
+		}
+		return false;
+#else
 		SettingService& settingService_ = Singleton<SettingService>::instance();
 		std::string url_ = settingService_.systemPath();
 		if ("" != url_) url_ += "/"; url_ += nUrl;
@@ -369,6 +382,7 @@ namespace std {
 			return true;
 		}
 		return false;
+#endif
 	}
 
 	void BinWriter::selectStream(const char * nStreamName)

@@ -12,7 +12,8 @@ namespace std {
 		__i32 pos_ = ( ArchiveHash::hashSize() ) * ( journeys.size() );
 		pos_ += sizeof(__i16); pos_ += ArchiveHead::hashSize();
 		std::string journey = "journey_"; 
-		journey += __convert<std::string, __i32>(nJourneyDescripter.getJourney());
+		__i32 journeyIndex = nJourneyDescripter.getJourney();
+		journey += __convert<std::string, __i32>(journeyIndex);
 		journey += ".wf";
 		mBinWriter.openUrl(journey.c_str());
 		mBinWriter.runSeek(pos_);
