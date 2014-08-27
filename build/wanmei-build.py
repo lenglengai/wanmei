@@ -1,5 +1,6 @@
 import os
 import sys
+import shutil
 import platform
 import subprocess
 
@@ -7,9 +8,10 @@ def runJourney(nProj, nNo):
     print 'build the %s\'s journey of NO.%s' % (nProj, nNo)
     cmdPath = os.path.abspath('../tools/')
     os.chdir(cmdPath)
-    projDir = '../%s/journey_%s' % (nProj, nNo)
+    projDir = '../%s/journey/journey_%s' % (nProj, nNo)
     journeyPath = os.path.abspath(projDir)
-    cmakeCmd = 'journey %s' % journeyPath
+    outDir = '../%s/binary' % nProj
+    cmakeCmd = 'journey %s %s' % (journeyPath, outDir)
     subprocess.call(cmakeCmd, shell=True)
     
 def runBuild(nProj, nPlatform):
@@ -24,7 +26,11 @@ def runBuild(nProj, nPlatform):
 	cmakeCmd = 'cocos compile -p android -j 4 --ap 15'
 	subprocess.call(cmakeCmd, shell=True)
     else:
-        dirName = '../%s/binary/%s/' % (nProj, nPlatform)
+        dirName = '../%s/build/%s/' % (nProj, nPlatform)
+        binPath = '../%s/build/%s/Release/%s.exe' % (nProj, nPlatform, nPlatform)
+        binPath = os.path.abspath(binPath)
+        binOut = '../%s/binary/%s.exe' % (nProj, nPlatform)
+        binOut = os.path.abspath(binOut)
         if not os.path.isdir(dirName):
             os.mkdir(dirName)
         cmdPath = os.path.abspath(dirName)
@@ -48,17 +54,18 @@ def runBuild(nProj, nPlatform):
         if 'Windows' == sysName:
             buildCmd = 'devenv %s.sln /rebuild RELEASE /out output.txt' % nPlatform
             subprocess.call(buildCmd, shell=True)
+            shutil.copy(binPath, binOut)
         else:
             subprocess.call('make', shell=True)
-
-print 'welcome to wanmei\'s build system'
-
-if len(sys.argv) > 2:
-    if '-j' == sys.argv[1]:
-        runJourney(sys.argv[2], sys.argv[3])
-    elif '-b' == sys.argv[1]:
-        runBuild(sys.argv[2], sys.argv[3])
+            
+if __name__ == '__main__':
+    print 'welcome to wanmei\'s build system'
+    if len(sys.argv) > 2:
+        if '-j' == sys.argv[1]:
+            runJourney(sys.argv[2], sys.argv[3])
+        elif '-b' == sys.argv[1]:
+            runBuild(sys.argv[2], sys.argv[3])
+        else:
+            print 'error parameters %s' % sys.argv[1]
     else:
-        print 'error parameters %s' % sys.argv[1]
-else:
-    print 'error parameter count'
+        print 'error parameter count'

@@ -33,3 +33,5 @@
 /mbclient/cocos2d/external/chipmunk/proj.win32/Debug.win32
 /document/*.zargo~
 /project/*.sublime-workspace
+/ying/build/client
+/ying/build/login
