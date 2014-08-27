@@ -15,6 +15,7 @@ namespace std {
 		void runPreinit();
 		TimeService();
 		~TimeService();
+		
 	private:
 		system_clock::time_point mBegin;
 		__i64 mCurrent;
