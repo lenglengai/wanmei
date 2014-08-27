@@ -12,8 +12,21 @@ def runJourney(nProj, nNo):
     subprocess.call(cmakeCmd, shell=True)
     
 def runBuild(nProj, nPlatform):
-    print 'welcome to wanmei\'s build of tools'
-
+    print 'build %s in %s' % (nProj, nPlatform)
+    if 'android' == nPlatform:
+        incPath = '../%s/include' % nProj
+        includePath = os.path.abspath(incPath)
+        os.environ['WANMEI_INCLUDE'] = includePath
+        cmdPath = os.path.abspath('../mbclient')
+        os.chdir(cmdPath)
+	cmakeCmd = 'cocos compile -p android -j 4 --ap 15'
+	subprocess.call(cmakeCmd, shell=True)
+    else:
+        dirName = '../%s/binary' % nProj
+        if not os.path.isdir(dirName):
+            os.mkdir(dirName)
+            
+        print 'build %s in %s' % (nProj, nPlatform)
 
 print 'welcome to wanmei\'s build system'
 
