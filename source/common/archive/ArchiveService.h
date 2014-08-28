@@ -2,6 +2,7 @@
 
 #include "ArchiveReader.h"
 
+#ifdef __ARCHIVE__
 namespace std {
 
 	class __funapi ArchiveService : boost::noncopyable
@@ -29,3 +30,4 @@ namespace std {
 	};
 
 }
+#endif

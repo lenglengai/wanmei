@@ -1,5 +1,6 @@
 #pragma once
 
+#ifdef __ARCHIVE__
 namespace std {
 
 	class __funapi ArchiveHead : boost::noncopyable
@@ -23,3 +24,4 @@ namespace std {
 	};
 
 }
+#endif

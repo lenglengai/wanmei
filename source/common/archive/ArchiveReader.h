@@ -3,6 +3,7 @@
 #include "Archive.h"
 #include "BinReader.h"
 
+#ifdef __ARCHIVE__
 namespace std {
 
 	class __funapi ArchiveReader
@@ -27,3 +28,4 @@ namespace std {
 	};
 
 }
+#endif

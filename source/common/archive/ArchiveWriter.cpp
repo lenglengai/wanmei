@@ -4,6 +4,7 @@
 #include "../setting/SettingService.h"
 #include "../compress/CompressService.h"
 
+#ifdef __ARCHIVE__
 namespace std {
 
 	void ArchiveWriter::runJourneyDescripter(JourneyDescripter& nJourneyDescripter)
@@ -82,3 +83,4 @@ namespace std {
 	}
 
 }
+#endif

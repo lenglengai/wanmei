@@ -3,6 +3,7 @@
 #include "../setting/SettingService.h"
 #include "../compress/CompressService.h"
 
+#ifdef __ARCHIVE__
 namespace std {
 
 	void ArchiveReader::runOpen(const char * nPath)
@@ -54,3 +55,4 @@ namespace std {
 	}
 
 }
+#endif

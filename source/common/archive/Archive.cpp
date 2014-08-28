@@ -2,7 +2,7 @@
 #include "Archive.h"
 #include "../crc/CrcService.h"
 
-
+#ifdef __ARCHIVE__
 namespace std {
 
 	ArchiveHashPtr Archive::getArchiveHash(const char * nKey)
@@ -37,3 +37,4 @@ namespace std {
 	}
 
 }
+#endif

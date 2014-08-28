@@ -1,6 +1,7 @@
 #include "../DefInc.h"
 #include "JourneyDescripter.h"
 
+#ifdef __ARCHIVE__
 namespace std {
 
 	const char * JourneyDescripter::streamName()
@@ -36,3 +37,4 @@ namespace std {
 	}
 
 }
+#endif

@@ -6,6 +6,7 @@
 #include <cocos2d.h>
 #endif
 
+#ifdef __ARCHIVE__
 namespace std {
 
 	void BinReader::runBool(bool& nValue, const char * nName, bool nOptimal)
@@ -433,3 +434,4 @@ namespace std {
 	}
 
 }
+#endif

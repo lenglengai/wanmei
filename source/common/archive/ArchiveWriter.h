@@ -4,6 +4,7 @@
 #include "BinWriter.h"
 #include "Archive.h"
 
+#ifdef __ARCHIVE__
 namespace std {
 
 	class __funapi ArchiveWriter
@@ -29,3 +30,4 @@ namespace std {
 	};
 
 }
+#endif

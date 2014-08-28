@@ -2,6 +2,7 @@
 
 #include <fstream>
 
+#ifdef __ARCHIVE__
 namespace std {
 
 	class __funapi BinReader : boost::noncopyable
@@ -118,3 +119,4 @@ namespace std {
 		}
 	}
 }
+#endif

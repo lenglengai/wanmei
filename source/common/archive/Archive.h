@@ -3,6 +3,7 @@
 #include "ArchiveHash.h"
 #include "ArchiveHead.h"
 
+#ifdef __ARCHIVE__
 namespace std {
 
 #define ARCHIVESIZE 5 * 1024 * 1024
@@ -29,3 +30,4 @@ namespace std {
 	};
 
 }
+#endif

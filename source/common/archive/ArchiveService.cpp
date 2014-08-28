@@ -1,6 +1,7 @@
 #include "../DefInc.h"
 #include "ArchiveService.h"
 
+#ifdef __ARCHIVE__
 namespace std {
 
 	const char * ArchiveService::streamName()
@@ -31,3 +32,4 @@ namespace std {
 	}
 
 }
+#endif

@@ -1,5 +1,6 @@
 #pragma once
 
+#ifdef __ARCHIVE__
 namespace std {
 
 	class JourneyDescripter : boost::noncopyable
@@ -26,3 +27,4 @@ namespace std {
 	};
 
 }
+#endif

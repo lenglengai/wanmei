@@ -55,7 +55,7 @@ namespace std {
 			std::shared_ptr<std::thread> thread_(new std::thread(boost::bind(&asio::io_service::run, mIoServices[i])));
 			threads.push_back(thread_);
 		}
-	#if (defined __SERVER__) || (defined __LOGIN__)
+	#ifdef __RUNING__
 		for (size_t i = 0; i < threads.size(); ++i) {
 			threads[i]->join();
 		}

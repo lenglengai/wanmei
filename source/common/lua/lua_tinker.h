@@ -18,7 +18,6 @@ extern "C" {
 #include "lua/lauxlib.h"
 }
 
-#ifdef __LUA__
 namespace lua_tinker
 {
 	// init LuaTinker
@@ -1036,6 +1035,5 @@ namespace lua_tinker
 	};
 
 } // namespace lua_tinker
-#endif
 
 #endif //_LUA_TINKER_H_

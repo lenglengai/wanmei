@@ -1,5 +1,6 @@
 #pragma once
 
+#ifdef __ARCHIVE__
 namespace std {
 
 	class __funapi ArchiveHash : boost::noncopyable
@@ -39,3 +40,4 @@ namespace std {
 	typedef std::shared_ptr<ArchiveHash> ArchiveHashPtr;
 
 }
+#endif

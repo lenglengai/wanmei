@@ -1,6 +1,7 @@
 #include "../DefInc.h"
 #include "ArchiveHead.h"
 
+#ifdef __ARCHIVE__
 namespace std {
 
 	__i32 ArchiveHead::hashSize()
@@ -29,3 +30,4 @@ namespace std {
 	}
 
 }
+#endif
