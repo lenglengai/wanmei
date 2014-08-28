@@ -6,6 +6,7 @@
 
 #include "Context.h"
 
+#ifdef __HANDLE__
 namespace std {
 
 	class __funapi Handle : boost::noncopyable
@@ -32,3 +33,4 @@ namespace std {
 	typedef std::shared_ptr<Handle> HandlePtr;
 
 }
+#endif

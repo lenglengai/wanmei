@@ -410,6 +410,15 @@ namespace std {
 		mStream.seekg(nPos, ios::beg);
 	}
 
+	__i32 BinReader::runLength()
+	{
+		__i32 result_ = 0;
+		mStream.seekg(0, ios::end);
+		result_ = static_cast<__i32>(mStream.tellg());
+		mStream.seekg(0, ios::beg);
+		return result_;
+	}
+	
 	void BinReader::runClose()
 	{
 		mStream.close();

@@ -72,6 +72,7 @@ namespace std {
 		void popStream();
 		void runRead(char * nValue, __i32 nLength);
 		void runSeek(__i32 nPos);
+		__i32 runLength();
 		void runClose();
 
 		BinReader();

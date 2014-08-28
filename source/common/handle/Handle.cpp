@@ -2,6 +2,7 @@
 
 #include "Handle.h"
 
+#ifdef __HANDLE__
 namespace std {
 
 	void Handle::addContext(ContextPtr& nContext)
@@ -57,3 +58,4 @@ namespace std {
 	}
 
 }
+#endif

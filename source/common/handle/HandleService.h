@@ -2,6 +2,7 @@
 
 #include "Handle.h"
 
+#ifdef __HANDLE__
 namespace std {
 
 	class __funapi HandleService : boost::noncopyable
@@ -20,7 +21,7 @@ namespace std {
 		void runPreinit();
 		void runLoad();
 		void runInit();
-		void runRun();
+		void runStart();
 		void runStop();
 
 		HandleService();
@@ -32,3 +33,4 @@ namespace std {
 	};
 
 }
+#endif

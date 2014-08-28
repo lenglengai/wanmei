@@ -1,5 +1,6 @@
 #pragma once
 
+#ifdef __PROPERTY__
 namespace std {
 
 	class PropertyMgr;
@@ -15,7 +16,8 @@ namespace std {
 
 	public:
 		virtual void runPreinit();
-		virtual void runInit();
+		virtual void runInit0();
+		virtual void runInit1();
 
 		Property();
 		virtual ~Property();
@@ -26,3 +28,4 @@ namespace std {
 	typedef std::shared_ptr<Property> PropertyPtr;
 
 }
+#endif

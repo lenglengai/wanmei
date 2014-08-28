@@ -5,6 +5,7 @@
 
 using namespace boost;
 
+#ifdef __IOSERVICE__
 namespace std {
 
 	class __funapi IoService : boost::noncopyable
@@ -44,3 +45,4 @@ namespace std {
 	};
 
 }
+#endif

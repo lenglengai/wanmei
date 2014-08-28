@@ -1,5 +1,6 @@
 #pragma once
 
+#ifdef __RANDOM__
 namespace std {
 
 	class __funapi RandomService : boost::noncopyable
@@ -16,3 +17,4 @@ namespace std {
 	};
 
 }
+#endif

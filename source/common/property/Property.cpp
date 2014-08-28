@@ -3,6 +3,7 @@
 #include "Property.h"
 #include "PropertyMgr.h"
 
+#ifdef __PROPERTY__
 namespace std {
 
 	void Property::setPropertyMgr(PropertyMgrPtr& nPropertyMgr)
@@ -19,10 +20,14 @@ namespace std {
 	{
 	}
 
-	void Property::runInit()
+	void Property::runInit0()
 	{
 	}
 
+	void Property::runInit1()
+	{
+	}
+	
 	Property::Property()
 	{
 
@@ -34,3 +39,4 @@ namespace std {
 	}
 
 }
+#endif

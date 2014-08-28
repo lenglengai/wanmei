@@ -1,14 +1,11 @@
 #pragma once
 
-#include "../DefInc.h"
 #include <boost/format.hpp>
 
-#ifdef __COCOS2DX__
-#define COCOSLOG
-#endif
-#ifdef COCOSLOG
+#ifdef __COCOSLOG__
 #include <cocos2d.h>
-#else
+#endif
+#ifdef __BOOSTLOG__
 #include <boost/log/sources/logger.hpp>
 #endif
 
@@ -22,9 +19,10 @@
 #define log_8(y, y0, y1, y2, y3, y4, y5, y6) boost::format("[%1%][%2%][%3%][%4%][%5%][%6%][%7%][%8%]%9%")   % __FUN__ % y % y0 % y1 % y2 % y3 % y4 % y5 % y6
 #define log_9(y, y0, y1, y2, y3, y4, y5, y6, y7) boost::format("[%1%][%2%][%3%][%4%][%5%][%6%][%7%][%8%][%9%]%10%")  % __FUN__ % y % y0 % y1 % y2 % y3 % y4 % y5 % y6 % y7
 
+#ifdef __LOG__
 namespace std {
 
-	#ifndef COCOSLOG
+	#ifdef __BOOSTLOG__
 	namespace src = boost::log::sources;
 	#endif
 	class __funapi LogService : boost::noncopyable
@@ -36,11 +34,12 @@ namespace std {
 
 		LogService();
 		~LogService();
-
-	#ifndef COCOSLOG
+	
 	private:
+	#ifdef __BOOSTLOG__
 		src::logger mLogger;
 	#endif
 	};
 
 }
+#endif

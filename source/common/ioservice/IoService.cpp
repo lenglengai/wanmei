@@ -5,6 +5,7 @@
 
 #include "IoService.h"
 
+#ifdef __IOSERVICE__
 namespace std {
 
 	void IoService::runPreinit()
@@ -13,7 +14,7 @@ namespace std {
 		initService_.m_tRunLoad0.connect(boost::bind(&IoService::runLoad, this));
 		initService_.m_tRunInit0.connect(boost::bind(&IoService::runInit, this));
 		initService_.m_tRunStart0.connect(boost::bind(&IoService::runStart, this));
-		initService_.m_tRunRun1.connect(boost::bind(&IoService::runRun, this));
+		initService_.m_tRunRun.connect(boost::bind(&IoService::runRun, this));
 		initService_.m_tRunStop.connect(boost::bind(&IoService::runStop, this));
 	}
 
@@ -54,9 +55,11 @@ namespace std {
 			std::shared_ptr<std::thread> thread_(new std::thread(boost::bind(&asio::io_service::run, mIoServices[i])));
 			threads.push_back(thread_);
 		}
+	#if (defined __SERVER__) || (defined __LOGIN__)
 		for (size_t i = 0; i < threads.size(); ++i) {
 			threads[i]->join();
 		}
+	#endif
 	}
 
 	void IoService::runStop()
@@ -117,3 +120,4 @@ namespace std {
 	}
 
 }
+#endif

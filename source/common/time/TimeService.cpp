@@ -1,6 +1,7 @@
 #include "../DefInc.h"
 #include "TimeService.h"
 
+#ifdef __TIME__
 namespace std {
 
 	void TimeService::setServerTime(__i64 nTime)
@@ -41,3 +42,5 @@ namespace std {
 	}
 
 }
+#endif
+

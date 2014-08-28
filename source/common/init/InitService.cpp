@@ -1,9 +1,10 @@
 #include "../DefInc.h"
 
+#include "../crc/CrcService.h"
 #include "../log/LogService.h"
 #include "../time/TimeService.h"
 #include "../random/RandomService.h"
-#include "../crc/CrcService.h"
+#include "../compress/CompressService.h"
 
 #include "../setting/SettingService.h"
 #include "../handle/HandleService.h"
@@ -22,23 +23,40 @@ namespace std {
 	void InitService::runPreinit(const string& nPath)
 	{
 		if (mInitType > InitType_::mNone_) return;
-
+		
+	#ifdef __LOG__
 		LogService& loginService_ = Singleton<LogService>::instance();
 		loginService_.runPreinit();
+	#endif
+	#ifdef __TIME__
 		TimeService& timeService_ = Singleton<TimeService>::instance();
 		timeService_.runPreinit();
+	#endif
+	#ifdef __RANDOM__
 		RandomService& randomService_ = Singleton<RandomService>::instance();
 		randomService_.runPreinit();
+	#endif
+	#ifdef __CRC__
 		CrcService& crcService_ = Singleton<CrcService>::instance();
 		crcService_.runPreinit();
-
-
+	#endif
+	#ifdef __COMPRESS__
+		CompressService& compressService_ = Singleton<CompressService>::instance();
+		compressService_.runPreinit();
+	#endif
+	
+	#ifdef __SETTING__
 		SettingService& settingService_ = Singleton<SettingService>::instance();
 		settingService_.runPreinit("");
+	#endif
+	#ifdef __HANDLE__
 		HandleService& handleService_ = Singleton<HandleService>::instance();
 		handleService_.runPreinit();
+	#endif
+	#ifdef __IOSERVICE__
 		IoService& ioService_ = Singleton<IoService>::instance();
 		ioService_.runPreinit();
+	#endif
 		
 // 		ProtocolService& protocolService_ = Singleton<ProtocolService>::instance();
 // 		protocolService_.runPreinit();

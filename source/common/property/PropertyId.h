@@ -4,6 +4,7 @@
 
 #include "IPropertyId.h"
 
+#ifdef __PROPERTY__
 namespace std {
 
 	template<class T>
@@ -23,3 +24,4 @@ namespace std {
 	};
 
 }
+#endif

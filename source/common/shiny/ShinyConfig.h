@@ -27,7 +27,7 @@ restrictions:
 #ifdef __PROFILER__
 #define  SHINY_PROFILER
 #endif
-    
+
 #ifdef SHINY_PROFILER
 //-----------------------------------------------------------------------------
 

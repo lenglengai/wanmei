@@ -4,6 +4,7 @@
 
 using namespace std::chrono;
 
+#ifdef __TIME__
 namespace std {
 
 	class __funapi TimeService : boost::noncopyable
@@ -22,3 +23,4 @@ namespace std {
 	};
 
 }
+#endif

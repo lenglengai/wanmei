@@ -4,6 +4,7 @@
 
 #include "PropertySink.h"
 
+#ifdef __PROPERTY__
 namespace std {
 
 	void PropertySink::runCreate(PropertyMgrPtr& nPropertyMgr)
@@ -42,3 +43,4 @@ namespace std {
 	}
 
 }
+#endif

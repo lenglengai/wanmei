@@ -1,5 +1,6 @@
 #pragma once
 
+#ifdef __HANDLE__
 namespace std {
 
 	class __funapi Context
@@ -11,3 +12,4 @@ namespace std {
 	typedef std::shared_ptr<Context> ContextPtr;
 
 }
+#endif

@@ -2,6 +2,7 @@
 #include "CompressService.h"
 #include "bzlib/bzlib.h"
 
+#ifdef __COMPRESS__
 namespace std {
 
 	void CompressService::runBZip2(char * nInBuf, __i32 nInSize, char * nOutBuf, __i32 * nOutSize)
@@ -17,6 +18,10 @@ namespace std {
 		BZ2_bzBuffToBuffDecompress(nOutBuf, &outSize, nInBuf, nInSize, 0, 0);
 		(*nOutSize) = static_cast<__i32>(outSize);
 	}
+	
+	void CompressService::runPreinit()
+	{
+	}
 
 	CompressService::CompressService()
 	{
@@ -27,3 +32,4 @@ namespace std {
 	}
 
 }
+#endif

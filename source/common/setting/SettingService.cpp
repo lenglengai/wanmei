@@ -3,6 +3,7 @@
 #include "../init/InitService.h"
 #include "SettingService.h"
 
+#ifdef __SETTING__
 namespace std {
 
 	const char * SettingService::streamName()
@@ -92,3 +93,4 @@ namespace std {
 	}
 
 }
+#endif

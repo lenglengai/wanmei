@@ -2,6 +2,7 @@
 
 #include "Context.h"
 
+#ifdef __HANDLE__
 namespace std {
 
 	void Context::runContext()
@@ -9,3 +10,4 @@ namespace std {
 	}
 
 }
+#endif

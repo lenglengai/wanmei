@@ -4,6 +4,7 @@
 #include "CrcService.h"
 #include "crypt_buf.h"
 
+#ifdef __CRC__
 namespace std {
 
 	__i64 CrcService::runId(const char * nName)
@@ -104,3 +105,5 @@ namespace std {
 	}
 
 }
+#endif
+

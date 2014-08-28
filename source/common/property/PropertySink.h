@@ -2,6 +2,7 @@
 
 #include "IPropertyId.h"
 
+#ifdef __PROPERTY__
 namespace std {
 
 	class __funapi PropertySink : public boost::noncopyable
@@ -18,3 +19,4 @@ namespace std {
 	};
 
 }
+#endif

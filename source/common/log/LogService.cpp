@@ -1,7 +1,7 @@
 #include "../DefInc.h"
 #include "LogService.h"
 
-#ifndef COCOSLOG
+#ifdef __BOOSTLOG__
 #include <boost/log/sinks.hpp>
 #include <boost/log/common.hpp>
 #include <boost/log/support/date_time.hpp>
@@ -11,9 +11,10 @@
 #include <boost/smart_ptr.hpp>
 #endif
 
+#ifdef __LOG__
 namespace std {
 
-	#ifndef COCOSLOG
+	#ifdef __BOOSTLOG__
 	namespace logging = boost::log;
 	namespace sinks = boost::log::sinks;
 	namespace keywords = boost::log::keywords;
@@ -23,25 +24,27 @@ namespace std {
 
 	void LogService::logError(boost::format& nFormat)
 	{
-	#ifndef COCOSLOG
+	#ifdef __BOOSTLOG__
 		BOOST_LOG(mLogger) << "[error]" << nFormat;
-	#else
+	#endif
+	#ifdef __COCOSLOG__
 		CCLOGERROR(nFormat.str().c_str());
 	#endif
 	}
 
 	void LogService::logInfo(boost::format& nFormat)
 	{
-	#ifndef COCOSLOG
+	#ifdef __BOOSTLOG__
 		BOOST_LOG(mLogger) << "[info]" << nFormat;
-	#else
+	#endif
+	#ifdef __COCOSLOG__
 		CCLOGINFO(nFormat.str()c_str());
 	#endif
 	}
 
 	void LogService::runPreinit()
 	{
-	#ifndef COCOSLOG
+	#ifdef __BOOSTLOG__
 		auto console_sink = logging::add_console_log();
 		console_sink->set_formatter
         (
@@ -75,3 +78,4 @@ namespace std {
 	}
 
 }
+#endif

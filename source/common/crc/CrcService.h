@@ -1,5 +1,6 @@
 #pragma once
 
+#ifdef __CRC__
 namespace std {
 
 	class __funapi CrcService : boost::noncopyable
@@ -26,3 +27,4 @@ namespace std {
 	};
 
 }
+#endif

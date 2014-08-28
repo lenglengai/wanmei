@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <ctime>
 
+#ifdef __RANDOM__
 namespace std {
 
 	__i32 RandomService::runRandom(__i32 nMin, __i32 nMax)
@@ -51,3 +52,4 @@ namespace std {
 	}
 
 }
+#endif

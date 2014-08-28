@@ -2,6 +2,7 @@
 
 #include "lua_tinker.h"
 
+#ifdef __LUA__
 namespace std {
 
 	class __funapi LuaScript : boost::noncopyable
@@ -34,6 +35,10 @@ namespace std {
 		}
 
 		void runFile(const std::string& nPath);
+		
+		void runString(const char * nValue);
+		
+		void runBuffer(const char * nValue, __i32 nSize);
 
 		void runClose();
 
@@ -47,3 +52,4 @@ namespace std {
 	typedef std::shared_ptr<LuaScript> LuaScriptPtr;
 
 }
+#endif

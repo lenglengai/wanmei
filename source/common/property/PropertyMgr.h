@@ -2,6 +2,7 @@
 
 #include "Property.h"
 
+#ifdef __PROPERTY__
 namespace std {
 
 	class IPropertyId;
@@ -22,3 +23,4 @@ namespace std {
 	};
 
 }
+#endif

@@ -8,15 +8,17 @@ namespace std {
 
 	void ArchiveWriter::runJourneyDescripter(JourneyDescripter& nJourneyDescripter)
 	{
-		std::list<std::string>& journeys = nJourneyDescripter.getJourneys();
-		__i32 pos_ = ( ArchiveHash::hashSize() ) * ( journeys.size() );
-		pos_ += sizeof(__i16); pos_ += ArchiveHead::hashSize();
-		std::string journey = "journey_"; 
+		std::string journey = "journey_";
 		__i32 journeyIndex = nJourneyDescripter.getJourney();
 		journey += __convert<std::string, __i32>(journeyIndex);
-		journey += ".wf";
+		journey += ".jf";
 		mBinWriter.openUrl(journey.c_str());
+		
+		std::list<std::string>& journeys = nJourneyDescripter.getJourneys();
+		__i32 pos_ = ( ArchiveHash::hashSize() ) * ( journeys.size() );
+		pos_ += sizeof(__i16); pos_ += ArchiveHead::hashSize();	
 		mBinWriter.runSeek(pos_);
+		
 		for (auto it : journeys) {
 			this->runJourney(it);
 		}
@@ -38,19 +40,13 @@ namespace std {
 
 	__i32 ArchiveWriter::readBuf(const char * nPath)
 	{
-		SettingService& settingService_ = Singleton<SettingService>::instance();
-		std::string url_ = settingService_.systemPath();
-		if ("" != url_) url_ += "/"; url_ += nPath;
-		__i32 result_ = 0;
-		fstream fstream_;
-		fstream_.open(url_, ios::binary | ios::in);
-		fstream_.seekg(0, ios::end);
-		result_ = static_cast<__i32>(fstream_.tellg());
-		fstream_.seekg(0, ios::beg);
 		memset(mCommon, 0, ARCHIVESIZE);
-		fstream_.read(mCommon, result_);
+		BinReader binReader;
+		binReader.openUrl(nPath);
+		__i32 result_ = binReader.runLength();
+		binReader.runRead(mCommon, result_);
 		mCommon[result_] = 0;
-		fstream_.close();
+		binReader.runClose();
 		return result_;
 	}
 

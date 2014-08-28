@@ -4,6 +4,7 @@
 
 #include "PropertyMgr.h"
 
+#ifdef __PROPERTY__
 namespace std {
 	
 	PropertyPtr& PropertyMgr::getProperty(IPropertyId& nPropertyId)
@@ -35,7 +36,12 @@ namespace std {
 		map<__i32, PropertyPtr>::iterator it = mPropertys.begin();
 		for ( ; it != mPropertys.end(); ++it ) {
 			PropertyPtr& property_ = it->second;
-			property_->runInit();
+			property_->runInit0();
+		}
+		it = mPropertys.begin();
+		for ( ; it != mPropertys.end(); ++it ) {
+			PropertyPtr& property_ = it->second;
+			property_->runInit1();
 		}
 	}
 
@@ -50,3 +56,4 @@ namespace std {
 	}
 
 }
+#endif

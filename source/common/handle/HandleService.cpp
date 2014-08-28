@@ -5,6 +5,7 @@
 
 #include "HandleService.h"
 
+#ifdef __HANDLE__
 namespace std {
 
 	const char * HandleService::streamName()
@@ -45,7 +46,7 @@ namespace std {
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunLoad0.connect(boost::bind(&HandleService::runLoad, this));
 		initService_.m_tRunInit0.connect(boost::bind(&HandleService::runInit, this));
-		initService_.m_tRunRun0.connect(boost::bind(&HandleService::runRun, this));
+		initService_.m_tRunStart1.connect(boost::bind(&HandleService::runStart, this));
 		initService_.m_tRunStop.connect(boost::bind(&HandleService::runStop, this));
 	}
 
@@ -68,7 +69,7 @@ namespace std {
 		}
 	}
 
-	void HandleService::runRun()
+	void HandleService::runStart()
 	{
 		LogService& loginService_ = Singleton<LogService>::instance();
 		loginService_.logInfo(log_1("run handle service"));
@@ -103,3 +104,5 @@ namespace std {
 	}
 
 }
+#endif
+
