@@ -18,6 +18,11 @@ namespace std {
 	{
 		return mJourneys;
 	}
+	
+	std::string& JourneyDescripter::getJourneyName()
+	{
+		return mJourneyName;
+	}
 
 	__i32 JourneyDescripter::getJourney()
 	{
@@ -25,7 +30,8 @@ namespace std {
 	}
 
 	JourneyDescripter::JourneyDescripter()
-		: mJourney(0)
+		: mJourneyName("")
+		, mJourney(0)
 	{
 		mJourneys.clear();
 	}
@@ -33,6 +39,7 @@ namespace std {
 	JourneyDescripter::~JourneyDescripter()
 	{
 		mJourneys.clear();
+		mJourneyName = "";
 		mJourney = 0;
 	}
 

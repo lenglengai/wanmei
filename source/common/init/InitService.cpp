@@ -10,11 +10,11 @@
 #include "../handle/HandleService.h"
 #include "../ioservice/IoService.h"
 
-// #include "../net/packet/ProtocolService.h"
-// #include "../logic/ping/PingService.h"
-
+ #include "../net/ProtocolService.h"
  #include "../net/Server.h"
  #include "../net/Client.h"
+ 
+ #include "../../logic/ping/PingService.h"
 
 #include "InitService.h"
 
@@ -57,12 +57,12 @@ namespace std {
 		IoService& ioService_ = Singleton<IoService>::instance();
 		ioService_.runPreinit();
 	#endif
-		
-// 		ProtocolService& protocolService_ = Singleton<ProtocolService>::instance();
-// 		protocolService_.runPreinit();
-// 		PingProtocol& pingProtocol_ = Singleton<PingProtocol>::instance();
-// 		pingProtocol_.runPreinit();
-
+	#ifdef __PING__
+ 		ProtocolService& protocolService_ = Singleton<ProtocolService>::instance();
+ 		protocolService_.runPreinit();
+ 		PingProtocol& pingProtocol_ = Singleton<PingProtocol>::instance();
+ 		pingProtocol_.runPreinit();
+	#endif
 
 	#ifdef __SERVERNET__
 		Server& server_ = Singleton<Server>::instance();

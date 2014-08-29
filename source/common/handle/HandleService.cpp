@@ -15,18 +15,12 @@ namespace std {
 
 	const char * HandleService::streamUrl()
 	{
-	#ifdef __CLIENT__
+	#ifdef __CLTRECV__
 		return "config/clientHandle.xml";
 	#endif 
-	#ifdef __LOGIN__
-		return "config/loginHandle.xml";
-	#endif 
-	#ifdef __SERVER__
+	#ifdef __SEVRECV__
 		return "config/serverHandle.xml";
 	#endif 
-	#ifdef __ANDROID__
-		return "config/androidHandle.xml";
-	#endif
 	}
 
 	void HandleService::addContext(ContextPtr& nContext, __i32 nIndex)

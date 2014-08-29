@@ -9,9 +9,12 @@ namespace std {
 
 	void ArchiveWriter::runJourneyDescripter(JourneyDescripter& nJourneyDescripter)
 	{
-		std::string journey = "journey_";
+		std::string journey = nJourneyDescripter.getJourneyName();
 		__i32 journeyIndex = nJourneyDescripter.getJourney();
-		journey += __convert<std::string, __i32>(journeyIndex);
+		if (journeyIndex > 0) {
+			journey += "_";
+			journey += __convert<std::string, __i32>(journeyIndex);
+		}
 		journey += ".jf";
 		mBinWriter.openUrl(journey.c_str());
 		
