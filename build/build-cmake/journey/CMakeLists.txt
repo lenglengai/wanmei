@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 3.0)
 
 project(journey)
+add_definitions("-D__JOURNEY__")
+
+if(WIN32)
+  ADD_DEFINITIONS("-D_WIN32_WINNT=0x0601")
+endif()
 
 include_directories(${__PROJDIR__}/include)
 include_directories($ENV{BOOST_ROOT})

@@ -35,3 +35,5 @@
 /project/*.sublime-workspace
 /ying/build/client
 /ying/build/login
+/ying/build/journey
+/ying/build/server
