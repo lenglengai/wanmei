@@ -17,16 +17,16 @@ namespace std {
 	{
 	#ifdef __CLIENT__
 		return "config/clientHandle.xml";
-	#elif 
+	#endif 
 	#ifdef __LOGIN__
 		return "config/loginHandle.xml";
-	#elif 
+	#endif 
 	#ifdef __SERVER__
 		return "config/serverHandle.xml";
-	#elif 
+	#endif 
 	#ifdef __ANDROID__
 		return "config/androidHandle.xml";
-	#elif
+	#endif
 	}
 
 	void HandleService::addContext(ContextPtr& nContext, __i32 nIndex)

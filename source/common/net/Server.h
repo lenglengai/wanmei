@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../../common/property/PropertySink.h"
+#include "../property/PropertySink.h"
 
-#include "../packet/Session.h"
+#include "Session.h"
 
 #ifdef __SERVERNET__
 namespace std {
@@ -27,7 +27,7 @@ namespace std {
 		void runStop();
 
 	private:
-		boost::shared_ptr<asio::ip::tcp::acceptor> mAcceptor;
+		std::shared_ptr<asio::ip::tcp::acceptor> mAcceptor;
 		SessionPtr mNewSession;
 		string mAddress;
 		string mPort;

@@ -57,7 +57,7 @@ namespace std {
 		char mBuffer[PACKETMAX];
 		__i16 mLength;
 	};
-	typedef boost::shared_ptr<WriteBlock> WriteBlockPtr;
+	typedef std::shared_ptr<WriteBlock> WriteBlockPtr;
 
 }
 #endif

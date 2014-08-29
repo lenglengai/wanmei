@@ -66,4 +66,13 @@
 ../../../source/common/setting/XmlReader.cpp
 ../../../source/common/setting/SettingService.cpp
 ../../../source/common/init/InitService.cpp
-
+../../../source/common/net/WriteBlock.cpp
+../../../source/common/net/ReadBlock.cpp
+../../../source/common/net/IPacket.cpp
+../../../source/common/net/Session.cpp
+../../../source/common/net/IProtocol.cpp
+../../../source/common/net/ProtocolService.cpp
+../../../source/common/net/ITourist.cpp
+../../../source/common/net/Client.cpp
+../../../source/common/net/Server.cpp
+../../../source/logic/ping/PingService.cpp

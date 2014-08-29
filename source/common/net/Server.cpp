@@ -1,9 +1,9 @@
-#include "../../common/DefInc.h"
+#include "../DefInc.h"
 
-#include "../../service/log/LogService.h"
-#include "../../service/init/InitService.h"
-#include "../../service/setting/SettingService.h"
-#include "../../service/ioservice/IoService.h"
+#include "../log/LogService.h"
+#include "../init/InitService.h"
+#include "../setting/SettingService.h"
+#include "../ioservice/IoService.h"
 
 #include "Server.h"
 
@@ -27,7 +27,7 @@ namespace std {
 		try {
 			IoService& ioService_ = Singleton<IoService>::instance();
 			mNewSession.reset(new Session(ioService_.getIoService()));
-			PropertyMgrPtr propertyMgrPtr_ = boost::dynamic_pointer_cast<PropertyMgr, Session>(mNewSession);
+			PropertyMgrPtr propertyMgrPtr_ = std::dynamic_pointer_cast<PropertyMgr, Session>(mNewSession);
 			this->runCreate(propertyMgrPtr_);
 			mAcceptor->async_accept(mNewSession->getSocket(),
 				boost::bind(&Server::handleAccept, this,

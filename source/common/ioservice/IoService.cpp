@@ -88,18 +88,12 @@ namespace std {
 
 	const char * IoService::streamUrl()
 	{
-	#ifdef __CLIENT__
+	#ifdef __CLTRECV__
 		return "config/clientIoService.xml";
-	#elif 
-	#ifdef __LOGIN__
-		return "config/loginIoService.xml";
-	#elif 
-	#ifdef __SERVER__
+	#endif
+	#ifdef __SEVRECV__
 		return "config/serverIoService.xml";
-	#elif 
-	#ifdef __ANDROID__
-		return "config/androidIoService.xml";
-	#elif
+	#endif 
 	}
 
 	void IoService::runClear()

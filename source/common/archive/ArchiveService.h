@@ -11,9 +11,9 @@ namespace std {
 		template<class T>
 		void headSerialize(T& nSerialize)
 		{
-#ifdef __CLIENT__
+#ifdef __CLTRECV__
 			nSerialize.runInt16(mJourney, "journey");
-#endif // 
+#endif
 		}
 		const char * streamName();
 		const char * streamUrl();

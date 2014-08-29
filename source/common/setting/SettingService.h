@@ -11,10 +11,10 @@ namespace std {
 		template<class T>
 		void headSerialize(T& nSerialize)
 		{
-#if (defined __SERVER__) || (defined __LOGIN__)
+		#ifdef __SEVRECV__
 			nSerialize.runInt16(mServerCount, "serverCount");
 			nSerialize.runInt16(mServerId, "serverId");
-#endif
+		#endif
 			nSerialize.runInt16(mLower, "lower");
 			nSerialize.runInt32(mHigh, "high");
 		}
@@ -35,7 +35,7 @@ namespace std {
 		__i32 checkVersion(__i32 nVersion);
 		const std::string& systemPath();
 
-	#if (defined __SERVER__) || (defined __LOGIN__)
+	#ifdef __SEVRECV__
 		__i32 checkServerId(__i32 nServerId);
 		void setServerId(__i16 nServerId);
 		__i16 getServerId();
@@ -50,10 +50,10 @@ namespace std {
 		std::string mSystemPath;
 		__i16 mLower;
 		__i32 mHigh;
-#if (defined __SERVER__) || (defined __LOGIN__)
+	#ifdef __SEVRECV__
 		__i16 mServerCount;
 		__i16 mServerId;
-#endif
+	#endif
 	};
 
 }

@@ -1,4 +1,4 @@
-#include "../../common/DefInc.h"
+#include "../DefInc.h"
 #include "IBlock.h"
 
 #include "WriteBlock.h"

@@ -8,8 +8,8 @@ namespace std {
 
 	class Session;
 	class IProtocol;
-	typedef boost::weak_ptr<Session> SessionWtr;
-	typedef boost::shared_ptr<Session> SessionPtr;
+	typedef std::weak_ptr<Session> SessionWtr;
+	typedef std::shared_ptr<Session> SessionPtr;
 	class IPacket
 	{
 	public:
@@ -27,7 +27,7 @@ namespace std {
 		__i32 mProtocol;
 		__i32 mPacket;
 	};
-	typedef boost::shared_ptr<IPacket> PacketPtr;
+	typedef std::shared_ptr<IPacket> PacketPtr;
 
 	template<class T0, class T1>
 	class Packet : public IPacket
@@ -56,8 +56,8 @@ namespace std {
 		virtual __i32 getPacketId() = 0;
 		virtual PacketPtr createPacket() = 0;
 	};
-	typedef boost::weak_ptr<IPacketId> PacketIdWtr;
-	typedef boost::shared_ptr<IPacketId> PacketIdPtr;
+	typedef std::weak_ptr<IPacketId> PacketIdWtr;
+	typedef std::shared_ptr<IPacketId> PacketIdPtr;
 
 	template<class T>
 	class PacketId : public IPacketId

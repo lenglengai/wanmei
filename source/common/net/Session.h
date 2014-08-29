@@ -1,17 +1,18 @@
 #pragma once
 
-#include <atomic.hpp>
 #include <boost/array.hpp>
-#include <boost/date_time.hpp>
 #include <boost/asio.hpp>
-#include <boost/thread.hpp>
+
+#include <atomic>
 #include <deque>
+#include <mutex>
+
+#include "../property/PropertyMgr.h"
 
 #include "IPacket.h"
 #include "WriteBlock.h"
 #include "ReadBlock.h"
 
-#include "../property/PropertyMgr.h"
 
 using namespace boost;
 
@@ -23,10 +24,10 @@ namespace std {
 	 static const __i32 mClosed_ = 0;
 	 static const __i32 mOpened_ = 1;
 	};
-	class IPlayer;
-	typedef boost::weak_ptr<IPlayer> PlayerWtr;
-	typedef boost::shared_ptr<IPlayer> PlayerPtr;
-	class Session : public PropertyMgr, public boost::enable_shared_from_this<Session>
+	class ITourist;
+	typedef std::weak_ptr<ITourist> TouristWtr;
+	typedef std::shared_ptr<ITourist> TouristPtr;
+	class Session : public PropertyMgr, public std::enable_shared_from_this<Session>
 	{
 	public:
 		enum { write_timeout = 90 };
@@ -53,17 +54,17 @@ namespace std {
 		void internalSend();
 
 	private:
-		mutable boost::atomic<__i32> mSessionState;
+		mutable atomic<__i32> mSessionState;
 		boost::asio::deadline_timer mReadTimer;
 		boost::asio::deadline_timer mWriteTimer;
 		boost::array<__i8, PACKETMAX> mReadBuffer;
 		volatile atomic<bool> mSending;
 		WriteBlockPtr mWriteBlockPtr;
-		boost::shared_mutex mMutex;
+		asio::ip::tcp::socket mSocket;
 		deque<PacketPtr> mPackets;
 		ReadBlockPtr mReadBlock;
-		asio::ip::tcp::socket mSocket;
 		TouristWtr mTourist;
+		std::mutex mMutex;
 	};
 
 }

@@ -41,6 +41,10 @@ typedef long long __i64;
 #include <LoginInclude.h>
 #endif
 
+#ifdef __JOURNEY__
+#include <JourneyInclude.h>
+#endif
+
 #include "utility/Singleton.h"
 #include "utility/Convert.h"
 #include "utility/Default.h"

@@ -21,8 +21,8 @@ namespace std {
 			(SessionState_::mClosed_ == mSessionState) ) {
 			return false;
 		}
-		nPacket->runInit();
 		this->pushPacket(nPacket);
+		nPacket->runInit();
 		if (false == mSending) {
 			this->internalSend();
 		}
@@ -142,14 +142,14 @@ namespace std {
 
 	void Session::pushPacket(PacketPtr& nPacket)
 	{
-		boost::shared_lock<boost::shared_mutex> writeLock(mMutex);
+		std::lock_guard<std::mutex> lock_(mMutex);
 		mPackets.push_back(nPacket);
 	}
 
 	PacketPtr Session::popPacket()
 	{
 		PacketPtr packet_;
-		boost::shared_lock<boost::shared_mutex> readLock(mMutex);
+		std::lock_guard<std::mutex> lock_(mMutex);
 		if (mPackets.size() > 0) {
 			packet_ = mPackets.front();
 			mPackets.pop_front();

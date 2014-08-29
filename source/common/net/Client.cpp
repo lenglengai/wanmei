@@ -58,12 +58,12 @@ namespace std {
 
 	const char * Client::streamName()
 	{
-		return "server";
+		return "client";
 	}
 
 	const char * Client::streamUrl()
 	{
-		return "config/server.xml";
+		return "config/client.xml";
 	}
 
 	void Client::runPreinit()

@@ -30,12 +30,12 @@ namespace std {
 		void runStop();
 
 	private:
-		boost::shared_ptr<asio::deadline_timer> mConnectTimer;
+		std::shared_ptr<asio::deadline_timer> mConnectTimer;
 		SessionPtr mSession;
 		std::string mAddress;
 		std::string mPort;
 	};
-	typedef boost::shared_ptr<Client> ClientPtr;
+	typedef std::shared_ptr<Client> ClientPtr;
 	template<class T>
 	void Client::headSerialize(T& nSerialize)
 	{

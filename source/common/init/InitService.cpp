@@ -13,8 +13,8 @@
 // #include "../net/packet/ProtocolService.h"
 // #include "../logic/ping/PingService.h"
 
-// #include "../net/server/Server.h"
-// #include "../net/client/Client.h"
+ #include "../net/Server.h"
+ #include "../net/Client.h"
 
 #include "InitService.h"
 

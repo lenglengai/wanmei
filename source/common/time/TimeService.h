@@ -4,7 +4,7 @@
 
 using namespace std::chrono;
 
-#ifdef __TIME__
+#ifdef __WITHTIME__
 namespace std {
 
 	class __funapi TimeService : boost::noncopyable

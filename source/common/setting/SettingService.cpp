@@ -16,11 +16,11 @@ namespace std {
 		return "config/setting.xml";
 	}
 
-#if (defined __SERVER__) || (defined __LOGIN__)
+#ifdef __SEVRECV__
 	__i32 SettingService::checkServerId(__i32 nServerId)
 	{
 		if (mServerId == nServerId) return ERRORINT::SUCESS;
-		return ERRORINT::SERVERID;
+		return ERRORINT::SERVERERROR;
 	}
 
 	void SettingService::setServerId(__i16 nServerId)
@@ -74,7 +74,7 @@ namespace std {
 		: mSystemPath("")
 		, mLower(0)
 		, mHigh(0)
-#if (defined __SERVER__) || (defined __LOGIN__)
+#ifdef __SEVRECV__
 		, mServerCount(0)
 		, mServerId(0)
 #endif
@@ -86,7 +86,7 @@ namespace std {
 		mSystemPath = "";
 		mLower = 0;
 		mHigh = 0;
-#if (defined __SERVER__) || (defined __LOGIN__)
+#ifdef __SEVRECV__
 		mServerCount = 0;
 		mServerId = 0;
 #endif

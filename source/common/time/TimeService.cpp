@@ -1,7 +1,7 @@
 #include "../DefInc.h"
 #include "TimeService.h"
 
-#ifdef __TIME__
+#ifdef __WITHTIME__
 namespace std {
 
 	void TimeService::setServerTime(__i64 nTime)

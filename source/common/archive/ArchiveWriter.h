@@ -2,6 +2,7 @@
 
 #include "JourneyDescripter.h"
 #include "BinWriter.h"
+#include "BinReader.h"
 #include "Archive.h"
 
 #ifdef __ARCHIVE__
