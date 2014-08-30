@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../service/crc/CrcService.h"
+#include "../crc/CrcService.h"
 
 #include "IPropertyId.h"
 

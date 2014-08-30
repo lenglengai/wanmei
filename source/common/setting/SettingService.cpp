@@ -13,7 +13,12 @@ namespace std {
 
 	const char * SettingService::streamUrl()
 	{
-		return "config/setting.xml";
+	#ifdef __SEVRECV__
+		return "serverSetting.xml";
+	#endif
+	#ifdef __CLTRECV__
+		return "clientSetting.xml";
+	#endif
 	}
 
 #ifdef __SEVRECV__
@@ -72,8 +77,8 @@ namespace std {
 
 	SettingService::SettingService()
 		: mSystemPath("")
-		, mLower(0)
 		, mHigh(0)
+		, mLower(0)
 #ifdef __SEVRECV__
 		, mServerCount(0)
 		, mServerId(0)

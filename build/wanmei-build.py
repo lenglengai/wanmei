@@ -11,8 +11,26 @@ def runJourney(nProj, nNo):
     os.chdir(cmdPath)
     projDir = '../%s/journey/journey_%s' % (nProj, nNo)
     journeyPath = os.path.abspath(projDir)
-    cmakeCmd = 'journey %s %s' % journeyPath
+    cmakeCmd = 'journey %s' % journeyPath
     subprocess.call(cmakeCmd, shell=True)
+
+def inCopyXml(nLine)
+    info = nLine.split(' ')
+    
+
+def runCopyXml(nProj, nPlatform)
+    assetPath = ''
+    if 'android' == nPlatform:
+        assetPath = os.path.abspath('../mbclient/Resources')
+    else:
+        assetPath = os.path.abspath('../%s/build/config')
+        if not os.path.isdir(assetPath):
+            os.mkdir(assetPath)
+    xmlPath = os.path.abspath('../source/XMLLISTS')
+    for line in open(xmlPath):
+        runCopy(line, assetPath)
+    
+        
     
 def runBuild(nProj, nPlatform):
     sysName = platform.system()
@@ -97,6 +115,10 @@ if __name__ == '__main__':
             runJourney(sys.argv[2], sys.argv[3])
         elif '-b' == sys.argv[1]:
             runBuild(sys.argv[2], sys.argv[3])
+        elif '-a' == sys.argv[1]:
+            runBuild(sys.argv[2], 'login')
+            runBuild(sys.argv[2], 'server')
+            runBuild(sys.argv[2], 'client')
         else:
             print 'error parameters %s' % sys.argv[1]
     else:
