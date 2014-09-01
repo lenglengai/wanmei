@@ -12,7 +12,6 @@ int main( int argc, char * argv[] )
 	settingService.runPreinit(argv[1]);
  	ConfigureDescripter configureDescripter(argv[2]);
  	settingService.initUrlStream(&configureDescripter);
-	settingService.runPreinit("");
  	ArchiveWriter archiveWriter;
  	archiveWriter.runConfigureDescripter(configureDescripter);
 	archiveWriter.runClose();

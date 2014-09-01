@@ -2,10 +2,10 @@
 <ConfigureDescripter>
 
 	<configures>
-		<configure>../source/common/handle/config/clientHandle.xml</configure>
-		<configure>../source/common/ioservice/config/clientIoService.xml</configure>
-		<configure>../source/common/setting/config/clientSetting.xml</configure>
-		<configure>../source/common/net/config/client.xml</configure>
+		<configure>clientHandle.xml</configure>
+		<configure>clientIoService.xml</configure>
+		<configure>clientSetting.xml</configure>
+		<configure>client.xml</configure>
 	</configures>
 
 </ConfigureDescripter>

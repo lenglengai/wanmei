@@ -2,10 +2,10 @@
 <ConfigureDescripter>
 
 	<configures>
-		<configure>../source/common/handle/config/serverHandle.xml</configure>
-		<configure>../source/common/ioservice/config/serverIoService.xml</configure>
-		<configure>../source/common/setting/config/serverSetting.xml</configure>
-		<configure>../source/common/net/config/server.xml</configure>
+		<configure>serverHandle.xml</configure>
+		<configure>serverIoService.xml</configure>
+		<configure>serverSetting.xml</configure>
+		<configure>server.xml</configure>
 	</configures>
 
 </ConfigureDescripter>

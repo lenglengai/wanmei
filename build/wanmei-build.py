@@ -22,10 +22,12 @@ def runConfigure(nProj, nPlatform):
     platStr = 'serverConfigure.xml'
     if 'client' == nPlatform:
         platStr = 'clientConfigure.xml'
-    projDir = '../%s/configure/' % nProj
-    journeyPath = os.path.abspath(projDir)
+    journeyPath = os.path.abspath('../configure')
     cmakeCmd = 'configure %s %s' % (journeyPath, platStr)
     subprocess.call(cmakeCmd, shell=True)
+    cmdPath = cmdPath + '/configure.jf'
+    journeyPath = journeyPath + '/configure.jf'
+    shutil.copy(journeyPath, cmdPath)
 
 def inCopyXml(nLine, nAssetPath):
     line = nLine.strip()
