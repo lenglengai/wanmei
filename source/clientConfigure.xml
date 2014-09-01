@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ConfigureDescripter>
+
+	<configures>
+		<configure>../source/common/handle/config/clientHandle.xml</configure>
+		<configure>../source/common/ioservice/config/clientIoService.xml</configure>
+		<configure>../source/common/setting/config/clientSetting.xml</configure>
+		<configure>../source/common/net/config/client.xml</configure>
+	</configures>
+
+</ConfigureDescripter>
+

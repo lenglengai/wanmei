@@ -45,6 +45,10 @@ typedef long long __i64;
 #include <JourneyInclude.h>
 #endif
 
+#ifdef __CONFIGURE__
+#include <ConfigureInclude.h>
+#endif
+
 #include "utility/Singleton.h"
 #include "utility/Convert.h"
 #include "utility/Default.h"

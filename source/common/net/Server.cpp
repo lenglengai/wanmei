@@ -45,7 +45,7 @@ namespace std {
 
 	const char * Server::streamUrl()
 	{
-		return "config/server.xml";
+		return "server.xml";
 	}
 
 	void Server::runPreinit()

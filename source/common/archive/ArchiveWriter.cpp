@@ -9,12 +9,9 @@ namespace std {
 
 	void ArchiveWriter::runJourneyDescripter(JourneyDescripter& nJourneyDescripter)
 	{
-		std::string journey = nJourneyDescripter.getJourneyName();
 		__i32 journeyIndex = nJourneyDescripter.getJourney();
-		if (journeyIndex > 0) {
-			journey += "_";
-			journey += __convert<std::string, __i32>(journeyIndex);
-		}
+		std::string journey = "journey_";
+		journey += __convert<std::string, __i32>(journeyIndex);
 		journey += ".jf";
 		mBinWriter.openUrl(journey.c_str());
 		
@@ -24,18 +21,33 @@ namespace std {
 		mBinWriter.runSeek(pos_);
 		
 		for (auto it : journeys) {
-			this->runJourney(it);
+			this->runArchive(it);
 		}
 	}
 
-	void ArchiveWriter::runJourney(std::string& nJourney)
+	void ArchiveWriter::runConfigureDescripter(ConfigureDescripter& nConfigureDescripter)
+	{
+		std::string configure = "configure.jf";
+		mBinWriter.openUrl(configure.c_str());
+
+		std::list<std::string>& configures = nConfigureDescripter.getConfigures();
+		__i32 pos_ = (ArchiveHash::hashSize()) * (configures.size());
+		pos_ += sizeof(__i16); pos_ += ArchiveHead::hashSize();
+		mBinWriter.runSeek(pos_);
+
+		for (auto it : configures) {
+			this->runArchive(it);
+		}
+	}
+
+	void ArchiveWriter::runArchive(std::string& nArchive)
 	{
 		__i32 beg_ = mBinWriter.runTell();
-		__i32 size_ = this->readBuf(nJourney.c_str());
+		__i32 size_ = this->readBuf(nArchive.c_str());
 		__i32 end_ = this->writeBuf(size_);
 		std::shared_ptr<ArchiveHash> archiveHash(new ArchiveHash());
 		CrcService& crcService = Singleton<CrcService>::instance();
-		archiveHash->setHash(crcService.runCommon(nJourney.c_str()));
+		archiveHash->setHash(crcService.runCommon(nArchive.c_str()));
 		archiveHash->setBeg(beg_);
 		archiveHash->setEnd(end_);
 		archiveHash->setSize(size_);

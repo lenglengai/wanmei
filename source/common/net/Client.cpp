@@ -63,7 +63,7 @@ namespace std {
 
 	const char * Client::streamUrl()
 	{
-		return "config/client.xml";
+		return "client.xml";
 	}
 
 	void Client::runPreinit()

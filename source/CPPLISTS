@@ -59,6 +59,7 @@
 ../../../source/common/archive/ArchiveWriter.cpp
 ../../../source/common/archive/ArchiveService.cpp
 ../../../source/common/archive/JourneyDescripter.cpp
+../../../source/common/archive/ConfigureDescripter.cpp
 ../../../source/common/handle/Context.cpp
 ../../../source/common/handle/Handle.cpp
 ../../../source/common/handle/HandleService.cpp

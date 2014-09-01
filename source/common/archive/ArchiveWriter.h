@@ -1,6 +1,7 @@
 #pragma once
 
 #include "JourneyDescripter.h"
+#include "ConfigureDescripter.h"
 #include "BinWriter.h"
 #include "BinReader.h"
 #include "Archive.h"
@@ -12,10 +13,11 @@ namespace std {
 	{
 	public:
 		void runJourneyDescripter(JourneyDescripter& nJourneyDescripter);
+		void runConfigureDescripter(ConfigureDescripter& nConfigureDescripter);
 		void runClose();
 
 	private:
-		void runJourney(std::string& nJourney);
+		void runArchive(std::string& nArchive);
 		__i32 readBuf(const char * nPath);
 		__i32 writeBuf(__i32 nSize);
 

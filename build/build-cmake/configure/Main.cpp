@@ -10,12 +10,11 @@ int main( int argc, char * argv[] )
 	SettingService& settingService =
 		Singleton<SettingService>::instance();
 	settingService.runPreinit(argv[1]);
- 	JourneyDescripter journeyDescripter;
- 	settingService.initUrlStream(&journeyDescripter);
+ 	ConfigureDescripter configureDescripter(argv[2]);
+ 	settingService.initUrlStream(&configureDescripter);
 	settingService.runPreinit("");
  	ArchiveWriter archiveWriter;
- 	archiveWriter.runJourneyDescripter(journeyDescripter);
+ 	archiveWriter.runConfigureDescripter(configureDescripter);
 	archiveWriter.runClose();
-	
 	return 0;
 }

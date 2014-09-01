@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ConfigureDescripter>
+
+	<configures>
+		<configure>../source/common/handle/config/serverHandle.xml</configure>
+		<configure>../source/common/ioservice/config/serverIoService.xml</configure>
+		<configure>../source/common/setting/config/serverSetting.xml</configure>
+		<configure>../source/common/net/config/server.xml</configure>
+	</configures>
+
+</ConfigureDescripter>
