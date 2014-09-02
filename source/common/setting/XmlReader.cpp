@@ -486,7 +486,7 @@ namespace std {
 
 	bool XmlReader::openUrl(const char * nUrl)
 	{
-	#ifdef __COCOS2DX__
+#ifdef __COCOS2DX__
 		if (FileUtils::getInstance()->isFileExist(nUrl)) {
 			std::string data_ = cocos2d::FileUtils::getInstance()->getStringFromFile(nUrl);
 			mXmlDocument.parse<0>(data_.c_str());
@@ -494,7 +494,7 @@ namespace std {
 			return true;
 		}
 		return false;
-	#else
+#else
 		SettingService& settingService_ = Singleton<SettingService>::instance();
 		std::string url_ = settingService_.systemPath();
 		if ("" != url_) url_ += "/"; url_ += nUrl;
@@ -502,7 +502,14 @@ namespace std {
 		mXmlDocument.parse<0>(mFileDoc->data());
 		mXmlNode = mXmlDocument.first_node();
 		return true;
-	#endif
+#endif
+	}
+
+	bool XmlReader::openStr(char * nValue)
+	{
+		mXmlDocument.parse<0>(nValue);
+		mXmlNode = mXmlDocument.first_node();
+		return true;
 	}
 
 	void XmlReader::selectStream(const char * nStreamName) 

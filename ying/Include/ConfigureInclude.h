@@ -9,4 +9,5 @@
 #define __WITHTIME__
 #define __SETTING__
 #define __ARCHIVE__
+#define __PACK__
 #define __CLTRECV__

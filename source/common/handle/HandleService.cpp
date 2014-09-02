@@ -38,7 +38,7 @@ namespace std {
 	void HandleService::runPreinit()
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunLoad0.connect(boost::bind(&HandleService::runLoad, this));
+		initService_.m_tRunLoad1.connect(boost::bind(&HandleService::runLoad, this));
 		initService_.m_tRunInit0.connect(boost::bind(&HandleService::runInit, this));
 		initService_.m_tRunStart1.connect(boost::bind(&HandleService::runStart, this));
 		initService_.m_tRunStop.connect(boost::bind(&HandleService::runStop, this));

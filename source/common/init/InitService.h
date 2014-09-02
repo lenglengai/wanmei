@@ -24,7 +24,7 @@ namespace std {
 			static const __i16 mExit_ = 11;
 		};
 	public:
-		void runPreinit(const string& nPath);
+		void runPreinit(const char * nPath);
 		
 		boost::signals2::signal<void()> m_tRunLoad0;
 		void runLoad0();

@@ -29,7 +29,7 @@ namespace std {
 			nUrlStream->headSerialize(xmlReader_);
 			xmlReader_.runClose();
 		}
-		void runPreinit(const std::string& nPath);
+		void runPreinit(const char * nPath);
 		void runLoad();
 
 		__i32 checkVersion(__i32 nVersion);

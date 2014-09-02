@@ -7,6 +7,8 @@
 #include "../compress/CompressService.h"
 
 #include "../setting/SettingService.h"
+#include "../archive/ArchiveService.h"
+
 #include "../handle/HandleService.h"
 #include "../ioservice/IoService.h"
 
@@ -20,58 +22,63 @@
 
 namespace std {
 
-	void InitService::runPreinit(const string& nPath)
+	void InitService::runPreinit(const char * nPath)
 	{
 		if (mInitType > InitType_::mNone_) return;
 		
-	#ifdef __LOG__
+#ifdef __LOG__
 		LogService& loginService_ = Singleton<LogService>::instance();
 		loginService_.runPreinit();
-	#endif
-	#ifdef __TIME__
+#endif
+#ifdef __WITHTIME__
 		TimeService& timeService_ = Singleton<TimeService>::instance();
 		timeService_.runPreinit();
-	#endif
-	#ifdef __RANDOM__
+#endif
+#ifdef __RANDOM__
 		RandomService& randomService_ = Singleton<RandomService>::instance();
 		randomService_.runPreinit();
-	#endif
-	#ifdef __CRC__
+#endif
+#ifdef __CRC__
 		CrcService& crcService_ = Singleton<CrcService>::instance();
 		crcService_.runPreinit();
-	#endif
-	#ifdef __COMPRESS__
+#endif
+#ifdef __COMPRESS__
 		CompressService& compressService_ = Singleton<CompressService>::instance();
 		compressService_.runPreinit();
-	#endif
+#endif
 	
-	#ifdef __SETTING__
+#ifdef __SETTING__
 		SettingService& settingService_ = Singleton<SettingService>::instance();
-		settingService_.runPreinit("");
-	#endif
-	#ifdef __HANDLE__
+		settingService_.runPreinit(nPath);
+#endif
+#ifdef __ARCHIVE__
+		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		archiveService_.runPreinit();
+#endif
+
+#ifdef __HANDLE__
 		HandleService& handleService_ = Singleton<HandleService>::instance();
 		handleService_.runPreinit();
-	#endif
-	#ifdef __IOSERVICE__
+#endif
+#ifdef __IOSERVICE__
 		IoService& ioService_ = Singleton<IoService>::instance();
 		ioService_.runPreinit();
-	#endif
-	#ifdef __PING__
- 		ProtocolService& protocolService_ = Singleton<ProtocolService>::instance();
- 		protocolService_.runPreinit();
- 		PingProtocol& pingProtocol_ = Singleton<PingProtocol>::instance();
- 		pingProtocol_.runPreinit();
-	#endif
+#endif
+#ifdef __PING__
+		ProtocolService& protocolService_ = Singleton<ProtocolService>::instance();
+		protocolService_.runPreinit();
+		PingProtocol& pingProtocol_ = Singleton<PingProtocol>::instance();
+		pingProtocol_.runPreinit();
+#endif
 
-	#ifdef __SERVERNET__
+#ifdef __SERVERNET__
 		Server& server_ = Singleton<Server>::instance();
 		server_.runPreinit();
-	#endif
-	#ifdef __CLIENTNET__
+#endif
+#ifdef __CLIENTNET__
 		Client& client_ = Singleton<Client>::instance();
 		client_.runPreinit();
-	#endif
+#endif
 
 		mInitType = InitType_::mPreinit_;
 	}

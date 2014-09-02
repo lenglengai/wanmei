@@ -11,7 +11,7 @@ namespace std {
 	void IoService::runPreinit()
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunLoad0.connect(boost::bind(&IoService::runLoad, this));
+		initService_.m_tRunLoad1.connect(boost::bind(&IoService::runLoad, this));
 		initService_.m_tRunInit0.connect(boost::bind(&IoService::runInit, this));
 		initService_.m_tRunStart0.connect(boost::bind(&IoService::runStart, this));
 		initService_.m_tRunRun.connect(boost::bind(&IoService::runRun, this));

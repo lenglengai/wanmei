@@ -48,7 +48,6 @@ namespace std {
 
 	RandomService::~RandomService()
 	{
-
 	}
 
 }

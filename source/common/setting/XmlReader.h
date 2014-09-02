@@ -72,6 +72,7 @@ namespace std {
 		template<class T0, class T1>
 		void runKeyStreamsCount(map<T0, std::shared_ptr<T1>>& nValue, const char * nNames, const char * nName, __i32 nCount = 0);
 
+		bool openStr(char * nValue);
 		bool openUrl(const char * nUrl);
 		void selectStream(const char * nStreamName);
 		__i32 pushStream(const char * nName);

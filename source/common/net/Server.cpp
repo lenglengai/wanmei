@@ -51,7 +51,7 @@ namespace std {
 	void Server::runPreinit()
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunLoad0.connect(boost::bind(&Server::runLoad, this));
+		initService_.m_tRunLoad1.connect(boost::bind(&Server::runLoad, this));
 		initService_.m_tRunStart0.connect(boost::bind(&Server::runStart, this));
 	}
 

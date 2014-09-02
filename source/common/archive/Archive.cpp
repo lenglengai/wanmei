@@ -23,6 +23,7 @@ namespace std {
 
 	void Archive::runClear()
 	{
+		mArchiveHead.runClear();
 		mArchiveHashs.clear();
 	}
 

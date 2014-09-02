@@ -58,11 +58,11 @@ namespace std {
 		return ERRORINT::SUCESS;
 	}
 
-	void SettingService::runPreinit(const string& nPath)
+	void SettingService::runPreinit(const char * nPath)
 	{
 		mSystemPath = nPath;
 		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunLoad0.connect(boost::bind(&SettingService::runLoad, this));
+		initService_.m_tRunLoad1.connect(boost::bind(&SettingService::runLoad, this));
 	}
 
 	void SettingService::runLoad()
