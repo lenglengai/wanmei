@@ -1,5 +1,7 @@
 #include "../DefInc.h"
+
 #include "Archive.h"
+
 #include "../crc/CrcService.h"
 
 #ifdef __ARCHIVE__
@@ -9,7 +11,7 @@ namespace std {
 	{
 		CrcService& crcService = Singleton<CrcService>::instance();
 		__i32 hash_ = crcService.runCommon(nKey);
-		std::map<__i32, ArchiveHashPtr>::iterator it = mArchiveHashs.find(hash_);
+		auto it = mArchiveHashs.find(hash_);
 		if (it == mArchiveHashs.end()) {
 			return ArchiveHashPtr(new ArchiveHash());
 		}
@@ -29,12 +31,12 @@ namespace std {
 
 	Archive::Archive()
 	{
-		mArchiveHashs.clear();
+		this->runClear();
 	}
 
 	Archive::~Archive()
 	{
-		mArchiveHashs.clear();
+		this->runClear();
 	}
 
 }

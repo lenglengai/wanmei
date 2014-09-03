@@ -1,35 +1,36 @@
 #include "../DefInc.h"
-#include "../init/InitService.h"
+
 #include "ArchiveService.h"
+
+#include "../init/InitService.h"
 
 #ifdef __ARCHIVE__
 namespace std {
 
-	const char * ArchiveService::streamName()
+	void ArchiveService::loadJourney(__i16 nJourney)
 	{
-		return "archiveService";
-	}
-
-	const char * ArchiveService::streamUrl()
-	{
-		return "archive.xml";
-	}
-
-	void ArchiveService::switchJourney(__i16 nJourney)
-	{
-		if (mJourney == nJourney) return;
-		if (0 != mJourney) {
-			mArchiveReader.runClose();
-		}
-		mJourney = nJourney; std::string journey_ = "journey_";
+		auto it = mJourneys.find(nJourney);
+		if (it == mJourneys.end()) return;
+		std::string journey_ = "journey_";
 		journey_ += __convert<std::string, __i16>(nJourney);
 		mArchiveReader.runOpen(journey_.c_str());
+		this->m_tRunJourney();
+		mArchiveReader.runClose();
 	}
 
 	void ArchiveService::runLoad()
 	{
 		std::string configure_ = "configure.jf";
-		mConfigure.runOpen(configure_.c_str());
+		mArchiveReader.runOpen(configure_.c_str());
+		this->m_tRunConfigure();
+		mArchiveReader.runClose();
+	}
+
+	void ArchiveService::runClear()
+	{
+		m_tRunConfigure.disconnect_all_slots();
+		m_tRunJourney.disconnect_all_slots();
+		mJourneys.clear();
 	}
 
 	void ArchiveService::runPreinit()
@@ -39,13 +40,13 @@ namespace std {
 	}
 
 	ArchiveService::ArchiveService()
-		: mJourney(0)
 	{
+		this->runClear();
 	}
 
 	ArchiveService::~ArchiveService()
 	{
-		mJourney = 0;
+		this->runClear();
 	}
 
 }

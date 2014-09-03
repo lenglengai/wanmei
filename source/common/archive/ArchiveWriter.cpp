@@ -1,7 +1,6 @@
 #include "../DefInc.h"
 #include "ArchiveWriter.h"
 #include "../crc/CrcService.h"
-#include "../setting/SettingService.h"
 #include "../compress/CompressService.h"
 
 #ifdef __ARCHIVE__

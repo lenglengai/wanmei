@@ -1,4 +1,5 @@
 #include "../DefInc.h"
+
 #include "ArchiveHash.h"
 
 #ifdef __ARCHIVE__

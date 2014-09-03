@@ -1,4 +1,5 @@
 #include "../DefInc.h"
+#include "../archive/ArchiveService.h"
 #include "../setting/SettingService.h"
 #include "../init/InitService.h"
 #include "../log/LogService.h"
@@ -16,10 +17,10 @@ namespace std {
 	const char * HandleService::streamUrl()
 	{
 	#ifdef __CLTRECV__
-		return "config/clientHandle.xml";
+		return "clientHandle.xml";
 	#endif 
 	#ifdef __SEVRECV__
-		return "config/serverHandle.xml";
+		return "serverHandle.xml";
 	#endif 
 	}
 
@@ -37,8 +38,9 @@ namespace std {
 
 	void HandleService::runPreinit()
 	{
+		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		archiveService_.m_tRunConfigure.connect(boost::bind(&HandleService::runLoad, this));
 		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunLoad1.connect(boost::bind(&HandleService::runLoad, this));
 		initService_.m_tRunInit0.connect(boost::bind(&HandleService::runInit, this));
 		initService_.m_tRunStart1.connect(boost::bind(&HandleService::runStart, this));
 		initService_.m_tRunStop.connect(boost::bind(&HandleService::runStop, this));
@@ -48,8 +50,8 @@ namespace std {
 	{
 		LogService& loginService_ = Singleton<LogService>::instance();
 		loginService_.logInfo(log_1("run loading handle service"));
-		SettingService& settingService_ = Singleton<SettingService>::instance();
-		settingService_.initUrlStream(this);
+		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		archiveService_.initUrlStream(this);
 		loginService_.logInfo(log_1("loading handle service sucess!"));
 	}
 

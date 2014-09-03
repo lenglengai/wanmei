@@ -1,6 +1,7 @@
 #include "../DefInc.h"
 #include "../log/LogService.h"
 #include "../init/InitService.h"
+#include "../archive/ArchiveService.h"
 #include "SettingService.h"
 
 #ifdef __SETTING__
@@ -61,13 +62,14 @@ namespace std {
 	void SettingService::runPreinit(const char * nPath)
 	{
 		mSystemPath = nPath;
-		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunLoad1.connect(boost::bind(&SettingService::runLoad, this));
+		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		archiveService_.m_tRunConfigure.connect(boost::bind(&SettingService::runLoad, this));
 	}
 
 	void SettingService::runLoad()
 	{
-		this->initUrlStream(this);
+		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		archiveService_.initUrlStream(this);
 	}
 
 	const string& SettingService::systemPath()

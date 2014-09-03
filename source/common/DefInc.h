@@ -18,12 +18,18 @@ typedef long __i32;
 typedef long long __i64;
 
 #include <boost/noncopyable.hpp>
+#include <boost/signals2.hpp>
 #include <boost/bind.hpp>
 
 #include <memory>
 #include <string>
 #include <list>
 #include <map>
+#include <set>
+#include <stack>
+#include <queue>
+#include <deque>
+#include <vector>
 
 #ifdef __ANDROID__
 #include <AndroidInclude.h>
@@ -59,4 +65,3 @@ typedef long long __i64;
 #define INITYEAR	2014
 #define INITMONTH	9
 #define INITDAY		1
-

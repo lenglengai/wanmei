@@ -1,6 +1,7 @@
 #include "../DefInc.h"
 #include "../log/LogService.h"
 #include "../setting/SettingService.h"
+#include "../archive/ArchiveService.h"
 #include "../init/InitService.h"
 
 #include "IoService.h"
@@ -10,8 +11,10 @@ namespace std {
 
 	void IoService::runPreinit()
 	{
+		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		archiveService_.m_tRunConfigure.connect(boost::bind(&IoService::runLoad, this));
+
 		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunLoad1.connect(boost::bind(&IoService::runLoad, this));
 		initService_.m_tRunInit0.connect(boost::bind(&IoService::runInit, this));
 		initService_.m_tRunStart0.connect(boost::bind(&IoService::runStart, this));
 		initService_.m_tRunRun.connect(boost::bind(&IoService::runRun, this));
@@ -22,8 +25,8 @@ namespace std {
 	{
 		LogService& loginService_ = Singleton<LogService>::instance();
 		loginService_.logInfo(log_1("run loading ioService"));
-		SettingService& settingService_ = Singleton<SettingService>::instance();
-		settingService_.initUrlStream(this);
+		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		archiveService_.initUrlStream(this);
 	}
 
 	void IoService::runInit()
@@ -50,9 +53,9 @@ namespace std {
 	{
 		LogService& loginService_ = Singleton<LogService>::instance();
 		loginService_.logInfo(log_1("run ioService"));
-		vector<std::shared_ptr<std::thread>> threads;
+		vector<std::shared_ptr<boost::thread>> threads;
 		for (size_t i = 0; i < mIoServices.size(); ++i) {
-			std::shared_ptr<std::thread> thread_(new std::thread(boost::bind(&asio::io_service::run, mIoServices[i])));
+			std::shared_ptr<boost::thread> thread_(new boost::thread(boost::bind(&asio::io_service::run, mIoServices[i])));
 			threads.push_back(thread_);
 		}
 	#ifdef __RUNING__
@@ -89,10 +92,10 @@ namespace std {
 	const char * IoService::streamUrl()
 	{
 	#ifdef __CLTRECV__
-		return "config/clientIoService.xml";
+		return "clientIoService.xml";
 	#endif
 	#ifdef __SEVRECV__
-		return "config/serverIoService.xml";
+		return "serverIoService.xml";
 	#endif 
 	}
 

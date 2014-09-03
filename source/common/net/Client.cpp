@@ -3,6 +3,7 @@
 #include "../log/LogService.h"
 #include "../init/InitService.h"
 #include "../setting/SettingService.h"
+#include "../archive/ArchiveService.h"
 #include "../ioservice/IoService.h"
 
 #include "Client.h"
@@ -68,8 +69,10 @@ namespace std {
 
 	void Client::runPreinit()
 	{
+		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		archiveService_.m_tRunConfigure.connect(boost::bind(&Client::runLoad, this));
+
 		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunLoad1.connect(boost::bind(&Client::runLoad, this));
 		initService_.m_tRunStart0.connect(boost::bind(&Client::runStart, this));
 	}
 
@@ -77,8 +80,8 @@ namespace std {
 	{
 		LogService& logService = Singleton<LogService>::instance();
 		logService.logError(log_1("begin load client config!"));
-		SettingService& settingService_ = Singleton<SettingService>::instance();
-		settingService_.initUrlStream(this);
+		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		archiveService_.initUrlStream(this);
 	}
 
 	void Client::runStart()
