@@ -6,6 +6,8 @@
 
 #include "IoService.h"
 
+#include <thread>
+
 #ifdef __IOSERVICE__
 namespace std {
 
@@ -53,9 +55,9 @@ namespace std {
 	{
 		LogService& loginService_ = Singleton<LogService>::instance();
 		loginService_.logInfo(log_1("run ioService"));
-		vector<std::shared_ptr<boost::thread>> threads;
+		vector<std::shared_ptr<std::thread>> threads;
 		for (size_t i = 0; i < mIoServices.size(); ++i) {
-			std::shared_ptr<boost::thread> thread_(new boost::thread(boost::bind(&asio::io_service::run, mIoServices[i])));
+			std::shared_ptr<std::thread> thread_(new std::thread(boost::bind(&asio::io_service::run, mIoServices[i])));
 			threads.push_back(thread_);
 		}
 	#ifdef __RUNING__
@@ -113,7 +115,6 @@ namespace std {
 
 	IoService::~IoService()
 	{
-		this->runClear();
 	}
 
 }

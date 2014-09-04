@@ -1,8 +1,6 @@
 #pragma once
 
 #include <boost/asio.hpp>
-#include <boost/thread.hpp>
-#include <thread>
 
 using namespace boost;
 

@@ -22,6 +22,26 @@ namespace std {
 	namespace attrs = boost::log::attributes;
 	#endif
 
+	void LogService::logLuaError(const char * nValue)
+	{
+	#ifdef __BOOSTLOG__
+		BOOST_LOG(mLogger) << "[error]" << nValue;
+	#endif
+	#ifdef __COCOSLOG__
+		CCLOGERROR(nValue);
+	#endif
+	}
+
+	void LogService::logLuaInfo(const char * nValue)
+	{
+	#ifdef __BOOSTLOG__
+		BOOST_LOG(mLogger) << "[info]" << nValue;
+	#endif
+	#ifdef __COCOSLOG__
+		CCLOGINFO(nValue);
+	#endif
+	}
+
 	void LogService::logError(boost::format& nFormat)
 	{
 	#ifdef __BOOSTLOG__

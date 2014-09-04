@@ -34,7 +34,6 @@ namespace std {
 
 	LuaScript::~LuaScript()
 	{
-		this->runClose();
 	}
 
 }

@@ -14,6 +14,7 @@ namespace std {
 		__i64 getServerTime();
 		__i64 getNowSecond();
 		void runPreinit();
+
 		TimeService();
 		~TimeService();
 		

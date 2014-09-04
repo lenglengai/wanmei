@@ -56,6 +56,7 @@ namespace std {
 
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunStart0.connect(boost::bind(&Server::runStart, this));
+		initService_.m_tRunStop.connect(boost::bind(&Server::runStop, this));
 	}
 
 	void Server::runLoad()
@@ -86,8 +87,8 @@ namespace std {
 
 	void Server::runStop()
 	{
-		IoService& ioService = Singleton<IoService>::instance();
-		ioService.runStop();
+ 		mNewSession->runClose();
+ 		mAcceptor->close();
 	}
 
 	Server::Server()

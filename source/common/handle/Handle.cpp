@@ -12,7 +12,7 @@ namespace std {
 
 	void Handle::runStart()
 	{
-		mThread.reset(new std::thread(std::bind(&Handle::runHandle, this)));
+		mThread.reset(new std::thread(boost::bind(&Handle::runHandle, this)));
 	}
 
 	void Handle::runHandle()
@@ -25,6 +25,7 @@ namespace std {
 	void Handle::runStop()
 	{
 		mStop = true;
+		mThread->join();
 	}
 
 	void Handle::runClear()

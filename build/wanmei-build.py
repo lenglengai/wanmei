@@ -62,7 +62,7 @@ def runBuild(nProj, nPlatform):
 	subprocess.call(cmakeCmd, shell=True)
     elif 'journey' == nPlatform:
         dirName = '../%s/build/%s/' % (nProj, nPlatform)
-        binPath = '../%s/build/%s/Release/%s.exe' % (nProj, nPlatform, nPlatform)
+        binPath = '../%s/build/%s/Debug/%s.exe' % (nProj, nPlatform, nPlatform)
         binPath = os.path.abspath(binPath)
         binOut = '../%s/binary/%s.exe' % (nProj, nPlatform)
         binOut = os.path.abspath(binOut)
@@ -87,7 +87,7 @@ def runBuild(nProj, nPlatform):
         cmakeCmd += includePath
         subprocess.call(cmakeCmd, shell=True)
         if 'Windows' == sysName:
-            buildCmd = 'devenv %s.sln /rebuild RELEASE /out output.txt' % nPlatform
+            buildCmd = 'devenv %s.sln /build DEBUG /out output.txt' % nPlatform
             subprocess.call(buildCmd, shell=True)
             shutil.copy(binPath, binOut)
         else:
@@ -119,14 +119,14 @@ def runBuild(nProj, nPlatform):
         cmakeCmd += includePath
         subprocess.call(cmakeCmd, shell=True)
         if 'Windows' == sysName:
-            buildCmd = 'devenv %s.sln /rebuild DEBUG /out output.txt' % nPlatform
+            buildCmd = 'devenv %s.sln /build DEBUG /out output.txt' % nPlatform
             subprocess.call(buildCmd, shell=True)
             shutil.copy(binPath, binOut)
         else:
             subprocess.call('make', shell=True)
     else:
         dirName = '../%s/build/%s/' % (nProj, nPlatform)
-        binPath = '../%s/build/%s/Release/%s.exe' % (nProj, nPlatform, nPlatform)
+        binPath = '../%s/build/%s/Debug/%s.exe' % (nProj, nPlatform, nPlatform)
         binPath = os.path.abspath(binPath)
         binOut = '../%s/binary/%s.exe' % (nProj, nPlatform)
         binOut = os.path.abspath(binOut)
@@ -151,7 +151,7 @@ def runBuild(nProj, nPlatform):
         cmakeCmd += includePath
         subprocess.call(cmakeCmd, shell=True)
         if 'Windows' == sysName:
-            buildCmd = 'devenv %s.sln /rebuild RELEASE /out output.txt' % nPlatform
+            buildCmd = 'devenv %s.sln /build DEBUG /out output.txt' % nPlatform
             subprocess.call(buildCmd, shell=True)
             shutil.copy(binPath, binOut)
         else:

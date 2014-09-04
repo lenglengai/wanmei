@@ -40,6 +40,7 @@ namespace std {
 	{
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
 		archiveService_.m_tRunConfigure.connect(boost::bind(&HandleService::runLoad, this));
+
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&HandleService::runInit, this));
 		initService_.m_tRunStart1.connect(boost::bind(&HandleService::runStart, this));

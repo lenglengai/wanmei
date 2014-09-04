@@ -1,5 +1,6 @@
 #include "../DefInc.h"
 #include "../time/TimeService.h"
+#include "../log/LogService.h"
 
 #include "CrcService.h"
 #include "crypt_buf.h"
@@ -94,6 +95,8 @@ namespace std {
 
 	void CrcService::runPreinit()
 	{
+		LogService& loginService_ = Singleton<LogService>::instance();
+		loginService_.logInfo(log_1("CrcService run runPreinit!"));
 	}
 
 	CrcService::CrcService()

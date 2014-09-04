@@ -1,6 +1,5 @@
 #pragma once
 
-#include <boost/signals2.hpp>
 #include <atomic>
 
 namespace std {
@@ -48,6 +47,7 @@ namespace std {
 		void runRun();
 
 		void runPause(bool nPause);
+
 		bool isPause();
 
 		boost::signals2::signal<void()> m_tRunStop;
@@ -59,13 +59,15 @@ namespace std {
 		boost::signals2::signal<void()> m_tRunExit;
 		void runExit();
 		
-		InitService();
-		~InitService();
 	private:
 		void runClear();
+
+	public:
+		InitService();
+		~InitService();
 		
 	private:
-		volatile atomic<__i16> mInitType;
+		volatile std::atomic<__i16> mInitType;
 	};
 
 }
