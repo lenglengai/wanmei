@@ -11,45 +11,18 @@ namespace std {
 		template<typename R, typename... A>
 		R runCall(const char * nName, A... nArgs)
 		{
-			return lua_tinker::call<R>(this->L, nName, nArgs...);
+			return lua_tinker::call<R>(mLuaState, nName, nArgs...);
 		}
+		LuaScript(lua_State * nLuaState, int nLuaRef);
 
-		template<class C>
-		void runClass(const char * nName)
-		{
-			lua_tinker::class_add<C>(this->L, nName);
-			auto f = lua_tinker::constructor<C>;
-			lua_tinker::class_con<C>(this->L, f);
-		}
-
-		template<class C, class B>
-		void runInherit()
-		{
-			lua_tinker::class_inh<C, B>(this->L);
-		}
-
-		template<class C, typename M>
-		void runMethod(M nMethod, const char * nName)
-		{
-			lua_tinker::class_def<C>(this->L, nName, nMethod);
-		}
-
-		void runFile(const std::string& nPath);
-		
-		void runString(const char * nValue);
-		
-		void runBuffer(const char * nValue, __i32 nSize);
-
-		void runClose();
-
-		LuaScript();
 		~LuaScript();
 
 	private:
-		lua_State * L;
+		lua_State * mLuaState;
+		int mLuaRef;
 	};
-	
 	typedef std::shared_ptr<LuaScript> LuaScriptPtr;
+	typedef std::weak_ptr<LuaScript> LuaScriptWtr;
 
 }
-#endif
+#ifdef __LUA__
