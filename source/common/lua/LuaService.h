@@ -45,4 +45,4 @@ namespace std {
 }
 #endif
 
-http://www.cnblogs.com/zhangdongsheng/p/3679024.html
+
