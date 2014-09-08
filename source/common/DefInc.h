@@ -60,7 +60,7 @@ typedef long long __i64;
 #include "utility/Default.h"
 #include "utility/ERRORINT.h"
 #include "shiny/Shiny.h"
-#include "lua/LuaScript.h"
+#include "lua/LuaService.h"
 #include "log/LogService.h"
 
 #define INITYEAR	2014

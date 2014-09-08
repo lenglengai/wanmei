@@ -70,9 +70,7 @@ def runBuild(nProj, nPlatform):
             os.mkdir(dirName)
         cmdPath = os.path.abspath(dirName)
         os.chdir(cmdPath)
-        cmakeCmd = 'cmake '
-        cmakeCmd += '../../../build/build-cmake/journey/'
-        cmakeCmd += ' -G'
+        cmakeCmd = 'cmake ../../../build/build-cmake/journey/ -G'
         if 'Windows' == sysName:
             cmakeCmd += '\"Visual Studio 12 2013\"'
         elif 'Darwin' == sysName:

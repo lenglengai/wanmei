@@ -1,4 +1,4 @@
-Ò»¡¢Java
+ï»¿ä¸€ã€Java
 
 	Windows
 
@@ -11,17 +11,17 @@
 
 	MAC
 
-		1¡¢ĞŞ¸Ä /Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Info.plist
+		1ã€ä¿®æ”¹ /Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Info.plist
 		<key>JVMCapabilities</key>
 		<array>
-¡¡¡¡		<string>JNI</string>
-¡¡¡¡		<string>BundledApp</string>
-¡¡¡¡		<string>WebStart</string>
-¡¡¡¡		<string>Applets</string>
-¡¡¡¡		<string>CommandLine</string>
+ã€€ã€€		<string>JNI</string>
+ã€€ã€€		<string>BundledApp</string>
+ã€€ã€€		<string>WebStart</string>
+ã€€ã€€		<string>Applets</string>
+ã€€ã€€		<string>CommandLine</string>
 		</array>
 
-		2¡¢ĞŞ¸Ä»·¾³±äÁ¿
+		2ã€ä¿®æ”¹ç¯å¢ƒå˜é‡
 
 		vi ~/.bash_profile
 	
@@ -31,77 +31,85 @@
 
 		source ~/.bash_profile
 
-¶ş¡¢python
+äºŒã€python
 	
 	Windows
 
 		PATH
 			C:\python
 
-Èı¡¢CMake
+ä¸‰ã€CMake
 
 	MAC
 
 		sudo ln -s "/Applications/CMake.app/Contents/bin/cmake" /usr/bin/cmake
 
-ËÄ¡¢ANT
+å››ã€ANT
 
-Îå¡¢ANDROID SDK
+äº”ã€ANDROID SDK
 	
 	Windows
 
-		1¡¢»·¾³±äÁ¿
+		1ã€ç¯å¢ƒå˜é‡
 		.;%ANDROID_SDK_ROOT%\platform-tools;%ANDROID_SDK_ROOT%\tools; 
 
-		2¡¢Çı¶¯
+		2ã€é©±åŠ¨
 		https://dl-ssl.google.com//android/repository/latest_usb_driver_windows.zip
 
-		3¡¢ĞŞ¸Ä C:\WINDOWS\system32\drivers\etc\hosts
+		3ã€ä¿®æ”¹ C:\WINDOWS\system32\drivers\etc\hosts
 		203.208.46.146 dl.google.com
 		203.208.46.146 dl-ssl.google.com
 
-		4¡¢ÔÚSDK ManagerÏÂTools->Options´ò¿ªÁËSDK ManagerµÄSettings£¬
-    	Ñ¡ÖĞ¡°Force https://¡­ sources to be fetched using http://¡­¡±£¬Ç¿ÖÆÊ¹ÓÃhttpĞ­Òé¡£
+		4ã€åœ¨SDK Managerä¸‹Tools->Optionsæ‰“å¼€äº†SDK Managerçš„Settingsï¼Œ
+    	é€‰ä¸­â€œForce https://â€¦ sources to be fetched using http://â€¦â€ï¼Œå¼ºåˆ¶ä½¿ç”¨httpåè®®ã€‚
 
     MAC
     	sudo vi /etc/hosts
 
-Áù¡¢ANDROID NDK
+å…­ã€ANDROID NDK
 	
 	Windows
 
-		1¡¢ÏÂÔØ
+		1ã€ä¸‹è½½
 		http://dl.google.com/android/ndk/android-ndk-r9d-windows-x86_64.zip
 
-Æß¡¢cocos2dx
+ä¸ƒã€cocos2dx
 
-	1¡¢python setup.py
+	1ã€python setup.py
 	NDK_ROOT = d:\adt-bundle-windows-x86\android-ndk-r8e
 	ANDROID_SDK_ROOT = D:\adt-bundle-windows-x86\sdk
 	ANT_ROOT = d:\adt-bundle-windows-x86\apache-ant-1.9.3\bin
 	COCOS_CONSOLE_ROOT=F:\cocos2dx\cocos2d-x-3.0rc0\tools/cocos2d-console/bin
 
-	2¡¢cocos new mbclient -p com.wanmei.mbclient -l cpp -d wanmei
+	2ã€cocos new mbclient -p com.wanmei.mbclient -l cpp -d wanmei
 	cocos compile -p android -j 4 --ap 20
 	adb install -r some.apk
 	adb logcat
 	
-°Ë¡¢boost
+å…«ã€boost
 	
-	Windows
+	android in Windows
 
-	1. boost¹ÙÍøÏÂÔØboost_1_55_0.tar.gz,½âÑ¹·ÅÔÚ<NDK>/sourcesÏÂ, ½âÑ¹ºóµÄÎÄ¼şÃû: boost_1_55_0
-	2. ÔËĞĞCygwin Terminal
-	3. Éú³Éboost±àÒë¹¤¾ß: ÔÚboostÄ¿Â¼ÏÂÔËĞĞ./bootstrap.sh »òÕß bootstrap.bat Éú³É b2
-	4. ĞŞ¸Ä <boost>/tools/build/v2/user-config.jam
-	5. ÓÉÓÚÊ¹ÓÃÁËgnu++11£¬auto_ptr´¦ÓÚdeprecated×´Ì¬£¬Ìæ»»³Éunique_ptr¾Í¿ÉÒÔ½â¾ö¡£boostÖĞÎ¨Ò»Ò»´¦ÒıÓÃ³öÏÖÔÚ<boost>/libs/signals/src/signal_base.cppÖĞµÄ136ĞĞ
+	1. boostå®˜ç½‘ä¸‹è½½boost_1_55_0.tar.gz,è§£å‹æ”¾åœ¨<NDK>/sourcesä¸‹, è§£å‹åçš„æ–‡ä»¶å: boost_1_55_0
+	2. è¿è¡ŒCygwin Terminal
+	3. ç”Ÿæˆboostç¼–è¯‘å·¥å…·: åœ¨boostç›®å½•ä¸‹è¿è¡Œ./bootstrap.sh æˆ–è€… bootstrap.bat ç”Ÿæˆ b2
+	4. ä¿®æ”¹ <boost>/tools/build/v2/user-config.jam
+	5. ç”±äºä½¿ç”¨äº†gnu++11ï¼Œauto_ptrå¤„äºdeprecatedçŠ¶æ€ï¼Œæ›¿æ¢æˆunique_ptrå°±å¯ä»¥è§£å†³ã€‚boostä¸­å”¯ä¸€ä¸€å¤„å¼•ç”¨å‡ºç°åœ¨<boost>/libs/signals/src/signal_base.cppä¸­çš„136è¡Œ
 	//       std::auto_ptr<iterator> slot(reinterpret_cast<iterator*>(data));
        std::unique_ptr<iterator>slot(reinterpret_cast<iterator*>(data));
 	6. ./b2 --without-python --without-mpi --without-serialization toolset=gcc-android4.6 link=static runtime-link=static target-os=linux --stagedir=android
 
-	7. ÔÚÓ¦ÓÃ³ÌĞòµÄApplication.mkÖĞÌí¼Ó
-	Ìí¼ÓÒì³£Ö§³Ö APP_CPPFLAGS += ¨Cfexceptions
-	#Ê¹ÓÃstlport_staticÑ¡ÏîÊ±£¬ÓëboostÒ»ÆğÊ¹ÓÃ£¬»áÔÚÁ´½ÓÊ±²úÉúÈçÏÂ´íÎó£º
+	7. åœ¨åº”ç”¨ç¨‹åºçš„Application.mkä¸­æ·»åŠ 
+	æ·»åŠ å¼‚å¸¸æ”¯æŒ APP_CPPFLAGS += â€“fexceptions
+	#ä½¿ç”¨stlport_staticé€‰é¡¹æ—¶ï¼Œä¸boostä¸€èµ·ä½¿ç”¨ï¼Œä¼šåœ¨é“¾æ¥æ—¶äº§ç”Ÿå¦‚ä¸‹é”™è¯¯ï¼š
 	# undefined reference to 'std::basic_string<char, std::char_traits<char>, std::allocator<char> >::~basic_string()'  
 	APP_STL := gnustl_static #stlport_static
 	
+
+	windows
+
+	1ã€bootstrap.bat
+	2ã€b2 toolset=msvc --build-type=complete stage
+
+	mac
+	1ã€

@@ -15,6 +15,11 @@
 
 #include "luaconf.h"
 
+#ifdef WIN32
+#include <winsock2.h>
+#include <windows.h>
+#endif
+
 
 #define LUA_VERSION	"Lua 5.1"
 #define LUA_RELEASE	"Lua 5.1.5"

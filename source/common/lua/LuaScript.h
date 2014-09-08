@@ -25,4 +25,5 @@ namespace std {
 	typedef std::weak_ptr<LuaScript> LuaScriptWtr;
 
 }
-#ifdef __LUA__
+#endif
+
