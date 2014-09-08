@@ -18,16 +18,11 @@ if(APPLE)
 	set(CMAKE_CXX_FLAGS "-std=c++11")
 endif()
 
-
 include_directories(${__PROJDIR__}/include)
 include_directories($ENV{BOOST_ROOT})
 link_directories($ENV{BOOST_ROOT}/stage/lib)
 set(Boost_USE_STATIC_LIBS ON)
-if(WIN32)
-	FIND_PACKAGE(Boost 1.56.0 COMPONENTS log log_setup system thread filesystem date_time REQUIRED)
-elseif(APPLE)
-	FIND_PACKAGE(Boost 1.56.0 COMPONENTS log log_setup system thread filesystem date_time REQUIRED)
-endif()
+FIND_PACKAGE(Boost COMPONENTS log log_setup system thread filesystem date_time REQUIRED)
 
 AUX_SOURCE_DIRECTORY(. MAIN_SRC)
 
@@ -35,3 +30,4 @@ file(STRINGS ../../../source/CPPLISTS SOURCELISTS)
 separate_arguments(SOURCELISTS)
 
 add_executable(${PROJECT_NAME} ${MAIN_SRC} ${SOURCELISTS})
+TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${Boost_LIBRARIES} )
