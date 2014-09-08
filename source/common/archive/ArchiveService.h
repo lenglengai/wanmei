@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ArchiveReader.h"
+#include "../setting/XmlReader.h"
 
 #ifdef __ARCHIVE__
 namespace std {

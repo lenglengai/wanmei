@@ -26,7 +26,6 @@ restrictions:
 #include <fstream>
 #include <memory.h>
 #include <stdio.h>
-#include <malloc.h>
 
 #ifdef SHINY_PROFILER
 namespace Shiny {

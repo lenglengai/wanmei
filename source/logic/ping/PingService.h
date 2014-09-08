@@ -1,7 +1,5 @@
 #pragma once
 
-#include <boost/thread.hpp>
-
 #include "../../common/net/IProtocol.h"
 #include "../../common/property/Property.h"
 #include "../../common/handle/Context.h"

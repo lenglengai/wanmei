@@ -97,11 +97,11 @@ namespace std {
 	}
 
 	template<class T0>
-	void BinWriter::runStreamsCount(list<std::shared_ptr<T0> >& nValue, const char * nNames, const char * nName, __i32 nCount)
+	void BinWriter::runStreamsCount(std::list<std::shared_ptr<T0> >& nValue, const char * nNames, const char * nName, __i32 nCount)
 	{
 		__i16 count_ = static_cast<__i16>(nValue.size());
 		this->runInt16(count_, "count");
-		std::list<shared_ptr<T0>>::iterator it = nValue.begin();
+		typename std::list<std::shared_ptr<T0>>::iterator it = nValue.begin();
 		for (; it != nValue.end(); ++it) {
 			std::shared_ptr<T0>& t_ = (*it);
 			t_->serialize(this, count_);
@@ -113,7 +113,7 @@ namespace std {
 	{
 		__i16 count_ = static_cast<__i16>(nValue.size());
 		this->runInt16(count_, "count");
-		map<T0, std::shared_ptr<T1>>::iterator it = nValue.begin();
+		typename std::map<T0, std::shared_ptr<T1>>::iterator it = nValue.begin();
 		for (; it != nValue.end(); ++it) {
 			std::shared_ptr<T1>& t_ = it->second;
 			t_->serialize(this, count_);

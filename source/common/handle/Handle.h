@@ -27,8 +27,8 @@ namespace std {
 
 	private:
 		std::shared_ptr<std::thread> mThread;
-		volatile std::atomic<bool> mStop;
 		std::list<ContextPtr> mContexts;
+		std::atomic<bool> mStop;
 	};
 	typedef std::shared_ptr<Handle> HandlePtr;
 

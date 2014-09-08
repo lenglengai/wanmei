@@ -25,7 +25,6 @@ restrictions:
 #include "ShinyTools.h"
 
 #include <memory.h>
-#include <malloc.h>
 
 #ifdef SHINY_PROFILER
 namespace Shiny {

@@ -41,6 +41,11 @@ namespace lua_tinker
 	{
 		virtual void to_lua(lua_State *L) = 0;
 	};
+    
+    // class helper
+	int meta_get(lua_State *L);
+	int meta_set(lua_State *L);
+	void push_meta(lua_State *L, const char* name);
 
 	// type trait
 	template<typename T> struct class_name;
@@ -861,11 +866,6 @@ namespace lua_tinker
 		lua_remove(L, errfunc);
 		return pop<RVal>(L);
 	}
-
-	// class helper
-	int meta_get(lua_State *L);
-	int meta_set(lua_State *L);
-	void push_meta(lua_State *L, const char* name);
 
 	// class init
 	template<typename T>

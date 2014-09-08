@@ -241,7 +241,7 @@ namespace std {
 
 	void BinReader::runStrings(std::list<std::string>& nValue, const char * nNames, const char * nName)
 	{
-		__i16 count_ = 0; __i8 value_ = 0;
+		__i16 count_ = 0;
 		mStream.read((char *)(&count_), sizeof(__i16));
 		for (__i16 i = 0; i < count_; ++i) {
 			std::string str_;
@@ -260,7 +260,7 @@ namespace std {
 
 	void BinReader::runStringsCount(std::list<std::string>& nValue, const char * nName, __i32 nCount)
 	{
-		__i16 count_ = 0; __i8 value_ = 0;
+		__i16 count_ = 0;
 		this->runInt16(count_, "count");
 		for (__i16 i = 0; i < count_; ++i) {
 			std::string str_;
@@ -271,7 +271,7 @@ namespace std {
 
 	void BinReader::runStringSemi(std::list<std::string>& nValue, const char * nName)
 	{
-		__i16 count_ = 0; __i8 value_ = 0;
+		__i16 count_ = 0;
 		mStream.read((char *)(&count_), sizeof(__i16));
 		for (__i16 i = 0; i < count_; ++i) {
 			std::string str_;

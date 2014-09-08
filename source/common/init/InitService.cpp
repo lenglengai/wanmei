@@ -241,6 +241,7 @@ namespace std {
 	}
 
 	InitService::InitService()
+		: mInitType(InitType_::mNone_)
 	{
 		this->runClear();
 	}

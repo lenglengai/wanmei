@@ -49,6 +49,7 @@ namespace std {
 	}
 
 	Handle::Handle()
+		: mStop(true)
 	{
 		this->runClear();
 	}

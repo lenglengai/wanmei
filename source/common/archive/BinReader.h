@@ -98,7 +98,7 @@ namespace std {
 	template<class T0>
 	void BinReader::runStreamsCount(list<std::shared_ptr<T0> >& nValue, const char * nNames, const char * nName, __i32 nCount)
 	{
-		__i16 count_ = 0; __i8 value_ = 0;
+		__i16 count_ = 0;
 		this->runInt16(count_, "count");
 		for (__i16 i = 0; i < count_; ++i) {
 			std::shared_ptr<T0> t_(new T0());
@@ -110,7 +110,7 @@ namespace std {
 	template<class T0, class T1>
 	void BinReader::runKeyStreamsCount(map<T0, std::shared_ptr<T1>>& nValue, const char * nNames, const char * nName, __i32 nCount)
 	{
-		__i16 count_ = 0; __i8 value_ = 0;
+		__i16 count_ = 0;
 		this->runInt16(count_, "count");
 		for (__i16 i = 0; i < count_; ++i) {
 			std::shared_ptr<T1> t_(new T1());

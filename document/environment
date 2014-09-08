@@ -112,4 +112,5 @@
 	2、b2 toolset=msvc --build-type=complete stage
 
 	mac
-	1、
+	1、./bootstrap.sh
+	2、./b2 toolset=darwin stage

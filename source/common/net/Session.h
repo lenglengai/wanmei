@@ -58,7 +58,7 @@ namespace std {
 		boost::asio::deadline_timer mReadTimer;
 		boost::asio::deadline_timer mWriteTimer;
 		boost::array<__i8, PACKETMAX> mReadBuffer;
-		volatile atomic<bool> mSending;
+		std::atomic<bool> mSending;
 		WriteBlockPtr mWriteBlockPtr;
 		asio::ip::tcp::socket mSocket;
 		deque<PacketPtr> mPackets;

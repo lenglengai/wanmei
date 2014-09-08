@@ -67,7 +67,7 @@ namespace std {
 		~InitService();
 		
 	private:
-		volatile std::atomic<__i16> mInitType;
+		std::atomic<__i16> mInitType;
 	};
 
 }
