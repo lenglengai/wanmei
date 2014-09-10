@@ -1,24 +1,27 @@
 import platform
 import subprocess
 
-class BuildCMake():
-    def __init__(self, nCmdPath, )
-    
-    
-    def runBuild():
+import buildbase
+
+class BuildCMake(buildbase.BuildBase):
+
+    def runBuild(self):
+        cmakeCmd = 'cmake %s -G\"%s\" -D__%s__ -D' % (mSource, mPlatform, )
         subprocess.call(cmakeCmd, shell=True)
 
-    def initPlatform():
+    def runInit(self):
         sysName = platform.system()
         if 'Windows' == sysName:
-            mPlatform += '\"Visual Studio 12 2013\"'
+            mPlatform = 'Visual Studio 12 2013'
         elif 'Darwin' == sysName:
-            mPlatform += '\"Xcode\"'
+            mPlatform = 'Xcode'
         else:
-            mPlatform += '\"Unix Makefiles\"'
-
+            mPlatform = 'Unix Makefiles'
 
     mPlatform = ''
     mCmdPath = ''
+    mSource = ''
+    m
+
     
     

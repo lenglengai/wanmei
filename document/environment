@@ -7,7 +7,7 @@
 		CLASSPATH
 			.;%JAVA_HOME%\lib\tools.jar;%JAVA_HOME%\lib\dt.jar;
 		PATH
-			.;%JAVA_HOME%\bin
+			;%JAVA_HOME%\bin
 
 	MAC
 
