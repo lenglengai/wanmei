@@ -1,14 +1,14 @@
 import os
+import subprocess
 
 class BuildBase():
-    
-    def runBuild(self):
-        print('error call BuildBase\'s runBuild!')
-        
+
     def runChdir(self, nCmdPath):
-        os.chdir(nCmdPath)
+        mCmdPath = os.path.abspath(nCmdPath)
+        os.chdir(mCmdPath)
 
-    def runInit(self):
-        print('error call BuildBase\'s runInit!')
+    def interBuild(self, nCmd):
+        subprocess.call(nCmd, shell=True)
 
-    
+    mCmdPath = ''
+ 

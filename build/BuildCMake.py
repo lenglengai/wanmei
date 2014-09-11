@@ -1,14 +1,11 @@
 import platform
-import subprocess
-
 import buildbase
 
 class BuildCMake(buildbase.BuildBase):
 
-    def runBuild(self):
-        cmakeCmd = 'cmake %s -G\"%s\" -D__%s__ -D' % (mSource, mPlatform, )
-        subprocess.call(cmakeCmd, shell=True)
-
+    def getName(self):
+        return '-m'
+    
     def runInit(self):
         sysName = platform.system()
         if 'Windows' == sysName:
@@ -18,10 +15,23 @@ class BuildCMake(buildbase.BuildBase):
         else:
             mPlatform = 'Unix Makefiles'
 
+    def runBuild(self):
+        cmakeCmd = 'cmake %s -G\"%s\" -D__WORKSPACE__=%s -D__PROJECT__=%s' % (mSource, mPlatform, mWorkSpace, mProject)
+        buildbase.BuildBase.interBuild(self, cmakeCmd)
+
+    def setWorkSpace(self, nWorkSpace):
+        mWorkSpace = nWorkSpace
+
+    def setProject(self, nProject):
+        mProject = nProject
+        
+    def setSource(self, nSource):
+        mSource = nSource
+
+    mWorkSpace = ''
     mPlatform = ''
-    mCmdPath = ''
+    mProject = ''
     mSource = ''
-    m
 
     
     
