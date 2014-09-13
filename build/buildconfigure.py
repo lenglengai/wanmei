@@ -4,8 +4,21 @@ import buildbase
 
 class BuildConfigure(buildbase.BuildBase):
 
-    def runBuild(self):
+    @staticmethod
+    def getName():
+        return 'c'
 
+    def interName(self):
+        return BuildCMake.getName()
+
+    def __init__(self, nWorkspace, nProject):
+        self.mWorkspace = nWorkspace
+        self.mProject = nProject
+        self.__initChdir()
+        
+    def __initChdir(self):
+        cmdPath = '../%s/binary/' % self.mWorkspace
+        buildbase.BuildBase.runChdir(self, cmdPath)
 
     def runConfigure(self):
         configureCmd = 'configure.exe %s %sConfigure.xml' % (journeyPath, mProject)

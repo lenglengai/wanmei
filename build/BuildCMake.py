@@ -1,16 +1,15 @@
 import os
-
 import platform
 import buildbase
 
 class BuildCMake(buildbase.BuildBase):
 
     @staticmethod
-    def getName(self):
+    def getName():
         return 'me'
 
     def interName(self):
-        return 'me'
+        return BuildCMake.getName()
     
     def __init__(self, nWorkspace, nProject):
         self.mWorkspace = nWorkspace
@@ -18,29 +17,9 @@ class BuildCMake(buildbase.BuildBase):
         self.__initChdir()
         self.__initSource()
         
-
-    def __insertBuild(self, nBuildParameter):
-        sysName = platform.system()
-        if 'Windows' == sysName:
-            if 'e' == nBuildParameter:
-                self.mPlatform = 'Visual Studio 12 2013'
-            else:
-                self.mPlatform = 'NMake Makefiles'
-        elif 'Darwin' == sysName:
-            if 'e' == nBuildParameter:
-                self.mPlatform = 'Xcode'
-            else:
-                self.mPlatform = 'Unix Makefiles'
-        else:
-            self.mPlatform = 'Unix Makefiles'
-            
-
     def __initChdir(self):
-        cmdPath = '../%s/build/%s/' % (self.mWorkSpace, self.mProject)
-        if not os.path.isdir(cmdPath):
-            os.mkdir(cmdPath)
+        cmdPath = '../%s/build/%s/' % (self.mWorkspace, self.mProject)
         buildbase.BuildBase.runChdir(self, cmdPath)
-
 
     def __initSource(self):
         if 'configure' == self.mProject:
@@ -49,17 +28,24 @@ class BuildCMake(buildbase.BuildBase):
             self.mSource = '../../../build/build-cmake/journey/'
         else:
             self.mSource = '../../../build/build-cmake/source/'
+        self.mSource = os.path.abspath(self.mSource)
             
-
+    def insertBuildParameter(self, nBuildParameter):
+        sysName = platform.system()
+        if 'Windows' == sysName:
+            if 'e' == nBuildParameter:
+                self.mPlatform = 'Visual Studio 12 2013'
+            if 'm' == nBuildParameter:
+                self.mPlatform = 'NMake Makefiles'
+        elif 'Darwin' == sysName:
+            if 'e' == nBuildParameter:
+                self.mPlatform = 'Xcode'
+            if 'm' == nBuildParameter:
+                self.mPlatform = 'Unix Makefiles'
+        else:
+            self.mPlatform = 'Unix Makefiles'
+            
     def runBuild(self):
-        cmakeCmd = 'cmake %s -G\"%s\" -D__WORKSPACE__=%s -D__PROJECT__=%s' % (self.mSource, self.mPlatform, self.mWorkSpace, self.mProject)
+        cmakeCmd = 'cmake %s -G\"%s\" -D__WORKSPACE__=%s -D__PROJECT__=%s' % (self.mSource, self.mPlatform, self.mWorkspace, self.mProject)
         buildbase.BuildBase.interBuild(self, cmakeCmd)
-        
 
-    mWorkSpace = ''
-    mPlatform = ''
-    mProject = ''
-    mSource = ''
-    
-    
-    

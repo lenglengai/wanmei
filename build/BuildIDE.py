@@ -4,69 +4,41 @@ import buildbase
 class BuildIDE(buildbase.BuildBase):
 
     @staticmethod
-    def getName(self):
-        
+    def getName():
         return 'uidr'
 
-
+    def interName(self):
+        return BuildIDE.getName()
+    
     def __init__(self, nWorkspace, nProject):
-
         self.mWorkspace = nWorkspace
         self.mProject = nProject
-        
-        self.__initChdir()
-
-
-    def __runInit(self, nBuildParameter):
-        
-        sysName = platform.system()
-        if 'Windows' == sysName:
-            if 'e' == nBuildParameter:
-                self.mPlatform = 'Visual Studio 12 2013'
-            else:
-                self.mPlatform = 'NMake Makefiles'
-        elif 'Darwin' == sysName:
-            if 'e' == nBuildParameter:
-                self.mPlatform = 'Xcode'
-            else:
-                self.mPlatform = 'Unix Makefiles'
-        else:
-            self.mPlatform = 'Unix Makefiles'
-
-        sysName = platform.system()
-        if 'Windows' == sysName:
-            mPlatform += 'devenv'
-        elif 'Darwin' == sysName:
-            mPlatform += 'xcodebuild'
-        else:
-            mPlatform += 'make'
-
-
-    def __initChdir(self):
-        
-        cmdPath = '../%s/build/%s/' % (self.mWorkSpace, self.mProject)
+        cmdPath = '../%s/build/%s/' % (nWorkspace, nProject)
         buildbase.BuildBase.runChdir(self, cmdPath)
-
+                
+    def insertBuildParameter(self, nBuildParameter):
+        if 'u' == nBuildParameter:
+            self.mMake = True
+        if 'i' == nBuildParameter:
+            self.mMake = False
+        if 'd' == nBuildParameter:
+            self.mDebug = 'DEBUG'
+        if 'r' == nBuildParameter:
+            self.mDebug = 'RELEASE'
             
-    def runBuild(self, nBuildParameter):
+    def runBuild(self):
         makeCmd = 'make'
+        sysName = platform.system()
         if 'Windows' == sysName:
-            makeCmd = 'devenv %s.sln /build %s /out output.txt' % (mPlatform, mDebug)
+            if False == self.mMake:
+                makeCmd = 'devenv %s.sln /build %s /out output.txt' % (self.mProject, self.mDebug)
+            else:
+                makeCmd = 'nmake'
         elif 'Darwin' == sysName:
-            makeCmd = 'xcodebuild -project %s.xcodeproj -configuration %s' % (mPlatform, mDebug)
+            if False == self.mMake:
+                makeCmd = 'xcodebuild -project %s.xcodeproj -configuration %s' % (self.mProject, self.mDebug)
         else:
             makeCmd = 'make'
         buildbase.BuildBase.interBuild(self, makeCmd)
-        
-        
-    def setDebug(self, nDebug):
-        if True == nDebug:
-            mDebug = 'DEBUG'
-        else:
-            mDebug = 'RELEASE'
 
 
-    mWorkSpace = ''
-    mPlatform = ''
-    mProject = ''
-    mDebug = ''

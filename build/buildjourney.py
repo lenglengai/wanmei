@@ -3,27 +3,32 @@ import buildbase
 
 class BuildJourney(buildbase.BuildBase):
 
-    def getName(self):
-        return '-j'
-    
-    def runInit(self):
-        cmdPath = '../%s/binary/' % mProj
+    @staticmethod
+    def getName():
+        return 'j'
+
+    def interName(self):
+        return BuildCMake.getName()
+
+    def __init__(self, nWorkspace, nNo):
+        self.mWorkspace = nWorkspace
+        self.mNo = nNo
+        self.__initChdir()
+        self.__initJourney()
+
+    def __initChdir(self):
+        cmdPath = '../%s/binary/' % self.mWorkspace
         buildbase.BuildBase.runChdir(self, cmdPath)
+
+    def __initJourney(self):
+        self.mJourneyPath = '../journey/journey_%s' % self.mNo
+        self.mJourneyPath = os.path.abspath(self.mJourneyPath)
+        
+    def insertBuildParameter(self, nBuildParameter):
         
     def runBuild(self):
-        journeyPath = '../%s/journey/journey_%s' % (nProj, nNo)
-        journeyPath = os.path.abspath(journeyPath)
-        journeyCmd = 'journey.exe %s' % journeyPath
+        journeyCmd = 'journey.exe %s' % self.mJourneyPath
         sysName = platform.system()
         if 'Windows' != sysName:
-            journeyCmd = './journey %s' % journeyPath
+            journeyCmd = './journey %s' % self.mJourneyPath
         buildbase.BuildBase.interBuild(self, journeyCmd)
-                
-    def setProj(self, nProj):
-        mProj = nProj
-        
-    def setNo(self, nNo):
-        mNo = nNo
-
-    mProj = ''
-    mNo = 0

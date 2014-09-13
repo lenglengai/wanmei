@@ -1,19 +1,3 @@
-import os
-import sys
-import shutil
-import platform
-import subprocess
-
-def runJourney(nProj, nNo):
-    print 'build the %s\'s journey of NO.%s' % (nProj, nNo)
-    cmdPath = '../%s/binary/' % nProj
-    cmdPath = os.path.abspath(cmdPath)
-    os.chdir(cmdPath)
-    projDir = '../%s/journey/journey_%s' % (nProj, nNo)
-    journeyPath = os.path.abspath(projDir)
-    cmakeCmd = 'journey %s' % journeyPath
-    subprocess.call(cmakeCmd, shell=True)
-
 def runConfigure(nProj, nPlatform):
     print 'build the %s\'s configure of %s' % (nProj, nPlatform)
     cmdPath = '../%s/binary/' % nProj

@@ -11,20 +11,27 @@ class Startup():
         self.mProject = nProject
         self.__initChdir()
         
-
     def __initChdir(self):
         filePath = os.path.abspath(__file__)
         self.mCmdPath = os.path.split(filePath)[0]
+        os.chdir(self.mCmdPath)
 
+    def runStart(self, nBuildParameters):
+        self.__initBuild(nBuildParameters)
+        self.__runBuild()
 
+    def __runBuild(self):
+        for i in self.mBuildBases:
+            i.runBuild()
+            os.chdir(self.mCmdPath)
+            
     def __initBuild(self, nBuildParameters):
         for i in nBuildParameters:
             self.__insertBuild(i)
             
-            
     def __insertBuild(self, nBuildParameter):
         insert = False
-        for i in self.mBuildBase:
+        for i in self.mBuildBases:
             if nBuildParameter in i.interName():
                 i.insertBuildParameter(nBuildParameter)
                 insert = True
@@ -32,28 +39,15 @@ class Startup():
         if False == insert:
             buildBase = self.__getBuildBase(nBuildParameter)
             buildBase.insertBuildParameter(nBuildParameter)
-            self.mBuildBase.append(buildBase)
-
+            self.mBuildBases.append(buildBase)
         
     def __getBuildBase(self, nName):
         if nName in buildcmake.BuildCMake.getName():
             return buildcmake.BuildCMake(self.mWorkspace, self.mProject)
-        elif nName in buildcmake.BuildIDE.getName():
+        elif nName in buildide.BuildIDE.getName():
             return buildide.BuildIDE(self.mWorkspace, self.mProject)
-
-        
-    def runStart(self, nBuildParameters):
-        self.__initBuild(nBuildParameters)
-        for i in mBuildBase:
-            os.chdir(mCmdPath)
-            buildBase.runBuild()
-            
-
-    mBuildBase = []
-    mWorkspace = ''
-    mProject = ''
-    mCmdPath = ''
-    
+	
+    mBuildBases = []
 
 if __name__ == '__main__':
     startup = Startup(sys.argv[2], sys.argv[3])
