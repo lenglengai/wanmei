@@ -3,6 +3,7 @@ import sys
 
 import buildcmake
 import buildide
+import buildjourney
 
 class Startup():
     
@@ -46,6 +47,8 @@ class Startup():
             return buildcmake.BuildCMake(self.mWorkspace, self.mProject)
         elif nName in buildide.BuildIDE.getName():
             return buildide.BuildIDE(self.mWorkspace, self.mProject)
+        elif nName in buildjourney.BuildJourney.getName():
+            return buildjourney.BuildJourney(self.mWorkspace, self.mProject)
 	
     mBuildBases = []
 
