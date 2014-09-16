@@ -82,6 +82,17 @@ namespace std {
 
 		mInitType = InitType_::mPreinit_;
 	}
+	
+	void InitService::registerArchive(const char * nArchive)
+	{
+		auto it = mArchives.find(nArchive);
+		if ( it != strings.end()) {
+			LogService& loginService_ = Singleton<LogService>::instance();
+			loginService_.logError(log_2("initService registerArchive fail, nArchive is ", nArchive));
+			return;
+		}
+		mArchives.insert(nArchive);
+	}
 
 	void InitService::runLoad0()
 	{
@@ -238,6 +249,7 @@ namespace std {
 		m_tRunSave.disconnect_all_slots();
 		m_tRunExit.disconnect_all_slots();
 		mInitType = InitType_::mNone_;
+		mArchives.clear();
 	}
 
 	InitService::InitService()

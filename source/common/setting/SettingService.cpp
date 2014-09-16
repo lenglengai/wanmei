@@ -64,6 +64,7 @@ namespace std {
 		mSystemPath = nPath;
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
 		archiveService_.m_tRunConfigure.connect(boost::bind(&SettingService::runLoad, this));
+		initService_.registerArchive(this->streamUrl());
 	}
 
 	void SettingService::runLoad()

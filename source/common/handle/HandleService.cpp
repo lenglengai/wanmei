@@ -17,10 +17,10 @@ namespace std {
 	const char * HandleService::streamUrl()
 	{
 	#ifdef __CLTRECV__
-		return "clientHandle.xml";
+		return "common/handle/config/clientHandle.xml";
 	#endif 
 	#ifdef __SEVRECV__
-		return "serverHandle.xml";
+		return "common/handle/config/serverHandle.xml";
 	#endif 
 	}
 
@@ -45,6 +45,7 @@ namespace std {
 		initService_.m_tRunInit0.connect(boost::bind(&HandleService::runInit, this));
 		initService_.m_tRunStart1.connect(boost::bind(&HandleService::runStart, this));
 		initService_.m_tRunStop.connect(boost::bind(&HandleService::runStop, this));
+		initService_.registerArchive(this->streamUrl());
 	}
 
 	void HandleService::runLoad()

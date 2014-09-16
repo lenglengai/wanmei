@@ -21,6 +21,7 @@ namespace std {
 		initService_.m_tRunStart0.connect(boost::bind(&IoService::runStart, this));
 		initService_.m_tRunRun.connect(boost::bind(&IoService::runRun, this));
 		initService_.m_tRunStop.connect(boost::bind(&IoService::runStop, this));
+		initService_.registerArchive(this->streamUrl());
 	}
 
 	void IoService::runLoad()
@@ -94,10 +95,10 @@ namespace std {
 	const char * IoService::streamUrl()
 	{
 	#ifdef __CLTRECV__
-		return "clientIoService.xml";
+		return "common/ioservice/config/clientIoService.xml";
 	#endif
 	#ifdef __SEVRECV__
-		return "serverIoService.xml";
+		return "common/ioservice/config/serverIoService.xml";
 	#endif 
 	}
 

@@ -7,7 +7,7 @@
 #ifdef __SERVERNET__
 namespace std {
 
-	class Server : public PropertySink
+	class TcpServer : public PropertySink
 	{
 	public:
 		template<class T>
@@ -18,8 +18,8 @@ namespace std {
 		void runLoad();
 		void runStart();
 
-		Server();
-		~Server();
+		TcpServer();
+		~TcpServer();
 
 	private:
 		void handleAccept(const boost::system::error_code& nError);
@@ -33,7 +33,7 @@ namespace std {
 		string mPort;
 	};
 	template<class T>
-	void Server::headSerialize(T& nSerialize)
+	void TcpServer::headSerialize(T& nSerialize)
 	{
 		nSerialize.runString(mAddress, "address", "127.0.0.1");
 		nSerialize.runString(mPort, "port", "8080");

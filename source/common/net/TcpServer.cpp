@@ -6,12 +6,12 @@
 #include "../archive/ArchiveService.h"
 #include "../ioservice/IoService.h"
 
-#include "Server.h"
+#include "TcpServer.h"
 
 #ifdef __SERVERNET__
 namespace std {
 
-	void Server::handleAccept(const boost::system::error_code& nError)
+	void TcpServer::handleAccept(const boost::system::error_code& nError)
 	{
 		if (nError) {
 			this->runStop();
@@ -23,7 +23,7 @@ namespace std {
 		startAccept();
 	}
 
-	void Server::startAccept()
+	void TcpServer::startAccept()
 	{
 		try {
 			IoService& ioService_ = Singleton<IoService>::instance();
@@ -31,7 +31,7 @@ namespace std {
 			PropertyMgrPtr propertyMgrPtr_ = std::dynamic_pointer_cast<PropertyMgr, Session>(mNewSession);
 			this->runCreate(propertyMgrPtr_);
 			mAcceptor->async_accept(mNewSession->getSocket(),
-				boost::bind(&Server::handleAccept, this,
+				boost::bind(&TcpServer::handleAccept, this,
 				boost::asio::placeholders::error));
 		} catch (boost::system::system_error& e) {
 			LogService& logService = Singleton<LogService>::instance();
@@ -39,38 +39,39 @@ namespace std {
 		}
 	}
 
-	const char * Server::streamName()
+	const char * TcpServer::streamName()
 	{
-		return "server";
+		return "tcpServer";
 	}
 
-	const char * Server::streamUrl()
+	const char * TcpServer::streamUrl()
 	{
-		return "server.xml";
+		return "tcpServer.xml";
 	}
 
-	void Server::runPreinit()
+	void TcpServer::runPreinit()
 	{
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
-		archiveService_.m_tRunConfigure.connect(boost::bind(&Server::runLoad, this));
+		archiveService_.m_tRunConfigure.connect(boost::bind(&TcpServer::runLoad, this));
 
 		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunStart0.connect(boost::bind(&Server::runStart, this));
-		initService_.m_tRunStop.connect(boost::bind(&Server::runStop, this));
+		initService_.m_tRunStart0.connect(boost::bind(&TcpServer::runStart, this));
+		initService_.m_tRunStop.connect(boost::bind(&TcpServer::runStop, this));
+		initService_.registerArchive(this->streamUrl());
 	}
 
-	void Server::runLoad()
+	void TcpServer::runLoad()
 	{
 		LogService& logService = Singleton<LogService>::instance();
-		logService.logError(log_1("begin load server config!"));
+		logService.logError(log_1("begin load tcpServer config!"));
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
 		archiveService_.initUrlStream(this);
 	}
 
-	void Server::runStart()
+	void TcpServer::runStart()
 	{
 		LogService& logService = Singleton<LogService>::instance();
-		logService.logError(log_1("server begin run start!"));
+		logService.logError(log_1("tcp server begin run start!"));
 
 		IoService& ioService_ = Singleton<IoService>::instance();
 		mAcceptor.reset(new asio::ip::tcp::acceptor(ioService_.getIoService()));
@@ -85,19 +86,19 @@ namespace std {
 		startAccept();
 	}
 
-	void Server::runStop()
+	void TcpServer::runStop()
 	{
  		mNewSession->runClose();
  		mAcceptor->close();
 	}
 
-	Server::Server()
+	TcpServer::TcpServer()
 		: mAddress("127.0.0.1")
 		, mPort("8080")
 	{
 	}
 
-	Server::~Server()
+	TcpServer::~TcpServer()
 	{
 		mAddress = "127.0.0.1";
 		mPort = "8080";

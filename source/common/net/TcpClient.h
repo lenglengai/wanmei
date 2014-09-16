@@ -7,7 +7,7 @@
 #ifdef __CLIENTNET__
 namespace std {
 
-	class Client : public PropertySink
+	class TcpClient : public PropertySink
 	{
 	public:
 		enum { connect_timeout = 90 };
@@ -20,8 +20,8 @@ namespace std {
 		void runStart();
 		SessionPtr& getSession();
 
-		Client();
-		~Client();
+		TcpClient();
+		~TcpClient();
 
 	private:
 		void handleConnect(const boost::system::error_code& nError);
@@ -35,9 +35,9 @@ namespace std {
 		std::string mAddress;
 		std::string mPort;
 	};
-	typedef std::shared_ptr<Client> ClientPtr;
+	typedef std::shared_ptr<TcpClient> ClientPtr;
 	template<class T>
-	void Client::headSerialize(T& nSerialize)
+	void TcpClient::headSerialize(T& nSerialize)
 	{
 		nSerialize.runString(mAddress, "address", "127.0.0.1");
 		nSerialize.runString(mPort, "port", "8080");

@@ -25,6 +25,8 @@ namespace std {
 	public:
 		void runPreinit(const char * nPath);
 		
+		void registerArchive(const char * nArchive);
+		
 		boost::signals2::signal<void()> m_tRunLoad0;
 		void runLoad0();
 
@@ -67,6 +69,7 @@ namespace std {
 		~InitService();
 		
 	private:
+		std::set<std::string> mArchives;
 		std::atomic<__i16> mInitType;
 	};
 

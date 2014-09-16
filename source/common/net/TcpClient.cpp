@@ -74,6 +74,7 @@ namespace std {
 
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunStart0.connect(boost::bind(&Client::runStart, this));
+		initService_.registerArchive(this->streamUrl());
 	}
 
 	void Client::runLoad()
