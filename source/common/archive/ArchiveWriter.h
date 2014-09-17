@@ -14,10 +14,11 @@ namespace std {
 	public:
 		void runJourneyDescripter(JourneyDescripter& nJourneyDescripter);
 		void runConfigureDescripter(ConfigureDescripter& nConfigureDescripter);
+		void runOpen(const char * nArchive);
+		void runArchive(const char * nArchive);
 		void runClose();
 
 	private:
-		void runArchive(std::string& nArchive);
 		__i32 readBuf(const char * nPath);
 		__i32 writeBuf(__i32 nSize);
 

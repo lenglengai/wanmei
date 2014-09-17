@@ -23,10 +23,8 @@ namespace std {
 			static const __i16 mExit_ = 11;
 		};
 	public:
-		void runPreinit(const char * nPath);
-		
-		void registerArchive(const char * nArchive);
-		
+		void runPreinit(const char * nPath, bool nConfigure = false);
+			
 		boost::signals2::signal<void()> m_tRunLoad0;
 		void runLoad0();
 
@@ -60,6 +58,9 @@ namespace std {
 		
 		boost::signals2::signal<void()> m_tRunExit;
 		void runExit();
+
+		void registerArchive(const char * nArchive);
+		void runConfigure();
 		
 	private:
 		void runClear();
@@ -71,6 +72,7 @@ namespace std {
 	private:
 		std::set<std::string> mArchives;
 		std::atomic<__i16> mInitType;
+		bool mConfigure;
 	};
 
 }

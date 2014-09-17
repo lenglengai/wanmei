@@ -22,9 +22,10 @@
 
 namespace std {
 
-	void InitService::runPreinit(const char * nPath)
+	void InitService::runPreinit(const char * nPath, bool nConfigure)
 	{
 		if (mInitType > InitType_::mNone_) return;
+		mConfigure = nConfigure;
 		
 #ifdef __LOG__
 		LogService& loginService_ = Singleton<LogService>::instance();
@@ -85,6 +86,7 @@ namespace std {
 	
 	void InitService::registerArchive(const char * nArchive)
 	{
+		if (false == mConfigure)  return;
 		auto it = mArchives.find(nArchive);
 		if ( it != strings.end()) {
 			LogService& loginService_ = Singleton<LogService>::instance();
@@ -92,6 +94,15 @@ namespace std {
 			return;
 		}
 		mArchives.insert(nArchive);
+	}
+
+	void InitService::runConfigure()
+	{
+		auto it = mArchives.begin();
+		for ( ; it != mArchives.end(); ++it)
+		{
+			
+		}
 	}
 
 	void InitService::runLoad0()
@@ -249,6 +260,7 @@ namespace std {
 		m_tRunSave.disconnect_all_slots();
 		m_tRunExit.disconnect_all_slots();
 		mInitType = InitType_::mNone_;
+		mConfigure = false;
 		mArchives.clear();
 	}
 

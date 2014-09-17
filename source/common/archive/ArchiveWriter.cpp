@@ -39,14 +39,15 @@ namespace std {
 		}
 	}
 
-	void ArchiveWriter::runArchive(std::string& nArchive)
+	void ArchiveWriter::runArchive(const char * nArchive)
 	{
 		__i32 beg_ = mBinWriter.runTell();
-		__i32 size_ = this->readBuf(nArchive.c_str());
+		__i32 size_ = this->readBuf(nArchive);
 		__i32 end_ = this->writeBuf(size_);
 		std::shared_ptr<ArchiveHash> archiveHash(new ArchiveHash());
 		CrcService& crcService = Singleton<CrcService>::instance();
-		archiveHash->setHash(crcService.runCommon(nArchive.c_str()));
+		__i32 hash_ = crcService.runCommon(nArchive);
+		archiveHash->setHash(hash_);
 		archiveHash->setBeg(beg_);
 		archiveHash->setEnd(end_);
 		archiveHash->setSize(size_);
