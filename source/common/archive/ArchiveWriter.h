@@ -14,7 +14,7 @@ namespace std {
 	public:
 		void runJourneyDescripter(JourneyDescripter& nJourneyDescripter);
 		void runConfigureDescripter(ConfigureDescripter& nConfigureDescripter);
-		void runOpen(const char * nArchive);
+		void runOpen(const char * nUrl);
 		void runArchive(const char * nArchive);
 		void runClose();
 

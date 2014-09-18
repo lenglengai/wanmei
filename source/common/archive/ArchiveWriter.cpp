@@ -39,6 +39,11 @@ namespace std {
 		}
 	}
 
+	void ArchiveWriter::runOpen(const char * nUrl)
+	{
+		mBinWriter.openUrl(configure.c_str());
+	}
+
 	void ArchiveWriter::runArchive(const char * nArchive)
 	{
 		__i32 beg_ = mBinWriter.runTell();
