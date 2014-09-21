@@ -62,6 +62,7 @@ typedef long long __i64;
 #include "shiny/Shiny.h"
 #include "lua/LuaService.h"
 #include "log/LogService.h"
+#include "init/InitService.h"
 
 #define INITYEAR	2014
 #define INITMONTH	9

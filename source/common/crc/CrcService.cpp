@@ -93,10 +93,25 @@ namespace std {
 		return seed1;
 	}
 
+	void CrcService::runScript()
+	{
+		LuaService& luaService_ = Singleton<LuaService>::instance();
+		luaService_.runClass<CrcService>("CrcService");
+		luaService_.runMethod<CrcService>(&LogService::runCommon, "runCommon");
+	}
+
 	void CrcService::runPreinit()
 	{
 		LogService& loginService_ = Singleton<LogService>::instance();
 		loginService_.logInfo(log_1("CrcService run runPreinit!"));
+
+		InitService& initService_ = Singleton<InitService>::instance();
+		initService_.m_tRunInit0.connect(boost::bind(&CrcService::runInit, this));
+	}
+
+	void CrcService::runInit()
+	{
+		CrcService::runScript();
 	}
 
 	CrcService::CrcService()

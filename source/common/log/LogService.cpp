@@ -1,5 +1,6 @@
 #include "../DefInc.h"
-#include "LogService.h"
+
+#include "../init/InitService.h"
 
 #ifdef __BOOSTLOG__
 #include <boost/log/sinks.hpp>
@@ -21,14 +22,6 @@ namespace std {
 	namespace expr = boost::log::expressions;
 	namespace attrs = boost::log::attributes;
 	#endif
-
-	void LogService::runScript()
-	{
-		LuaService& luaService_ = Singleton<LuaService>::instance();
-		luaService_.runClass<LogService>("LogService");
-		luaService_.runMethod<LogService>(&LogService::logLuaError, "logError");
-		luaService_.runMethod<LogService>(&LogService::logLuaInfo, "logInfo");
-	}
 
 	void LogService::logLuaError(const char * nValue)
 	{
@@ -70,8 +63,19 @@ namespace std {
 	#endif
 	}
 
+	void LogService::runScript()
+	{
+		LuaService& luaService_ = Singleton<LuaService>::instance();
+		luaService_.runClass<LogService>("LogService");
+		luaService_.runMethod<LogService>(&LogService::logLuaError, "logError");
+		luaService_.runMethod<LogService>(&LogService::logLuaInfo, "logInfo");
+	}
+
 	void LogService::runPreinit()
 	{
+		InitService& initService_ = Singleton<InitService>::instance();
+		initService_.m_tRunInit0.connect(boost::bind(&LogService::runInit, this));
+
 	#ifdef __BOOSTLOG__
 		auto console_sink = logging::add_console_log();
 		console_sink->set_formatter
@@ -95,6 +99,11 @@ namespace std {
     	logging::core::get()->add_sink(testSink);
 		logging::core::get()->add_global_attribute("TimeStamp", attrs::local_clock());
 	#endif
+	}
+
+	void LogService::runInit()
+	{
+		LogService::runScript();
 	}
 
 	LogService::LogService()

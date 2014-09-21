@@ -30,6 +30,7 @@
 ../../../source/common/lua/lua/print.c
 ../../../source/common/lua/lua_tinker.cpp
 ../../../source/common/lua/LuaScript.cpp
+../../../source/common/lua/LuaService.cpp
 ../../../source/common/property/Property.cpp
 ../../../source/common/property/PropertyMgr.cpp
 ../../../source/common/property/PropertySink.cpp
@@ -59,7 +60,6 @@
 ../../../source/common/archive/ArchiveWriter.cpp
 ../../../source/common/archive/ArchiveService.cpp
 ../../../source/common/archive/JourneyDescripter.cpp
-../../../source/common/archive/ConfigureDescripter.cpp
 ../../../source/common/handle/Context.cpp
 ../../../source/common/handle/Handle.cpp
 ../../../source/common/handle/HandleService.cpp

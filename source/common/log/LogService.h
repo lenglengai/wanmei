@@ -28,19 +28,21 @@ namespace std {
 	class __funapi LogService : boost::noncopyable
 	{
 	public:
-		static void runScript();
 		void logLuaError(const char * nValue);
 		void logLuaInfo(const char * nValue);
 		void logError(boost::format& nFormat);
 		void logInfo(boost::format& nFormat);
+
+		static void runScript();
 		void runPreinit();
+		void runInit();
 
 		LogService();
 		~LogService();
 	
 	private:
 	#ifdef __BOOSTLOG__
-		src::logger mLogger;
+		src::logger mLogger;xxxxxxxx
 	#endif
 	};
 

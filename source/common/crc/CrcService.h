@@ -17,7 +17,10 @@ namespace std {
 		__i32 runServer(const char * nName);
 		__i32 runDatabase(const char * nName);
 		__i32 runTable(const char * nName);
+		
+		static void runScript();
 		void runPreinit();
+		void runInit();
 
 		CrcService();
 		~CrcService();

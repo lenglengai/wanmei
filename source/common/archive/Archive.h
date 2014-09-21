@@ -10,16 +10,16 @@ namespace std {
 	class __funapi Archive
 	{
 	public:
+		ArchiveHashPtr getArchiveHash(const char * nKey);
+		void pushArchiveHash(ArchiveHashPtr& nArchiveHash);
+		void runClear();
+
 		template<class T>
 		void headSerialize(T& nSerialize)
 		{
 			nSerialize.runStream(mArchiveHead, "archiveHead");
 			nSerialize.runKeyStreamsCount(mArchiveHashs, "archiveHashs", "archiveHash", mArchiveHashs.size());
 		}
-
-		ArchiveHashPtr getArchiveHash(const char * nKey);
-		void pushArchiveHash(ArchiveHashPtr& nArchiveHash);
-		void runClear();
 
 		Archive();
 		~Archive();
