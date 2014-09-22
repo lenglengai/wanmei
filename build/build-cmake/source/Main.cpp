@@ -1,6 +1,9 @@
 #include "../../../source/common/DefInc.h"
 #include "../../../source/common/init/InitService.h"
 
+#include <iostream>
+
+
 using namespace std;
 
 int main( int argc, char * argv[] )

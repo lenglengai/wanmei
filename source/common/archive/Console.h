@@ -74,9 +74,6 @@ namespace std {
 	public:
 		Console();
 		~Console();
-
-	private:
-		fstream mStream;
 	};
 
 	template<class T>

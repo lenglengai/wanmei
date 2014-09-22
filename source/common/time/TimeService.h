@@ -13,7 +13,10 @@ namespace std {
 		void setServerTime(__i64 nTime);
 		__i64 getServerTime();
 		__i64 getNowSecond();
+		
+		static void runScript();
 		void runPreinit();
+		void runInit();
 
 		TimeService();
 		~TimeService();
