@@ -117,3 +117,21 @@
 
 九、xcode
 	xcodebuild -project client.xcodeproj -configuration Release
+
+十、vim 
+   sudo yum remove vim-minimal
+   会卸载sudo，嗯...别怕，继续
+   然后su root
+	yum install vim
+	yum install sudo 
+
+	重新修改sudoers文件(/etc/sudoers)，使你的用户具有sudo权限
+	找到这行：
+	root ALL=(ALL) ALL
+	在它的下面增加一行，和这行一样，root改为你的用户名
+	su 你的用户名
+	OK
+
+	git cmake python java clang lldb
+
+
