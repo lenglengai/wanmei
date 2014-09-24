@@ -39,10 +39,10 @@ namespace std {
 
 		LogService();
 		~LogService();
-	
+		
+#ifdef __BOOSTLOG__
 	private:
-	#ifdef __BOOSTLOG__
-		src::logger mLogger;xxxxxxxx
+		src::logger mLogger;
 	#endif
 	};
 
