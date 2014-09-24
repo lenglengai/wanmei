@@ -28,8 +28,9 @@ namespace std {
 	class __funapi LogService : boost::noncopyable
 	{
 	public:
-		void logLuaError(const char * nValue);
-		void logLuaInfo(const char * nValue);
+		void luaLogError(const char * nValue);
+		void luaLogInfo(const char * nValue);
+		
 		void logError(boost::format& nFormat);
 		void logInfo(boost::format& nFormat);
 

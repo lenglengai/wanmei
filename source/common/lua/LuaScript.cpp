@@ -5,6 +5,11 @@
 #ifdef __LUA__
 namespace std {
 
+	void LuaScript::runFile(const char * nPath)
+	{
+		lua_tinker::dofile(mLuaState, nPath);
+	}
+	
 	LuaScript::LuaScript(lua_State * nLuaState, int nLuaRef)
 		: mLuaState(nLuaState)
 		, mLuaRef(nLuaRef)

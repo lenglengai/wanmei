@@ -13,8 +13,10 @@ namespace std {
 		{
 			return lua_tinker::call<R>(mLuaState, nName, nArgs...);
 		}
-		LuaScript(lua_State * nLuaState, int nLuaRef);
+		
+		void runFile(const char * nPath);
 
+		LuaScript(lua_State * nLuaState, int nLuaRef);
 		~LuaScript();
 
 	private:

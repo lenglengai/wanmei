@@ -29,13 +29,10 @@ namespace std {
 		}
 
 		LuaScriptPtr createLuaScript();
-
-		void runFile(const char * nPath);
-
+		
 		void runClose();
 
 		LuaService();
-
 		~LuaService();
 
 	private:
