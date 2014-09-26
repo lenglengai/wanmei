@@ -22,9 +22,9 @@
 #ifdef __LOG__
 namespace std {
 
-	#ifdef __BOOSTLOG__
+#ifdef __BOOSTLOG__
 	namespace src = boost::log::sources;
-	#endif
+#endif
 	class __funapi LogService : boost::noncopyable
 	{
 	public:
@@ -44,7 +44,7 @@ namespace std {
 #ifdef __BOOSTLOG__
 	private:
 		src::logger mLogger;
-	#endif
+#endif
 	};
 
 }

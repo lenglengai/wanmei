@@ -15,52 +15,52 @@
 #ifdef __LOG__
 namespace std {
 
-	#ifdef __BOOSTLOG__
+#ifdef __BOOSTLOG__
 	namespace logging = boost::log;
 	namespace sinks = boost::log::sinks;
 	namespace keywords = boost::log::keywords;
 	namespace expr = boost::log::expressions;
 	namespace attrs = boost::log::attributes;
-	#endif
+#endif
 
 	void LogService::luaLogError(const char * nValue)
 	{
-	#ifdef __BOOSTLOG__
+#ifdef __BOOSTLOG__
 		BOOST_LOG(mLogger) << "[error]" << nValue;
-	#endif
-	#ifdef __COCOSLOG__
+#endif
+#ifdef __COCOSLOG__
 		CCLOGERROR(nValue);
-	#endif
+#endif
 	}
 
 	void LogService::luaLogInfo(const char * nValue)
 	{
-	#ifdef __BOOSTLOG__
+#ifdef __BOOSTLOG__
 		BOOST_LOG(mLogger) << "[info]" << nValue;
-	#endif
-	#ifdef __COCOSLOG__
+#endif
+#ifdef __COCOSLOG__
 		CCLOGINFO(nValue);
-	#endif
+#endif
 	}
 
 	void LogService::logError(boost::format& nFormat)
 	{
-	#ifdef __BOOSTLOG__
+#ifdef __BOOSTLOG__
 		BOOST_LOG(mLogger) << "[error]" << nFormat;
-	#endif
-	#ifdef __COCOSLOG__
+#endif
+#ifdef __COCOSLOG__
 		CCLOGERROR(nFormat.str().c_str());
-	#endif
+#endif
 	}
 
 	void LogService::logInfo(boost::format& nFormat)
 	{
-	#ifdef __BOOSTLOG__
+#ifdef __BOOSTLOG__
 		BOOST_LOG(mLogger) << "[info]" << nFormat;
-	#endif
-	#ifdef __COCOSLOG__
+#endif
+#ifdef __COCOSLOG__
 		CCLOGINFO(nFormat.str()c_str());
-	#endif
+#endif
 	}
 
 	void LogService::runScript()
@@ -76,7 +76,7 @@ namespace std {
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&LogService::runInit, this));
 
-	#ifdef __BOOSTLOG__
+#ifdef __BOOSTLOG__
 		auto console_sink = logging::add_console_log();
 		console_sink->set_formatter
         (
@@ -98,7 +98,7 @@ namespace std {
         );
     	logging::core::get()->add_sink(testSink);
 		logging::core::get()->add_global_attribute("TimeStamp", attrs::local_clock());
-	#endif
+#endif
 	}
 
 	void LogService::runInit()

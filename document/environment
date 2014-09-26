@@ -134,4 +134,6 @@
 
 	git cmake python java clang lldb
 
+	set paste
+
 

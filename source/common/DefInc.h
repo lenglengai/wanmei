@@ -12,10 +12,9 @@
 #define __FUN__ __PRETTY_FUNCTION__
 #endif
 
-typedef char __i8;
-typedef short __i16;
-typedef long __i32;
-typedef long long __i64;
+#define INITYEAR	2014
+#define INITMONTH	9
+#define INITDAY		1
 
 #include <boost/noncopyable.hpp>
 #include <boost/signals2.hpp>
@@ -31,24 +30,24 @@ typedef long long __i64;
 #include <deque>
 #include <vector>
 
+#ifdef __JOURNEY__
+#include <JourneyInclude.h>
+#endif
+
 #ifdef __ANDROID__
 #include <AndroidInclude.h>
 #endif
 
-#ifdef __CLIENT__
-#include <ClientInclude.h>
+#ifdef __GAMECLIENT__
+#include <GameClient.h>
 #endif
 
-#ifdef __SERVER__
-#include <ServerInclude.h>
+#ifdef __GAMESERVER__
+#include <GameServer.h>
 #endif
 
-#ifdef __LOGIN__
-#include <LoginInclude.h>
-#endif
-
-#ifdef __JOURNEY__
-#include <JourneyInclude.h>
+#ifdef __LOGINSERVER__
+#include <LoginServer.h>
 #endif
 
 #include "utility/Singleton.h"
@@ -60,6 +59,3 @@ typedef long long __i64;
 #include "log/LogService.h"
 #include "init/InitService.h"
 
-#define INITYEAR	2014
-#define INITMONTH	9
-#define INITDAY		1
