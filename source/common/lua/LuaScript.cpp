@@ -9,7 +9,12 @@ namespace std {
 	{
 		lua_tinker::dofile(mLuaState, nPath);
 	}
-	
+
+	void LuaScript::runClose()
+	{
+		
+	}
+
 	LuaScript::LuaScript(lua_State * nLuaState, int nLuaRef)
 		: mLuaState(nLuaState)
 		, mLuaRef(nLuaRef)

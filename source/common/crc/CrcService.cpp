@@ -1,8 +1,5 @@
-#include "../DefInc.h"
-#include "../time/TimeService.h"
-#include "../log/LogService.h"
+#include "../Include.h"
 
-#include "CrcService.h"
 #include "crypt_buf.h"
 
 #ifdef __CRC__
@@ -95,9 +92,12 @@ namespace std {
 
 	void CrcService::runScript()
 	{
+		LogService& loginService_ = Singleton<LogService>::instance();
+		loginService_.logInfo(log_1("CrcService run runScript!"));
+
 		LuaService& luaService_ = Singleton<LuaService>::instance();
 		luaService_.runClass<CrcService>("CrcService");
-		luaService_.runMethod<CrcService>(&LogService::runCommon, "runCommon");
+		luaService_.runMethod<CrcService>(&CrcService::runCommon, "runCommon");
 	}
 
 	void CrcService::runPreinit()
@@ -111,6 +111,9 @@ namespace std {
 
 	void CrcService::runInit()
 	{
+		LogService& loginService_ = Singleton<LogService>::instance();
+		loginService_.logInfo(log_1("CrcService run runInit!"));
+
 		CrcService::runScript();
 	}
 

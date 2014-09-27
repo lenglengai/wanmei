@@ -16,6 +16,8 @@ namespace std {
 		
 		void runFile(const char * nPath);
 
+		void runClose();
+
 		LuaScript(lua_State * nLuaState, int nLuaRef);
 		~LuaScript();
 

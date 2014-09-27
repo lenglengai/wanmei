@@ -1,6 +1,4 @@
-#include "../DefInc.h"
-
-#include "../init/InitService.h"
+#include "../Include.h"
 
 #ifdef __BOOSTLOG__
 #include <boost/log/sinks.hpp>

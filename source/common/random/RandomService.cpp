@@ -1,15 +1,7 @@
-#include "../DefInc.h"
-#include "RandomService.h"
+#include "../Include.h"
 
 #ifdef __RANDOM__
 namespace std {
-
-	void RandomService::runScript()
-	{
-		LuaService& luaService_ = Singleton<LuaService>::instance();
-		luaService_.runClass<LogService>("RandomService");
-		luaService_.runMethod<LogService>(&LogService::runLuaRandom, "runRandom");
-	}
 
 	__i32 RandomService::runLuaRandom(__i32 nMin, __i32 nMax)
 	{
@@ -32,9 +24,33 @@ namespace std {
 		return this->runRandom(65535);
 	}
 
+	void RandomService::runScript()
+	{
+		LogService& loginService_ = Singleton<LogService>::instance();
+		loginService_.logInfo(log_1("RandomService run runScript!"));
+
+		LuaService& luaService_ = Singleton<LuaService>::instance();
+		luaService_.runClass<LogService>("RandomService");
+		luaService_.runMethod<LogService>(&RandomService::runLuaRandom, "runRandom");
+	}
+
 	void RandomService::runPreinit()
 	{
+		LogService& loginService_ = Singleton<LogService>::instance();
+		loginService_.logInfo(log_1("RandomService run runPreinit!"));
+
+		InitService& initService_ = Singleton<InitService>::instance();
+		initService_.m_tRunInit0.connect(boost::bind(&RandomService::runInit, this));
+		
 		mEngine.seed(mDevice());
+	}
+
+	void RandomService::runInit()
+	{
+		LogService& loginService_ = Singleton<LogService>::instance();
+		loginService_.logInfo(log_1("RandomService run runInit!"));
+
+		RandomService::runScript();
 	}
 
 	RandomService::RandomService()

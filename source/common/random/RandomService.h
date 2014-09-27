@@ -15,6 +15,7 @@ namespace std {
 		
 		static void runScript();
 		void runPreinit();
+		void runInit();
 
 		RandomService();
 		~RandomService();

@@ -1,5 +1,4 @@
-#include "../DefInc.h"
-#include "TimeService.h"
+#include "../Include.h"
 
 #ifdef __WITHTIME__
 namespace std {
@@ -23,15 +22,22 @@ namespace std {
 
 	void TimeService::runScript()
 	{
+		LogService& loginService_ = Singleton<LogService>::instance();
+		loginService_.logInfo(log_1("TimeService run runScript!"));
+
 		LuaService& luaService_ = Singleton<LuaService>::instance();
 		luaService_.runClass<TimeService>("TimeService");
-		luaService_.runMethod<TimeService>(&TimeService::runCommon, "runCommon");
+		luaService_.runMethod<TimeService>(&TimeService::getServerTime, "getServerTime");
+		luaService_.runMethod<TimeService>(&TimeService::getNowSecond, "getNowSecond");
 	}
 
 	void TimeService::runPreinit()
 	{
 		LogService& loginService_ = Singleton<LogService>::instance();
 		loginService_.logInfo(log_1("TimeService run runPreinit!"));
+		
+		InitService& initService_ = Singleton<InitService>::instance();
+		initService_.m_tRunInit0.connect(boost::bind(&TimeService::runInit, this));
 
 		tm begTm; begTm.tm_year = INITYEAR-1900;
 		begTm.tm_mon = INITMONTH - 1;
@@ -39,13 +45,13 @@ namespace std {
 		begTm.tm_min = 59; begTm.tm_sec = 59;
 		time_t begTime = mktime(&begTm);
 		mBegin = system_clock::from_time_t(begTime);
-		
-		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunInit0.connect(boost::bind(&TimeService::runInit, this));
 	}
 
 	void TimeService::runInit()
 	{
+		LogService& loginService_ = Singleton<LogService>::instance();
+		loginService_.logInfo(log_1("TimeService run runInit!"));
+
 		TimeService::runScript();
 	}
 
