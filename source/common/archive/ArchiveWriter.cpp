@@ -6,42 +6,21 @@
 #ifdef __ARCHIVE__
 namespace std {
 
-	void ArchiveWriter::runJourneyDescripter(JourneyDescripter& nJourneyDescripter)
-	{
-		__i32 journeyIndex = nJourneyDescripter.getJourney();
-		std::string journey = "journey_";
-		journey += __convert<std::string, __i32>(journeyIndex);
-		journey += ".jf";
-		mBinWriter.openUrl(journey.c_str());
-		
-		std::list<std::string>& journeys = nJourneyDescripter.getJourneys();
-		__i32 pos_ = ( ArchiveHash::hashSize() ) * ( journeys.size() );
-		pos_ += sizeof(__i16); pos_ += ArchiveHead::hashSize();	
-		mBinWriter.runSeek(pos_);
-		
-		for (auto it : journeys) {
-			this->runArchive(it);
-		}
-	}
 
-	void ArchiveWriter::runConfigureDescripter(ConfigureDescripter& nConfigureDescripter)
+	void ArchiveWriter::runArchives(std::list<std::string>& nArchives)
 	{
-		std::string configure = "configure.jf";
-		mBinWriter.openUrl(configure.c_str());
-
-		std::list<std::string>& configures = nConfigureDescripter.getConfigures();
-		__i32 pos_ = (ArchiveHash::hashSize()) * (configures.size());
+		__i32 pos_ = (ArchiveHash::hashSize()) * (nArchives.size());
 		pos_ += sizeof(__i16); pos_ += ArchiveHead::hashSize();
 		mBinWriter.runSeek(pos_);
 
-		for (auto it : configures) {
+		for (auto it : nArchives) {
 			this->runArchive(it);
 		}
 	}
 
 	void ArchiveWriter::runOpen(const char * nUrl)
 	{
-		mBinWriter.openUrl(configure.c_str());
+		mBinWriter.openUrl(nUrl);
 	}
 
 	void ArchiveWriter::runArchive(const char * nArchive)

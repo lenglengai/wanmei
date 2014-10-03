@@ -98,11 +98,10 @@ namespace std {
 
 	void InitService::runConfigure()
 	{
-		auto it = mArchives.begin();
-		for ( ; it != mArchives.end(); ++it)
-		{
-			
-		}
+		ArchiveWriter archiveWriter;
+		archiveWriter.openUrl("configure.jf");
+		archiveWriter.runArchives(mArchives);
+		archiveWriter.runClose();
 	}
 
 	void InitService::runLoad0()

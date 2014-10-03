@@ -1,5 +1,7 @@
 #pragma once
 
+#include <random>
+
 #ifdef __RANDOM__
 namespace std {
 
@@ -14,6 +16,10 @@ namespace std {
 
 		RandomService();
 		~RandomService();
+
+	private:
+		random_device mDevice;
+		std::mt19937 mEngine;
 	};
 
 }

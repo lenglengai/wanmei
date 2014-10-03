@@ -12,13 +12,12 @@ namespace std {
 	class __funapi ArchiveWriter
 	{
 	public:
-		void runJourneyDescripter(JourneyDescripter& nJourneyDescripter);
-		void runConfigureDescripter(ConfigureDescripter& nConfigureDescripter);
 		void runOpen(const char * nUrl);
-		void runArchive(const char * nArchive);
+		void runArchives(std::list<std::string>& nArchives);
 		void runClose();
 
 	private:
+		void runArchive(const char * nArchive);
 		__i32 readBuf(const char * nPath);
 		__i32 writeBuf(__i32 nSize);
 
