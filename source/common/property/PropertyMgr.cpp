@@ -1,5 +1,4 @@
-#include "../DefInc.h"
-#include "../log/LogService.h"
+#include "../Common.h"
 #include "IPropertyId.h"
 
 #include "PropertyMgr.h"

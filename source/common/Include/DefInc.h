@@ -15,6 +15,3 @@
 #define INITYEAR	2014
 #define INITMONTH	9
 #define INITDAY		1
-
-
-

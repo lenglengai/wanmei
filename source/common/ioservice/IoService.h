@@ -22,8 +22,8 @@ namespace std {
 
 		void runPreinit();
 		void runLoad();
-		void runStart();
 		void runInit();
+		void runStart();
 		void runStop();
 		void runRun();
 
@@ -38,7 +38,7 @@ namespace std {
 		typedef std::shared_ptr<asio::io_service::work> WorkPtr;
 		std::shared_ptr<asio::signal_set> mSignals;
 		std::vector<IoServicePtr> mIoServices;
-		std::vector<WorkPtr> mWork;
+		std::vector<WorkPtr> mWorks;
 		std::size_t mNextIoService;
 		__i32 mIoServiceCount;
 	};

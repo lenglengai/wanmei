@@ -1,4 +1,4 @@
-#include "../Include.h"
+#include "../Common.h"
 #include "bzlib/bzlib.h"
 
 #ifdef __COMPRESS__

@@ -1,10 +1,4 @@
-#include "../DefInc.h"
-#include "../archive/ArchiveService.h"
-#include "../setting/SettingService.h"
-#include "../init/InitService.h"
-#include "../log/LogService.h"
-
-#include "HandleService.h"
+#include "../Common.h"
 
 #ifdef __HANDLE__
 namespace std {
@@ -16,10 +10,10 @@ namespace std {
 
 	const char * HandleService::streamUrl()
 	{
-	#ifdef __CLTRECV__
+	#ifdef __CLIENT__
 		return "common/handle/config/clientHandle.xml";
 	#endif 
-	#ifdef __SEVRECV__
+	#ifdef __SERVER__
 		return "common/handle/config/serverHandle.xml";
 	#endif 
 	}
@@ -65,6 +59,7 @@ namespace std {
 			HandlePtr handle(new Handle());
 			mHandles[i] = handle;
 		}
+		loginService_.logInfo(log_1("init handle service sucess!"));
 	}
 
 	void HandleService::runStart()

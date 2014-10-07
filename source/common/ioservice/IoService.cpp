@@ -1,10 +1,4 @@
-#include "../DefInc.h"
-#include "../log/LogService.h"
-#include "../setting/SettingService.h"
-#include "../archive/ArchiveService.h"
-#include "../init/InitService.h"
-
-#include "IoService.h"
+#include "../Common.h"
 
 #include <thread>
 
@@ -30,6 +24,7 @@ namespace std {
 		loginService_.logInfo(log_1("run loading ioService"));
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
 		archiveService_.initUrlStream(this);
+		loginService_.logInfo(log_1("run load ioService finish"));
 	}
 
 	void IoService::runInit()
@@ -75,6 +70,7 @@ namespace std {
 		for (size_t i = 0; i < mIoServices.size(); ++i) {
 			mIoServices[i]->stop();
 		}
+		loginService_.logInfo(log_1("ioService have been stoped"));
 	}
 	
 	asio::io_service& IoService::getIoService()
@@ -94,10 +90,10 @@ namespace std {
 
 	const char * IoService::streamUrl()
 	{
-	#ifdef __CLTRECV__
+	#ifdef __CLIENT__
 		return "common/ioservice/config/clientIoService.xml";
 	#endif
-	#ifdef __SEVRECV__
+	#ifdef __SERVER__
 		return "common/ioservice/config/serverIoService.xml";
 	#endif 
 	}
@@ -105,17 +101,19 @@ namespace std {
 	void IoService::runClear()
 	{
 		mIoServices.clear();
-		mWork.clear();
+		mWorks.clear();
 		mNextIoService = 0;
 		mIoServiceCount = 0;
 	}
 
 	IoService::IoService()
 	{
+		this->runClear();
 	}
 
 	IoService::~IoService()
 	{
+		this->runClear();
 	}
 
 }
