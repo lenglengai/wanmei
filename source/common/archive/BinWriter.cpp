@@ -1,8 +1,5 @@
-#include "../DefInc.h"
-
+#include "../Common.h"
 #include "BinWriter.h"
-
-#include "../setting/SettingService.h"
 
 #ifdef __COCOS2DX__
 #include <cocos2d.h>
@@ -151,7 +148,7 @@ namespace std {
 		this->runInt32(nValue, nName);
 	}
 
-	void BinWriter::runCrc32s(list<__i32>& nValue, const char * nNames, const char * nName)
+	void BinWriter::runCrc32s(std::list<__i32>& nValue, const char * nNames, const char * nName)
 	{
 		__i16 count_ = static_cast<__i16>(nValue.size());
 		this->runInt16(count_, "count");
@@ -167,8 +164,7 @@ namespace std {
 		this->runInt32(nValue, nName);
 	}
 
-
-	void BinWriter::runCrc32sCount(list<__i32>& nValue, const char * nName, __i32 nCount)
+	void BinWriter::runCrc32sCount(std::list<__i32>& nValue, const char * nName, __i32 nCount)
 	{
 		__i16 count_ = static_cast<__i16>(nValue.size());
 		this->runInt16(count_, "count");
@@ -179,7 +175,7 @@ namespace std {
 		}
 	}
 
-	void BinWriter::runCrc32Semi(list<__i32>& nValue, const char * nName)
+	void BinWriter::runCrc32Semi(std::list<__i32>& nValue, const char * nName)
 	{
 		__i16 count_ = static_cast<__i16>(nValue.size());
 		this->runInt16(count_, "count");
@@ -195,7 +191,7 @@ namespace std {
 		mStream.write((char *)(&nValue), sizeof(__i64));
 	}
 
-	void BinWriter::runInt64s(list<__i64>& nValue, const char * nNames, const char * nName)
+	void BinWriter::runInt64s(std::list<__i64>& nValue, const char * nNames, const char * nName)
 	{
 		__i16 count_ = static_cast<__i16>(nValue.size());
 		this->runInt16(count_, "count");
@@ -222,7 +218,7 @@ namespace std {
 		}
 	}
 
-	void BinWriter::runInt64Semi(list<__i64>& nValue, const char * nName)
+	void BinWriter::runInt64Semi(std::list<__i64>& nValue, const char * nName)
 	{
 		__i16 count_ = static_cast<__i16>(nValue.size());
 		this->runInt16(count_, "count");
@@ -285,7 +281,7 @@ namespace std {
 		mStream.write((char *)(&nValue), sizeof(float));
 	}
 
-	void BinWriter::runFloats(list<float>& nValue, const char * nNames, const char * nName)
+	void BinWriter::runFloats(std::list<float>& nValue, const char * nNames, const char * nName)
 	{
 		__i16 count_ = static_cast<__i16>(nValue.size());
 		this->runInt16(count_, "count");
@@ -355,7 +351,7 @@ namespace std {
 		}
 	}
 
-	void BinWriter::runDoubleSemi(list<double>& nValue, const char * nName)
+	void BinWriter::runDoubleSemi(std::list<double>& nValue, const char * nName)
 	{
 		__i16 count_ = static_cast<__i16>(nValue.size());
 		this->runInt16(count_, "count");

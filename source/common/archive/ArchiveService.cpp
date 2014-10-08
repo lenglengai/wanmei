@@ -1,8 +1,4 @@
-#include "../DefInc.h"
-
-#include "ArchiveService.h"
-
-#include "../init/InitService.h"
+#include "../Common.h"
 
 #ifdef __ARCHIVE__
 namespace std {
@@ -18,6 +14,12 @@ namespace std {
 		mArchiveReader.runClose();
 	}
 
+	void ArchiveService::runPreinit()
+	{
+		InitService& initService_ = Singleton<InitService>::instance();
+		initService_.m_tRunLoad0.connect(boost::bind(&ArchiveService::runLoad, this));
+	}
+	
 	void ArchiveService::runLoad()
 	{
 		std::string configure_ = "configure.jf";
@@ -31,12 +33,6 @@ namespace std {
 		m_tRunConfigure.disconnect_all_slots();
 		m_tRunJourney.disconnect_all_slots();
 		mJourneys.clear();
-	}
-
-	void ArchiveService::runPreinit()
-	{
-		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunLoad0.connect(boost::bind(&ArchiveService::runLoad, this));
 	}
 
 	ArchiveService::ArchiveService()

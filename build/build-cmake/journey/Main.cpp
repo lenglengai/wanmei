@@ -1,14 +1,10 @@
-#include "../../../source/common/DefInc.h"
-#include "../../../source/common/setting/SettingService.h"
-#include "../../../source/common/archive/ConfigureDescripter.h"
-#include "../../../source/common/archive/ArchiveWriter.h"
+#include "../../../source/Include.h"
 
 using namespace std;
 
 int main( int argc, char * argv[] )
 {
-	SettingService& settingService =
-		Singleton<SettingService>::instance();
+	SettingService& settingService = Singleton<SettingService>::instance();
 
 	settingService.runPreinit(argv[1]);
  	JourneyDescripter journeyDescripter;

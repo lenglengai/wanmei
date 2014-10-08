@@ -1,11 +1,10 @@
-#include "../DefInc.h"
+#include "../Common.h"
 #include "ArchiveWriter.h"
-#include "../crc/CrcService.h"
-#include "../compress/CompressService.h"
+
+#include "BinReader.h"
 
 #ifdef __ARCHIVE__
 namespace std {
-
 
 	void ArchiveWriter::runArchives(std::list<std::string>& nArchives)
 	{

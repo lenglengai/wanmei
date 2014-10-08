@@ -1,8 +1,5 @@
-#include "../DefInc.h"
-
+#include "../Common.h"
 #include "ArchiveReader.h"
-
-#include "../compress/CompressService.h"
 
 #ifdef __ARCHIVE__
 namespace std {

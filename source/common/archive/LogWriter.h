@@ -1,11 +1,9 @@
 #pragma once
 
-#include <fstream>
-
 #ifdef __ARCHIVE__
 namespace std {
 
-	class __funapi BinWriter : boost::noncopyable
+	class __funapi LogWriter : boost::noncopyable
 	{
 	public:
 		void runBool(bool& nValue, const char * nName, bool nOptimal = false);
@@ -40,11 +38,11 @@ namespace std {
 		void runInt64sCount(std::list<__i64>& nValue, const char * nName, __i32 nCount);
 		void runInt64Semi(std::list<__i64>& nValue, const char * nName);
 
-		void runString(string& nValue, const char * nName, const char * nOptimal = "");
-		void runStrings(std::list<string>& nValue, const char * nNames, const char * nName);
-		void runStringCount(string& nValue, const char * nName, __i32 nCount, const char * nOptimal = "");
+		void runString(std::string& nValue, const char * nName, const char * nOptimal = "");
+		void runStrings(std::list<std::string>& nValue, const char * nNames, const char * nName);
+		void runStringCount(std::string& nValue, const char * nName, __i32 nCount, const char * nOptimal = "");
 		void runStringsCount(std::list<string>& nValue, const char * nName, __i32 nCount);
-		void runStringSemi(std::list<string>& nValue, const char * nName);
+		void runStringSemi(std::list<std::string>& nValue, const char * nName);
 
 		void runFloat(float& nValue, const char * nName, float nOptimal = 0.f);
 		void runFloats(std::list<float>& nValue, const char * nNames, const char * nName);
@@ -71,33 +69,30 @@ namespace std {
 		void selectStream(const char * nStreamName);
 		__i32 pushStream(const char * nName);
 		void popStream();
-		void runWrite(char * nValue, __i32 nLength);
-		void runSeek(__i32 nPos);
-		__i32 runTell();
 		void runClose();
 
 	public:
-		BinWriter();
-		~BinWriter();
-
+		LogWriter();
+		~LogWriter();
+	
 	private:
-		fstream mStream;
+		std::string mValue;
 	};
 
 	template<class T>
-	void BinWriter::runStream(T& nValue, const char * nName)
+	void LogWriter::runStream(T& nValue, const char * nName)
 	{
 		nValue.serialize(this, 0);
 	}
 
 	template<class T>
-	void BinWriter::runStreamCount(T& nValue, const char * nName, __i32 nCount)
+	void LogWriter::runStreamCount(T& nValue, const char * nName, __i32 nCount)
 	{
 		nValue.serialize(this, nCount);
 	}
 
 	template<class T0>
-	void BinWriter::runStreamsCount(std::list<std::shared_ptr<T0> >& nValue, const char * nNames, const char * nName, __i32 nCount)
+	void LogWriter::runStreamsCount(std::list<std::shared_ptr<T0> >& nValue, const char * nNames, const char * nName, __i32 nCount)
 	{
 		__i16 count_ = static_cast<__i16>(nValue.size());
 		this->runInt16(count_, "count");
@@ -109,7 +104,7 @@ namespace std {
 	}
 
 	template<class T0, class T1>
-	void BinWriter::runKeyStreamsCount(std::map<T0, std::shared_ptr<T1>>& nValue, const char * nNames, const char * nName, __i32 nCount)
+	void LogWriter::runKeyStreamsCount(std::map<T0, std::shared_ptr<T1>>& nValue, const char * nNames, const char * nName, __i32 nCount)
 	{
 		__i16 count_ = static_cast<__i16>(nValue.size());
 		this->runInt16(count_, "count");

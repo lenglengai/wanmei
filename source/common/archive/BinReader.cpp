@@ -1,6 +1,5 @@
-#include "../DefInc.h"
+#include "../Common.h"
 #include "BinReader.h"
-#include "../setting/SettingService.h"
 
 #ifdef __COCOS2DX__
 #include <cocos2d.h>

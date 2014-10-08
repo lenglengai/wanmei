@@ -1,6 +1,4 @@
-#include "../DefInc.h"
-
-#include "Handle.h"
+#include "../Common.h"
 
 #ifdef __HANDLE__
 namespace std {

@@ -1,4 +1,4 @@
-#include "../Include.h"
+#include "../Common.h"
 
 #ifdef __RANDOM__
 namespace std {
@@ -32,6 +32,8 @@ namespace std {
 		LuaService& luaService_ = Singleton<LuaService>::instance();
 		luaService_.runClass<LogService>("RandomService");
 		luaService_.runMethod<LogService>(&RandomService::runLuaRandom, "runRandom");
+		
+		loginService_.logInfo(log_1("RandomService run runScript finish!"));
 	}
 
 	void RandomService::runPreinit()
@@ -43,6 +45,8 @@ namespace std {
 		initService_.m_tRunInit0.connect(boost::bind(&RandomService::runInit, this));
 		
 		mEngine.seed(mDevice());
+		
+		loginService_.logInfo(log_1("RandomService run runPreinit finish!"));
 	}
 
 	void RandomService::runInit()
@@ -51,6 +55,8 @@ namespace std {
 		loginService_.logInfo(log_1("RandomService run runInit!"));
 
 		RandomService::runScript();
+		
+		loginService_.logInfo(log_1("RandomService run runInit finish!"));
 	}
 
 	RandomService::RandomService()

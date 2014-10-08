@@ -4,10 +4,9 @@
 #include "rapidxml_utils.hpp"
 #include "rapidxml_print.hpp"
 
-#include <stack>
-
 using namespace rapidxml;
 
+#ifdef __ARCHIVE__
 namespace std {
 
 	class __funapi XmlReader : boost::noncopyable
@@ -16,61 +15,61 @@ namespace std {
 		void runBool(bool& nValue, const char * nName, bool nOptimal = false);
 
 		void runInt8(__i8& nValue, const char * nName, __i8 nOptimal = 0);
-		void runInt8s(list<__i8>& nValue, const char * nNames, const char * nName);
+		void runInt8s(std::list<__i8>& nValue, const char * nNames, const char * nName);
 		void runInt8Count(__i8& nValue, const char * nName, __i32 nCount, __i8 nOptimal = 0);
-		void runInt8sCount(list<__i8>& nValue, const char * nName, __i32 nCount);
-		void runInt8Semi(list<__i8>& nValue, const char * nName);
+		void runInt8sCount(std::list<__i8>& nValue, const char * nName, __i32 nCount);
+		void runInt8Semi(std::list<__i8>& nValue, const char * nName);
 
 		void runInt16(__i16& nValue, const char * nName, __i16 nOptimal = 0);
-		void runInt16s(list<__i16>& nValue, const char * nNames, const char * nName);
+		void runInt16s(std::list<__i16>& nValue, const char * nNames, const char * nName);
 		void runInt16Count(__i16& nValue, const char * nName, __i32 nCount, __i16 nOptimal = 0);
-		void runInt16sCount(list<__i16>& nValue, const char * nName, __i32 nCount);
-		void runInt16Semi(list<__i16>& nValue, const char * nName);
+		void runInt16sCount(std::list<__i16>& nValue, const char * nName, __i32 nCount);
+		void runInt16Semi(std::list<__i16>& nValue, const char * nName);
 
 		void runInt32(__i32& nValue, const char * nName, __i32 nOptimal = 0);
-		void runInt32s(list<__i32>& nValue, const char * nNames, const char * nName);
+		void runInt32s(std::list<__i32>& nValue, const char * nNames, const char * nName);
 		void runInt32Count(__i32& nValue, const char * nName, __i32 nCount, __i32 nOptimal = 0);
-		void runInt32sCount(list<__i32>& nValue, const char * nName, __i32 nCount);
-		void runInt32Semi(list<__i32>& nValue, const char * nName);
+		void runInt32sCount(std::list<__i32>& nValue, const char * nName, __i32 nCount);
+		void runInt32Semi(std::list<__i32>& nValue, const char * nName);
 
 		void runCrc32(__i32& nValue, const char * nName, __i32 nOptimal = 0);
-		void runCrc32s(list<__i32>& nValue, const char * nNames, const char * nName);
+		void runCrc32s(std::list<__i32>& nValue, const char * nNames, const char * nName);
 		void runCrc32Count(__i32& nValue, const char * nName, __i32 nCount, __i32 nOptimal = 0);
-		void runCrc32sCount(list<__i32>& nValue, const char * nName, __i32 nCount);
-		void runCrc32Semi(list<__i32>& nValue, const char * nName);
+		void runCrc32sCount(std::list<__i32>& nValue, const char * nName, __i32 nCount);
+		void runCrc32Semi(std::list<__i32>& nValue, const char * nName);
 
 		void runInt64(__i64& nValue, const char * nName, __i64 nOptimal = 0);
-		void runInt64s(list<__i64>& nValue, const char * nNames, const char * nName);
+		void runInt64s(std::list<__i64>& nValue, const char * nNames, const char * nName);
 		void runInt64Count(__i64& nValue, const char * nName, __i32 nCount, __i64 nOptimal = 0);
-		void runInt64sCount(list<__i64>& nValue, const char * nName, __i32 nCount);
-		void runInt64Semi(list<__i64>& nValue, const char * nName);
+		void runInt64sCount(std::list<__i64>& nValue, const char * nName, __i32 nCount);
+		void runInt64Semi(std::list<__i64>& nValue, const char * nName);
 
-		void runString(string& nValue, const char * nName, const char * nOptimal = "");
-		void runStrings(list<string>& nValue, const char * nNames, const char * nName);
-		void runStringCount(string& nValue, const char * nName, __i32 nCount, const char * nOptimal = "");
-		void runStringsCount(list<string>& nValue, const char * nName, __i32 nCount);
-		void runStringSemi(list<string>& nValue, const char * nName);
+		void runString(std::string& nValue, const char * nName, const char * nOptimal = "");
+		void runStrings(std::list<string>& nValue, const char * nNames, const char * nName);
+		void runStringCount(std::string& nValue, const char * nName, __i32 nCount, const char * nOptimal = "");
+		void runStringsCount(std::list<std::string>& nValue, const char * nName, __i32 nCount);
+		void runStringSemi(std::list<std::string>& nValue, const char * nName);
 
 		void runFloat(float& nValue, const char * nName, float nOptimal = 0.f);
-		void runFloats(list<float>& nValue, const char * nNames, const char * nName);
+		void runFloats(std::list<float>& nValue, const char * nNames, const char * nName);
 		void runFloatCount(float& nValue, const char * nName, __i32 nCount, float nOptimal = 0.f);
-		void runFloatsCount(list<float>& nValue, const char * nName, __i32 nCount);
-		void runFloatSemi(list<float>& nValue, const char * nName);
+		void runFloatsCount(std::list<float>& nValue, const char * nName, __i32 nCount);
+		void runFloatSemi(std::list<float>& nValue, const char * nName);
 
 		void runDouble(double& nValue, const char * nName, double nOptimal = 0.);
-		void runDoubles(list<double>& nValue, const char * nNames, const char * nName);
+		void runDoubles(std::list<double>& nValue, const char * nNames, const char * nName);
 		void runDoubleCount(double& nValue, const char * nName, __i32 nCount, double nOptimal = 0.);
-		void runDoublesCount(list<double>& nValue, const char * nName, __i32 nCount);
-		void runDoubleSemi(list<double>& nValue, const char * nName);
+		void runDoublesCount(std::list<double>& nValue, const char * nName, __i32 nCount);
+		void runDoubleSemi(std::list<double>& nValue, const char * nName);
 
 		template<class T>
 		void runStream(T& nValue, const char * nName);
 		template<class T>
 		void runStreamCount(T& nValue, const char * nName, __i32 nCount = 0);
 		template<class T>
-		void runStreamsCount(list<std::shared_ptr<T>>& nValue, const char * nNames, const char * nName, __i32 nCount = 0);
+		void runStreamsCount(std::list<std::shared_ptr<T>>& nValue, const char * nNames, const char * nName, __i32 nCount = 0);
 		template<class T0, class T1>
-		void runKeyStreamsCount(map<T0, std::shared_ptr<T1>>& nValue, const char * nNames, const char * nName, __i32 nCount = 0);
+		void runKeyStreamsCount(std::map<T0, std::shared_ptr<T1>>& nValue, const char * nNames, const char * nName, __i32 nCount = 0);
 
 		bool openStr(char * nValue);
 		bool openUrl(const char * nUrl);
@@ -116,7 +115,7 @@ namespace std {
 	}
 
 	template<class T0>
-	void XmlReader::runStreamsCount(list<std::shared_ptr<T0> >& nValue, const char * nNames, const char * nName, __i32 nCount)
+	void XmlReader::runStreamsCount(std::list<std::shared_ptr<T0> >& nValue, const char * nNames, const char * nName, __i32 nCount)
 	{
 		mXmlNodes.push(mXmlNode);
 		xml_node<char> * xmlNode_ = mXmlNode->first_node(nNames);
@@ -133,7 +132,7 @@ namespace std {
 	}
 
 	template<class T0, class T1>
-	void XmlReader::runKeyStreamsCount(map<T0, std::shared_ptr<T1>>& nValue, const char * nNames, const char * nName, __i32 nCount)
+	void XmlReader::runKeyStreamsCount(std::map<T0, std::shared_ptr<T1>>& nValue, const char * nNames, const char * nName, __i32 nCount)
 	{
 		mXmlNodes.push(mXmlNode);
 		xml_node<char> * xmlNode_ = mXmlNode->first_node(nNames);
@@ -150,3 +149,4 @@ namespace std {
 		mXmlNodes.pop();
 	}
 }
+#endif

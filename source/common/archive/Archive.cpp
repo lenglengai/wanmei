@@ -1,8 +1,5 @@
-#include "../DefInc.h"
-
+#include "../Common.h"
 #include "Archive.h"
-
-#include "../crc/CrcService.h"
 
 #ifdef __ARCHIVE__
 namespace std {

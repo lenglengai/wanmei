@@ -44,28 +44,28 @@ namespace std {
 
 	void HandleService::runLoad()
 	{
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("run loading handle service"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("run loading handle service"));
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
 		archiveService_.initUrlStream(this);
-		loginService_.logInfo(log_1("loading handle service sucess!"));
+		logService_.logInfo(log_1("loading handle service sucess!"));
 	}
 
 	void HandleService::runInit()
 	{
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("init handle service"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("init handle service"));
 		for (int i = 0; i < mHandleCount; ++i) {
 			HandlePtr handle(new Handle());
 			mHandles[i] = handle;
 		}
-		loginService_.logInfo(log_1("init handle service sucess!"));
+		logService_.logInfo(log_1("init handle service sucess!"));
 	}
 
 	void HandleService::runStart()
 	{
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("run handle service"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("run handle service"));
 		std::map<int, HandlePtr>::iterator it = mHandles.begin();
 		for ( ; it != mHandles.end(); ++it ) {
 			HandlePtr& handle = it->second;
@@ -75,8 +75,8 @@ namespace std {
 
 	void HandleService::runStop()
 	{
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("stop handle service"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("stop handle service"));
 		std::map<int, HandlePtr>::iterator it = mHandles.begin();
 		for (; it != mHandles.end(); ++it) {
 			HandlePtr& handle = it->second;

@@ -1,15 +1,10 @@
-#include "../../../source/common/DefInc.h"
-#include "../../../source/common/init/InitService.h"
-
-#include <iostream>
-
+#include "../../../source/Include.h"
 
 using namespace std;
 
 int main( int argc, char * argv[] )
 {
-	InitService& initService =
-	Singleton<InitService>::instance();
+	InitService& initService = Singleton<InitService>::instance();
 	if (argc > 1 && "configure" == argv[1]) {
 		initService.runPreinit("", true);
 		initService.runConfigure();

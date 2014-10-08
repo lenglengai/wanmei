@@ -1,4 +1,4 @@
-#include "../Include.h"
+#include "../Common.h"
 
 #ifdef __WITHTIME__
 namespace std {
@@ -29,6 +29,8 @@ namespace std {
 		luaService_.runClass<TimeService>("TimeService");
 		luaService_.runMethod<TimeService>(&TimeService::getServerTime, "getServerTime");
 		luaService_.runMethod<TimeService>(&TimeService::getNowSecond, "getNowSecond");
+		
+		loginService_.logInfo(log_1("TimeService run runScript finish!"));
 	}
 
 	void TimeService::runPreinit()
@@ -45,6 +47,8 @@ namespace std {
 		begTm.tm_min = 59; begTm.tm_sec = 59;
 		time_t begTime = mktime(&begTm);
 		mBegin = system_clock::from_time_t(begTime);
+		
+		loginService_.logInfo(log_1("TimeService run runPreinit finish!"));
 	}
 
 	void TimeService::runInit()
@@ -53,6 +57,8 @@ namespace std {
 		loginService_.logInfo(log_1("TimeService run runInit!"));
 
 		TimeService::runScript();
+		
+		loginService_.logInfo(log_1("TimeService run runInit finish!"));
 	}
 
 	TimeService::TimeService()

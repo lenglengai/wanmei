@@ -98,6 +98,8 @@ namespace std {
 		LuaService& luaService_ = Singleton<LuaService>::instance();
 		luaService_.runClass<CrcService>("CrcService");
 		luaService_.runMethod<CrcService>(&CrcService::runCommon, "runCommon");
+		
+		loginService_.logInfo(log_1("CrcService run runScript finish!"));
 	}
 
 	void CrcService::runPreinit()
@@ -107,6 +109,8 @@ namespace std {
 
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&CrcService::runInit, this));
+		
+		loginService_.logInfo(log_1("CrcService run runPreinit finish!"));
 	}
 
 	void CrcService::runInit()
@@ -115,6 +119,8 @@ namespace std {
 		loginService_.logInfo(log_1("CrcService run runInit!"));
 
 		CrcService::runScript();
+		
+		loginService_.logInfo(log_1("CrcService run runInit finish!"));
 	}
 
 	CrcService::CrcService()

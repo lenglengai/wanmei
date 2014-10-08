@@ -27,6 +27,8 @@ namespace std {
 		luaService_.runClass<CompressService>("CompressService");
 		luaService_.runMethod<CompressService>(&CompressService::runBZip2, "runBZip2");
 		luaService_.runMethod<CompressService>(&CompressService::unBZip2, "unBZip2");
+		
+		loginService_.logInfo(log_1("CompressService run runScript finish!"));
 	}
 
 	void CompressService::runPreinit()
@@ -36,6 +38,8 @@ namespace std {
 
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&CompressService::runInit, this));
+		
+		loginService_.logInfo(log_1("CompressService run runPreinit finish!"));
 	}
 
 	void CompressService::runInit()
@@ -44,6 +48,8 @@ namespace std {
 		loginService_.logInfo(log_1("CompressService run runInit!"));
 
 		CompressService::runScript();
+		
+		loginService_.logInfo(log_1("CompressService run runInit fihish!"));
 	}
 
 	CompressService::CompressService()
