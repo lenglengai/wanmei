@@ -32,6 +32,9 @@ namespace std {
 
 	void HandleService::runPreinit()
 	{
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("HandleService run runPreinit"));
+		
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
 		archiveService_.m_tRunConfigure.connect(boost::bind(&HandleService::runLoad, this));
 
@@ -40,15 +43,19 @@ namespace std {
 		initService_.m_tRunStart1.connect(boost::bind(&HandleService::runStart, this));
 		initService_.m_tRunStop.connect(boost::bind(&HandleService::runStop, this));
 		initService_.registerArchive(this->streamUrl());
+		
+		logService_.logInfo(log_1("HandleService run runPreinit finish!"));
 	}
 
 	void HandleService::runLoad()
 	{
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("run loading handle service"));
+		
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
 		archiveService_.initUrlStream(this);
-		logService_.logInfo(log_1("loading handle service sucess!"));
+		
+		logService_.logInfo(log_1("loading handle service finish!"));
 	}
 
 	void HandleService::runInit()
@@ -59,18 +66,19 @@ namespace std {
 			HandlePtr handle(new Handle());
 			mHandles[i] = handle;
 		}
-		logService_.logInfo(log_1("init handle service sucess!"));
+		logService_.logInfo(log_1("init handle service finish!"));
 	}
 
 	void HandleService::runStart()
 	{
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("run handle service"));
+		logService_.logInfo(log_1("run start handle service"));
 		std::map<int, HandlePtr>::iterator it = mHandles.begin();
 		for ( ; it != mHandles.end(); ++it ) {
 			HandlePtr& handle = it->second;
 			handle->runStart();
 		}
+		logService_.logInfo(log_1("start handle service finish"));
 	}
 
 	void HandleService::runStop()
@@ -82,6 +90,7 @@ namespace std {
 			HandlePtr& handle = it->second;
 			handle->runStop();
 		}
+		logService_.logInfo(log_1("stop handle service finish!"));
 	}
 
 	HandleService::HandleService()

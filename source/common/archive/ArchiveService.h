@@ -1,5 +1,6 @@
 #pragma once
 
+#include "JourneyDescripter.h"
 #include "ArchiveReader.h"
 #include "XmlReader.h"
 
@@ -25,15 +26,25 @@ namespace std {
 			xmlReader_.runClose();
 		}
 		
-		boost::signals2::signal<void()> m_tRunJourney;
-		void loadJourney(__i16 nJourney);
+		template<class T>
+		void xmlUrlStream(T * nUrlStream)
+		{
+			XmlReader xmlReader_;
+			xmlReader_.openUrl(nUrlStream->streamUrl());
+			xmlReader_.selectStream(nUrlStream->streamName());
+			nUrlStream->headSerialize(xmlReader_);
+			xmlReader_.runClose();
+		}
 		
+		void loadJourney(__i32 nJourneyId);
 		void runPreinit();
 
 		boost::signals2::signal<void()> m_tRunConfigure;
 		void runLoad();
 
 	private:
+		void runJourney(std::string& nJourneyName);
+		void runJourneyDescriptor();
 		void runClear();
 
 	public:
@@ -41,8 +52,9 @@ namespace std {
 		~ArchiveService();
 
 	private:
+		std::map<std::string, IJourney *> mJourneys;
 		ArchiveReader mArchiveReader;
-		std::set<__i16> mJourneys;
+		std::set<__i32> mJourneyIds;
 	};
 
 }

@@ -20,37 +20,43 @@ namespace std {
 
 	void IoService::runLoad()
 	{
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("run loading ioService"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("run loading ioService"));
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
 		archiveService_.initUrlStream(this);
-		loginService_.logInfo(log_1("run load ioService finish"));
+		logService_.logInfo(log_1("run load ioService finish"));
 	}
 
 	void IoService::runInit()
 	{
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("init ioService"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("init ioService"));
 		for (__i32 i = 0; i < mIoServiceCount; ++i) {
 			IoServicePtr ioService(new asio::io_service());
 			WorkPtr work(new asio::io_service::work(*ioService));
 			mIoServices.push_back(ioService);
 			mWork.push_back(work);
 		}
+		logService_.logInfo(log_1("init ioService finish!"));
 	}
 	
 	void IoService::runStart()
 	{
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("ioService run runStart"));
+		
 		InitService& initService_ = Singleton<InitService>::instance();
 		mSignals.reset(new asio::signal_set(this->getIoService()));
 		mSignals->add(SIGINT); mSignals->add(SIGTERM);
 		mSignals->async_wait(boost::bind(&InitService::runStop, &initService_));
+		
+		logService_.logInfo(log_1("ioService runStart finish"));
 	}
 
 	void IoService::runRun()
 	{
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("run ioService"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("run ioService"));
 		vector<std::shared_ptr<std::thread>> threads;
 		for (size_t i = 0; i < mIoServices.size(); ++i) {
 			std::shared_ptr<std::thread> thread_(new std::thread(boost::bind(&asio::io_service::run, mIoServices[i])));
@@ -61,16 +67,17 @@ namespace std {
 			threads[i]->join();
 		}
 	#endif
+		logService_.logInfo(log_1("run ioService finish"));
 	}
 
 	void IoService::runStop()
 	{
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("stop ioService"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("stop ioService"));
 		for (size_t i = 0; i < mIoServices.size(); ++i) {
 			mIoServices[i]->stop();
 		}
-		loginService_.logInfo(log_1("ioService have been stoped"));
+		logService_.logInfo(log_1("ioService have been stoped"));
 	}
 	
 	asio::io_service& IoService::getIoService()

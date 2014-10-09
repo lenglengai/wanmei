@@ -11,9 +11,9 @@ int main( int argc, char * argv[] )
  	settingService.initUrlStream(&journeyDescripter);
 
 	settingService.runPreinit("");
-	__i32 journeyIndex = journeyDescripter.getJourney();
+	__i32 journeyId = journeyDescripter.getJourneyId();
 	std::string journey = "journey_";
-	journey += __convert<std::string, __i32>(journeyIndex);
+	journey += __convert<std::string, __i32>(journeyId);
 	journey += ".jf";
 
 	ArchiveWriter archiveWriter;

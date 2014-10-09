@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Property.h"
 #include "PropertyMgr.h"
 
 #ifdef __PROPERTY__

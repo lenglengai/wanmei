@@ -9,24 +9,21 @@ namespace std {
 		template<class T>
 		void headSerialize(T& nSerialize)
 		{
-			nSerialize.runInt32(mJourney, "journeyId");
-			nSerialize.runInt32(mJourneyName, "journeyName");
+			nSerialize.runInt32(mJourneyId, "journeyId");
 			nSerialize.runStrings(mJourneys, "journeys", "journey");
 		}
 		const char * streamName();
 		const char * streamUrl();
 
 		std::list<std::string>& getJourneys();
-		std::string& getJourneyName();
-		__i32 getJourney();
+		__i32 getJourneyId();
 
 		JourneyDescripter();
 		~JourneyDescripter();
 
 	private:
 		std::list<std::string> mJourneys;
-		std::string mJourneyName;
-		__i32 mJourney;
+		__i32 mJourneyId;
 	};
 
 }

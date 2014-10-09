@@ -14,32 +14,25 @@ namespace std {
 		return "journeyDescripter.xml";
 	}
 
-	std::list<std::string>& JourneyDescripter::getJourneys()
+	std::list<std::string>& JourneyDescripter::getConfigures()
 	{
-		return mJourneys;
+		return mConfigures;
 	}
 	
-	std::string& JourneyDescripter::getJourneyName()
+	__i32 JourneyDescripter::getJourneyId()
 	{
-		return mJourneyName;
-	}
-
-	__i32 JourneyDescripter::getJourney()
-	{
-		return mJourney;
+		return mJourneyId;
 	}
 
 	JourneyDescripter::JourneyDescripter()
-		: mJourneyName("")
-		, mJourney(0)
+		: mJourney(0)
 	{
-		mJourneys.clear();
+		mConfigures.clear();
 	}
 
 	JourneyDescripter::~JourneyDescripter()
 	{
-		mJourneys.clear();
-		mJourneyName = "";
+		mConfigures.clear();
 		mJourney = 0;
 	}
 

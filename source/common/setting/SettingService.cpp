@@ -1,8 +1,4 @@
-#include "../DefInc.h"
-#include "../log/LogService.h"
-#include "../init/InitService.h"
-#include "../archive/ArchiveService.h"
-#include "SettingService.h"
+#include "../Common.h"
 
 #ifdef __SETTING__
 namespace std {
@@ -80,9 +76,7 @@ namespace std {
 
 	SettingService::SettingService()
 		: mSystemPath("")
-		, mHigh(0)
-		, mLower(0)
-#ifdef __SEVRECV__
+#ifdef __SERVER__
 		, mServerCount(0)
 		, mServerId(0)
 #endif
@@ -92,8 +86,6 @@ namespace std {
 	SettingService::~SettingService()
 	{
 		mSystemPath = "";
-		mLower = 0;
-		mHigh = 0;
 #ifdef __SEVRECV__
 		mServerCount = 0;
 		mServerId = 0;

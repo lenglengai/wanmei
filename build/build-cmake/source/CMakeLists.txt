@@ -13,7 +13,7 @@ if(WIN32)
   set(CMAKE_CXX_FLAGS_RELEASE "/MT /O2 /Ob2 /DNDEBUG")
   set(CMAKE_EXE_LINKER_FLAGS "/MANIFEST:NO")
 else()
-	set(CMAKE_CXX_FLAGS "-std=c++11")
+  set(CMAKE_CXX_FLAGS "-std=c++11")
 endif()
 
 include_directories(../../../${__WORKSPACE__}/inc)
