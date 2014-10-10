@@ -3,21 +3,6 @@
 #ifdef __HANDLE__
 namespace std {
 
-	const char * HandleService::streamName()
-	{
-		return "handleService";
-	}
-
-	const char * HandleService::streamUrl()
-	{
-	#ifdef __CLIENT__
-		return "common/handle/config/clientHandle.xml";
-	#endif 
-	#ifdef __SERVER__
-		return "common/handle/config/serverHandle.xml";
-	#endif 
-	}
-
 	void HandleService::addContext(ContextPtr& nContext, __i32 nIndex)
 	{
 		__i32 index_ = nIndex % mHandleCount;
@@ -25,7 +10,7 @@ namespace std {
 		handle->addContext(nContext);
 	}
 
-	int HandleService::getHandleCount()
+	__i32 HandleService::getHandleCount()
 	{
 		return mHandleCount;
 	}
@@ -34,35 +19,25 @@ namespace std {
 	{
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("HandleService run runPreinit"));
-		
-		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
-		archiveService_.m_tRunConfigure.connect(boost::bind(&HandleService::runLoad, this));
 
+#if defined(__SERVER__) && defined(__CPU__)
+		CpuService& cpuService_ = Singleton<CpuService>::instance();
+		mHandleCount = cpuService_.getCpuCount();
+#endif
+		
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&HandleService::runInit, this));
 		initService_.m_tRunStart1.connect(boost::bind(&HandleService::runStart, this));
 		initService_.m_tRunStop.connect(boost::bind(&HandleService::runStop, this));
-		initService_.registerArchive(this->streamUrl());
 		
 		logService_.logInfo(log_1("HandleService run runPreinit finish!"));
-	}
-
-	void HandleService::runLoad()
-	{
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("run loading handle service"));
-		
-		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
-		archiveService_.initUrlStream(this);
-		
-		logService_.logInfo(log_1("loading handle service finish!"));
 	}
 
 	void HandleService::runInit()
 	{
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("init handle service"));
-		for (int i = 0; i < mHandleCount; ++i) {
+		for (__i32 i = 0; i < mHandleCount; ++i) {
 			HandlePtr handle(new Handle());
 			mHandles[i] = handle;
 		}
@@ -73,7 +48,7 @@ namespace std {
 	{
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("run start handle service"));
-		std::map<int, HandlePtr>::iterator it = mHandles.begin();
+		std::map<__i32, HandlePtr>::iterator it = mHandles.begin();
 		for ( ; it != mHandles.end(); ++it ) {
 			HandlePtr& handle = it->second;
 			handle->runStart();
@@ -85,7 +60,7 @@ namespace std {
 	{
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("stop handle service"));
-		std::map<int, HandlePtr>::iterator it = mHandles.begin();
+		std::map<__i32, HandlePtr>::iterator it = mHandles.begin();
 		for (; it != mHandles.end(); ++it) {
 			HandlePtr& handle = it->second;
 			handle->runStop();
@@ -94,7 +69,7 @@ namespace std {
 	}
 
 	HandleService::HandleService()
-		: mHandleCount(4)
+		: mHandleCount(1)
 	{
 		mHandles.clear();
 	}
@@ -102,7 +77,7 @@ namespace std {
 	HandleService::~HandleService()
 	{
 		mHandles.clear();
-		mHandleCount = 0;
+		mHandleCount = 1;
 	}
 
 }

@@ -8,6 +8,7 @@
 #include "lua/LuaService.h"
 
 #include "log/LogService.h"
+#include "cpu/CpuService.h"
 #include "time/TimeService.h"
 #include "crc/CrcService.h"
 #include "random/RandomService.h"

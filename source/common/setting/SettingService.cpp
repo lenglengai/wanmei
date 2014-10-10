@@ -3,22 +3,7 @@
 #ifdef __SETTING__
 namespace std {
 
-	const char * SettingService::streamName()
-	{
-		return "settingService";
-	}
-
-	const char * SettingService::streamUrl()
-	{
-	#ifdef __SEVRECV__
-		return "serverSetting.xml";
-	#endif
-	#ifdef __CLTRECV__
-		return "clientSetting.xml";
-	#endif
-	}
-
-#ifdef __SEVRECV__
+#ifdef __SERVER__
 	__i32 SettingService::checkServerId(__i32 nServerId)
 	{
 		if (mServerId == nServerId) return ERRORINT::SUCESS;
@@ -50,23 +35,19 @@ namespace std {
 	{
 		__i32 high = nVersion >> 12;
 		__i32 lower = nVersion & 0xFFF;
-		if (high != mHigh) return ERRORINT::MUSTUPDATE;
-		if (lower != mLower) return ERRORINT::HAVEUPDATE;
+		if (high != VERHIGH) return ERRORINT::MUSTUPDATE;
+		if (lower != VERLOW) return ERRORINT::HAVEUPDATE;
 		return ERRORINT::SUCESS;
 	}
 
 	void SettingService::runPreinit(const char * nPath)
 	{
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("SettingService run runPreinit!"));
+		
 		mSystemPath = nPath;
-		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
-		archiveService_.m_tRunConfigure.connect(boost::bind(&SettingService::runLoad, this));
-		initService_.registerArchive(this->streamUrl());
-	}
-
-	void SettingService::runLoad()
-	{
-		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
-		archiveService_.initUrlStream(this);
+		
+		logService_.logInfo(log_1("SettingService run runPreinit finish!"));
 	}
 
 	const string& SettingService::systemPath()
@@ -86,7 +67,7 @@ namespace std {
 	SettingService::~SettingService()
 	{
 		mSystemPath = "";
-#ifdef __SEVRECV__
+#ifdef __SERVER__
 		mServerCount = 0;
 		mServerId = 0;
 #endif

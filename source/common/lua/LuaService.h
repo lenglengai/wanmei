@@ -30,6 +30,7 @@ namespace std {
 
 		LuaScriptPtr createLuaScript();
 		
+		void runPreinit();
 		void runClose();
 
 		LuaService();

@@ -8,18 +8,9 @@ namespace std {
 	class __funapi HandleService : boost::noncopyable
 	{
 	public:
-		template<class T>
-		void headSerialize(T& nSerialize)
-		{
-			nSerialize.runInt32(mHandleCount, "handleCount", 2);
-		}
-
-		const char * streamName();
-		const char * streamUrl();
 		void addContext(ContextPtr& nContext, __i32 nIndex);
-		int getHandleCount();
+		__i32 getHandleCount();
 		void runPreinit();
-		void runLoad();
 		void runInit();
 		void runStart();
 		void runStop();
@@ -28,7 +19,7 @@ namespace std {
 		~HandleService();
 
 	private:
-		std::map<int, HandlePtr> mHandles;
+		std::map<__i32, HandlePtr> mHandles;
 		__i32 mHandleCount;
 	};
 

@@ -1,4 +1,4 @@
-#include "../Include.h"
+#include "../Common.h"
 
 #ifdef __BOOSTLOG__
 #include <boost/log/sinks.hpp>
@@ -63,10 +63,14 @@ namespace std {
 
 	void LogService::runScript()
 	{
+		this->logInfo(log_1("LogService run runScript!"));
+		
 		LuaService& luaService_ = Singleton<LuaService>::instance();
 		luaService_.runClass<LogService>("LogService");
 		luaService_.runMethod<LogService>(&LogService::luaLogError, "logError");
 		luaService_.runMethod<LogService>(&LogService::luaLogInfo, "logInfo");
+		
+		this->logInfo(log_1("LogService run runScript finish!"));
 	}
 
 	void LogService::runPreinit()
@@ -101,7 +105,11 @@ namespace std {
 
 	void LogService::runInit()
 	{
+		this->logInfo(log_1("LogService run runInit!"));
+		
 		LogService::runScript();
+		
+		this->logInfo(log_1("LogService run runInit finish!"));
 	}
 
 	LogService::LogService()

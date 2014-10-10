@@ -1,5 +1,6 @@
 #pragma once
 
+#include <VerInc.h>
 #include <Journey.h>
 
 #ifdef __COCOS2DX__

@@ -40,16 +40,26 @@ namespace std {
 
 	void ArchiveService::runPreinit()
 	{
+		LogService logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("ArchiveService run runPreinit!"));
+		
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunLoad0.connect(boost::bind(&ArchiveService::runLoad, this));
+		
+		logService_.logInfo(log_1("ArchiveService run runPreinit finish!"));
 	}
 	
 	void ArchiveService::runLoad()
 	{
+		LogService logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("ArchiveService run runLoad!"));
+		
 		std::string configure_ = "configure.jf";
 		mArchiveReader.runOpen(configure_.c_str());
 		this->m_tRunConfigure();
 		mArchiveReader.runClose();
+		
+		logService_.logInfo(log_1("ArchiveService run runLoad finish!"));
 	}
 
 	void ArchiveService::runClear()

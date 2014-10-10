@@ -22,21 +22,21 @@ namespace std {
 
 	void TimeService::runScript()
 	{
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("TimeService run runScript!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("TimeService run runScript!"));
 
 		LuaService& luaService_ = Singleton<LuaService>::instance();
 		luaService_.runClass<TimeService>("TimeService");
 		luaService_.runMethod<TimeService>(&TimeService::getServerTime, "getServerTime");
 		luaService_.runMethod<TimeService>(&TimeService::getNowSecond, "getNowSecond");
 		
-		loginService_.logInfo(log_1("TimeService run runScript finish!"));
+		logService_.logInfo(log_1("TimeService run runScript finish!"));
 	}
 
-	void TimeService::runPreinit()
+	bool TimeService::runPreinit()
 	{
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("TimeService run runPreinit!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("TimeService run runPreinit!"));
 		
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&TimeService::runInit, this));
@@ -48,17 +48,18 @@ namespace std {
 		time_t begTime = mktime(&begTm);
 		mBegin = system_clock::from_time_t(begTime);
 		
-		loginService_.logInfo(log_1("TimeService run runPreinit finish!"));
+		logService_.logInfo(log_1("TimeService run runPreinit finish!"));
+		return true;
 	}
 
 	void TimeService::runInit()
 	{
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("TimeService run runInit!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("TimeService run runInit!"));
 
 		TimeService::runScript();
 		
-		loginService_.logInfo(log_1("TimeService run runInit finish!"));
+		logService_.logInfo(log_1("TimeService run runInit finish!"));
 	}
 
 	TimeService::TimeService()

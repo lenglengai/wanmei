@@ -1,6 +1,4 @@
-#include "../DefInc.h"
-
-#include "LuaService.h"
+#include "../Common.h"
 
 #ifdef __LUA__
 namespace std {
@@ -14,6 +12,14 @@ namespace std {
 		return luaScript;
 	}
 
+	void LuaService::runPreinit()
+	{
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("LuaService run runPreinit!"));
+		
+		logService_.logInfo(log_1("LuaService run runPreinit finish!"));
+	}
+	
 	void LuaService::runClose()
 	{
 		lua_close(mLuaState);

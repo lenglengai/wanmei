@@ -14,9 +14,9 @@ namespace std {
 		return "journeyDescripter.xml";
 	}
 
-	std::list<std::string>& JourneyDescripter::getConfigures()
+	std::list<std::string>& JourneyDescripter::getJourneys()
 	{
-		return mConfigures;
+		return mJourneys;
 	}
 	
 	__i32 JourneyDescripter::getJourneyId()
@@ -27,12 +27,12 @@ namespace std {
 	JourneyDescripter::JourneyDescripter()
 		: mJourney(0)
 	{
-		mConfigures.clear();
+		mJourneys.clear();
 	}
 
 	JourneyDescripter::~JourneyDescripter()
 	{
-		mConfigures.clear();
+		mJourneys.clear();
 		mJourney = 0;
 	}
 

@@ -1,6 +1,4 @@
-#include "../DefInc.h"
-
-#include "LuaScript.h"
+#include "../Common.h"
 
 #ifdef __LUA__
 namespace std {

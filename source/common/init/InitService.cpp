@@ -28,8 +28,8 @@ namespace std {
 		mConfigure = nConfigure;
 		
 #ifdef __LOG__
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.runPreinit();
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.runPreinit();
 #endif
 #ifdef __WITHTIME__
 		TimeService& timeService_ = Singleton<TimeService>::instance();
@@ -89,8 +89,8 @@ namespace std {
 		if (false == mConfigure)  return;
 		auto it = mArchives.find(nArchive);
 		if ( it != strings.end()) {
-			LogService& loginService_ = Singleton<LogService>::instance();
-			loginService_.logError(log_2("initService registerArchive fail, nArchive is ", nArchive));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_2("initService registerArchive fail, nArchive is ", nArchive));
 			return;
 		}
 		mArchives.insert(nArchive);
@@ -107,12 +107,12 @@ namespace std {
 	void InitService::runLoad0()
 	{
 		if (InitType_::mPreinit_ != mInitType) {
-			LogService& loginService_ = Singleton<LogService>::instance();
-			loginService_.logError(log_2("initService load0 fail, initType is ", mInitType));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_2("initService load0 fail, initType is ", mInitType));
 			return;
 		}
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("initService run load0!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("initService run load0!"));
 		mInitType = InitType_::mLoad0_;
 		this->m_tRunLoad0();
 	}
@@ -120,12 +120,12 @@ namespace std {
 	void InitService::runLoad1()
 	{
 		if (InitType_::mLoad0_ != mInitType) {
-			LogService& loginService_ = Singleton<LogService>::instance();
-			loginService_.logError(log_2("initService load1 fail, initType is ", mInitType));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_2("initService load1 fail, initType is ", mInitType));
 			return;
 		}
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("initService run load1!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("initService run load1!"));
 		mInitType = InitType_::mLoad1_;
 		this->m_tRunLoad1();
 	}
@@ -133,12 +133,12 @@ namespace std {
 	void InitService::runInit0()
 	{
 		if (InitType_::mLoad1_ != mInitType) {
-			LogService& loginService_ = Singleton<LogService>::instance();
-			loginService_.logError(log_2("initService init0 fail, initType is ", mInitType));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_2("initService init0 fail, initType is ", mInitType));
 			return;
 		}
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("initService run init0!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("initService run init0!"));
 		mInitType = InitType_::mInit0_;
 		this->m_tRunInit0();
 	}
@@ -146,12 +146,12 @@ namespace std {
 	void InitService::runInit1()
 	{
 		if (InitType_::mInit0_ != mInitType) {
-			LogService& loginService_ = Singleton<LogService>::instance();
-			loginService_.logError(log_2("initService init1 fail, initType is ", mInitType));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_2("initService init1 fail, initType is ", mInitType));
 			return;
 		}
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("initService run init1!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("initService run init1!"));
 		mInitType = InitType_::mInit1_;
 		this->m_tRunInit1();
 	}
@@ -159,12 +159,12 @@ namespace std {
 	void InitService::runStart0()
 	{
 		if (InitType_::mInit1_ != mInitType) {
-			LogService& loginService_ = Singleton<LogService>::instance();
-			loginService_.logError(log_2("initService start0 fail, initType is ", mInitType));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_2("initService start0 fail, initType is ", mInitType));
 			return;
 		}
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("initService run start0!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("initService run start0!"));
 		mInitType = InitType_::mStart0_;
 		this->m_tRunStart0();
 	}
@@ -172,12 +172,12 @@ namespace std {
 	void InitService::runStart1()
 	{
 		if (InitType_::mStart0_ != mInitType) {
-			LogService& loginService_ = Singleton<LogService>::instance();
-			loginService_.logError(log_2("initService start1 fail, initType is ", mInitType));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_2("initService start1 fail, initType is ", mInitType));
 			return;
 		}
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("initService run start1!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("initService run start1!"));
 		mInitType = InitType_::mStart1_;
 		this->m_tRunStart1();
 	}
@@ -185,12 +185,12 @@ namespace std {
 	void InitService::runRun()
 	{
 		if (InitType_::mStart1_ != mInitType) {
-			LogService& loginService_ = Singleton<LogService>::instance();
-			loginService_.logError(log_2("initService run0 fail, initType is ", mInitType));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_2("initService run0 fail, initType is ", mInitType));
 			return;
 		}
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("initService is running0!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("initService is running0!"));
 		mInitType = InitType_::mRun_;
 		this->m_tRunRun();
 	}
@@ -212,38 +212,38 @@ namespace std {
 	void InitService::runStop()
 	{
 		if (InitType_::mRun_ != mInitType) {
-			LogService& loginService_ = Singleton<LogService>::instance();
-			loginService_.logError(log_2("initService stop fail, initType is ", mInitType));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_2("initService stop fail, initType is ", mInitType));
 			return;
 		}
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("initService is stopped!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("initService is stopped!"));
 		mInitType = InitType_::mStop_;
 		this->m_tRunStop();
 	}
 
 	void InitService::runSave()
 	{
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("initService save data!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("initService save data!"));
 		PROFILER_UPDATE();
 		PROFILER_OUTPUT("profile.prof");
 		this->m_tRunSave();	
-		loginService_.logInfo(log_1("initService save data sucess!"));
+		logService_.logInfo(log_1("initService save data sucess!"));
 	}
 
 	void InitService::runExit()
 	{
 		if (InitType_::mStop_ != mInitType) {
-			LogService& loginService_ = Singleton<LogService>::instance();
-			loginService_.logError(log_2("initService exit fail, initType is ", mInitType));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_2("initService exit fail, initType is ", mInitType));
 			return;
 		}
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("initService is exited!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("initService is exited!"));
 		mInitType = InitType_::mExit_;
 		this->m_tRunExit();	
-		loginService_.logInfo(log_1("initService exit sucess!"));
+		logService_.logInfo(log_1("initService exit sucess!"));
 	}
 
 	void InitService::runClear()

@@ -1,5 +1,6 @@
 #pragma once
 
+#ifdef __ARCHIVE__
 namespace std {
 	
 	class IJourney
@@ -10,3 +11,4 @@ namespace std {
 	};
 	
 }
+#endif

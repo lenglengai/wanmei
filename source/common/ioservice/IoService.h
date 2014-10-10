@@ -10,18 +10,9 @@ namespace std {
 	class __funapi IoService : boost::noncopyable
 	{
 	public:
-		template<class T>
-		void headSerialize(T& nSerialize)
-		{
-			nSerialize.runInt32(mIoServiceCount, "IoCount", 2);
-		}
-		const char * streamName();
-		const char * streamUrl();
-
 		asio::io_service& getIoService();
 
 		void runPreinit();
-		void runLoad();
 		void runInit();
 		void runStart();
 		void runStop();

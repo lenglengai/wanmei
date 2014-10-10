@@ -20,36 +20,36 @@ namespace std {
 
 	void CompressService::runScript()
 	{
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("CompressService run runScript!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("CompressService run runScript!"));
 
 		LuaService& luaService_ = Singleton<LuaService>::instance();
 		luaService_.runClass<CompressService>("CompressService");
 		luaService_.runMethod<CompressService>(&CompressService::runBZip2, "runBZip2");
 		luaService_.runMethod<CompressService>(&CompressService::unBZip2, "unBZip2");
 		
-		loginService_.logInfo(log_1("CompressService run runScript finish!"));
+		logService_.logInfo(log_1("CompressService run runScript finish!"));
 	}
 
 	void CompressService::runPreinit()
 	{
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("CompressService run runPreinit!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("CompressService run runPreinit!"));
 
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&CompressService::runInit, this));
 		
-		loginService_.logInfo(log_1("CompressService run runPreinit finish!"));
+		logService_.logInfo(log_1("CompressService run runPreinit finish!"));
 	}
 
 	void CompressService::runInit()
 	{
-		LogService& loginService_ = Singleton<LogService>::instance();
-		loginService_.logInfo(log_1("CompressService run runInit!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("CompressService run runInit!"));
 
 		CompressService::runScript();
 		
-		loginService_.logInfo(log_1("CompressService run runInit fihish!"));
+		logService_.logInfo(log_1("CompressService run runInit fihish!"));
 	}
 
 	CompressService::CompressService()
