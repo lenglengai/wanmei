@@ -14,7 +14,7 @@ namespace std {
 		return mCpuCount;
 	}
 	
-	void CpuService::runPreinit()
+	bool CpuService::runPreinit()
 	{
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("CpuService run runPreinit!"));
@@ -26,6 +26,7 @@ namespace std {
 		mCpuCount = sysconf(_SC_NPROCESSORS_CONF);
 #endif
 		logService_.logInfo(log_1("CpuService run runPreinit finish!"));
+		return true;
 	}
 	
 	CpuService::CpuService()

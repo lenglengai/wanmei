@@ -24,7 +24,7 @@ namespace std {
 		};
 	public:
 		void runPreinit(const char * nPath, bool nConfigure = false);
-			
+		
 		boost::signals2::signal<void()> m_tRunLoad0;
 		void runLoad0();
 

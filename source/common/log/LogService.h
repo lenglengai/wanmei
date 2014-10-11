@@ -35,7 +35,7 @@ namespace std {
 		void logInfo(boost::format& nFormat);
 
 		static void runScript();
-		void runPreinit();
+		bool runPreinit();
 		void runInit();
 
 		LogService();

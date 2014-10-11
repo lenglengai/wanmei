@@ -12,7 +12,7 @@ namespace std {
 	public:
 		asio::io_service& getIoService();
 
-		void runPreinit();
+		bool runPreinit();
 		void runInit();
 		void runStart();
 		void runStop();

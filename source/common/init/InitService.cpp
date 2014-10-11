@@ -1,5 +1,7 @@
-#include "../DefInc.h"
+#include "../Common.h"
 
+#include "../lua/LuaService.h"
+#include "../cpu/CpuService.h"
 #include "../crc/CrcService.h"
 #include "../log/LogService.h"
 #include "../time/TimeService.h"

@@ -36,7 +36,7 @@ namespace std {
 		logService_.logInfo(log_1("RandomService run runScript finish!"));
 	}
 
-	void RandomService::runPreinit()
+	bool RandomService::runPreinit()
 	{
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("RandomService run runPreinit!"));
@@ -47,6 +47,7 @@ namespace std {
 		mEngine.seed(mDevice());
 		
 		logService_.logInfo(log_1("RandomService run runPreinit finish!"));
+		return true;
 	}
 
 	void RandomService::runInit()

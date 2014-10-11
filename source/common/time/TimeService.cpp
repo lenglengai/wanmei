@@ -38,18 +38,56 @@ namespace std {
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("TimeService run runPreinit!"));
 		
+		system_clock::time_point nowPoint = system_clock::now();
+		
+		time_t startTime = this->fromTime(STARTYEAR, STARTMONTH, STARTDAY);
+		system_clock::time_point startPoint = system_clock::from_time_t(startTime);
+		if (startPoint > nowPoint) {
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1("runPreinit runPreinit startPoint > nowPoint!"));
+			return false;
+		}
+		
+		time_t endTime = this->fromTime(ENDYEAR, ENDMONTH, ENDDAY);
+		system_clock::time_point endPoint = system_clock::from_time_t(endTime);
+		if (nowPoint > endPoint) {
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1("runPreinit runPreinit nowPoint > endPoint!"));
+			return false;
+		}
+		
+		time_t begTime = this->fromTime(INITYEAR, INITMONTH, INITDAY);
+		mBegin = system_clock::from_time_t(begTime);
+		
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&TimeService::runInit, this));
-
-		tm begTm; begTm.tm_year = INITYEAR-1900;
-		begTm.tm_mon = INITMONTH - 1;
-		begTm.tm_mday = INITDAY; begTm.tm_hour = 23;
-		begTm.tm_min = 59; begTm.tm_sec = 59;
-		time_t begTime = mktime(&begTm);
-		mBegin = system_clock::from_time_t(begTime);
 		
 		logService_.logInfo(log_1("TimeService run runPreinit finish!"));
 		return true;
+	}
+	
+	time_t TimeService::fromTime(__i32 nYear, __i32 nMonth, __i32 nDay)
+	{
+		return fromTime(nYear, nMonth, nDay, 0, 0, 0);
+	}
+	
+	time_t TimeService::fromTime(__i32 nYear, __i32 nMonth, __i32 nDay, __i32 nHour)
+	{
+		return fromTime(nYear, nMonth, nDay, nHour, 0, 0);
+	}
+	
+	time_t TimeService::fromTime(__i32 nYear, __i32 nMonth, __i32 nDay, __i32 nHour, __i32 nMin)
+	{
+		return fromTime(nYear, nMonth, nDay, nHour, nMin, 0);
+	}
+	
+	time_t TimeService::fromTime(__i32 nYear, __i32 nMonth, __i32 nDay, __i32 nHour, __i32 nMin, __i32 nSec)
+	{
+		tm tm_; tm_.tm_year = nYear-1900;
+		tm_.tm_mon = nMonth - 1;
+		tm_.tm_mday = nDay; tm_.tm_hour = nHour;
+		tm_.tm_min = nMin; tm_.tm_sec = nSec;
+		return mktime(&tm_);
 	}
 
 	void TimeService::runInit()
@@ -74,4 +112,3 @@ namespace std {
 
 }
 #endif
-

@@ -5,7 +5,7 @@
 #ifdef __IOSERVICE__
 namespace std {
 
-	void IoService::runPreinit()
+	bool IoService::runPreinit()
 	{
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("run runPreinit ioService"));
@@ -23,6 +23,7 @@ namespace std {
 		initService_.registerArchive(this->streamUrl());
 		
 		logService_.logInfo(log_1("run runPreinit ioService finish!"));
+		return true;
 	}
 
 	void IoService::runInit()

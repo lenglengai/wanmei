@@ -14,7 +14,7 @@ namespace std {
 		__i32 runRandom();
 		
 		static void runScript();
-		void runPreinit();
+		bool runPreinit();
 		void runInit();
 
 		RandomService();

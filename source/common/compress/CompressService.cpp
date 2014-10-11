@@ -31,7 +31,7 @@ namespace std {
 		logService_.logInfo(log_1("CompressService run runScript finish!"));
 	}
 
-	void CompressService::runPreinit()
+	bool CompressService::runPreinit()
 	{
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("CompressService run runPreinit!"));
@@ -40,6 +40,7 @@ namespace std {
 		initService_.m_tRunInit0.connect(boost::bind(&CompressService::runInit, this));
 		
 		logService_.logInfo(log_1("CompressService run runPreinit finish!"));
+		return true;
 	}
 
 	void CompressService::runInit()

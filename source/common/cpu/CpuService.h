@@ -7,7 +7,7 @@ namespace std {
 	{
 	public:
 		__i16 getCpuCount();
-		void runPreinit();
+		bool runPreinit();
 		
 		CpuService();
 		~CpuService();

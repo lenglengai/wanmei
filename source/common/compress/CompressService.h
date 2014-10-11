@@ -10,7 +10,7 @@ namespace std {
 		void unBZip2(char * nInBuf, __i32 nInSize, char * nOutBuf, __i32 * nOutSize);
 
 		static void runScript();
-		void runPreinit();
+		bool runPreinit();
 		void runInit();
 
 		CompressService();

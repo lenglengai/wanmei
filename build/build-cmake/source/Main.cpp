@@ -9,7 +9,7 @@ int main( int argc, char * argv[] )
 		initService.runPreinit("", true);
 		initService.runConfigure();
 	} else {
-		initService.runPreinit("");
+		if (!initService.runPreinit("")) return 0;
 		initService.runLoad0();
 		initService.runLoad1();
 		initService.runInit0();

@@ -38,7 +38,7 @@ namespace std {
 		journey_.loadJourney();
 	]
 
-	void ArchiveService::runPreinit()
+	bool ArchiveService::runPreinit()
 	{
 		LogService logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("ArchiveService run runPreinit!"));
@@ -47,6 +47,7 @@ namespace std {
 		initService_.m_tRunLoad0.connect(boost::bind(&ArchiveService::runLoad, this));
 		
 		logService_.logInfo(log_1("ArchiveService run runPreinit finish!"));
+		return true;
 	}
 	
 	void ArchiveService::runLoad()

@@ -12,12 +12,13 @@ namespace std {
 		return luaScript;
 	}
 
-	void LuaService::runPreinit()
+	bool LuaService::runPreinit()
 	{
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("LuaService run runPreinit!"));
 		
 		logService_.logInfo(log_1("LuaService run runPreinit finish!"));
+		return true;
 	}
 	
 	void LuaService::runClose()

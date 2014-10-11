@@ -15,9 +15,16 @@ namespace std {
 		__i64 getNowSecond();
 		
 		static void runScript();
-		void runPreinit();
+		bool runPreinit();
 		void runInit();
 
+	private:
+		time_t fromTime(__i32 nYear, __i32 nMonth, __i32 nDay);
+		time_t fromTime(__i32 nYear, __i32 nMonth, __i32 nDay, __i32 nHour);
+		time_t fromTime(__i32 nYear, __i32 nMonth, __i32 nDay, __i32 nHour, __i32 nMin);
+		time_t fromTime(__i32 nYear, __i32 nMonth, __i32 nDay, __i32 nHour, __i32 nMin, __i32 nSec);
+		
+	public:
 		TimeService();
 		~TimeService();
 		

@@ -73,7 +73,7 @@ namespace std {
 		this->logInfo(log_1("LogService run runScript finish!"));
 	}
 
-	void LogService::runPreinit()
+	bool LogService::runPreinit()
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&LogService::runInit, this));
@@ -101,6 +101,7 @@ namespace std {
     	logging::core::get()->add_sink(testSink);
 		logging::core::get()->add_global_attribute("TimeStamp", attrs::local_clock());
 #endif
+		return true;
 	}
 
 	void LogService::runInit()
