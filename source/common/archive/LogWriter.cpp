@@ -398,8 +398,10 @@ namespace std {
 
 	void LogWriter::runClose()
 	{
+	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(mValue);
+	#endif
 	}
 
 	LogWriter::LogWriter()

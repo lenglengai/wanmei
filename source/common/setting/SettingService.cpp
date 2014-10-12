@@ -16,12 +16,16 @@ namespace std {
 
 	bool SettingService::runPreinit(const char * nPath)
 	{
+	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("SettingService run runPreinit!"));
+	#endif
 		
 		mSystemPath = nPath;
 		
+	#ifdef __LOG__
 		logService_.logInfo(log_1("SettingService run runPreinit finish!"));
+	#endif
 		return true;
 	}
 
@@ -39,6 +43,7 @@ namespace std {
 	{
 		mSystemPath = "";
 	}
-
+	
+	static Preinit<SettingService> sSettingServicePreinit;
 }
 #endif

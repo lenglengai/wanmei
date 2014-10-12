@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../crc/CrcService.h"
-
 #include "IPropertyId.h"
 
 #ifdef __PROPERTY__

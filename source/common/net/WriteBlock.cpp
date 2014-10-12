@@ -1,6 +1,5 @@
-#include "../DefInc.h"
+#include "../Common.h"
 #include "IBlock.h"
-
 #include "WriteBlock.h"
 
 #ifdef __NET__

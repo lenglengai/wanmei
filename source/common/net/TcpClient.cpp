@@ -16,8 +16,10 @@ namespace std {
 		mConnectTimer->cancel();
 		if (nError) {
 			this->runStop();
+		#ifdef __LOG__
 			LogService& logService = Singleton<LogService>::instance();
 			logService.logError(log_1(nError.message()));
+		#endif
 			return;
 		}
 		mSession->openSession();
@@ -26,13 +28,17 @@ namespace std {
 	void Client::handleConnectTimeout(const boost::system::error_code& nError)
 	{
 		if (nError) {
+		#ifdef __LOG__
 			LogService& logService = Singleton<LogService>::instance();
 			logService.logError(log_1(nError.message()));
+		#endif
 		}
 		if (mConnectTimer->expires_at() <= asio::deadline_timer::traits_type::now()) {
 			this->runStop();
+		#ifdef __LOG__
 			LogService& logService = Singleton<LogService>::instance();
 			logService.logError(log_1(nError.message()));
+		#endif
 			mConnectTimer->expires_at(boost::posix_time::pos_infin);
 		}
 	}
@@ -52,8 +58,10 @@ namespace std {
 			mConnectTimer->async_wait(boost::bind(&Client::handleConnectTimeout, 
 				this, boost::asio::placeholders::error));
 		} catch (boost::system::system_error& e) {
+		#ifdef __LOG__
 			LogService& logService = Singleton<LogService>::instance();
 			logService.logError(log_1(e.what()));
+		#endif
 		}
 	}
 
@@ -79,17 +87,20 @@ namespace std {
 
 	void Client::runLoad()
 	{
+	#ifdef __LOG__
 		LogService& logService = Singleton<LogService>::instance();
 		logService.logError(log_1("begin load client config!"));
+	#endif
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
 		archiveService_.initUrlStream(this);
 	}
 
 	void Client::runStart()
 	{
+	#ifdef __LOG__
 		LogService& logService = Singleton<LogService>::instance();
 		logService.logError(log_1("client begin run start!"));
-
+	#endif
 		IoService& ioService_ = Singleton<IoService>::instance();
 		asio::io_service& ioservice = ioService_.getIoService();
 		mSession.reset(new Session(ioservice));

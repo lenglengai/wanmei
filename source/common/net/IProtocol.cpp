@@ -1,8 +1,4 @@
-#include "../DefInc.h"
-
-#include "../log/LogService.h"
-#include "../crc/CrcService.h"
-
+#include "../Common.h"
 #include "IProtocol.h"
 
 #ifdef __NET__
@@ -13,8 +9,10 @@ namespace std {
 		__i32 packetType_ = 0; nReadBlock->runInt32(packetType_);
 		IPacketId * packetId_ = this->getPacketId(packetType_);
 		if (nullptr == packetId_) {
+		#ifdef __LOG__
 			LogService& logService = Singleton<LogService>::instance();
 			logService.logError(log_2("getPacketId ", packetType_));
+		#endif
 			return false;
 		}
 		PacketPtr packet_ = packetId_->createPacket();
@@ -23,8 +21,10 @@ namespace std {
 		BlockPtr block_ = nReadBlock;
 		packet_->runBlock(block_);
 		if (packet_->isDefault()) {
+		#ifdef __LOG__
 			LogService& logService = Singleton<LogService>::instance();
 			logService.logError(log_1("packet isDefault"));
+		#endif
 			return false;
 		}
 		return this->runPacket(packet_, nSession);
@@ -39,8 +39,10 @@ namespace std {
 	{
 		map<__i32, PacketIdPtr>::iterator it = mPacketIds.find(nPacketType);
 		if (it == mPacketIds.end()) {
+		#ifdef __LOG__
 			LogService& logService = Singleton<LogService>::instance();
 			logService.logError(log_1(nPacketType));
+		#endif
 			return nullptr;
 		}
 		PacketIdPtr& packetId_ = mPacketIds[nPacketType];
@@ -52,8 +54,10 @@ namespace std {
 		__i32 packetId_ = nPacketId->getPacketId();
 		map<__i32, PacketIdPtr>::iterator it = mPacketIds.find(packetId_);
 		if (it != mPacketIds.end()) {
+		#ifdef __LOG__
 			LogService& logService = Singleton<LogService>::instance();
 			logService.logError(log_1(packetId_));
+		#endif
 			return;
 		}
 		mPacketIds[packetId_] = nPacketId;

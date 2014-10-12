@@ -10,7 +10,7 @@ namespace std {
 	public:
 		void addContext(ContextPtr& nContext, __i32 nIndex);
 		__i32 getHandleCount();
-		void runPreinit();
+		bool runPreinit();
 		void runInit();
 		void runStart();
 		void runStop();

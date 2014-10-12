@@ -2,7 +2,10 @@
 
 #include "Include/IncInc.h"
 #include "utility/UtilInc.h"
-#include "ProjInc/ProjInc.h"
+#include "projInc/ProjInc.h"
+
+#include "property/PropertyId.h"
+#include "property/PropertySink.h"
 
 #include "shiny/Shiny.h"
 #include "lua/LuaService.h"

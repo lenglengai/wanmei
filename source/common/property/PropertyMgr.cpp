@@ -1,7 +1,4 @@
 #include "../Common.h"
-#include "IPropertyId.h"
-
-#include "PropertyMgr.h"
 
 #ifdef __PROPERTY__
 namespace std {
@@ -11,8 +8,10 @@ namespace std {
 		__i32 propertyId_ = nPropertyId.getPropertyId();
 		map<__i32, PropertyPtr>::iterator it = mPropertys.find(propertyId_);
 		if (it == mPropertys.end()) {
+		#ifdef __LOG__
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1(propertyId_));
+		#endif
 			return it->second;
 		}
 		return it->second;
@@ -23,8 +22,10 @@ namespace std {
 		__i32 propertyId_ = nPropertyId->getPropertyId();
 		map<__i32, PropertyPtr>::iterator it = mPropertys.find(propertyId_);
 		if (it != mPropertys.end()) {
+		#ifdef __LOG__
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1(propertyId_));
+		#endif
 			return;
 		}
 		mPropertys[propertyId_] = nProperty;

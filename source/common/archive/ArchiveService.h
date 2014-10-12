@@ -1,6 +1,5 @@
 #pragma once
 
-#include "JourneyDescripter.h"
 #include "ArchiveReader.h"
 #include "XmlReader.h"
 

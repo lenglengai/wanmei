@@ -1,7 +1,5 @@
 #pragma once
 
-#include <boost/function.hpp>
-
 #include "Session.h"
 
 #ifdef __NET__

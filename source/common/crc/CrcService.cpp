@@ -92,35 +92,42 @@ namespace std {
 
 	void CrcService::runScript()
 	{
+	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("CrcService run runScript!"));
-
+	#endif
 		LuaService& luaService_ = Singleton<LuaService>::instance();
 		luaService_.runClass<CrcService>("CrcService");
 		luaService_.runMethod<CrcService>(&CrcService::runCommon, "runCommon");
-		
+	#ifdef __LOG__
 		logService_.logInfo(log_1("CrcService run runScript finish!"));
+	#endif
 	}
 
-	void CrcService::runPreinit()
+	bool CrcService::runPreinit()
 	{
+	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("CrcService run runPreinit!"));
-
+	#endif
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&CrcService::runInit, this));
-		
+	#ifdef __LOG__
 		logService_.logInfo(log_1("CrcService run runPreinit finish!"));
+	#endif
+		return true;
 	}
 
 	void CrcService::runInit()
 	{
+	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("CrcService run runInit!"));
-
+	#endif
 		CrcService::runScript();
-		
+	#ifdef __LOG__
 		logService_.logInfo(log_1("CrcService run runInit finish!"));
+	#endif
 	}
 
 	CrcService::CrcService()
@@ -130,7 +137,8 @@ namespace std {
 	CrcService::~CrcService()
 	{
 	}
-
+	
+	static Preinit<CrcService> sCrcServicePreinit;
 }
 #endif
 

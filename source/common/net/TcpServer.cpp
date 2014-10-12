@@ -15,8 +15,10 @@ namespace std {
 	{
 		if (nError) {
 			this->runStop();
+		#ifdef __LOG__
 			LogService& logService = Singleton<LogService>::instance();
 			logService.logError(log_1(nError.message()));
+		#endif
 			return;
 		}
 		mNewSession->openSession();
@@ -34,8 +36,10 @@ namespace std {
 				boost::bind(&TcpServer::handleAccept, this,
 				boost::asio::placeholders::error));
 		} catch (boost::system::system_error& e) {
+		#ifdef __LOG__
 			LogService& logService = Singleton<LogService>::instance();
 			logService.logError(log_1(e.what()));
+		#endif
 		}
 	}
 
@@ -62,17 +66,20 @@ namespace std {
 
 	void TcpServer::runLoad()
 	{
+	#ifdef __LOG__
 		LogService& logService = Singleton<LogService>::instance();
 		logService.logError(log_1("begin load tcpServer config!"));
+	#endif
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
 		archiveService_.initUrlStream(this);
 	}
 
 	void TcpServer::runStart()
 	{
+	#ifdef __LOG__
 		LogService& logService = Singleton<LogService>::instance();
 		logService.logError(log_1("tcp server begin run start!"));
-
+	#endif
 		IoService& ioService_ = Singleton<IoService>::instance();
 		mAcceptor.reset(new asio::ip::tcp::acceptor(ioService_.getIoService()));
 

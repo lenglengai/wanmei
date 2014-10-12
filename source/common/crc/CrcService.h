@@ -19,7 +19,7 @@ namespace std {
 		__i32 runTable(const char * nName);
 		
 		static void runScript();
-		void runPreinit();
+		bool runPreinit();
 		void runInit();
 
 		CrcService();

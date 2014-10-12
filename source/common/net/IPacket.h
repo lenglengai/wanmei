@@ -1,13 +1,11 @@
 #pragma once
 
 #include "IBlock.h"
-#include "../crc/CrcService.h"
 
 #ifdef __NET__
 namespace std {
 
 	class Session;
-	class IProtocol;
 	typedef std::weak_ptr<Session> SessionWtr;
 	typedef std::shared_ptr<Session> SessionPtr;
 	class IPacket

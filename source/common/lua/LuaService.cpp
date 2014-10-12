@@ -14,10 +14,12 @@ namespace std {
 
 	bool LuaService::runPreinit()
 	{
+	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("LuaService run runPreinit!"));
 		
 		logService_.logInfo(log_1("LuaService run runPreinit finish!"));
+	#endif
 		return true;
 	}
 	
@@ -37,6 +39,8 @@ namespace std {
 	{
 		this->runClose();
 	}
+	
+	static Preinit<LuaService> sLuaServicePreinit;
 
 }
 #endif

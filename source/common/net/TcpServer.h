@@ -11,10 +11,14 @@ namespace std {
 	{
 	public:
 		template<class T>
-		void headSerialize(T& nSerialize);
+		void headSerialize(T& nSerialize)
+		{
+			nSerialize.runString(mAddress, "address", "127.0.0.1");
+			nSerialize.runString(mPort, "port", "8080");
+		}
 		const char * streamName();
 		const char * streamUrl();
-		void runPreinit();
+		bool runPreinit();
 		void runLoad();
 		void runStart();
 
@@ -32,12 +36,6 @@ namespace std {
 		string mAddress;
 		string mPort;
 	};
-	template<class T>
-	void TcpServer::headSerialize(T& nSerialize)
-	{
-		nSerialize.runString(mAddress, "address", "127.0.0.1");
-		nSerialize.runString(mPort, "port", "8080");
-	}
 
 }
 #endif

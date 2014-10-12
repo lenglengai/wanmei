@@ -1,8 +1,4 @@
-#include "../DefInc.h"
-
-#include "../log/LogService.h"
-
-#include "PropertySink.h"
+#include "../Common.h"
 
 #ifdef __PROPERTY__
 namespace std {
@@ -25,8 +21,10 @@ namespace std {
 		__i32 propertyId_ = nPropertyId->getPropertyId();
 		map<__i32, PropertyIdPtr>::iterator it = mPropertyIds.find(propertyId_);
 		if (it != mPropertyIds.end()) {
+		#ifdef __LOG__
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1(propertyId_));
+		#endif
 			return;
 		}
 		mPropertyIds[propertyId_] = nPropertyId;

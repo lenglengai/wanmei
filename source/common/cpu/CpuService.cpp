@@ -16,8 +16,10 @@ namespace std {
 	
 	bool CpuService::runPreinit()
 	{
+	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("CpuService run runPreinit!"));
+	#endif
 #ifdef __WINDOW__
 		SYSTEM_INFO si;
 		GetSystemInfo(&si);
@@ -25,7 +27,9 @@ namespace std {
 #else
 		mCpuCount = sysconf(_SC_NPROCESSORS_CONF);
 #endif
+#ifdef __LOG__
 		logService_.logInfo(log_1("CpuService run runPreinit finish!"));
+#endif
 		return true;
 	}
 	
@@ -38,6 +42,8 @@ namespace std {
 	{
 		mCpuCount = 0;
 	}
+	
+	static Preinit<CompressService> sCompressServicePreinit;
 	
 }
 #endif

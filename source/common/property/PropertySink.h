@@ -1,7 +1,5 @@
 #pragma once
 
-#include "IPropertyId.h"
-
 #ifdef __PROPERTY__
 namespace std {
 

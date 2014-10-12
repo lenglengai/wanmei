@@ -1,5 +1,4 @@
-#include "../DefInc.h"
-
+#include "../Common.h"
 #include "IPacket.h"
 
 #ifdef __NET__

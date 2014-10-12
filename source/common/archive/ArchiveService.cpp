@@ -1,5 +1,7 @@
 #include "../Common.h"
 
+#include "JourneyDescripter.h"
+
 #ifdef __ARCHIVE__
 namespace std {
 
@@ -30,9 +32,11 @@ namespace std {
 	{
 		std::map<std::string, IJourney *> it = mJourneys.find(nJourneyName);
 		if (it == mJourneys.end()) {
+		#ifdef __LOG__
 			LogService logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_2("ArchiveService runJourney nJourneyName is:!", nJourneyName));
-			return;
+		#endif
+		return;
 		}
 		IJourney * journey_ = it->second;
 		journey_.loadJourney();
@@ -40,27 +44,31 @@ namespace std {
 
 	bool ArchiveService::runPreinit()
 	{
+	#ifdef __LOG__
 		LogService logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("ArchiveService run runPreinit!"));
-		
+	#endif
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunLoad0.connect(boost::bind(&ArchiveService::runLoad, this));
-		
+	#ifdef __LOG__
 		logService_.logInfo(log_1("ArchiveService run runPreinit finish!"));
+	#endif
 		return true;
 	}
 	
 	void ArchiveService::runLoad()
 	{
+	#ifdef __LOG__
 		LogService logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("ArchiveService run runLoad!"));
-		
+	#endif
 		std::string configure_ = "configure.jf";
 		mArchiveReader.runOpen(configure_.c_str());
 		this->m_tRunConfigure();
 		mArchiveReader.runClose();
-		
+	#ifdef __LOG__
 		logService_.logInfo(log_1("ArchiveService run runLoad finish!"));
+	#endif
 	}
 
 	void ArchiveService::runClear()
@@ -78,6 +86,8 @@ namespace std {
 	{
 		this->runClear();
 	}
+	
+	static Preinit<ArchiveService> sArchiveServicePreinit;
 
 }
 #endif

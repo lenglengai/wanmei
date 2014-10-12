@@ -3,16 +3,12 @@
 #include <boost/array.hpp>
 #include <boost/asio.hpp>
 
-#include <atomic>
-#include <deque>
 #include <mutex>
-
-#include "../property/PropertyMgr.h"
+#include <atomic>
 
 #include "IPacket.h"
 #include "WriteBlock.h"
 #include "ReadBlock.h"
-
 
 using namespace boost;
 

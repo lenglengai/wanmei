@@ -26,38 +26,45 @@ namespace std {
 
 	void RandomService::runScript()
 	{
+	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("RandomService run runScript!"));
-
+	#endif
 		LuaService& luaService_ = Singleton<LuaService>::instance();
 		luaService_.runClass<LogService>("RandomService");
 		luaService_.runMethod<LogService>(&RandomService::runLuaRandom, "runRandom");
-		
+	#ifdef __LOG__
 		logService_.logInfo(log_1("RandomService run runScript finish!"));
+	#endif
 	}
 
 	bool RandomService::runPreinit()
 	{
+	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("RandomService run runPreinit!"));
-
+	#endif
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&RandomService::runInit, this));
 		
 		mEngine.seed(mDevice());
-		
+	#ifdef __LOG__
 		logService_.logInfo(log_1("RandomService run runPreinit finish!"));
+	#endif
 		return true;
 	}
 
-	void RandomService::runInit()
+	bool RandomService::runInit()
 	{
+	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("RandomService run runInit!"));
-
+	#endif
 		RandomService::runScript();
-		
+	#ifdef __LOG__
 		logService_.logInfo(log_1("RandomService run runInit finish!"));
+	#endif
+		return true;
 	}
 
 	RandomService::RandomService()
@@ -67,6 +74,8 @@ namespace std {
 	RandomService::~RandomService()
 	{
 	}
+	
+	static Preinit<RandomService> sRandomServicePreinit;
 
 }
 #endif

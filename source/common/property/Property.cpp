@@ -1,7 +1,4 @@
-#include "../DefInc.h"
-
-#include "Property.h"
-#include "PropertyMgr.h"
+#include "../Common.h"
 
 #ifdef __PROPERTY__
 namespace std {
