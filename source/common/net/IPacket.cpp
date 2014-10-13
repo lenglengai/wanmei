@@ -1,5 +1,4 @@
 #include "../Common.h"
-#include "IPacket.h"
 
 #ifdef __NET__
 namespace std {
@@ -9,22 +8,24 @@ namespace std {
 		return true;
 	}
 
-	void IPacket::setHeader(__i32 nProtocol, __i32 nPacket)
+	void IPacket::setHeader(__i32 nOffline, __i32 nOnline, __i32 nPacket)
 	{
-		mProtocol = nProtocol;
+		mOffline = nOffline;
+		mOnline = nOnline;
 		mPacket = nPacket;
 	}
 
 	bool IPacket::runHeader(BlockPtr& nBlock)
 	{
-		nBlock->runInt32(mProtocol);
+		nBlock->runInt32(mOffline);
+		nBlock->runInt32(mOnline);
 		nBlock->runInt32(mPacket);
 		return true;
 	}
 
 	bool IPacket::isDefault()
 	{
-		return ((0 == mProtocol) || (0 == mPacket));
+		return ((0 == mOffline) || (0 == mPacket));
 	}
 
 	void IPacket::runInit()
@@ -32,14 +33,16 @@ namespace std {
 	}
 
 	IPacket::IPacket()
-		: mProtocol(0)
+		: mOffline(0)
 		, mPacket(0)
+		, mOnline(0)
 	{
 	}
 
 	IPacket::~IPacket()
 	{
-		mProtocol = 0;
+		mOffline = 0;
+		mOnline = 0;
 		mPacket = 0;
 	}
 

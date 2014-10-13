@@ -13,7 +13,7 @@ namespace std {
 	public:
 		virtual bool handleRun(SessionPtr& nSession);
 		virtual bool runBlock(BlockPtr& nBlock) = 0;
-		void setHeader(__i32 nProtocol, __i32 nPacket);
+		void setHeader(__i32 nOffline, __i32 nOnline, __i32 nPacket);
 		bool runHeader(BlockPtr& nBlock);
 		virtual bool isDefault();
 		virtual void runInit() = 0;
@@ -22,19 +22,22 @@ namespace std {
 		virtual ~IPacket();
 
 	protected:
-		__i32 mProtocol;
+		__i32 mOffline;
+		__i32 mOnline;
 		__i32 mPacket;
 	};
 	typedef std::shared_ptr<IPacket> PacketPtr;
 
-	template<class T0, class T1>
+	template<class T0, class T1, class T2>
 	class Packet : public IPacket
 	{
 	public:
 		void runInit()
 		{
-			T1& protocol_ = Singleton<T1>::instance();
-			mProtocol = protocol_.getProtocolId();
+			T1& offline_ = Singleton<T1>::instance();
+			mOffline = offline_.getProtocolId();
+			T2& online_ = Singleton<T2>::instance();
+			mOnline = online_.getProtocolId();
 			CrcService& crcService_ = Singleton<CrcService>::instance();
 			mPacket = crcService_.runCommon(T0::sPacketName);
 		}

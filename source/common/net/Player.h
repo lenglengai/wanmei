@@ -5,11 +5,11 @@
 #ifdef __NET__
 namespace std {
 
-	class ITourist
+	class Player
 	{
 	public:
-		ITourist(SessionPtr& nSession);
-		virtual ~ITourist();
+		Player(SessionPtr& nSession);
+		virtual ~Player();
 
 	private:
 		SessionWtr mSession;

@@ -20,16 +20,16 @@ namespace std {
 	 static const __i32 mClosed_ = 0;
 	 static const __i32 mOpened_ = 1;
 	};
-	class ITourist;
-	typedef std::weak_ptr<ITourist> TouristWtr;
-	typedef std::shared_ptr<ITourist> TouristPtr;
+	class Player;
+	typedef std::weak_ptr<Player> PlayerWtr;
+	typedef std::shared_ptr<Player> PlayerPtr;
 	class Session : public PropertyMgr, public std::enable_shared_from_this<Session>
 	{
 	public:
 		enum { write_timeout = 90 };
 		enum { read_timeout = 90 };
 
-		void setTourist(TouristPtr& nTourist);
+		void setPlayer(PlayerPtr& nPlayer);
 		bool runSend(PacketPtr& nPacket);
 		asio::ip::tcp::socket& getSocket();
 		void runStart();

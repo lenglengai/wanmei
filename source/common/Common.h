@@ -20,5 +20,6 @@
 #include "handle/HandleService.h"
 #include "ioservice/IoService.h"
 
+#include "archive/ArchiveService.h"
 #include "setting/SettingService.h"
 #include "init/InitService.h"

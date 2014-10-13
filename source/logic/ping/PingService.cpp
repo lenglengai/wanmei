@@ -242,7 +242,7 @@ namespace std {
 
 	void PingProtocol::runStart()
 	{
-	#ifdef __CLTRECV__
+	#ifdef __CLIENT__
 		HandleService& handleService_ = 
 			Singleton<HandleService>::instance();
 		ContextPtr context_ = mPingTick;
