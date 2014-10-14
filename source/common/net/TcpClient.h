@@ -1,10 +1,6 @@
 #pragma once
 
-#include "../property/PropertySink.h"
-
-#include "Session.h"
-
-#ifdef __CLIENTNET__
+#ifdef __TCPCLIENT__
 namespace std {
 
 	class TcpClient : public PropertySink
@@ -12,7 +8,11 @@ namespace std {
 	public:
 		enum { connect_timeout = 90 };
 		template<class T>
-		void headSerialize(T& nSerialize);
+		void headSerialize(T& nSerialize)
+		{
+			nSerialize.runString(mAddress, "address", "127.0.0.1");
+			nSerialize.runString(mPort, "port", "8080");
+		}
 		const char * streamName();
 		const char * streamUrl();
 		void runPreinit();
@@ -36,12 +36,6 @@ namespace std {
 		std::string mPort;
 	};
 	typedef std::shared_ptr<TcpClient> ClientPtr;
-	template<class T>
-	void TcpClient::headSerialize(T& nSerialize)
-	{
-		nSerialize.runString(mAddress, "address", "127.0.0.1");
-		nSerialize.runString(mPort, "port", "8080");
-	}
 
 }
 #endif

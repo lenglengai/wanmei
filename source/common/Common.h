@@ -20,6 +20,10 @@
 #include "handle/HandleService.h"
 #include "ioservice/IoService.h"
 
+#include "net/ProtocolService.h"
+#include "net/TcpClient.h"
+#include "net/TcpServer.h"
+
 #include "archive/ArchiveService.h"
 #include "setting/SettingService.h"
 #include "init/InitService.h"

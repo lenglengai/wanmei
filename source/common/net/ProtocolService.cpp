@@ -1,7 +1,4 @@
-#include "../DefInc.h"
-
-#include "../log/LogService.h"
-#include "ProtocolService.h"
+#include "../Common.h"
 
 #ifdef __NET__
 namespace std {

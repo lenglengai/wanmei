@@ -1,14 +1,6 @@
-#include "../DefInc.h"
+#include "../Common.h"
 
-#include "../log/LogService.h"
-#include "../init/InitService.h"
-#include "../setting/SettingService.h"
-#include "../archive/ArchiveService.h"
-#include "../ioservice/IoService.h"
-
-#include "TcpServer.h"
-
-#ifdef __SERVERNET__
+#ifdef __TCPSERVER__
 namespace std {
 
 	void TcpServer::handleAccept(const boost::system::error_code& nError)
@@ -55,30 +47,29 @@ namespace std {
 
 	void TcpServer::runPreinit()
 	{
-		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
-		archiveService_.m_tRunConfigure.connect(boost::bind(&TcpServer::runLoad, this));
-
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunStart0.connect(boost::bind(&TcpServer::runStart, this));
 		initService_.m_tRunStop.connect(boost::bind(&TcpServer::runStop, this));
-		initService_.registerArchive(this->streamUrl());
 	}
 
 	void TcpServer::runLoad()
 	{
 	#ifdef __LOG__
 		LogService& logService = Singleton<LogService>::instance();
-		logService.logError(log_1("begin load tcpServer config!"));
+		logService.logError(log_1("TcpServer run runLoad!"));
 	#endif
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
-		archiveService_.initUrlStream(this);
+		archiveService_.xmlUrlStream(this);
+	#ifdef __LOG__
+		logService.logError(log_1("TcpServer run runLoad finish!"));
+	#endif
 	}
 
 	void TcpServer::runStart()
 	{
 	#ifdef __LOG__
 		LogService& logService = Singleton<LogService>::instance();
-		logService.logError(log_1("tcp server begin run start!"));
+		logService.logError(log_1("TcpServer run runStart!"));
 	#endif
 		IoService& ioService_ = Singleton<IoService>::instance();
 		mAcceptor.reset(new asio::ip::tcp::acceptor(ioService_.getIoService()));
@@ -91,12 +82,22 @@ namespace std {
 		mAcceptor->bind(endpoint_);
 		mAcceptor->listen();
 		startAccept();
+	#ifdef __LOG__
+		logService.logError(log_1("TcpServer run runStart fihish!"));
+	#endif
 	}
 
 	void TcpServer::runStop()
 	{
+	#ifdef __LOG__
+		LogService& logService = Singleton<LogService>::instance();
+		logService.logError(log_1("TcpServer run runStop!"));
+	#endif
  		mNewSession->runClose();
  		mAcceptor->close();
+	#ifdef __LOG__
+		logService.logError(log_1("TcpServer run runStop fihish!"));
+	#endif
 	}
 
 	TcpServer::TcpServer()

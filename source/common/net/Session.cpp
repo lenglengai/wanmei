@@ -1,17 +1,11 @@
-#include "../DefInc.h"
-
-#include "../log/LogService.h"
-#include "../init/InitService.h"
-#include "ProtocolService.h"
-#include "Session.h"
-#include "ITourist.h"
+#include "../Common.h"
 
 #ifdef __NET__
 namespace std {
 	
-	void Session::setTourist(TouristPtr& nTourist)
+	void Session::setPlayer(PlayerPtr& nPlayer)
 	{
-		mTourist = nTourist;
+		mPlayer = nPlayer;
 	}
 
 	bool Session::runSend(PacketPtr& nPacket)

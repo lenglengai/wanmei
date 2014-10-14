@@ -9,6 +9,7 @@
 #include "IPacket.h"
 #include "WriteBlock.h"
 #include "ReadBlock.h"
+#include "Player.h"
 
 using namespace boost;
 
@@ -20,9 +21,6 @@ namespace std {
 	 static const __i32 mClosed_ = 0;
 	 static const __i32 mOpened_ = 1;
 	};
-	class Player;
-	typedef std::weak_ptr<Player> PlayerWtr;
-	typedef std::shared_ptr<Player> PlayerPtr;
 	class Session : public PropertyMgr, public std::enable_shared_from_this<Session>
 	{
 	public:
@@ -59,7 +57,7 @@ namespace std {
 		asio::ip::tcp::socket mSocket;
 		deque<PacketPtr> mPackets;
 		ReadBlockPtr mReadBlock;
-		TouristWtr mTourist;
+		PlayerWtr mPlayer;
 		std::mutex mMutex;
 	};
 

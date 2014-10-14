@@ -1,6 +1,4 @@
 #include "../Common.h"
-#include "IBlock.h"
-#include "WriteBlock.h"
 
 #ifdef __NET__
 namespace std {

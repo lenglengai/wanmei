@@ -1,5 +1,4 @@
 #include "../Common.h"
-#include "IProtocol.h"
 
 #ifdef __NET__
 namespace std {

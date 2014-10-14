@@ -1,17 +1,9 @@
-#include "../DefInc.h"
+#include "../Common.h"
 
-#include "../log/LogService.h"
-#include "../init/InitService.h"
-#include "../setting/SettingService.h"
-#include "../archive/ArchiveService.h"
-#include "../ioservice/IoService.h"
-
-#include "Client.h"
-
-#ifdef __CLIENTNET__
+#ifdef __TCPCLIENT__
 namespace std {
 
-	void Client::handleConnect(const boost::system::error_code& nError)
+	void TcpClient::handleConnect(const boost::system::error_code& nError)
 	{
 		mConnectTimer->cancel();
 		if (nError) {
@@ -25,7 +17,7 @@ namespace std {
 		mSession->openSession();
 	}
 
-	void Client::handleConnectTimeout(const boost::system::error_code& nError)
+	void TcpClient::handleConnectTimeout(const boost::system::error_code& nError)
 	{
 		if (nError) {
 		#ifdef __LOG__
@@ -43,7 +35,7 @@ namespace std {
 		}
 	}
 
-	void Client::startConnect()
+	void TcpClient::startConnect()
 	{
 		try {
 			IoService& ioService_ = Singleton<IoService>::instance();
@@ -52,10 +44,10 @@ namespace std {
 			asio::ip::tcp::resolver::query query_(mAddress, mPort);
 			asio::ip::tcp::resolver::iterator iterator_ = resolver_.resolve(query_);
 			boost::asio::async_connect(mSession->getSocket(), iterator_,
-				boost::bind(&Client::handleConnect, this,
+				boost::bind(&TcpClient::handleConnect, this,
 				boost::asio::placeholders::error));
-			mConnectTimer->expires_from_now(boost::posix_time::seconds(Client::connect_timeout));
-			mConnectTimer->async_wait(boost::bind(&Client::handleConnectTimeout, 
+			mConnectTimer->expires_from_now(boost::posix_time::seconds(TcpClient::connect_timeout));
+			mConnectTimer->async_wait(boost::bind(&TcpClient::handleConnectTimeout, 
 				this, boost::asio::placeholders::error));
 		} catch (boost::system::system_error& e) {
 		#ifdef __LOG__
@@ -65,41 +57,47 @@ namespace std {
 		}
 	}
 
-	const char * Client::streamName()
+	const char * TcpClient::streamName()
 	{
-		return "client";
+		return "tcpClient";
 	}
 
-	const char * Client::streamUrl()
+	const char * TcpClient::streamUrl()
 	{
-		return "client.xml";
+		return "tcpClient.xml";
 	}
 
-	void Client::runPreinit()
-	{
-		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
-		archiveService_.m_tRunConfigure.connect(boost::bind(&Client::runLoad, this));
-
-		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunStart0.connect(boost::bind(&Client::runStart, this));
-		initService_.registerArchive(this->streamUrl());
-	}
-
-	void Client::runLoad()
+	void TcpClient::runPreinit()
 	{
 	#ifdef __LOG__
 		LogService& logService = Singleton<LogService>::instance();
-		logService.logError(log_1("begin load client config!"));
+		logService.logInfo(log_1("TcpClient run runPreinit!"));
+	#endif
+		InitService& initService_ = Singleton<InitService>::instance();
+		initService_.m_tRunStart0.connect(boost::bind(&TcpClient::runStart, this));
+	#ifdef __LOG__
+		logService.logInfo(log_1("TcpClient run runPreinit finish!"));
+	#endif
+	}
+
+	void TcpClient::runLoad()
+	{
+	#ifdef __LOG__
+		LogService& logService = Singleton<LogService>::instance();
+		logService.logInfo(log_1("TcpClient run runLoad!"));
 	#endif
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
-		archiveService_.initUrlStream(this);
+		archiveService_.xmlUrlStream(this);
+	#ifdef __LOG__
+		logService.logInfo(log_1("TcpClient run runLoad finish!"));
+	#endif
 	}
 
-	void Client::runStart()
+	void TcpClient::runStart()
 	{
 	#ifdef __LOG__
 		LogService& logService = Singleton<LogService>::instance();
-		logService.logError(log_1("client begin run start!"));
+		logService.logInfo(log_1("TcpClient run runStart!"));
 	#endif
 		IoService& ioService_ = Singleton<IoService>::instance();
 		asio::io_service& ioservice = ioService_.getIoService();
@@ -108,26 +106,36 @@ namespace std {
 		this->runCreate(propertyMgrPtr_);
 		mConnectTimer.reset(new asio::deadline_timer(ioservice));
 		this->startConnect();
+	#ifdef __LOG__
+		logService.logInfo(log_1("TcpClient run runStart finish!"));
+	#endif
 	}
 
-	void Client::runStop()
+	void TcpClient::runStop()
 	{
+	#ifdef __LOG__
+		LogService& logService = Singleton<LogService>::instance();
+		logService.logInfo(log_1("TcpClient run runStop!"));
+	#endif
 		IoService& ioService = Singleton<IoService>::instance();
 		ioService.runStop();
+	#ifdef __LOG__
+		logService.logInfo(log_1("TcpClient run runStop finish!"));
+	#endif
 	}
 
-	SessionPtr& Client::getSession()
+	SessionPtr& TcpClient::getSession()
 	{
 		return mSession;
 	}
 
-	Client::Client()
+	TcpClient::TcpClient()
 		: mAddress("127.0.0.1")
 		, mPort("8080")
 	{
 	}
 
-	Client::~Client()
+	TcpClient::~TcpClient()
 	{
 		mAddress = "127.0.0.1";
 		mPort = "8080";

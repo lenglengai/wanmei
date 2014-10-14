@@ -1,10 +1,6 @@
 #pragma once
 
-#include "../property/PropertySink.h"
-
-#include "Session.h"
-
-#ifdef __SERVERNET__
+#ifdef __TCPSERVER__
 namespace std {
 
 	class TcpServer : public PropertySink
