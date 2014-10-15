@@ -15,7 +15,3 @@
 #else
 #define __FUN__ __PRETTY_FUNCTION__
 #endif
-
-#define INITYEAR	2014
-#define INITMONTH	9
-#define INITDAY		1

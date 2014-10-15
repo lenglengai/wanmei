@@ -3,11 +3,17 @@
 #ifdef __NET__
 namespace std {
 	
-	void Session::setPlayer(PlayerPtr& nPlayer)
+	void Session::contextPacket(PacketPtr& nPacket)
 	{
-		mPlayer = nPlayer;
+		if ( mPlayer->isInSwitch() ) {
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1("Session contextPacket"));
+			this->runClose();
+			return;
+		}
+		mPlayer->
 	}
-
+	
 	bool Session::runSend(PacketPtr& nPacket)
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
@@ -211,13 +217,14 @@ namespace std {
 		return mSocket;
 	}
 
-	Session::Session(asio::io_service& nIoService)
+	Session::Session(asio::io_service& nIoService, PlayerPtr& nPlayer)
 		: mSocket(nIoService)
 		, mReadBlock(new ReadBlock())
 		, mWriteBlockPtr(new WriteBlock())
 		, mReadTimer(nIoService)
 		, mWriteTimer(nIoService)
 		, mSending(false)
+		, mPlayer(nPlayer)
 		, mSessionState(SessionState_::mClosed_)
 	{
 		mReadBuffer.fill(0);

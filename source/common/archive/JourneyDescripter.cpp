@@ -25,7 +25,7 @@ namespace std {
 	}
 
 	JourneyDescripter::JourneyDescripter()
-		: mJourney(0)
+		: mJourneyId(0)
 	{
 		mJourneys.clear();
 	}
@@ -33,7 +33,7 @@ namespace std {
 	JourneyDescripter::~JourneyDescripter()
 	{
 		mJourneys.clear();
-		mJourney = 0;
+		mJourneyId = 0;
 	}
 
 }

@@ -20,7 +20,6 @@ namespace std {
 		initService_.m_tRunStart0.connect(boost::bind(&IoService::runStart, this));
 		initService_.m_tRunRun.connect(boost::bind(&IoService::runRun, this));
 		initService_.m_tRunStop.connect(boost::bind(&IoService::runStop, this));
-		initService_.registerArchive(this->streamUrl());
 	#ifdef __LOG__
 		logService_.logInfo(log_1("run runPreinit ioService finish!"));
 	#endif
@@ -37,7 +36,7 @@ namespace std {
 			IoServicePtr ioService(new asio::io_service());
 			WorkPtr work(new asio::io_service::work(*ioService));
 			mIoServices.push_back(ioService);
-			mWork.push_back(work);
+			mWorks.push_back(work);
 		}
 	#ifdef __LOG__
 		logService_.logInfo(log_1("init ioService finish!"));

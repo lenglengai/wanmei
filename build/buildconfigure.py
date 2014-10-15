@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+#-*- coding:utf-8 -*-
+
 import shutil
 import platform
 import buildbase
@@ -24,14 +27,10 @@ class BuildConfigure(buildbase.BuildBase):
         self.runConfigure()
 
     def runConfigure(self):
-        configurePath = '../configure/%sConfigure.xml' % self.mProject
-        configurePath = os.path.abspath(configurePath)
-        outPath = '../binary/%sConfigure.jf' % self.mProject
-        outPath = os.path.abspath(outPath)
-        configureCmd = 'configure.exe %s %s' % (configurePath, outPath)
+        configureCmd = 'gameClient.exe configure'
         sysName = platform.system()
         if 'Windows' != sysName:
-            configureCmd = './configure %s %s' % (configurePath, outPath)
+            configureCmd = './gameClient configure'
         buildbase.BuildBase.interBuild(self, configureCmd)
 
     def inCopyXml(self, nLine, nAssetPath):
@@ -47,8 +46,8 @@ class BuildConfigure(buildbase.BuildBase):
         assetPath = ''
         if 'android' == nPlatform:
             assetPath = os.path.abspath('../mbclient/Resources')
-        elif 'server' == nPlatform:
-            configurePath = '../%s/configure' % nProj
+        elif 'gameServer' == nPlatform:
+            configurePath = '../%s/binary' % nProj
             assetPath = os.path.abspath(configurePath)
         xmlPath = os.path.abspath('../source/XMLLISTS')
         for line in open(xmlPath):

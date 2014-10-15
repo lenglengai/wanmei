@@ -1,7 +1,16 @@
 #pragma once
 
+#ifdef __WINDOW__
+#pragma warning( push )
+#pragma warning( disable : 4819 )
+#endif
+
 #include <boost/array.hpp>
 #include <boost/asio.hpp>
+
+#ifdef __WINDOW__
+#pragma warning( pop )
+#endif
 
 #include <mutex>
 #include <atomic>
@@ -9,7 +18,7 @@
 #include "IPacket.h"
 #include "WriteBlock.h"
 #include "ReadBlock.h"
-#include "Player.h"
+#include "Robot.h"
 
 using namespace boost;
 
@@ -21,13 +30,13 @@ namespace std {
 	 static const __i32 mClosed_ = 0;
 	 static const __i32 mOpened_ = 1;
 	};
-	class Session : public PropertyMgr, public std::enable_shared_from_this<Session>
+	class Session : public std::enable_shared_from_this<Session>
 	{
 	public:
 		enum { write_timeout = 90 };
 		enum { read_timeout = 90 };
 
-		void setPlayer(PlayerPtr& nPlayer);
+		void contextPacket(PacketPtr& nPacket);
 		bool runSend(PacketPtr& nPacket);
 		asio::ip::tcp::socket& getSocket();
 		void runStart();
@@ -35,7 +44,7 @@ namespace std {
 		__i32 getSessionState();
 		void openSession();
 
-		Session(asio::io_service& nIoService);
+		Session(asio::io_service& nIoService, PlayerPtr& nPlayer);
 		~Session();
 
 	private:
@@ -57,7 +66,7 @@ namespace std {
 		asio::ip::tcp::socket mSocket;
 		deque<PacketPtr> mPackets;
 		ReadBlockPtr mReadBlock;
-		PlayerWtr mPlayer;
+		PlayerPtr& mPlayer;
 		std::mutex mMutex;
 	};
 

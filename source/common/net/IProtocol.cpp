@@ -16,7 +16,8 @@ namespace std {
 		}
 		PacketPtr packet_ = packetId_->createPacket();
 		__i32 protocolId_ = this->getProtocolId();
-		packet_->setHeader(protocolId_, packetType_);
+		bool inline_ = false; nReadBlock->runBool(inline_);
+		packet_->setHeader(protocolId_, inline_, packetType_);
 		BlockPtr block_ = nReadBlock;
 		packet_->runBlock(block_);
 		if (packet_->isDefault()) {
@@ -26,7 +27,11 @@ namespace std {
 		#endif
 			return false;
 		}
-		return this->runPacket(packet_, nSession);
+		if (inline_) {
+			nSession->contextPacket(packet_);
+		} else {
+			return this->runPacket(packet_, nSession);
+		}
 	}
 
 	bool IProtocol::runPacket(PacketPtr& nPacket, SessionPtr& nSession)

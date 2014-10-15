@@ -6,14 +6,14 @@
 #ifdef __ARCHIVE__
 namespace std {
 
-	void ArchiveWriter::runArchives(std::list<std::string>& nArchives)
+	void ArchiveWriter::runArchives(std::set<std::string>& nArchives)
 	{
 		__i32 pos_ = (ArchiveHash::hashSize()) * (nArchives.size());
 		pos_ += sizeof(__i16); pos_ += ArchiveHead::hashSize();
 		mBinWriter.runSeek(pos_);
 
-		for (auto it : nArchives) {
-			this->runArchive(it);
+		for (auto& it : nArchives) {
+			this->runArchive(it.c_str());
 		}
 	}
 

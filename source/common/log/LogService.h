@@ -1,13 +1,24 @@
 #pragma once
 
+#ifdef __WINDOW__
+#pragma warning( push )
+#pragma warning( disable : 4819 )
+#endif
+
 #include <boost/format.hpp>
+
+#ifdef __BOOSTLOG__
+#include <boost/log/sources/logger.hpp>
+#endif
+
+#ifdef __WINDOW__
+#pragma warning( pop )
+#endif
 
 #ifdef __COCOSLOG__
 #include <cocos2d.h>
 #endif
-#ifdef __BOOSTLOG__
-#include <boost/log/sources/logger.hpp>
-#endif
+
 
 #define log_1(y) boost::format("[%1%]%2%") % __FUN__ % y
 #define log_2(y, y0) boost::format("[%1%][%2%]%3%") % __FUN__ % y % y0

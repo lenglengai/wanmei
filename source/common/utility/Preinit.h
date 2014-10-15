@@ -5,7 +5,7 @@ namespace std{
 	class PreinitSlot
 	{
 	public:
-		boost::signals2::signal<void()> m_tRunPreinit;
+		boost::signals2::signal<void ()> m_tRunPreinit;
 		void runPreinit();
 		
 		PreinitSlot();
@@ -29,4 +29,20 @@ namespace std{
 		}
 	};
 	
+	template <class T>
+	class PreinitPtr
+	{
+	public:
+		static void runPreinit()
+		{
+			T& t_ = SingletonPtr<T>::instance();
+			t_->runPreinit();
+		}
+		
+		Preinit()
+		{
+			PreinitSlot& preinitSlot = Singleton<PreinitSlot>::instance();
+			preinitSlot.m_tRunPreinit.connect(&Preinit<T>::runPreinit);
+		}
+	};
 }

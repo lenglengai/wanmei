@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+#-*- coding:utf-8 -*-
+
 import os
 import platform
 import buildbase
@@ -22,9 +25,7 @@ class BuildCMake(buildbase.BuildBase):
         buildbase.BuildBase.runChdir(self, cmdPath)
 
     def __initSource(self):
-        if 'configure' == self.mProject:
-            self.mSource = '../../../build/build-cmake/configure/'
-        elif 'journey' == self.mProject:
+        if 'journey' == self.mProject:
             self.mSource = '../../../build/build-cmake/journey/'
         else:
             self.mSource = '../../../build/build-cmake/source/'

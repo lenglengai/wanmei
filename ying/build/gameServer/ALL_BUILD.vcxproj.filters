@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="Windows-1252"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\wanmei\build\build-cmake\source\CMakeLists.txt" />
+    <CustomBuild Include="CMakeFiles\006c760907eeec1815f7a617d6e0211d\ALL_BUILD.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CMakeFiles\ALL_BUILD" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{43A1C2E1-9B76-4C9E-AF7F-D55296BE0F50}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

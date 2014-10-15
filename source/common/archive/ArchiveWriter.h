@@ -10,7 +10,7 @@ namespace std {
 	{
 	public:
 		void runOpen(const char * nUrl);
-		void runArchives(std::list<std::string>& nArchives);
+		void runArchives(std::set<std::string>& nArchives);
 		void runClose();
 
 	private:

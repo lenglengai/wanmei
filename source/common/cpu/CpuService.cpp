@@ -23,7 +23,7 @@ namespace std {
 #ifdef __WINDOW__
 		SYSTEM_INFO si;
 		GetSystemInfo(&si);
-		mCpuCount = si.dwNumberOfProcessors;
+		mCpuCount = static_cast<__i16>(si.dwNumberOfProcessors);
 #else
 		mCpuCount = sysconf(_SC_NPROCESSORS_CONF);
 #endif

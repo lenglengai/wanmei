@@ -51,6 +51,8 @@ namespace std {
 	{
 		this->runClear();
 	}
+	
+	static Preinit<ProtocolService> sProtocolServicePreinit;
 
 }
 #endif

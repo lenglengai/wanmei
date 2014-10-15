@@ -15,10 +15,9 @@ namespace std {
 		}
 		const char * streamName();
 		const char * streamUrl();
-		void runPreinit();
+		bool runPreinit();
 		void runLoad();
 		void runStart();
-		SessionPtr& getSession();
 
 		TcpClient();
 		~TcpClient();
@@ -31,7 +30,6 @@ namespace std {
 
 	private:
 		std::shared_ptr<asio::deadline_timer> mConnectTimer;
-		SessionPtr mSession;
 		std::string mAddress;
 		std::string mPort;
 	};

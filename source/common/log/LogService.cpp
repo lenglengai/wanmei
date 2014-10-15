@@ -1,6 +1,12 @@
 #include "../Common.h"
 
 #ifdef __BOOSTLOG__
+
+#ifdef __WINDOW__
+#pragma warning( push )
+#pragma warning( disable : 4819 )
+#endif
+
 #include <boost/log/sinks.hpp>
 #include <boost/log/common.hpp>
 #include <boost/log/support/date_time.hpp>
@@ -8,6 +14,11 @@
 #include <boost/log/attributes.hpp>
 #include <boost/log/utility/setup/console.hpp>
 #include <boost/smart_ptr.hpp>
+
+#ifdef __WINDOW__
+#pragma warning( pop )
+#endif
+
 #endif
 
 #ifdef __LOG__
@@ -63,14 +74,15 @@ namespace std {
 
 	void LogService::runScript()
 	{
-		this->logInfo(log_1("LogService run runScript!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("LogService run runScript!"));
 		
 		LuaService& luaService_ = Singleton<LuaService>::instance();
 		luaService_.runClass<LogService>("LogService");
 		luaService_.runMethod<LogService>(&LogService::luaLogError, "logError");
 		luaService_.runMethod<LogService>(&LogService::luaLogInfo, "logInfo");
 		
-		this->logInfo(log_1("LogService run runScript finish!"));
+		logService_.logInfo(log_1("LogService run runScript finish!"));
 	}
 
 	bool LogService::runPreinit()

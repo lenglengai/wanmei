@@ -13,7 +13,8 @@ namespace std {
 		#endif
 			return;
 		}
-		mNewSession->openSession();
+		SessionPtr& session_ = mNewPlayer->getSession();
+		session_->openSession();
 		startAccept();
 	}
 
@@ -45,11 +46,19 @@ namespace std {
 		return "tcpServer.xml";
 	}
 
-	void TcpServer::runPreinit()
+	bool TcpServer::runPreinit()
 	{
+	#ifdef __LOG__
+		LogService& logService = Singleton<LogService>::instance();
+		logService.logError(log_1("TcpServer run runPreinit!"));
+	#endif
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunStart0.connect(boost::bind(&TcpServer::runStart, this));
 		initService_.m_tRunStop.connect(boost::bind(&TcpServer::runStop, this));
+	#ifdef __LOG__
+		logService.logError(log_1("TcpServer run runPreinit finish!"));
+	#endif
+		return true;
 	}
 
 	void TcpServer::runLoad()
@@ -111,6 +120,8 @@ namespace std {
 		mAddress = "127.0.0.1";
 		mPort = "8080";
 	}
+	
+	static Preinit<TcpServer> sTcpServerPreinit;
 
 }
 #endif

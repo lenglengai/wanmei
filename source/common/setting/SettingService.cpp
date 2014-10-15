@@ -1,6 +1,5 @@
 #include "../Common.h"
 
-#ifdef __SETTING__
 namespace std {
 
 #ifdef __SERVER__
@@ -46,4 +45,3 @@ namespace std {
 	
 	static Preinit<SettingService> sSettingServicePreinit;
 }
-#endif

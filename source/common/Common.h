@@ -24,6 +24,7 @@
 #include "net/TcpClient.h"
 #include "net/TcpServer.h"
 
+#include "archive/ArchiveWriter.h"
 #include "archive/ArchiveService.h"
 #include "setting/SettingService.h"
 #include "init/InitService.h"

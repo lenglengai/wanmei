@@ -1,7 +1,16 @@
 #pragma once
 
+#ifdef __WINDOW__
+#pragma warning( push )
+#pragma warning( disable : 4819 )
+#endif
+
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
+
+#ifdef __WINDOW__
+#pragma warning( pop )
+#endif
 
 namespace std {
 

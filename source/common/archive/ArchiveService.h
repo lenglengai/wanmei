@@ -2,6 +2,7 @@
 
 #include "ArchiveReader.h"
 #include "XmlReader.h"
+#include "IJourney.h"
 
 #ifdef __ARCHIVE__
 namespace std {

@@ -1,6 +1,5 @@
 #pragma once
 
-#ifdef __SETTING__
 namespace std {
 
 	class __funapi SettingService : boost::noncopyable
@@ -21,4 +20,3 @@ namespace std {
 	};
 
 }
-#endif

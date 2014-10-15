@@ -1,0 +1,20 @@
+# CMake generation dependency list for this directory.
+D:/wanmei/build/build-cmake/source/CMakeLists.txt
+D:/wanmei/ying/build/gameServer/CMakeFiles/3.0.1/CMakeSystem.cmake
+D:/wanmei/ying/build/gameServer/CMakeFiles/3.0.1/CMakeCCompiler.cmake
+D:/wanmei/ying/build/gameServer/CMakeFiles/3.0.1/CMakeCXXCompiler.cmake
+D:/setup/CMake/share/cmake-3.0/Modules/CMakeSystemSpecificInformation.cmake
+D:/setup/CMake/share/cmake-3.0/Modules/CMakeGenericSystem.cmake
+D:/setup/CMake/share/cmake-3.0/Modules/Platform/Windows.cmake
+D:/setup/CMake/share/cmake-3.0/Modules/Platform/WindowsPaths.cmake
+D:/setup/CMake/share/cmake-3.0/Modules/CMakeCInformation.cmake
+D:/setup/CMake/share/cmake-3.0/Modules/Platform/Windows-MSVC-C.cmake
+D:/setup/CMake/share/cmake-3.0/Modules/Platform/Windows-MSVC.cmake
+D:/wanmei/ying/build/gameServer/CMakeFiles/3.0.1/CMakeRCCompiler.cmake
+D:/setup/CMake/share/cmake-3.0/Modules/CMakeRCInformation.cmake
+D:/setup/CMake/share/cmake-3.0/Modules/CMakeCommonLanguageInclude.cmake
+D:/setup/CMake/share/cmake-3.0/Modules/CMakeCXXInformation.cmake
+D:/setup/CMake/share/cmake-3.0/Modules/Platform/Windows-MSVC-CXX.cmake
+D:/setup/CMake/share/cmake-3.0/Modules/Platform/Windows-MSVC.cmake
+D:/setup/CMake/share/cmake-3.0/Modules/CMakeCommonLanguageInclude.cmake
+D:/setup/CMake/share/cmake-3.0/Modules/FindBoost.cmake

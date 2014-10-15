@@ -30,22 +30,22 @@ namespace std {
 	
 	void ArchiveService::runJourney(std::string& nJourneyName)
 	{
-		std::map<std::string, IJourney *> it = mJourneys.find(nJourneyName);
+		auto it = mJourneys.find(nJourneyName);
 		if (it == mJourneys.end()) {
 		#ifdef __LOG__
-			LogService logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_2("ArchiveService runJourney nJourneyName is:!", nJourneyName));
 		#endif
 		return;
 		}
 		IJourney * journey_ = it->second;
-		journey_.loadJourney();
-	]
+		journey_->loadJourney();
+	}
 
 	bool ArchiveService::runPreinit()
 	{
 	#ifdef __LOG__
-		LogService logService_ = Singleton<LogService>::instance();
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("ArchiveService run runPreinit!"));
 	#endif
 		InitService& initService_ = Singleton<InitService>::instance();
@@ -59,7 +59,7 @@ namespace std {
 	void ArchiveService::runLoad()
 	{
 	#ifdef __LOG__
-		LogService logService_ = Singleton<LogService>::instance();
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("ArchiveService run runLoad!"));
 	#endif
 		std::string configure_ = "configure.jf";

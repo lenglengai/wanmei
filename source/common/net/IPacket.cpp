@@ -8,24 +8,24 @@ namespace std {
 		return true;
 	}
 
-	void IPacket::setHeader(__i32 nOffline, __i32 nOnline, __i32 nPacket)
+	void IPacket::setHeader(__i32 nProtocol, bool nInline, __i32 nPacket)
 	{
-		mOffline = nOffline;
-		mOnline = nOnline;
+		mProtocol = nProtocol;
+		mInline = nInline;
 		mPacket = nPacket;
 	}
 
 	bool IPacket::runHeader(BlockPtr& nBlock)
 	{
-		nBlock->runInt32(mOffline);
-		nBlock->runInt32(mOnline);
+		nBlock->runInt32(mProtocol);
+		nBlock->runBool(mInline);
 		nBlock->runInt32(mPacket);
 		return true;
 	}
 
 	bool IPacket::isDefault()
 	{
-		return ((0 == mOffline) || (0 == mPacket));
+		return ((0 == mProtocol) || (0 == mPacket));
 	}
 
 	void IPacket::runInit()
@@ -33,16 +33,16 @@ namespace std {
 	}
 
 	IPacket::IPacket()
-		: mOffline(0)
+		: mProtocol(0)
 		, mPacket(0)
-		, mOnline(0)
+		, mInline(true)
 	{
 	}
 
 	IPacket::~IPacket()
 	{
-		mOffline = 0;
-		mOnline = 0;
+		mProtocol = 0;
+		mInline = true;
 		mPacket = 0;
 	}
 

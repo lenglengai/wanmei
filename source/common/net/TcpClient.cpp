@@ -14,7 +14,9 @@ namespace std {
 		#endif
 			return;
 		}
-		mSession->openSession();
+		PlayerPtr& player_ = SingletonPtr<Player>::instance();
+		SessionPtr& session_ = player_->getSession();
+		session_->openSession();
 	}
 
 	void TcpClient::handleConnectTimeout(const boost::system::error_code& nError)
@@ -40,10 +42,14 @@ namespace std {
 		try {
 			IoService& ioService_ = Singleton<IoService>::instance();
 			asio::io_service& ioservice = ioService_.getIoService();
+			
+			PlayerPtr& player_ = SingletonPtr<Player>::instance();
+			SessionPtr& session_ = player_->getSession();
+		
 			asio::ip::tcp::resolver resolver_(ioservice);
 			asio::ip::tcp::resolver::query query_(mAddress, mPort);
 			asio::ip::tcp::resolver::iterator iterator_ = resolver_.resolve(query_);
-			boost::asio::async_connect(mSession->getSocket(), iterator_,
+			boost::asio::async_connect(session_->getSocket(), iterator_,
 				boost::bind(&TcpClient::handleConnect, this,
 				boost::asio::placeholders::error));
 			mConnectTimer->expires_from_now(boost::posix_time::seconds(TcpClient::connect_timeout));
@@ -67,7 +73,7 @@ namespace std {
 		return "tcpClient.xml";
 	}
 
-	void TcpClient::runPreinit()
+	bool TcpClient::runPreinit()
 	{
 	#ifdef __LOG__
 		LogService& logService = Singleton<LogService>::instance();
@@ -78,6 +84,7 @@ namespace std {
 	#ifdef __LOG__
 		logService.logInfo(log_1("TcpClient run runPreinit finish!"));
 	#endif
+		return true;
 	}
 
 	void TcpClient::runLoad()
@@ -101,9 +108,9 @@ namespace std {
 	#endif
 		IoService& ioService_ = Singleton<IoService>::instance();
 		asio::io_service& ioservice = ioService_.getIoService();
-		mSession.reset(new Session(ioservice));
-		PropertyMgrPtr propertyMgrPtr_ = boost::dynamic_pointer_cast<PropertyMgr, Session>(mSession);
-		this->runCreate(propertyMgrPtr_);
+		PlayerPtr& player_ = SingletonPtr<Player>::instance();
+		SessionPtr& session_ = player_->getSession();
+		session_.reset(new Session(ioservice), player_);
 		mConnectTimer.reset(new asio::deadline_timer(ioservice));
 		this->startConnect();
 	#ifdef __LOG__
@@ -124,11 +131,6 @@ namespace std {
 	#endif
 	}
 
-	SessionPtr& TcpClient::getSession()
-	{
-		return mSession;
-	}
-
 	TcpClient::TcpClient()
 		: mAddress("127.0.0.1")
 		, mPort("8080")
@@ -140,6 +142,7 @@ namespace std {
 		mAddress = "127.0.0.1";
 		mPort = "8080";
 	}
-
+	
+	static Preinit<TcpClient> sTcpClientPreinit;
 }
 #endif

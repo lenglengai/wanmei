@@ -1,3 +1,4 @@
+../../../source/common/utility/Preinit.cpp
 ../../../source/common/lua/lua/lapi.c
 ../../../source/common/lua/lua/lauxlib.c
 ../../../source/common/lua/lua/lbaselib.c
@@ -47,12 +48,15 @@
 ../../../source/common/compress/bzlib/huffman.c
 ../../../source/common/compress/bzlib/randtable.c
 ../../../source/common/compress/CompressService.cpp
+../../../source/common/cpu/CpuService.cpp
 ../../../source/common/time/TimeService.cpp
 ../../../source/common/random/RandomService.cpp
 ../../../source/common/crc/CrcService.cpp
 ../../../source/common/log/LogService.cpp
 ../../../source/common/archive/BinReader.cpp
 ../../../source/common/archive/BinWriter.cpp
+../../../source/common/archive/LogWriter.cpp
+../../../source/common/archive/XmlReader.cpp
 ../../../source/common/archive/Archive.cpp
 ../../../source/common/archive/ArchiveHash.cpp
 ../../../source/common/archive/ArchiveHead.cpp
@@ -64,7 +68,6 @@
 ../../../source/common/handle/Handle.cpp
 ../../../source/common/handle/HandleService.cpp
 ../../../source/common/ioservice/IoService.cpp
-../../../source/common/setting/XmlReader.cpp
 ../../../source/common/setting/SettingService.cpp
 ../../../source/common/init/InitService.cpp
 ../../../source/common/net/WriteBlock.cpp
@@ -73,7 +76,9 @@
 ../../../source/common/net/Session.cpp
 ../../../source/common/net/IProtocol.cpp
 ../../../source/common/net/ProtocolService.cpp
-../../../source/common/net/ITourist.cpp
-../../../source/common/net/Client.cpp
-../../../source/common/net/Server.cpp
-../../../source/logic/ping/PingService.cpp
+../../../source/common/net/Robot.cpp
+../../../source/common/net/TcpClient.cpp
+../../../source/common/net/TcpServer.cpp
+../../../source/logic/ping/PingProtocol.cpp
+../../../source/logic/account/Account.cpp
+../../../source/logic/account/AccountService.cpp

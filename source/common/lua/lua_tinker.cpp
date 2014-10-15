@@ -23,7 +23,11 @@ void lua_tinker::init(lua_State *L)
 static int tostring_s64(lua_State *L)
 {
 	char temp[64];
+#if defined(_WIN32) || defined(_WIN64)
+	sprintf_s(temp, "%lld", *(long long*)lua_topointer(L, 1));
+#else
 	sprintf(temp, "%lld", *(long long*)lua_topointer(L, 1));
+#endif
 	lua_pushstring(L, temp);
 	return 1;
 }
@@ -85,7 +89,11 @@ void lua_tinker::init_s64(lua_State *L)
 static int tostring_u64(lua_State *L)
 {
 	char temp[64];
+#if defined(_WIN32) || defined(_WIN64)
+	sprintf_s(temp, "%lld", *(unsigned long long*)lua_topointer(L, 1));
+#else
 	sprintf(temp, "%lld", *(unsigned long long*)lua_topointer(L, 1));
+#endif
 	lua_pushstring(L, temp);
 	return 1;
 }
@@ -234,7 +242,11 @@ void lua_tinker::print_error(lua_State *L, const char* fmt, ...)
 
 	va_list args;
 	va_start(args, fmt);
+#if defined(_WIN32) || defined(_WIN64)
+	sprintf_s(text, fmt, args);
+#else
 	sprintf(text, fmt, args);
+#endif
 	va_end(args);
 
 	lua_pushstring(L, "_ALERT");

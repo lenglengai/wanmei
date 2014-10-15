@@ -81,7 +81,7 @@ namespace std {
 
 	void LogWriter::runInt16sCount(std::list<__i16>& nValue, const char * nName, __i32 nCount)
 	{
-		mValue += "["; mValue += nNames;
+		mValue += "[";
 		std::list<__i16>::iterator it = nValue.begin();
 		for (; it != nValue.end(); ++it) {
 			__i16 t_ = (*it);
@@ -92,7 +92,7 @@ namespace std {
 
 	void LogWriter::runInt16Semi(std::list<__i16>& nValue, const char * nName)
 	{
-		mValue += "["; mValue += nNames;
+		mValue += "[";
 		std::list<__i16>::iterator it = nValue.begin();
 		for (; it != nValue.end(); ++it) {
 			__i16 t_ = (*it);
@@ -128,7 +128,7 @@ namespace std {
 
 	void LogWriter::runInt32sCount(list<__i32>& nValue, const char * nName, __i32 nCount)
 	{
-		mValue += "["; mValue += nNames;
+		mValue += "[";
 		std::list<__i32>::iterator it = nValue.begin();
 		for (; it != nValue.end(); ++it) {
 			__i32 t_ = (*it);
@@ -139,7 +139,7 @@ namespace std {
 
 	void LogWriter::runInt32Semi(list<__i32>& nValue, const char * nName)
 	{
-		mValue += "["; mValue += nNames;
+		mValue += "[";
 		std::list<__i32>::iterator it = nValue.begin();
 		for (; it != nValue.end(); ++it) {
 			__i32 t_ = (*it);
@@ -151,7 +151,7 @@ namespace std {
 	void LogWriter::runCrc32(__i32& nValue, const char * nName, __i32 nOptimal)
 	{
 		mValue += "["; mValue += nName;  mValue += ":";
-		mValue += __convert<std::string, __i16>(nValue); 
+		mValue += __convert<std::string, __i32>(nValue); 
 		mValue += "]";
 	}
 
@@ -173,7 +173,7 @@ namespace std {
 
 	void LogWriter::runCrc32sCount(list<__i32>& nValue, const char * nName, __i32 nCount)
 	{
-		mValue += "["; mValue += nNames;
+		mValue += "[";
 		std::list<__i32>::iterator it = nValue.begin();
 		for (; it != nValue.end(); ++it) {
 			__i32 t_ = (*it);
@@ -184,7 +184,7 @@ namespace std {
 
 	void LogWriter::runCrc32Semi(list<__i32>& nValue, const char * nName)
 	{
-		mValue += "["; mValue += nNames;
+		mValue += "[";
 		std::list<__i32>::iterator it = nValue.begin();
 		for (; it != nValue.end(); ++it) {
 			__i32 t_ = (*it);
@@ -220,7 +220,7 @@ namespace std {
 
 	void LogWriter::runInt64sCount(std::list<__i64>& nValue, const char * nName, __i32 nCount)
 	{
-		mValue += "["; mValue += nNames;
+		mValue += "[";
 		std::list<__i64>::iterator it = nValue.begin();
 		for (; it != nValue.end(); ++it) {
 			__i64 t_ = (*it);
@@ -231,7 +231,7 @@ namespace std {
 
 	void LogWriter::runInt64Semi(list<__i64>& nValue, const char * nName)
 	{
-		mValue += "["; mValue += nNames;
+		mValue += "[";
 		std::list<__i64>::iterator it = nValue.begin();
 		for (; it != nValue.end(); ++it) {
 			__i64 t_ = (*it);
@@ -265,7 +265,7 @@ namespace std {
 
 	void LogWriter::runStringsCount(std::list<std::string>& nValue, const char * nName, __i32 nCount)
 	{
-		mValue += "["; mValue += nNames;
+		mValue += "[";
 		std::list<std::string>::iterator it = nValue.begin();
 		for (; it != nValue.end(); ++it) {
 			std::string& tempStr = (*it);
@@ -276,7 +276,7 @@ namespace std {
 
 	void LogWriter::runStringSemi(std::list<std::string>& nValue, const char * nName)
 	{
-		mValue += "["; mValue += nNames;
+		mValue += "[";
 		std::list<std::string>::iterator it = nValue.begin();
 		for (; it != nValue.end(); ++it) {
 			std::string& tempStr = (*it);
@@ -312,7 +312,7 @@ namespace std {
 
 	void LogWriter::runFloatsCount(std::list<float>& nValue, const char * nName, __i32 nCount)
 	{
-		mValue += "["; mValue += nNames;
+		mValue += "[";
 		std::list<float>::iterator it = nValue.begin();
 		for (; it != nValue.end(); ++it) {
 			float& value_ = (*it);
@@ -323,7 +323,7 @@ namespace std {
 
 	void LogWriter::runFloatSemi(std::list<float>& nValue, const char * nName)
 	{
-		mValue += "["; mValue += nNames;
+		mValue += "[";
 		std::list<float>::iterator it = nValue.begin();
 		for (; it != nValue.end(); ++it) {
 			float& value_ = (*it);
@@ -359,7 +359,7 @@ namespace std {
 
 	void LogWriter::runDoublesCount(std::list<double>& nValue, const char * nName, __i32 nCount)
 	{
-		mValue += "["; mValue += nNames;
+		mValue += "[";
 		std::list<double>::iterator it = nValue.begin();
 		for (; it != nValue.end(); ++it) {
 			double& value_ = (*it);
@@ -370,7 +370,7 @@ namespace std {
 
 	void LogWriter::runDoubleSemi(list<double>& nValue, const char * nName)
 	{
-		mValue += "["; mValue += nNames;
+		mValue += "[";
 		std::list<double>::iterator it = nValue.begin();
 		for (; it != nValue.end(); ++it) {
 			double& value_ = (*it);
@@ -381,6 +381,7 @@ namespace std {
 
 	bool LogWriter::openUrl(const char * nUrl)
 	{
+		return true;
 	}
 
 	void LogWriter::selectStream(const char * nStreamName)
@@ -400,7 +401,7 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(mValue);
+		logService_.logInfo(log_1(mValue));
 	#endif
 	}
 
