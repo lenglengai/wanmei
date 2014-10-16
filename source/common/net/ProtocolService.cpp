@@ -3,7 +3,7 @@
 #ifdef __NET__
 namespace std {
 
-	bool ProtocolService::runReadBlock(ReadBlockPtr& nReadBlock, SessionPtr nSession)
+	bool ProtocolService::runReadBlock(ReadBlockPtr& nReadBlock, PlayerPtr& nPlayer)
 	{
 		__i32 protocolId = 0; nReadBlock->runInt32(protocolId);
 		map<__i32, IProtocol *>::iterator it = mProtocols.find(protocolId);
@@ -15,7 +15,7 @@ namespace std {
 			return false;
 		}
 		IProtocol * protocol_ = it->second;
-		return protocol_->runReadBlock(nReadBlock, nSession);
+		return protocol_->runReadBlock(nReadBlock, nPlayer);
 	}
 
 	void ProtocolService::runRegister(IProtocol * nProtocol)

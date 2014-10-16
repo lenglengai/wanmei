@@ -21,11 +21,12 @@ namespace std {
 	void TcpServer::startAccept()
 	{
 		try {
+			PlayerMgr& playerMgr_ = Singleton<PlayerMgr>::instance();
+			mNewPlayer = playerMgr_.generatePlayer();
+			SessionPtr& session_ = mNewPlayer->getSession();
 			IoService& ioService_ = Singleton<IoService>::instance();
-			mNewSession.reset(new Session(ioService_.getIoService()));
-			PropertyMgrPtr propertyMgrPtr_ = std::dynamic_pointer_cast<PropertyMgr, Session>(mNewSession);
-			this->runCreate(propertyMgrPtr_);
-			mAcceptor->async_accept(mNewSession->getSocket(),
+			session_.reset(new Session(ioService_.getIoService()));
+			mAcceptor->async_accept(session_->getSocket(),
 				boost::bind(&TcpServer::handleAccept, this,
 				boost::asio::placeholders::error));
 		} catch (boost::system::system_error& e) {
@@ -102,7 +103,6 @@ namespace std {
 		LogService& logService = Singleton<LogService>::instance();
 		logService.logError(log_1("TcpServer run runStop!"));
 	#endif
- 		mNewSession->runClose();
  		mAcceptor->close();
 	#ifdef __LOG__
 		logService.logError(log_1("TcpServer run runStop fihish!"));

@@ -23,6 +23,7 @@
 #include "net/ProtocolService.h"
 #include "net/TcpClient.h"
 #include "net/TcpServer.h"
+#include "net/PlayerMgr.h"
 
 #include "archive/ArchiveWriter.h"
 #include "archive/ArchiveService.h"

@@ -33,41 +33,6 @@ namespace std {
 		mInSwitch = false;
 		mContextId = 0;
 	}
-	
-	SessionPtr& Player::getSession()
-	{
-		return mSession;
-	}
-	
-#ifdef __CLIENT__
-	Player::Player()
-		: Robot (RobotType_::mPlayer_)
-	{
-	}
-#else
-	Player::Player(SessionPtr& nSession)
-		: Robot (RobotType_::mTourist_)
-		, mSession (nSession)
-	{
-	}
-#endif
-	Player::~Player()
-	{
-	}
-#ifdef __CLIENT__
-	static PreinitPtr<Player> sPlayerPreinit;
-#endif
-#ifdef __SERVER__
-	PlayerMgr::PlayerMgr()
-	{
-		mPlayers.clear();
-	}
-	
-	PlayerMgr::~PlayerMgr()
-	{
-		mPlayers.clear();
-	}
-#endif
 
 }
 #endif

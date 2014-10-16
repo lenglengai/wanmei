@@ -2,18 +2,7 @@
 
 #ifdef __NET__
 namespace std {
-	
-	void Session::contextPacket(PacketPtr& nPacket)
-	{
-		if ( mPlayer->isInSwitch() ) {
-			LogService& logService_ = Singleton<LogService>::instance();
-			logService_.logError(log_1("Session contextPacket"));
-			this->runClose();
-			return;
-		}
-		mPlayer->
-	}
-	
+		
 	bool Session::runSend(PacketPtr& nPacket)
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
@@ -69,7 +58,7 @@ namespace std {
 		}
 		if (mBlockPushTypeLength_ == blockPushType_) return;
 		ProtocolService& protocolService_ = Singleton<ProtocolService>::instance();
-		if (!protocolService_.runReadBlock(mReadBlock, shared_from_this())) {
+		if (!protocolService_.runReadBlock(mReadBlock, mPlayer)) {
 			this->runClose();
 		#ifdef __LOG__
 			LogService& logService = Singleton<LogService>::instance();

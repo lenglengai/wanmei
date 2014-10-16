@@ -18,7 +18,7 @@
 #include "IPacket.h"
 #include "WriteBlock.h"
 #include "ReadBlock.h"
-#include "Robot.h"
+#include "Player.h"
 
 using namespace boost;
 
@@ -36,7 +36,6 @@ namespace std {
 		enum { write_timeout = 90 };
 		enum { read_timeout = 90 };
 
-		void contextPacket(PacketPtr& nPacket);
 		bool runSend(PacketPtr& nPacket);
 		asio::ip::tcp::socket& getSocket();
 		void runStart();
@@ -57,7 +56,7 @@ namespace std {
 		void internalSend();
 
 	private:
-		mutable atomic<__i32> mSessionState;
+		atomic<__i32> mSessionState;
 		boost::asio::deadline_timer mReadTimer;
 		boost::asio::deadline_timer mWriteTimer;
 		boost::array<__i8, PACKETMAX> mReadBuffer;

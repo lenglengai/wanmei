@@ -8,8 +8,8 @@ namespace std {
 	class IProtocol
 	{
 	public:
-		bool runReadBlock(ReadBlockPtr& nReadBlock, SessionPtr& nSession);
-		virtual bool runPacket(PacketPtr& nPacket, SessionPtr& nSession);
+		bool runReadBlock(ReadBlockPtr& nReadBlock, PlayerPtr& nPlayer);
+		virtual bool runPacket(PacketPtr& nPacket, PlayerPtr& nPlayer);
 		virtual const char * getProtocolName() = 0;
 		IPacketId * getPacketId(__i32 nPacketType);
 		void addPacketId(PacketIdPtr nPacketId);

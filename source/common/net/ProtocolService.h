@@ -8,7 +8,7 @@ namespace std {
 	class ProtocolService : boost::noncopyable
 	{
 	public:
-		bool runReadBlock(ReadBlockPtr& nReadBlock, SessionPtr nSession);
+		bool runReadBlock(ReadBlockPtr& nReadBlock, PlayerPtr& nPlayer);
 		void runRegister(IProtocol * nProtocol);
 
 		void runPreinit();

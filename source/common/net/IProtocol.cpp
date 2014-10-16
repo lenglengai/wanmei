@@ -3,7 +3,7 @@
 #ifdef __NET__
 namespace std {
 
-	bool IProtocol::runReadBlock(ReadBlockPtr& nReadBlock, SessionPtr& nSession)
+	bool IProtocol::runReadBlock(ReadBlockPtr& nReadBlock, PlayerPtr& nPlayer)
 	{
 		__i32 packetType_ = 0; nReadBlock->runInt32(packetType_);
 		IPacketId * packetId_ = this->getPacketId(packetType_);
@@ -28,15 +28,15 @@ namespace std {
 			return false;
 		}
 		if (inline_) {
-			nSession->contextPacket(packet_);
+			nPlayer->pushPacket(packet_);
 		} else {
-			return this->runPacket(packet_, nSession);
+			return this->runPacket(packet_, nPlayer);
 		}
 	}
 
-	bool IProtocol::runPacket(PacketPtr& nPacket, SessionPtr& nSession)
+	bool IProtocol::runPacket(PacketPtr& nPacket, PlayerPtr& nPlayer)
 	{
-		return nPacket->handleRun(nSession);
+		return nPacket->handleRun(nPlayer);
 	}
 
 	IPacketId * IProtocol::getPacketId(__i32 nPacketType)

@@ -3,7 +3,7 @@
 #ifdef __TCPCLIENT__
 namespace std {
 
-	class TcpClient : public PropertySink
+	class TcpClient
 	{
 	public:
 		enum { connect_timeout = 90 };
