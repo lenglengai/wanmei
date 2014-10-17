@@ -64,7 +64,7 @@ namespace std {
 	#endif
 		std::string configure_ = "configure.jf";
 		mArchiveReader.runOpen(configure_.c_str());
-		this->m_tRunConfigure();
+		m_tRunConfigure();
 		mArchiveReader.runClose();
 	#ifdef __LOG__
 		logService_.logInfo(log_1("ArchiveService run runLoad finish!"));

@@ -3,7 +3,7 @@
 #ifdef __TCPSERVER__
 namespace std {
 
-	class TcpServer
+	class TcpServer : public PropertySink
 	{
 	public:
 		template<class T>

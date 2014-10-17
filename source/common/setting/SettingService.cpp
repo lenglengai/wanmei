@@ -13,14 +13,14 @@ namespace std {
 	}
 #endif
 
-	bool SettingService::runPreinit(const char * nPath)
+	bool SettingService::runPreinit()
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("SettingService run runPreinit!"));
 	#endif
 		
-		mSystemPath = nPath;
+		//mSystemPath = nPath;
 		
 	#ifdef __LOG__
 		logService_.logInfo(log_1("SettingService run runPreinit finish!"));

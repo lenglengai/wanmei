@@ -5,7 +5,7 @@ namespace std {
 	class __funapi SettingService : boost::noncopyable
 	{
 	public:
-		bool runPreinit(const char * nPath);
+		bool runPreinit();
 		const std::string& systemPath();
 
 	#ifdef __SERVER__

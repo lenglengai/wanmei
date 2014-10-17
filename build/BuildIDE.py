@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
+import os
+import shutil
 import platform
 import buildbase
 
@@ -31,8 +33,13 @@ class BuildIDE(buildbase.BuildBase):
             
     def runBuild(self):
         makeCmd = 'make'
+	exePath = ''
+	binPath = ''
         sysName = platform.system()
         if 'Windows' == sysName:
+	    exe1Path = '%s/%s.exe' % (self.mDebug, self.mProject)
+	    binPath = '../../binary/%s.exe' % self.mProject
+	    binPath = os.path.abspath(binPath)
             if False == self.mMake:
                 makeCmd = 'devenv %s.sln /build %s /out output.txt' % (self.mProject, self.mDebug)
             else:
@@ -43,5 +50,4 @@ class BuildIDE(buildbase.BuildBase):
         else:
             makeCmd = 'make'
         buildbase.BuildBase.interBuild(self, makeCmd)
-
-
+	shutil.copy(exe1Path, binPath)

@@ -23,9 +23,11 @@ namespace std {
 		try {
 			PlayerMgr& playerMgr_ = Singleton<PlayerMgr>::instance();
 			mNewPlayer = playerMgr_.generatePlayer();
+			PropertyMgrPtr propertyMgrPtr_ = std::dynamic_pointer_cast<PropertyMgr, Player>(mNewPlayer);
+            this->runCreate(propertyMgrPtr_);
 			SessionPtr& session_ = mNewPlayer->getSession();
 			IoService& ioService_ = Singleton<IoService>::instance();
-			session_.reset(new Session(ioService_.getIoService()));
+			session_.reset(new Session(ioService_.getIoService(), mNewPlayer));
 			mAcceptor->async_accept(session_->getSocket(),
 				boost::bind(&TcpServer::handleAccept, this,
 				boost::asio::placeholders::error));
@@ -51,13 +53,13 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService = Singleton<LogService>::instance();
-		logService.logError(log_1("TcpServer run runPreinit!"));
+		logService.logInfo(log_1("TcpServer run runPreinit!"));
 	#endif
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunStart0.connect(boost::bind(&TcpServer::runStart, this));
 		initService_.m_tRunStop.connect(boost::bind(&TcpServer::runStop, this));
 	#ifdef __LOG__
-		logService.logError(log_1("TcpServer run runPreinit finish!"));
+		logService.logInfo(log_1("TcpServer run runPreinit finish!"));
 	#endif
 		return true;
 	}

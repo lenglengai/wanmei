@@ -1,7 +1,18 @@
 #include "../Common.h"
 
+#ifdef __NET__
 namespace std {
 
+    bool Player::pushPacket(PacketPtr& nPacket)
+	{
+		return true;
+	}
+
+	bool Player::runSend(PacketPtr& nPacket)
+	{
+		return mSession->runSend(nPacket);
+	}
+	
 	void Player::setPlayerId(__i64 nPlayerId)
 	{
 		mPlayerId = nPlayerId;
@@ -28,3 +39,4 @@ namespace std {
 #endif
 
 }
+#endif

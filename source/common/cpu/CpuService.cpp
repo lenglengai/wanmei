@@ -43,7 +43,7 @@ namespace std {
 		mCpuCount = 0;
 	}
 	
-	static Preinit<CompressService> sCompressServicePreinit;
+	static Preinit<CpuService> sCpuServicePreinit;
 	
 }
 #endif

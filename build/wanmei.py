@@ -7,6 +7,7 @@ import sys
 import buildcmake
 import buildide
 import buildjourney
+import buildconfigure
 
 class Startup():
     
@@ -52,7 +53,9 @@ class Startup():
             return buildide.BuildIDE(self.mWorkspace, self.mProject)
         elif nName in buildjourney.BuildJourney.getName():
             return buildjourney.BuildJourney(self.mWorkspace, self.mProject)
-	
+        elif nName in buildconfigure.BuildConfigure.getName():
+            return buildconfigure.BuildConfigure(self.mWorkspace, self.mProject)
+			
     mBuildBases = []
 
 if __name__ == '__main__':

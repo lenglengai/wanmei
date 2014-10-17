@@ -28,7 +28,7 @@ namespace std {
 			return false;
 		}
 		if (inline_) {
-			nPlayer->pushPacket(packet_);
+			return nPlayer->pushPacket(packet_);
 		} else {
 			return this->runPacket(packet_, nPlayer);
 		}

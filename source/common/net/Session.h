@@ -18,7 +18,6 @@
 #include "IPacket.h"
 #include "WriteBlock.h"
 #include "ReadBlock.h"
-#include "Player.h"
 
 using namespace boost;
 
@@ -68,6 +67,7 @@ namespace std {
 		PlayerPtr& mPlayer;
 		std::mutex mMutex;
 	};
-
+	typedef std::weak_ptr<Session> SessionWtr;
+	typedef std::shared_ptr<Session> SessionPtr;
 }
 #endif

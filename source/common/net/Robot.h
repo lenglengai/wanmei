@@ -15,7 +15,7 @@ namespace std {
 		mDeveloper_
 	};
 	
-	class Robot : boost::noncopyable
+	class Robot : public PropertyMgr
 	{
 	public:
 		__i16 getContextId();

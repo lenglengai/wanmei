@@ -65,6 +65,7 @@
 ../../../source/common/archive/ArchiveService.cpp
 ../../../source/common/archive/JourneyDescripter.cpp
 ../../../source/common/handle/Context.cpp
+../../../source/common/handle/ContextService.cpp
 ../../../source/common/handle/Handle.cpp
 ../../../source/common/handle/HandleService.cpp
 ../../../source/common/ioservice/IoService.cpp
@@ -77,6 +78,8 @@
 ../../../source/common/net/IProtocol.cpp
 ../../../source/common/net/ProtocolService.cpp
 ../../../source/common/net/Robot.cpp
+../../../source/common/net/Player.cpp
+../../../source/common/net/PlayerMgr.cpp
 ../../../source/common/net/TcpClient.cpp
 ../../../source/common/net/TcpServer.cpp
 ../../../source/logic/ping/PingProtocol.cpp

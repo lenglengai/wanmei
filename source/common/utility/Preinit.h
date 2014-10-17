@@ -5,27 +5,31 @@ namespace std{
 	class PreinitSlot
 	{
 	public:
-		boost::signals2::signal<void ()> m_tRunPreinit;
-		void runPreinit();
+		void pushPreinit(std::function<bool ()>& nPreinit);
+		bool runPreinit();
 		
 		PreinitSlot();
 		~PreinitSlot();
+	
+	private:
+		std::list<std::function<bool ()> > mPreinits;
 	};
 	
 	template <class T>
 	class Preinit
 	{
 	public:
-		static void runPreinit()
+		static bool runPreinit()
 		{
 			T& t_ = Singleton<T>::instance();
-			t_.runPreinit();
+			return t_.runPreinit();
 		}
 		
 		Preinit()
 		{
 			PreinitSlot& preinitSlot = Singleton<PreinitSlot>::instance();
-			preinitSlot.m_tRunPreinit.connect(&Preinit<T>::runPreinit);
+			std::function<bool ()> preinit = std::function<bool ()>(&Preinit<T>::runPreinit);
+			preinitSlot.pushPreinit(preinit);
 		}
 	};
 	
@@ -39,7 +43,7 @@ namespace std{
 			t_->runPreinit();
 		}
 		
-		Preinit()
+		PreinitPtr()
 		{
 			PreinitSlot& preinitSlot = Singleton<PreinitSlot>::instance();
 			preinitSlot.m_tRunPreinit.connect(&Preinit<T>::runPreinit);

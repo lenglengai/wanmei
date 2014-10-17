@@ -11,7 +11,7 @@ namespace std {
 		bool runReadBlock(ReadBlockPtr& nReadBlock, PlayerPtr& nPlayer);
 		void runRegister(IProtocol * nProtocol);
 
-		void runPreinit();
+		bool runPreinit();
 
 		ProtocolService();
 		~ProtocolService();

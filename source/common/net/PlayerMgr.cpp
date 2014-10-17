@@ -1,15 +1,16 @@
 #include "../Common.h"
 
-#ifdef __SERVER__
-namspace std{
+#ifdef __NET__
+namespace std{
 
-	PlayerPtr& PlayerMgr::generatePlayer()
+	PlayerPtr PlayerMgr::generatePlayer()
 	{
 		std::lock_guard<std::mutex> lock_(mMutex);
 		PlayerPtr result_(new Player());
 		result_->setPlayerId(mPlayerId);
-		mPlayers.push_back(result_);
+		mPlayers[mPlayerId] = result_;
 		++mPlayerId;
+		return result_;
 	}
 	
 	PlayerMgr::PlayerMgr()

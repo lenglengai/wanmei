@@ -1,12 +1,16 @@
 #pragma once
 
 #include "Robot.h"
+#include "Session.h"
 
+#ifdef __NET__
 namespace std {
 	
 	class Player : public Robot
 	{
 	public:
+		bool pushPacket(PacketPtr& nPacket);
+		bool runSend(PacketPtr& nPacket);
 		void setPlayerId(__i64 nPlayerId);
 		SessionPtr& getSession();
 		
@@ -17,7 +21,6 @@ namespace std {
 	    SessionPtr mSession;
 		__i64 mPlayerId;
 	};
-	typedef std::weak_ptr<Player> PlayerWtr;
-    typedef std::shared_ptr<Player> PlayerPtr;
 	
 }
+#endif

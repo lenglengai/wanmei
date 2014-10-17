@@ -17,13 +17,14 @@
 #include "random/RandomService.h"
 #include "compress/CompressService.h"
 
-#include "handle/HandleService.h"
-#include "ioservice/IoService.h"
-
 #include "net/ProtocolService.h"
+#include "net/PlayerMgr.h"
 #include "net/TcpClient.h"
 #include "net/TcpServer.h"
-#include "net/PlayerMgr.h"
+
+#include "handle/HandleService.h"
+#include "handle/ContextService.h"
+#include "ioservice/IoService.h"
 
 #include "archive/ArchiveWriter.h"
 #include "archive/ArchiveService.h"

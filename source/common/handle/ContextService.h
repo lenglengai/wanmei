@@ -1,5 +1,6 @@
 #pragma once
 
+#ifdef __HANDLE__
 namespace std {
 
 	class ContextService : boost::noncopyable
@@ -15,3 +16,4 @@ namespace std {
 	};
 	
 }
+#endif

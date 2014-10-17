@@ -3,13 +3,13 @@
 #include <mutex>
 #include <atomic>
 
-#ifdef __SERVER__
-namspace std{
+#ifdef __NET__
+namespace std{
 	
 	class PlayerMgr : boost::noncopyable
 	{
 	public:
-		PlayerPtr& generatePlayer();
+		PlayerPtr generatePlayer();
 		
 		PlayerMgr();
 		~PlayerMgr();

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
+import os
 import shutil
 import platform
 import buildbase
@@ -23,7 +24,7 @@ class BuildConfigure(buildbase.BuildBase):
         buildbase.BuildBase.runChdir(self, cmdPath)
 
     def runBuild(self):
-        self.runCopy()
+        self.runCopyXml()
         self.runConfigure()
 
     def runConfigure(self):
@@ -42,13 +43,13 @@ class BuildConfigure(buildbase.BuildBase):
         xmlPath = os.path.abspath(line)
         shutil.copy(xmlPath, dstPath)
 
-    def runCopyXml():
+    def runCopyXml(self):
         assetPath = ''
-        if 'android' == nPlatform:
+        if 'android' == self.mProject:
             assetPath = os.path.abspath('../mbclient/Resources')
-        elif 'gameServer' == nPlatform:
-            configurePath = '../%s/binary' % nProj
+        elif 'gameServer' == self.mProject:
+            configurePath = '../binary'
             assetPath = os.path.abspath(configurePath)
-        xmlPath = os.path.abspath('../source/XMLLISTS')
+        xmlPath = os.path.abspath('../../source/XMLLISTS')
         for line in open(xmlPath):
-            inCopyXml(line, assetPath)
+            self.inCopyXml(line, assetPath)

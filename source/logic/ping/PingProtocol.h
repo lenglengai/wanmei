@@ -4,13 +4,13 @@
 namespace std {
 
 	class PingProtocol;
-	class C2SPing : public Packet<C2SPing, PingProtocol>, boost::noncopyable
+	class C2SPing : public Packet<C2SPing, PingProtocol, false>, boost::noncopyable
 	{
 	public:
 		static const char * sPacketName;
 	public:
 	#ifdef __SERVER__
-		bool handleRun(SessionPtr& nSession);
+		bool handleRun(PlayerPtr& nPlayer);
 	#endif
 		bool runBlock(BlockPtr& nBlock);
 		void setSecond(__i32 nSecond);
@@ -23,16 +23,15 @@ namespace std {
 	private:
 		__i32 mSecond;
 	};
-	
 	typedef std::shared_ptr<C2SPing> C2SPingPtr;
 
-	class S2CPing : public Packet<S2CPing, PingProtocol>, boost::noncopyable
+	class S2CPing : public Packet<S2CPing, PingProtocol, false>, boost::noncopyable
 	{
 	public:
 		static const char * sPacketName;
 	public:
 	#ifdef __CLIENT__
-		bool handleRun(SessionPtr& nSession);
+		bool handleRun(PlayerPtr& nPlayer);
 	#endif
 		bool runBlock(BlockPtr& nBlock);
 		const char * getPacketName();
@@ -91,13 +90,13 @@ namespace std {
 	{
 	public:
 	#ifdef __CLIENT__
-		bool runPacket(PacketPtr& nPacket, SessionPtr& nSession);
+		bool runPacket(PacketPtr& nPacket, PlayerPtr& nPlayer);
 		void begPing();
 		void endPing();
 	#endif
 		const char * getProtocolName();
 
-		void runPreinit();
+		bool runPreinit();
 		void runInit();
 		void runStart();
 

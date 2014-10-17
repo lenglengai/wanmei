@@ -3,7 +3,7 @@
 #ifdef __RANDOM__
 namespace std {
 
-	__i32 RandomService::runLuaRandom(__i32 nMin, __i32 nMax)
+	__i32 RandomService::luaRunRandom(__i32 nMin, __i32 nMax)
 	{
 		return this->runRandom(nMin, nMax);
 	}
@@ -32,7 +32,7 @@ namespace std {
 	#endif
 		LuaService& luaService_ = Singleton<LuaService>::instance();
 		luaService_.runClass<LogService>("RandomService");
-		luaService_.runMethod<LogService>(&RandomService::runLuaRandom, "runRandom");
+		luaService_.runMethod<LogService>(&RandomService::luaRunRandom, "runRandom");
 	#ifdef __LOG__
 		logService_.logInfo(log_1("RandomService run runScript finish!"));
 	#endif
@@ -54,7 +54,7 @@ namespace std {
 		return true;
 	}
 
-	bool RandomService::runInit()
+	void RandomService::runInit()
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
@@ -64,7 +64,6 @@ namespace std {
 	#ifdef __LOG__
 		logService_.logInfo(log_1("RandomService run runInit finish!"));
 	#endif
-		return true;
 	}
 
 	RandomService::RandomService()

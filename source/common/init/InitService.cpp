@@ -2,7 +2,7 @@
 
 namespace std {
 
-	bool InitService::runPreinit(const char * nPath, bool nConfigure)
+	bool InitService::runPreinit(bool nConfigure)
 	{
 		if (mInitType > InitType_::mNone_) return false;
 		mConfigure = nConfigure;
@@ -17,7 +17,7 @@ namespace std {
 		mInitType = InitType_::mPreinit_;
 		return true;
 	}
-	    
+	
     void InitService::registerArchive(const char * nArchive)
     {
         if (false == mConfigure)  return;

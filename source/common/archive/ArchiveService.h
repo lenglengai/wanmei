@@ -39,7 +39,7 @@ namespace std {
 		void loadJourney(__i32 nJourneyId);
 		bool runPreinit();
 
-		boost::signals2::signal<void()> m_tRunConfigure;
+		boost::signals2::signal<void ()> m_tRunConfigure;
 		void runLoad();
 
 	private:

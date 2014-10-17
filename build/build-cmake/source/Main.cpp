@@ -6,7 +6,7 @@ int main( int argc, char * argv[] )
 {
 	InitService& initService = Singleton<InitService>::instance();
 	if (argc > 1 && "configure" == argv[1]) {
-		initService.runPreinit("", true);
+		initService.runPreinit(true);
 		initService.runConfigure();
 	} else {
 		if (!initService.runPreinit("")) return 0;

@@ -11,9 +11,10 @@ namespace std {
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("run runPreinit ioService"));
 	#endif
-#if defined(__SERVER__) && defined(__CPU__)
+#if defined(__SERVER__) && defined(__WITHCPU__)
 		CpuService& cpuService_ = Singleton<CpuService>::instance();
 		mIoServiceCount = cpuService_.getCpuCount();
+		logService_.logInfo(log_2("run runPreinit ioService", mIoServiceCount));
 #endif
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&IoService::runInit, this));

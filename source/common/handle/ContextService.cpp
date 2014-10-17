@@ -1,5 +1,6 @@
 #include "../Common.h"
 
+#ifdef __HANDLE__
 namespace std {
 
 	void ContextService::pushPacket(__i16 nContextId, PacketPtr& nPacket)
@@ -10,8 +11,8 @@ namespace std {
 			logService_.logInfo(log_2("ContextService pushPacket: ", nContextId));
 			return;
 		}
-		ContextPtr& context_ = mContexts[nContextId];
-		context_.pushPacket(nPacket);
+		ContextPtr& context_ = it->second;
+		context_->pushPacket(nPacket);
 	}
 	
 	ContextService::ContextService()
@@ -25,3 +26,4 @@ namespace std {
 	}
 	
 }
+#endif

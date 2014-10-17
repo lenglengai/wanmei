@@ -5,13 +5,13 @@
 #ifdef __NET__
 namespace std {
 
-	class Session;
-	typedef std::weak_ptr<Session> SessionWtr;
-	typedef std::shared_ptr<Session> SessionPtr;
+	class Player;
+	typedef std::weak_ptr<Player> PlayerWtr;
+    typedef std::shared_ptr<Player> PlayerPtr;
 	class IPacket
 	{
 	public:
-		virtual bool handleRun(SessionPtr& nSession);
+		virtual bool handleRun(PlayerPtr& nPlayer);
 		virtual bool runBlock(BlockPtr& nBlock) = 0;
 		void setHeader(__i32 nProtocol, bool nInline, __i32 nPacket);
 		bool runHeader(BlockPtr& nBlock);

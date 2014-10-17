@@ -44,6 +44,8 @@ namespace std {
 			asio::io_service& ioservice = ioService_.getIoService();
 			
 			PlayerPtr& player_ = SingletonPtr<Player>::instance();
+			PropertyMgrPtr propertyMgrPtr_ = boost::dynamic_pointer_cast<PropertyMgr, Session>(mSession); 
+			this->runCreate(propertyMgrPtr_);
 			SessionPtr& session_ = player_->getSession();
 		
 			asio::ip::tcp::resolver resolver_(ioservice);

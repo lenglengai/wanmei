@@ -3,7 +3,7 @@
 #ifdef __NET__
 namespace std {
 
-	bool IPacket::handleRun(SessionPtr& nSession)
+	bool IPacket::handleRun(PlayerPtr& nPlayer)
 	{
 		return true;
 	}
