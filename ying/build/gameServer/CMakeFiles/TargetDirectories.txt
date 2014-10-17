@@ -1,3 +1,0 @@
-D:/wanmei/ying/build/gameServer/CMakeFiles/ALL_BUILD.dir
-D:/wanmei/ying/build/gameServer/CMakeFiles/ZERO_CHECK.dir
-D:/wanmei/ying/build/gameServer/CMakeFiles/gameServer.dir
