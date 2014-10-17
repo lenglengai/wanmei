@@ -22,6 +22,5 @@
 #define __TCPSERVER__
 
 #define __ARCHIVE__
-#define __SETTING__
 
 #define __RUNING__
