@@ -23,6 +23,11 @@ namespace std {
 		return mSession;
 	}
 	
+	bool Player::runPreinit()
+	{
+		return true;
+	}
+	
 	Player::Player()
 		: Robot (RobotType_::mPlayer_)
 		, mPlayerId (0)

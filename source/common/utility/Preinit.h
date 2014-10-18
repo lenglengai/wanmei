@@ -46,7 +46,8 @@ namespace std{
 		PreinitPtr()
 		{
 			PreinitSlot& preinitSlot = Singleton<PreinitSlot>::instance();
-			preinitSlot.m_tRunPreinit.connect(&Preinit<T>::runPreinit);
+			std::function<bool ()> preinit = std::function<bool ()>(&Preinit<T>::runPreinit);
+			preinitSlot.pushPreinit(preinit);
 		}
 	};
 }

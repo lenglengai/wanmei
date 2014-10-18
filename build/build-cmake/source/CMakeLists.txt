@@ -12,17 +12,18 @@ if(WIN32)
   set(CMAKE_C_FLAGS_RELEASE   "/MT /O2 /Ob2 /DNDEBUG")
   set(CMAKE_CXX_FLAGS_RELEASE "/MT /O2 /Ob2 /DNDEBUG")
   set(CMAKE_EXE_LINKER_FLAGS "/MANIFEST:NO")
-  set(CMAKE_EXE_LINKER_FLAGS "/MANIFEST:NO")
   add_definitions(-D_SCL_SECURE_NO_WARNINGS)
 else()
   set(CMAKE_CXX_FLAGS "-std=c++11")
 endif()
 
+set(executable_output_path "${PROJECT_BINARY_DIR}/binary/")
 include_directories(../../../${__WORKSPACE__}/cppInc)
 include_directories($ENV{BOOST_ROOT})
 link_directories($ENV{BOOST_ROOT}/stage/lib)
 set(Boost_USE_STATIC_LIBS ON)
 find_package(Boost COMPONENTS system date_time regex chrono thread filesystem log log_setup REQUIRED)
+
 
 aux_source_directory(. MAIN_SRC)
 

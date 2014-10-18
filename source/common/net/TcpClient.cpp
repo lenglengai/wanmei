@@ -44,7 +44,7 @@ namespace std {
 			asio::io_service& ioservice = ioService_.getIoService();
 			
 			PlayerPtr& player_ = SingletonPtr<Player>::instance();
-			PropertyMgrPtr propertyMgrPtr_ = boost::dynamic_pointer_cast<PropertyMgr, Session>(mSession); 
+			PropertyMgrPtr propertyMgrPtr_ = std::dynamic_pointer_cast<PropertyMgr, Player>(player_); 
 			this->runCreate(propertyMgrPtr_);
 			SessionPtr& session_ = player_->getSession();
 		
@@ -112,7 +112,7 @@ namespace std {
 		asio::io_service& ioservice = ioService_.getIoService();
 		PlayerPtr& player_ = SingletonPtr<Player>::instance();
 		SessionPtr& session_ = player_->getSession();
-		session_.reset(new Session(ioservice), player_);
+		session_.reset(new Session(ioservice, player_));
 		mConnectTimer.reset(new asio::deadline_timer(ioservice));
 		this->startConnect();
 	#ifdef __LOG__

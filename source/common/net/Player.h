@@ -13,6 +13,7 @@ namespace std {
 		bool runSend(PacketPtr& nPacket);
 		void setPlayerId(__i64 nPlayerId);
 		SessionPtr& getSession();
+		bool runPreinit();
 		
 		Player();
 		virtual ~Player();

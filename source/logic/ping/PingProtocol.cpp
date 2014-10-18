@@ -113,14 +113,14 @@ namespace std {
 #ifdef __CLIENT__
 	void PingTick::pushPacket(PacketPtr& nPacket)
 	{
-		boost::shared_lock<boost::shared_mutex> writeLock(mMutex);
+		std::lock_guard<std::mutex> lock_(mMutex);
 		mPackets.push_back(nPacket);
 	}
 
 	PacketPtr PingTick::popPacket()
 	{
+		std::lock_guard<std::mutex> lock_(mMutex);
 		PacketPtr packet_;
-		boost::shared_lock<boost::shared_mutex> readLock(mMutex);
 		if (mPackets.size() > 0) {
 			packet_ = mPackets.front();
 			mPackets.pop_front();
@@ -136,7 +136,7 @@ namespace std {
 		__i64 second_ = timeService_.getNowSecond();
 		__i64 clock_ = second_ - mSendTick;
 		if (clock_ < 70) return;
-		PlayerPtr& player_ = SingletonPtr<PlayerPtr>::instance();
+		PlayerPtr& player_ = SingletonPtr<Player>::instance();
 		PropertyId<PingSecond> proertyId_;
 		PropertyPtr& property_ = player_->getProperty(proertyId_);
 		PingSecondPtr pingSecondPtr_ = std::dynamic_pointer_cast<PingSecond, Property>(property_);
@@ -154,7 +154,7 @@ namespace std {
 		if (initService_.isPause()) return;
 		PacketPtr packet_ = this->popPacket();
 		if (packet_) {
-			PlayerPtr& player_ = SingletonPtr<PlayerPtr>::instance();
+			PlayerPtr& player_ = SingletonPtr<Player>::instance();
 			packet_->handleRun(player_);
 		}
 		this->handlePing();
@@ -238,7 +238,7 @@ namespace std {
 	}
 
 #ifdef __CLIENT__
-	bool PingProtocol::runPacket(PacketPtr& nPacket, SessionPtr& nSession)
+	bool PingProtocol::runPacket(PacketPtr& nPacket, PlayerPtr& nPlayer)
 	{
 		mPingTick->pushPacket(nPacket);
 		return true;

@@ -50,4 +50,4 @@ class BuildIDE(buildbase.BuildBase):
         else:
             makeCmd = 'make'
         buildbase.BuildBase.interBuild(self, makeCmd)
-	shutil.copy(exe1Path, binPath)
+	##shutil.copy(exe1Path, binPath)

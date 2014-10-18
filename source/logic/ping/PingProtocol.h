@@ -1,5 +1,7 @@
 #pragma once
 
+#include <mutex>
+
 #ifdef __PING__
 namespace std {
 
@@ -64,8 +66,8 @@ namespace std {
 
 	private:
 		PingProtocol * mPingProtocol;
-		boost::shared_mutex mMutex;
 		deque<PacketPtr> mPackets;
+		std::mutex mMutex;
 		__i64 mSendTick;
 	};
 	typedef std::shared_ptr<PingTick> PingTickPtr;
