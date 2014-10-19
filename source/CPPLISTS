@@ -82,6 +82,10 @@
 ../../../source/common/net/PlayerMgr.cpp
 ../../../source/common/net/TcpClient.cpp
 ../../../source/common/net/TcpServer.cpp
+../../../source/logic/ping/C2SPing.cpp
+../../../source/logic/ping/S2CPing.cpp
+../../../source/logic/ping/PingSecond.cpp
+../../../source/logic/ping/PingTick.cpp
 ../../../source/logic/ping/PingProtocol.cpp
 ../../../source/logic/account/Account.cpp
 ../../../source/logic/account/AccountService.cpp

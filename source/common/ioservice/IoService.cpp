@@ -109,7 +109,7 @@ namespace std {
 		mIoServices.clear();
 		mWorks.clear();
 		mNextIoService = 0;
-		mIoServiceCount = 0;
+		mIoServiceCount = 1;
 	}
 
 	IoService::IoService()

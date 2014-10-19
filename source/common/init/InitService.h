@@ -1,7 +1,5 @@
 #pragma once
 
-#include <atomic>
-
 namespace std {
 
 	class __funapi InitService : boost::noncopyable

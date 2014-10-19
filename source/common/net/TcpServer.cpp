@@ -13,7 +13,7 @@ namespace std {
 		#endif
 			return;
 		}
-		SessionPtr& session_ = mNewPlayer->getSession();
+		SessionPtr& session_ = (*mNewPlayer)->getSession();
 		session_->openSession();
 		startAccept();
 	}
@@ -22,12 +22,13 @@ namespace std {
 	{
 		try {
 			PlayerMgr& playerMgr_ = Singleton<PlayerMgr>::instance();
-			mNewPlayer = playerMgr_.generatePlayer();
-			PropertyMgrPtr propertyMgrPtr_ = std::dynamic_pointer_cast<PropertyMgr, Player>(mNewPlayer);
+			PlayerPtr& player_ = playerMgr_.generatePlayer();
+			mNewPlayer = &player_;
+			PropertyMgrPtr propertyMgrPtr_ = std::dynamic_pointer_cast<PropertyMgr, Player>(player_);
             this->runCreate(propertyMgrPtr_);
-			SessionPtr& session_ = mNewPlayer->getSession();
+			SessionPtr& session_ = player_->getSession();
 			IoService& ioService_ = Singleton<IoService>::instance();
-			session_.reset(new Session(ioService_.getIoService(), mNewPlayer));
+			session_.reset(new Session(ioService_.getIoService(), player_));
 			mAcceptor->async_accept(session_->getSocket(),
 				boost::bind(&TcpServer::handleAccept, this,
 				boost::asio::placeholders::error));
@@ -113,6 +114,7 @@ namespace std {
 
 	TcpServer::TcpServer()
 		: mAddress("127.0.0.1")
+		, mNewPlayer(nullptr)
 		, mPort("8080")
 	{
 	}
@@ -120,6 +122,7 @@ namespace std {
 	TcpServer::~TcpServer()
 	{
 		mAddress = "127.0.0.1";
+		mNewPlayer = nullptr;
 		mPort = "8080";
 	}
 	

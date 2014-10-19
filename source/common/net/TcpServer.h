@@ -28,7 +28,7 @@ namespace std {
 
 	private:
 		std::shared_ptr<asio::ip::tcp::acceptor> mAcceptor;
-		PlayerPtr mNewPlayer;
+		PlayerPtr * mNewPlayer;
 		string mAddress;
 		string mPort;
 	};

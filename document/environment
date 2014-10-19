@@ -109,8 +109,8 @@
 	windows
 
 	1、bootstrap.bat
-	2、b2 toolset=msvc --with-system --with-exception --with-filesystem --with-log --with-thread --with-date_time --with-atomic --with-timer --with-locale  link=static runtime-link=static variant=release stage
-	2、b2 toolset=msvc --with-system --with-exception --with-filesystem --with-log --with-thread --with-date_time --with-atomic --with-timer --with-locale  link=static runtime-link=shared variant=debug stage
+	2、b2 toolset=msvc --with-system --with-exception --with-filesystem --with-log --with-thread --with-date_time --with-atomic --with-timer --with-locale --with-regex  link=static runtime-link=static variant=release stage
+	2、b2 toolset=msvc --with-system --with-exception --with-filesystem --with-log --with-thread --with-date_time --with-atomic --with-timer --with-locale --with-regex  link=static runtime-link=shared variant=debug stage
 
 	mac
 	1、./bootstrap.sh

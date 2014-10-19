@@ -1,17 +1,7 @@
 /ying/build/profile.prof
 /ying/build/cmake.sublime-workspace
 
-/ying/build/client-ide
-/ying/build/client-mak
-/ying/build/server-ide
-/ying/build/server-mak
-/ying/build/login-ide
-/ying/build/login-mak
 /build/*.pyc
-/ying/build/visual-client
-/ying/build/visual-server
-/ying/build/build-client
-/ying/build/build-server
 /mbclient/proj.android/gen
 /mbclient/proj.android/libs
 /mbclient/proj.android/obj
@@ -33,8 +23,8 @@
 /mbclient/cocos2d/external/chipmunk/proj.win32/Debug.win32
 /document/*.zargo~
 /project/*.sublime-workspace
-/ying/build/client
-/ying/build/login
 /ying/build/journey
 /ying/build/server
 /ying/build/configure
+/ying/build/gameServer
+/ying/build/gameClient

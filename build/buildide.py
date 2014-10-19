@@ -37,12 +37,13 @@ class BuildIDE(buildbase.BuildBase):
 	binPath = ''
         sysName = platform.system()
         if 'Windows' == sysName:
-	    exe1Path = '%s/%s.exe' % (self.mDebug, self.mProject)
 	    binPath = '../../binary/%s.exe' % self.mProject
 	    binPath = os.path.abspath(binPath)
             if False == self.mMake:
+                exePath = '%s/%s.exe' % (self.mDebug, self.mProject)
                 makeCmd = 'msbuild %s.sln  /p:Configuration=%s' % (self.mProject, self.mDebug)
             else:
+                exePath = '%s.exe' % self.mProject
                 makeCmd = 'nmake'
         elif 'Darwin' == sysName:
             if False == self.mMake:
@@ -50,4 +51,4 @@ class BuildIDE(buildbase.BuildBase):
         else:
             makeCmd = 'make'
         buildbase.BuildBase.interBuild(self, makeCmd)
-	##shutil.copy(exe1Path, binPath)
+	shutil.copy(exePath, binPath)

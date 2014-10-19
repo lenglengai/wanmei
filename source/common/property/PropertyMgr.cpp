@@ -12,7 +12,7 @@ namespace std {
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1(propertyId_));
 		#endif
-			return it->second;
+			return __defaultptr<Property>();
 		}
 		return it->second;
 	}

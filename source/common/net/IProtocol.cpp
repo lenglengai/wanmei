@@ -5,6 +5,7 @@ namespace std {
 
 	bool IProtocol::runReadBlock(ReadBlockPtr& nReadBlock, PlayerPtr& nPlayer)
 	{
+		bool inline_ = false; nReadBlock->runBool(inline_);
 		__i32 packetType_ = 0; nReadBlock->runInt32(packetType_);
 		IPacketId * packetId_ = this->getPacketId(packetType_);
 		if (nullptr == packetId_) {
@@ -16,7 +17,6 @@ namespace std {
 		}
 		PacketPtr packet_ = packetId_->createPacket();
 		__i32 protocolId_ = this->getProtocolId();
-		bool inline_ = false; nReadBlock->runBool(inline_);
 		packet_->setHeader(protocolId_, inline_, packetType_);
 		BlockPtr block_ = nReadBlock;
 		packet_->runBlock(block_);

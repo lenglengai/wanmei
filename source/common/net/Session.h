@@ -12,9 +12,6 @@
 #pragma warning( pop )
 #endif
 
-#include <mutex>
-#include <atomic>
-
 #include "IPacket.h"
 #include "WriteBlock.h"
 #include "ReadBlock.h"

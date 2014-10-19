@@ -100,9 +100,19 @@ namespace std {
         );
         logging::core::get()->add_sink(console_sink);
 		typedef sinks::asynchronous_sink< sinks::text_file_backend > text_sink;
-		boost::shared_ptr< text_sink > testSink(new text_sink(keywords::file_name = "%y-%m-%d-%H-%M.log",
+#ifdef __LOGINSERVER__
+		const char * fileName = "loginServer%Y-%m-%d.log";
+#endif
+#ifdef __GAMESERVER__
+		const char * fileName = "gameServer%Y-%m-%d.log";
+#endif
+#ifdef __GAMECLIENT__
+		const char * fileName = "gameClient%Y-%m-%d.log";
+#endif
+		boost::shared_ptr< text_sink > testSink(new text_sink(keywords::file_name = fileName,
 			keywords::rotation_size = 10 * 1024 * 1024,
-			keywords::time_based_rotation = sinks::file::rotation_at_time_point(0, 0, 0)
+			keywords::time_based_rotation = sinks::file::rotation_at_time_point(0, 0, 0),
+			keywords::open_mode = (std::ios::out | std::ios::app)
 			));
 		testSink->set_formatter
         (

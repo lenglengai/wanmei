@@ -22,3 +22,5 @@
 #define __TCPCLIENT__
 
 #define __ARCHIVE__
+
+#define __RUNING__

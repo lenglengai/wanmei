@@ -1,7 +1,5 @@
 #pragma once
 
-#include <mutex>
-
 #ifdef __HANDLE__
 namespace std {
 

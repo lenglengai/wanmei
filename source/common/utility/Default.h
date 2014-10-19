@@ -65,5 +65,12 @@ namespace std {
 	{
 		return default_namespace::Default<__t>()();
 	}
+	
+	template<typename __t>
+	std::shared_ptr<__t>& __defaultptr()
+	{
+		static std::shared_ptr<__t> result_;
+		return result_;
+	}
 
 }

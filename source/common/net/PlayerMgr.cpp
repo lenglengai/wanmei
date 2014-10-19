@@ -3,18 +3,18 @@
 #ifdef __NET__
 namespace std{
 
-	PlayerPtr PlayerMgr::generatePlayer()
+	PlayerPtr& PlayerMgr::generatePlayer()
 	{
 		std::lock_guard<std::mutex> lock_(mMutex);
-		PlayerPtr result_(new Player());
-		result_->setPlayerId(mPlayerId);
-		mPlayers[mPlayerId] = result_;
 		++mPlayerId;
-		return result_;
+		PlayerPtr player_(new Player());
+		player_->setPlayerId(mPlayerId);
+		mPlayers[mPlayerId] = player_;
+		return mPlayers[mPlayerId];
 	}
 	
 	PlayerMgr::PlayerMgr()
-		: mPlayerId (1)
+		: mPlayerId (0)
 	{
 		mPlayers.clear();
 	}
@@ -22,7 +22,7 @@ namespace std{
 	PlayerMgr::~PlayerMgr()
 	{
 		mPlayers.clear();
-		mPlayerId = 1;
+		mPlayerId = 0;
 	}
 
 }

@@ -1,15 +1,12 @@
 #pragma once
 
-#include <mutex>
-#include <atomic>
-
 #ifdef __NET__
 namespace std{
 	
 	class PlayerMgr : boost::noncopyable
 	{
 	public:
-		PlayerPtr generatePlayer();
+		PlayerPtr& generatePlayer();
 		
 		PlayerMgr();
 		~PlayerMgr();

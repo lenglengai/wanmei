@@ -1,7 +1,5 @@
 #pragma once
 
-#include <atomic>
-
 #ifdef __NET__
 namespace std {
 
