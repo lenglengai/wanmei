@@ -39,14 +39,14 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("init handle service"));
+		logService_.logInfo(log_1("HandleService run runInit"));
 	#endif
 		for (__i32 i = 0; i < mHandleCount; ++i) {
 			HandlePtr handle(new Handle());
 			mHandles[i] = handle;
 		}
 	#ifdef __LOG__
-		logService_.logInfo(log_1("init handle service finish!"));
+		logService_.logInfo(log_1("HandleService run runInit finish"));
 	#endif
 	}
 
@@ -54,7 +54,7 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("run start handle service"));
+		logService_.logInfo(log_1("HandleService run runStart"));
 	#endif
 		std::map<__i32, HandlePtr>::iterator it = mHandles.begin();
 		for ( ; it != mHandles.end(); ++it ) {
@@ -62,7 +62,7 @@ namespace std {
 			handle->runStart();
 		}
 	#ifdef __LOG__
-		logService_.logInfo(log_1("start handle service finish"));
+		logService_.logInfo(log_1("HandleService run runStart finish"));
 	#endif
 	}
 

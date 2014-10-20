@@ -87,5 +87,9 @@
 ../../../source/logic/ping/PingSecond.cpp
 ../../../source/logic/ping/PingTick.cpp
 ../../../source/logic/ping/PingProtocol.cpp
+../../../source/logic/account/C2SLogin.cpp
+../../../source/logic/account/S2CLogin.cpp
+../../../source/logic/account/LoginProtocol.cpp
 ../../../source/logic/account/Account.cpp
 ../../../source/logic/account/AccountService.cpp
+

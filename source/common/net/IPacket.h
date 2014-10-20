@@ -15,6 +15,8 @@ namespace std {
 		virtual bool runBlock(BlockPtr& nBlock) = 0;
 		void setHeader(__i32 nProtocol, bool nInline, __i32 nPacket);
 		bool runHeader(BlockPtr& nBlock);
+		__i32 getProtocolId();
+		__i32 getPacketId();
 		virtual bool isDefault();
 		virtual void runInit() = 0;
 

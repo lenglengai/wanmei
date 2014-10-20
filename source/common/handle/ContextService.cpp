@@ -3,16 +3,17 @@
 #ifdef __HANDLE__
 namespace std {
 
-	void ContextService::pushPacket(__i16 nContextId, PacketPtr& nPacket)
+	bool ContextService::pushPacket(__i16 nContextId, PacketPtr& nPacket)
 	{
 		auto it = mContexts.find(nContextId);
 		if (it == mContexts.end()) {
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logInfo(log_2("ContextService pushPacket: ", nContextId));
-			return;
+			return false;
 		}
 		ContextPtr& context_ = it->second;
 		context_->pushPacket(nPacket);
+		return true;
 	}
 	
 	ContextService::ContextService()

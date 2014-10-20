@@ -6,7 +6,7 @@ namespace std {
 	class ContextService : boost::noncopyable
 	{
 	public:
-		void pushPacket(__i16 nContextId, PacketPtr& nPacket);
+		bool pushPacket(__i16 nContextId, PacketPtr& nPacket);
 		
 		ContextService();
 		~ContextService();

@@ -5,6 +5,16 @@ namespace std {
 
     bool Player::pushPacket(PacketPtr& nPacket)
 	{
+		if (this->isInSwitch()) {
+			LogService_& logService_ = Singleton<LogService_>::instance();
+			__i32 protocolId = nPacket->getProtocolId();
+			__i32 packetId = nPacket->getPacketId(); 
+			logService_.logError(log_3("Player pushPacket isInSwitch:", protocolId, packetId));
+			return false;
+		}
+		__i16 contextId = this->getContextId();
+		ContextService& contextService_ = Singleton<ContextService>::instance();
+		contextService_->pushPacket(contextId, nPacket);
 		return true;
 	}
 

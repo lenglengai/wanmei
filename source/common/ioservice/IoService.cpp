@@ -9,12 +9,11 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("run runPreinit ioService"));
+		logService_.logInfo(log_1("IoService run runPreinit"));
 	#endif
 #if defined(__SERVER__) && defined(__WITHCPU__)
 		CpuService& cpuService_ = Singleton<CpuService>::instance();
 		mIoServiceCount = cpuService_.getCpuCount();
-		logService_.logInfo(log_2("run runPreinit ioService", mIoServiceCount));
 #endif
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&IoService::runInit, this));
@@ -22,7 +21,7 @@ namespace std {
 		initService_.m_tRunRun.connect(boost::bind(&IoService::runRun, this));
 		initService_.m_tRunStop.connect(boost::bind(&IoService::runStop, this));
 	#ifdef __LOG__
-		logService_.logInfo(log_1("run runPreinit ioService finish!"));
+		logService_.logInfo(log_1("IoService run runPreinit finish!"));
 	#endif
 		return true;
 	}
@@ -31,7 +30,7 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("init ioService"));
+		logService_.logInfo(log_1("IoService run runInit"));
 	#endif
 		for (__i32 i = 0; i < mIoServiceCount; ++i) {
 			IoServicePtr ioService(new asio::io_service());
@@ -40,7 +39,7 @@ namespace std {
 			mWorks.push_back(work);
 		}
 	#ifdef __LOG__
-		logService_.logInfo(log_1("init ioService finish!"));
+		logService_.logInfo(log_1("IoService run runInit finish"));
 	#endif
 	}
 	
@@ -48,14 +47,14 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("ioService run runStart"));
+		logService_.logInfo(log_1("IoService run runStart"));
 	#endif
 		InitService& initService_ = Singleton<InitService>::instance();
 		mSignals.reset(new asio::signal_set(this->getIoService()));
 		mSignals->add(SIGINT); mSignals->add(SIGTERM);
 		mSignals->async_wait(boost::bind(&InitService::runStop, &initService_));
 	#ifdef __LOG__
-		logService_.logInfo(log_1("ioService runStart finish"));
+		logService_.logInfo(log_1("IoService runStart finish"));
 	#endif
 	}
 
@@ -63,7 +62,7 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("run ioService"));
+		logService_.logInfo(log_1("IoService runRun"));
 	#endif
 		vector<std::shared_ptr<std::thread>> threads;
 		for (size_t i = 0; i < mIoServices.size(); ++i) {
@@ -76,7 +75,7 @@ namespace std {
 		}
 	#endif
 	#ifdef __LOG__
-		logService_.logInfo(log_1("run ioService finish"));
+		logService_.logInfo(log_1("IoService runRun finish"));
 	#endif
 	}
 

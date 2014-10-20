@@ -23,6 +23,16 @@ namespace std {
 		return true;
 	}
 
+	__i32 IPacket::getProtocolId()
+	{
+		return mProtocol;
+	}
+	
+	__i32 IPacket::getPacketId()
+	{
+		return mPacket;
+	}
+		
 	bool IPacket::isDefault()
 	{
 		return ((0 == mProtocol) || (0 == mPacket));
