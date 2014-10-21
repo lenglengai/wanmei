@@ -3,13 +3,13 @@
 #ifdef __NET__
 namespace std{
 	
-	class PlayerMgr : boost::noncopyable
+	class PlayerService : boost::noncopyable
 	{
 	public:
 		PlayerPtr& generatePlayer();
 		
-		PlayerMgr();
-		~PlayerMgr();
+		PlayerService();
+		~PlayerService();
 	
 	private:
 		std::map<__i64, PlayerPtr> mPlayers;

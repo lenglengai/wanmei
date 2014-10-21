@@ -12,7 +12,6 @@ namespace std {
 	{
 	public:
 	#ifdef __CLIENT__
-		bool runPacket(PacketPtr& nPacket, PlayerPtr& nPlayer);
 		void begPing();
 		void endPing();
 	#endif

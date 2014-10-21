@@ -30,13 +30,8 @@ namespace std {
 		if (inline_) {
 			return nPlayer->pushPacket(packet_);
 		} else {
-			return this->runPacket(packet_, nPlayer);
+			return nPacket->handleRun(nPlayer);
 		}
-	}
-
-	bool IProtocol::runPacket(PacketPtr& nPacket, PlayerPtr& nPlayer)
-	{
-		return nPacket->handleRun(nPlayer);
 	}
 
 	IPacketId * IProtocol::getPacketId(__i32 nPacketType)

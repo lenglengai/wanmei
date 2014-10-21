@@ -66,12 +66,6 @@ namespace std {
 	}
 
 #ifdef __CLIENT__
-	bool PingProtocol::runPacket(PacketPtr& nPacket, PlayerPtr& nPlayer)
-	{
-		mPingTick->pushPacket(nPacket);
-		return true;
-	}
-
 	void PingProtocol::begPing()
 	{
 		TimeService& timeService_ = Singleton<TimeService>::instance();

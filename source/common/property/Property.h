@@ -17,18 +17,13 @@ namespace std {
 	public:
 		virtual void runPreinit();
 		virtual void runLoad();
-		virtual void runInit0();
-		virtual void runInit1();
+		virtual void runInit();
 
 		Property();
 		virtual ~Property();
 		
-	protected:
-		InitType_ mInitType;
-		
 	private:
 		PropertyMgrWtr mPropertyMgr;
-		
 	};
 	typedef std::shared_ptr<Property> PropertyPtr;
 

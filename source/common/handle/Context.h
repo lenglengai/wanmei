@@ -6,15 +6,10 @@ namespace std {
 	class __funapi Context
 	{
 	public:
-		void pushPacket(PacketPtr& nPacket);
-		virtual void runContext();
+		virtual void runContext() = 0;
 		
 		Context();
 		virtual ~Context();
-		
-	private:
-		std::list<PacketPtr> mPackets;
-		std::mutex mMutex;
 	};
 	typedef std::weak_ptr<Context> ContextWtr;
 	typedef std::shared_ptr<Context> ContextPtr;

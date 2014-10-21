@@ -5,15 +5,26 @@ namespace std {
 
 	void PropertySink::runCreate(PropertyMgrPtr& nPropertyMgr)
 	{
-		map<__i32, PropertyIdPtr>::iterator it = mPropertyIds.begin();
+		list<PropertyPtr> propertys_;
+		auto it = mPropertyIds.begin();
 		for ( ; it != mPropertyIds.end(); ++it ) {
 			PropertyIdPtr& propertyId_ = it->second;
 			PropertyPtr property_ = propertyId_->createProperty();
 			property_->setPropertyMgr(nPropertyMgr);
 			nPropertyMgr->addProperty(property_, propertyId_);
 			property_->runPreinit();
+			propertys_.push_back(property_);
 		}
-		nPropertyMgr->initProperty();
+		auto it0 = propertys_.begin();
+		for ( ; it0 != propertys_.end(); ++it0 ) {
+			PropertyPtr& property_ = (*it0);
+			property_->runLoad();
+		}
+		it0 = propertys_.begin();
+		for ( ; it0 != propertys_.end(); ++it0 ) {
+			PropertyPtr& property_ = (*it0);
+			property_->runInit();
+		}
 	}
 
 	void PropertySink::registerCreate(PropertyIdPtr& nPropertyId)

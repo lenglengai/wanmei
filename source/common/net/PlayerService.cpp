@@ -3,7 +3,7 @@
 #ifdef __NET__
 namespace std{
 
-	PlayerPtr& PlayerMgr::generatePlayer()
+	PlayerPtr& PlayerService::generatePlayer()
 	{
 		std::lock_guard<std::mutex> lock_(mMutex);
 		++mPlayerId;
@@ -13,13 +13,13 @@ namespace std{
 		return mPlayers[mPlayerId];
 	}
 	
-	PlayerMgr::PlayerMgr()
+	PlayerService::PlayerService()
 		: mPlayerId (0)
 	{
 		mPlayers.clear();
 	}
 	
-	PlayerMgr::~PlayerMgr()
+	PlayerService::~PlayerService()
 	{
 		mPlayers.clear();
 		mPlayerId = 0;

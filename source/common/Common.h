@@ -18,7 +18,7 @@
 #include "compress/CompressService.h"
 
 #include "net/ProtocolService.h"
-#include "net/PlayerMgr.h"
+#include "net/PlayerService.h"
 #include "net/TcpClient.h"
 #include "net/TcpServer.h"
 
