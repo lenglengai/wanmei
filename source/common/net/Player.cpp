@@ -12,9 +12,8 @@ namespace std {
 			logService_.logError(log_3("Player pushPacket isInSwitch:", protocolId, packetId));
 			return false;
 		}
-		__i16 contextId = this->getContextId();
-		ContextService& contextService_ = Singleton<ContextService>::instance();
-		contextService_->pushPacket(contextId, nPacket);
+		__i16 wireId = this->getWireId();
+
 		return true;
 	}
 

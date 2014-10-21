@@ -21,8 +21,8 @@ namespace std {
 	void TcpServer::startAccept()
 	{
 		try {
-			PlayerMgr& playerMgr_ = Singleton<PlayerMgr>::instance();
-			PlayerPtr& player_ = playerMgr_.generatePlayer();
+			PlayerService& playerService_ = Singleton<PlayerService>::instance();
+			PlayerPtr& player_ = playerService_.generatePlayer();
 			mNewPlayer = &player_;
 			PropertyMgrPtr propertyMgrPtr_ = std::dynamic_pointer_cast<PropertyMgr, Player>(player_);
             this->runCreate(propertyMgrPtr_);

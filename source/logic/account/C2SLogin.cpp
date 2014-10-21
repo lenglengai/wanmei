@@ -16,7 +16,6 @@ namespace std {
 	{
 		nBlock->runString(mPlayerName);
 		nBlock->runString(mPassward);
-		nBlock->runInt16(mContextId);
 		return true;
 	}
 	
@@ -40,19 +39,8 @@ namespace std {
 		return mPassward;
 	}
 	
-	void C2SLogin::setContextId(__i16 nContextId)
-	{
-		mContextId = nContextId;
-	}
-	
-	__i16 C2SLogin::getContextId()
-	{
-		return mContextId;
-	}
-
 	C2SLogin::C2SLogin()
 		: mPlayerName ("")
-		, mContextId (0)
 		, mPassward (0)
 	{
 	}
@@ -60,14 +48,12 @@ namespace std {
 	C2SLogin::C2SLogin(std::string& nPlayerName, __i32 nPassward)
 		: mPlayerName (nPlayerName)
 		, mPassward (nPassward)
-		, mContextId (0)
 	{
 	}
 
 	C2SLogin::~C2SLogin()
 	{
 		mPlayerName = "";
-		mContextId = 0;
 		mPassward = 0;
 	}
 	

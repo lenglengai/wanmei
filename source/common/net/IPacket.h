@@ -17,13 +17,20 @@ namespace std {
 		bool runHeader(BlockPtr& nBlock);
 		__i32 getProtocolId();
 		__i32 getPacketId();
+	#ifdef __SERVER__
+		void setPlayer(PlayerPtr& nPlayer);
+		PlayerPtr * getPlayer();
+	#endif
 		virtual bool isDefault();
 		virtual void runInit() = 0;
-
+		
 		IPacket();
 		virtual ~IPacket();
-
+		
 	protected:
+	#ifdef __SERVER__
+		PlayerPtr * mPlayer;
+	#endif
 		__i32 mProtocol;
 		__i32 mPacket;
 		bool mInline;

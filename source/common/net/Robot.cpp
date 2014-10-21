@@ -3,9 +3,9 @@
 #ifdef __NET__
 namespace std {
 
-	__i16 Robot::getContextId()
+	__i16 Robot::getWireId()
 	{
-		return mContextId;
+		return mWireId;
 	}
 	
 	bool Robot::isInSwitch()
@@ -15,15 +15,15 @@ namespace std {
 	
 	Robot::Robot()
 		: mRobotType (RobotType_::mRobot_)
-		, mContextId(0)
 		, mInSwitch(false)
+		, mWireId(0)
 	{
 	}
 	
 	Robot::Robot(RobotType_ nRobotType)
 		: mRobotType (nRobotType)
-		, mContextId(0)
 		, mInSwitch(false)
+		, mWireId(0)
 	{
 	}
 
@@ -31,7 +31,7 @@ namespace std {
 	{
 		mRobotType = RobotType_::mRobot_;
 		mInSwitch = false;
-		mContextId = 0;
+		mWireId = 0;
 	}
 
 }

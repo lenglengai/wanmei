@@ -157,8 +157,8 @@ namespace std {
 
 	PacketPtr Session::popPacket()
 	{
-		PacketPtr packet_;
 		std::lock_guard<std::mutex> lock_(mMutex);
+		PacketPtr packet_;
 		if (mPackets.size() > 0) {
 			packet_ = mPackets.front();
 			mPackets.pop_front();

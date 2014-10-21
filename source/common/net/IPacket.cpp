@@ -32,7 +32,19 @@ namespace std {
 	{
 		return mPacket;
 	}
-		
+	
+#ifdef __SERVER__
+	void IPacket::setPlayer(PlayerPtr& nPlayer)
+	{
+		mPlayer = nPlayer;
+	}
+	
+	PlayerPtr * IPacket::getPlayer()
+	{
+		return mPlayer;
+	}
+#endif
+
 	bool IPacket::isDefault()
 	{
 		return ((0 == mProtocol) || (0 == mPacket));
@@ -46,11 +58,13 @@ namespace std {
 		: mProtocol(0)
 		, mPacket(0)
 		, mInline(true)
+		, mPlayer(nullptr)
 	{
 	}
 
 	IPacket::~IPacket()
 	{
+		mPlayer = nullptr;
 		mProtocol = 0;
 		mInline = true;
 		mPacket = 0;

@@ -4,23 +4,6 @@
 namespace std {
 
 #ifdef __CLIENT__
-	void PingTick::pushPacket(PacketPtr& nPacket)
-	{
-		std::lock_guard<std::mutex> lock_(mMutex);
-		mPackets.push_back(nPacket);
-	}
-
-	PacketPtr PingTick::popPacket()
-	{
-		std::lock_guard<std::mutex> lock_(mMutex);
-		PacketPtr packet_;
-		if (mPackets.size() > 0) {
-			packet_ = mPackets.front();
-			mPackets.pop_front();
-		}
-		return packet_;
-	}
-
 	void PingTick::handlePing()
 	{
 		InitService& initService_ = Singleton<InitService>::instance();

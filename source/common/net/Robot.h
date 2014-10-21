@@ -16,7 +16,7 @@ namespace std {
 	class Robot : public PropertyMgr
 	{
 	public:
-		__i16 getContextId();
+		__i16 getWireId();
 		bool isInSwitch();
 		
 		Robot();
@@ -24,9 +24,9 @@ namespace std {
 		virtual ~Robot();
 		
 	private:
-		RobotType_ mRobotType;
-		__i16 mContextId;
 		std::atomic<bool> mInSwitch;
+		RobotType_ mRobotType;
+		__i16 mWireId;
 	};
 	
 }

@@ -8,9 +8,6 @@ namespace std {
 	class PingTick : public Context, boost::noncopyable
 	{
 	public:
-		void pushPacket(PacketPtr& nPacket);
-		PacketPtr popPacket();
-
 		void handlePing();
 		void runContext();
 

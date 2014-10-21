@@ -28,7 +28,8 @@ namespace std {
 			return false;
 		}
 		if (inline_) {
-			return nPlayer->pushPacket(packet_);
+			PlayerService& playerService_ = Singleton<PlayerService>::instance();
+			return playerService_->pushPacket(nPacket, nPlayer);
 		} else {
 			return nPacket->handleRun(nPlayer);
 		}

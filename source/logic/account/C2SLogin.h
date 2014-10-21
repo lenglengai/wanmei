@@ -17,8 +17,6 @@ namespace std {
 		std::string& getPlayerName();
 		void setPassward(__i32 nPassward);
 		__i32 getPassward();
-		void setContextId(__i16 nContextId);
-		__i16 getContextId();
 		
 		C2SLogin();
 		C2SLogin(std::string& nPlayerName, std::string& nPassward);
@@ -26,7 +24,6 @@ namespace std {
 
 	private:
 		std::string mPlayerName;
-		__i16 mContextId;
 		__i32 mPassward;
 	};
 	typedef std::shared_ptr<C2SLogin> C2SLoginPtr;
