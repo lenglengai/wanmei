@@ -23,7 +23,8 @@ namespace std {
 	void SingleWire::runContext()
 	{
 		PacketPtr packet_ = this->popPacket();
-		packet_->handleRun();
+		PlayerPtr * player_ = packet_->getPlayer();
+		packet_->handleRun(*player_);
 	}
 	
 	SingleWire::SingleWire()

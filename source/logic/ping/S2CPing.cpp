@@ -9,7 +9,7 @@ namespace std {
 	bool S2CPing::handleRun(PlayerPtr& nPlayer)
 	{
 		PingProtocol& pingProtocol_ = Singleton<PingProtocol>::instance();
-		pingProtocol_.endPing();
+		pingProtocol_.finishPing();
 		PropertyId<PingSecond> pingSecondId;
 		PropertyPtr& property_ = nPlayer->getProperty(pingSecondId);
 		PingSecondPtr pingSecondPtr_ = std::dynamic_pointer_cast<PingSecond, Property>(property_);

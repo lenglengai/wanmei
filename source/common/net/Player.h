@@ -9,12 +9,12 @@ namespace std {
 	class Player : public Robot
 	{
 	public:
-		bool pushPacket(PacketPtr& nPacket);
 		bool runSend(PacketPtr& nPacket);
 		void setPlayerId(__i64 nPlayerId);
 		SessionPtr& getSession();
+	#ifdef __CLIENT__
 		bool runPreinit();
-		
+	#endif
 		Player();
 		virtual ~Player();
 		

@@ -42,10 +42,42 @@ namespace std{
 	
 	bool PlayerService::runPreinit()
 	{
+	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("PlayerService runPreinit!"));
+	#endif
+		InitService& initService_ = Singleton<InitService>::instance();
+		initService_.m_tRunInit0.connect(boost::bind(&PlayerService::runInit, this));
+		initService_.m_tRunStart0.connect(boost::bind(&PlayerService::runStart, this));
+	#ifdef __LOG__
+		logService_.logInfo(log_1("PlayerService runPreinit finish!"));
+	#endif
+		return true;
 	}
 	
 	void PlayerService::runInit()
 	{
+	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("PlayerService runInit!"));
+	#endif
+
+	#ifdef __CLIENT__
+		mSingleWire.reset(new SingleWire());
+	#endif
+
+	#if defined(__SERVER__) && defined(__CPU__)
+		CpuService& cpuService_ = Singleton<CpuService>::instance();
+		__i16 cpuCount = cpuService_.getCpuCount();
+		for ( __i16 i = 1; i <= cpuCount; ++i ) {
+			SingleWirePtr singleWire_(new SingleWire());
+			mSingleWires[i] = singleWire_;
+		}
+	#endif
+	
+	#ifdef __LOG__
+		logService_.logInfo(log_1("PlayerService runInit finish!"));
+	#endif
 	}
 	
 	void PlayerService::runStart()
@@ -53,15 +85,23 @@ namespace std{
 	}
 	
 	PlayerService::PlayerService()
+	#ifdef __SERVER__
 		: mPlayerId (0)
+	#endif
 	{
+	#ifdef __SERVER__
+		mSingleWires.clear();
 		mPlayers.clear();
+	#endif
 	}
 	
 	PlayerService::~PlayerService()
 	{
+	#ifdef __SERVER__
+		mSingleWires.clear();
 		mPlayers.clear();
 		mPlayerId = 0;
+	#endif
 	}
 	
 	static PreInit<PlayerService> sPlayerServicePreInit;

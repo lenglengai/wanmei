@@ -66,13 +66,13 @@ namespace std {
 	}
 
 #ifdef __CLIENT__
-	void PingProtocol::begPing()
+	void PingProtocol::startPing()
 	{
 		TimeService& timeService_ = Singleton<TimeService>::instance();
 		mClock = timeService_.getNowSecond();
 	}
 
-	void PingProtocol::endPing()
+	void PingProtocol::finishPing()
 	{
 		TimeService& timeService_ = Singleton<TimeService>::instance();
 		__i64 second_ = timeService_.getNowSecond();

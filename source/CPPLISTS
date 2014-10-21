@@ -79,6 +79,7 @@
 ../../../source/common/net/ProtocolService.cpp
 ../../../source/common/net/Robot.cpp
 ../../../source/common/net/Player.cpp
+../../../source/common/net/SingleWire.cpp
 ../../../source/common/net/PlayerService.cpp
 ../../../source/common/net/TcpClient.cpp
 ../../../source/common/net/TcpServer.cpp

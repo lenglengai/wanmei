@@ -4,7 +4,7 @@
 namespace std {
 
 #ifdef __CLIENT__
-	void PingTick::handlePing()
+	void PingTick::runContext()
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
 		if (initService_.isPause()) return;
@@ -19,33 +19,20 @@ namespace std {
 		__i32 pingSecond_ = pingSecondPtr_->getSecond();
 		PacketPtr packet_(new C2SPing(pingSecond_));
 		if (player_->runSend(packet_)) {
-			mPingProtocol->begPing();
+			PingProtocol& pingProtocol_ = Singleton<PingProtocol>::instance();
+			pingProtocol_.startPing();
 			mSendTick = second_;
 		}
 	}
 
-	void PingTick::runContext()
-	{
-		InitService& initService_ = Singleton<InitService>::instance();
-		if (initService_.isPause()) return;
-		PacketPtr packet_ = this->popPacket();
-		if (packet_) {
-			PlayerPtr& player_ = SingletonPtr<Player>::instance();
-			packet_->handleRun(player_);
-		}
-		this->handlePing();
-	}
-
-	PingTick::PingTick(PingProtocol * nPingProtocol)
-		: mPingProtocol(nPingProtocol)
-		, mSendTick(0)
+	PingTick::PingTick()
+		: mSendTick(0)
 	{
 		mPackets.clear();
 	}
 
 	PingTick::~PingTick()
 	{
-		mPingProtocol = nullptr;
 		mPackets.clear();
 		mSendTick = 0;
 	}

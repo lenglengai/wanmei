@@ -3,20 +3,6 @@
 #ifdef __NET__
 namespace std {
 
-    bool Player::pushPacket(PacketPtr& nPacket)
-	{
-		if (this->isInSwitch()) {
-			LogService_& logService_ = Singleton<LogService_>::instance();
-			__i32 protocolId = nPacket->getProtocolId();
-			__i32 packetId = nPacket->getPacketId(); 
-			logService_.logError(log_3("Player pushPacket isInSwitch:", protocolId, packetId));
-			return false;
-		}
-		__i16 wireId = this->getWireId();
-
-		return true;
-	}
-
 	bool Player::runSend(PacketPtr& nPacket)
 	{
 		return mSession->runSend(nPacket);
@@ -32,11 +18,13 @@ namespace std {
 		return mSession;
 	}
 	
+#ifdef __CLIENT__
 	bool Player::runPreinit()
 	{
 		return true;
 	}
-	
+#endif
+
 	Player::Player()
 		: Robot (RobotType_::mPlayer_)
 		, mPlayerId (0)

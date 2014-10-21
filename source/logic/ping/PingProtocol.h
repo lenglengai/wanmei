@@ -12,8 +12,8 @@ namespace std {
 	{
 	public:
 	#ifdef __CLIENT__
-		void begPing();
-		void endPing();
+		void startPing();
+		void finishPing();
 	#endif
 		const char * getProtocolName();
 

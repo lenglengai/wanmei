@@ -13,7 +13,7 @@ namespace std {
 		~SingleWire();
 		
 	private:
-		std::list<PacketPtr> mPackets;
+		std::deque<PacketPtr> mPackets;
 		std::mutex mMutex;
 	};
 	typedef std::weak_ptr<SingleWire> SingleWireWtr;
