@@ -22,14 +22,14 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("CompressService run runScript!"));
+		logService_.logInfo(log_1("start!"));
 	#endif
 		LuaService& luaService_ = Singleton<LuaService>::instance();
 		luaService_.runClass<CompressService>("CompressService");
 		luaService_.runMethod<CompressService>(&CompressService::runBZip2, "runBZip2");
 		luaService_.runMethod<CompressService>(&CompressService::unBZip2, "unBZip2");
 	#ifdef __LOG__
-		logService_.logInfo(log_1("CompressService run runScript finish!"));
+		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
 
@@ -37,12 +37,12 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("CompressService run runPreinit!"));
+		logService_.logInfo(log_1("start!"));
 	#endif
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&CompressService::runInit, this));
 	#ifdef __LOG__
-		logService_.logInfo(log_1("CompressService run runPreinit finish!"));
+		logService_.logInfo(log_1("finish!"));
 	#endif
 		return true;
 	}
@@ -51,11 +51,11 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("CompressService run runInit!"));
+		logService_.logInfo(log_1("start!"));
 	#endif
 		CompressService::runScript();
 	#ifdef __LOG__
-		logService_.logInfo(log_1("CompressService run runInit fihish!"));
+		logService_.logInfo(log_1("fihish!"));
 	#endif
 	}
 

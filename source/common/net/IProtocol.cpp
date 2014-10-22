@@ -10,8 +10,8 @@ namespace std {
 		IPacketId * packetId_ = this->getPacketId(packetType_);
 		if (nullptr == packetId_) {
 		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_2("getPacketId ", packetType_));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(packetType_));
 		#endif
 			return false;
 		}
@@ -22,23 +22,15 @@ namespace std {
 		packet_->runBlock(block_);
 		if (packet_->isDefault()) {
 		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1("packet isDefault"));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1("packet_->isDefault()"));
 		#endif
 			return false;
 		}
 		if (inline_) {
-		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1("inline_ "));
-		#endif
 			PlayerService& playerService_ = Singleton<PlayerService>::instance();
 			return playerService_.pushPacket(packet_, nPlayer);
 		} else {
-		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1("out "));
-		#endif
 			return packet_->handleRun(nPlayer);
 		}
 	}
@@ -48,8 +40,8 @@ namespace std {
 		map<__i32, PacketIdPtr>::iterator it = mPacketIds.find(nPacketType);
 		if (it == mPacketIds.end()) {
 		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1(nPacketType));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(nPacketType));
 		#endif
 			return nullptr;
 		}
@@ -63,8 +55,8 @@ namespace std {
 		map<__i32, PacketIdPtr>::iterator it = mPacketIds.find(packetId_);
 		if (it != mPacketIds.end()) {
 		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1(packetId_));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(packetId_));
 		#endif
 			return;
 		}

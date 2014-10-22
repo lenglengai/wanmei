@@ -30,8 +30,8 @@ namespace std {
 				asio::placeholders::bytes_transferred));
 		} catch (boost::system::system_error& e) {
 		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1(e.what()));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(e.what()));
 		#endif
 		}
 	}
@@ -42,8 +42,8 @@ namespace std {
 		if (nError) {
 			this->runClose();
 		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_2("read message error", nError.message()));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(nError.message()));
 		#endif
 			return;
 		}
@@ -51,8 +51,8 @@ namespace std {
 		if (mBlockPushTypeError_ == blockPushType_) {
 			this->runClose();
 		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1("block push error"));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1("mBlockPushTypeError_ == blockPushType_"));
 		#endif
 			return;
 		}
@@ -61,8 +61,8 @@ namespace std {
 		if (!protocolService_.runReadBlock(mReadBlock, mPlayer)) {
 			this->runClose();
 		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1("runReadBlock error"));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1("protocolService_.runReadBlock(mReadBlock, mPlayer)"));
 		#endif
 			return;
 		}
@@ -75,15 +75,15 @@ namespace std {
 	{
 		if (nError) {
 		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1(nError.message()));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(nError.message()));
 		#endif
 		}
 		if (mReadTimer.expires_at() <= asio::deadline_timer::traits_type::now()) {
 			this->runClose();
 		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1(nError.message()));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(nError.message()));
 		#endif
 			mReadTimer.expires_at(boost::posix_time::pos_infin);
 		}
@@ -95,8 +95,8 @@ namespace std {
 		if (nError) {
 			this->runClose();
 		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1(nError.message()));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(nError.message()));
 		#endif
 			return;
 		}
@@ -107,15 +107,15 @@ namespace std {
 	{
 		if (nError) {
 		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1(nError.message()));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(nError.message()));
 		#endif
 		}
 		if (mWriteTimer.expires_at() <= asio::deadline_timer::traits_type::now()) {
 			this->runClose();
 		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1(nError.message()));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(nError.message()));
 		#endif
 			mWriteTimer.expires_at(boost::posix_time::pos_infin);
 		}
@@ -142,8 +142,8 @@ namespace std {
 				mSocket.close(error_);
 			} catch (boost::system::system_error& e) {
 			#ifdef __LOG__
-				LogService& logService = Singleton<LogService>::instance();
-				logService.logError(log_1(e.what()));
+				LogService& logService_ = Singleton<LogService>::instance();
+				logService_.logError(log_1(e.what()));
 			#endif
 			}
 		}
@@ -195,8 +195,8 @@ namespace std {
 		}
 		catch (boost::system::system_error& e) {
 		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1(e.what()));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(e.what()));
 		#endif
 		}
 	}

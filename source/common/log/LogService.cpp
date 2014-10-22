@@ -75,14 +75,14 @@ namespace std {
 	void LogService::runScript()
 	{
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("LogService run runScript!"));
+		logService_.logInfo(log_1("start!"));
 		
 		LuaService& luaService_ = Singleton<LuaService>::instance();
 		luaService_.runClass<LogService>("LogService");
 		luaService_.runMethod<LogService>(&LogService::luaLogError, "logError");
 		luaService_.runMethod<LogService>(&LogService::luaLogInfo, "logInfo");
 		
-		logService_.logInfo(log_1("LogService run runScript finish!"));
+		logService_.logInfo(log_1("finish!"));
 	}
 
 	bool LogService::runPreinit()

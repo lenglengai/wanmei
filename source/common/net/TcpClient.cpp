@@ -9,8 +9,8 @@ namespace std {
 		if (nError) {
 			this->runStop();
 		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1(nError.message()));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(nError.message()));
 		#endif
 			return;
 		}
@@ -23,15 +23,15 @@ namespace std {
 	{
 		if (nError) {
 		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1(nError.message()));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(nError.message()));
 		#endif
 		}
 		if (mConnectTimer->expires_at() <= asio::deadline_timer::traits_type::now()) {
 			this->runStop();
 		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1(nError.message()));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(nError.message()));
 		#endif
 			mConnectTimer->expires_at(boost::posix_time::pos_infin);
 		}
@@ -59,8 +59,8 @@ namespace std {
 				this, boost::asio::placeholders::error));
 		} catch (boost::system::system_error& e) {
 		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1(e.what()));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(e.what()));
 		#endif
 		}
 	}
@@ -78,13 +78,13 @@ namespace std {
 	bool TcpClient::runPreinit()
 	{
 	#ifdef __LOG__
-		LogService& logService = Singleton<LogService>::instance();
-		logService.logInfo(log_1("TcpClient run runPreinit!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("start!"));
 	#endif
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunStart0.connect(boost::bind(&TcpClient::runStart, this));
 	#ifdef __LOG__
-		logService.logInfo(log_1("TcpClient run runPreinit finish!"));
+		logService_.logInfo(log_1("finish!"));
 	#endif
 		return true;
 	}
@@ -92,21 +92,21 @@ namespace std {
 	void TcpClient::runLoad()
 	{
 	#ifdef __LOG__
-		LogService& logService = Singleton<LogService>::instance();
-		logService.logInfo(log_1("TcpClient run runLoad!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("start!"));
 	#endif
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
 		archiveService_.xmlUrlStream(this);
 	#ifdef __LOG__
-		logService.logInfo(log_1("TcpClient run runLoad finish!"));
+		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
 
 	void TcpClient::runStart()
 	{
 	#ifdef __LOG__
-		LogService& logService = Singleton<LogService>::instance();
-		logService.logInfo(log_1("TcpClient run runStart!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("start!"));
 	#endif
 		IoService& ioService_ = Singleton<IoService>::instance();
 		asio::io_service& ioservice = ioService_.getIoService();
@@ -116,20 +116,20 @@ namespace std {
 		mConnectTimer.reset(new asio::deadline_timer(ioservice));
 		this->startConnect();
 	#ifdef __LOG__
-		logService.logInfo(log_1("TcpClient run runStart finish!"));
+		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
 
 	void TcpClient::runStop()
 	{
 	#ifdef __LOG__
-		LogService& logService = Singleton<LogService>::instance();
-		logService.logInfo(log_1("TcpClient run runStop!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("start!"));
 	#endif
 		IoService& ioService = Singleton<IoService>::instance();
 		ioService.runStop();
 	#ifdef __LOG__
-		logService.logInfo(log_1("TcpClient run runStop finish!"));
+		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
 

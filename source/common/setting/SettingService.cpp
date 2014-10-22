@@ -17,13 +17,13 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("SettingService run runPreinit!"));
+		logService_.logInfo(log_1("start!"));
 	#endif
 		
 		//mSystemPath = nPath;
 		
 	#ifdef __LOG__
-		logService_.logInfo(log_1("SettingService run runPreinit finish!"));
+		logService_.logInfo(log_1("finish!"));
 	#endif
 		return true;
 	}

@@ -9,8 +9,8 @@ namespace std {
 		map<__i32, IProtocol *>::iterator it = mProtocols.find(protocolId);
 		if (it == mProtocols.end()) {
 		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1(protocolId));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(protocolId));
 		#endif
 			return false;
 		}
@@ -24,8 +24,8 @@ namespace std {
 		map<__i32, IProtocol *>::iterator it = mProtocols.find(protocolId);
 		if (it != mProtocols.end()) {
 		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1(protocolId));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(protocolId));
 		#endif
 			return;
 		}

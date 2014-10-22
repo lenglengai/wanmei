@@ -9,7 +9,8 @@ namespace std {
 		if (!this->runInt8(value_)) {
 			return false;
 		}
-		return __convert<bool, __i8>(value_);
+		nValue = __convert<bool, __i8>(value_);
+		return true;
 	}
 
 	bool ReadBlock::runInt8(__i8& nValue)

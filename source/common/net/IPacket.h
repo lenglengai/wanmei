@@ -46,10 +46,6 @@ namespace std {
 			T1& protocol_ = Singleton<T1>::instance();
 			mProtocol = protocol_.getProtocolId();
 			mInline = nInline;
-		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_2("getPacketId ", mInline));
-		#endif
 			CrcService& crcService_ = Singleton<CrcService>::instance();
 			mPacket = crcService_.runCommon(T0::sPacketName);
 		}

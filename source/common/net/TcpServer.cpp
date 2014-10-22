@@ -8,8 +8,8 @@ namespace std {
 		if (nError) {
 			this->runStop();
 		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1(nError.message()));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(nError.message()));
 		#endif
 			return;
 		}
@@ -34,8 +34,8 @@ namespace std {
 				boost::asio::placeholders::error));
 		} catch (boost::system::system_error& e) {
 		#ifdef __LOG__
-			LogService& logService = Singleton<LogService>::instance();
-			logService.logError(log_1(e.what()));
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(e.what()));
 		#endif
 		}
 	}
@@ -53,14 +53,14 @@ namespace std {
 	bool TcpServer::runPreinit()
 	{
 	#ifdef __LOG__
-		LogService& logService = Singleton<LogService>::instance();
-		logService.logInfo(log_1("TcpServer run runPreinit!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("start!"));
 	#endif
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunStart0.connect(boost::bind(&TcpServer::runStart, this));
 		initService_.m_tRunStop.connect(boost::bind(&TcpServer::runStop, this));
 	#ifdef __LOG__
-		logService.logInfo(log_1("TcpServer run runPreinit finish!"));
+		logService_.logInfo(log_1("finish!"));
 	#endif
 		return true;
 	}
@@ -68,21 +68,21 @@ namespace std {
 	void TcpServer::runLoad()
 	{
 	#ifdef __LOG__
-		LogService& logService = Singleton<LogService>::instance();
-		logService.logInfo(log_1("TcpServer run runLoad!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("start!"));
 	#endif
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
 		archiveService_.xmlUrlStream(this);
 	#ifdef __LOG__
-		logService.logInfo(log_1("TcpServer run runLoad finish!"));
+		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
 
 	void TcpServer::runStart()
 	{
 	#ifdef __LOG__
-		LogService& logService = Singleton<LogService>::instance();
-		logService.logInfo(log_1("TcpServer run runStart!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("start!"));
 	#endif
 		IoService& ioService_ = Singleton<IoService>::instance();
 		mAcceptor.reset(new asio::ip::tcp::acceptor(ioService_.getIoService()));
@@ -96,19 +96,19 @@ namespace std {
 		mAcceptor->listen();
 		startAccept();
 	#ifdef __LOG__
-		logService.logInfo(log_1("TcpServer run runStart fihish!"));
+		logService_.logInfo(log_1("fihish!"));
 	#endif
 	}
 
 	void TcpServer::runStop()
 	{
 	#ifdef __LOG__
-		LogService& logService = Singleton<LogService>::instance();
-		logService.logInfo(log_1("TcpServer run runStop!"));
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("start!"));
 	#endif
  		mAcceptor->close();
 	#ifdef __LOG__
-		logService.logInfo(log_1("TcpServer run runStop fihish!"));
+		logService_.logInfo(log_1("fihish!"));
 	#endif
 	}
 

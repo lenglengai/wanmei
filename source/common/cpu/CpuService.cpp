@@ -18,7 +18,7 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("CpuService run runPreinit!"));
+		logService_.logInfo(log_1("start!"));
 	#endif
 #ifdef __WINDOW__
 		SYSTEM_INFO si;
@@ -28,7 +28,7 @@ namespace std {
 		mCpuCount = sysconf(_SC_NPROCESSORS_CONF);
 #endif
 #ifdef __LOG__
-		logService_.logInfo(log_1("CpuService run runPreinit finish!"));
+		logService_.logInfo(log_1("finish!"));
 #endif
 		return true;
 	}

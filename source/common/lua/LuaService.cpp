@@ -16,9 +16,9 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("LuaService run runPreinit!"));
+		logService_.logInfo(log_1("start!"));
 		
-		logService_.logInfo(log_1("LuaService run runPreinit finish!"));
+		logService_.logInfo(log_1("finish!"));
 	#endif
 		return true;
 	}

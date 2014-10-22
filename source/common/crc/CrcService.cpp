@@ -94,13 +94,13 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("CrcService run runScript!"));
+		logService_.logInfo(log_1("start!"));
 	#endif
 		LuaService& luaService_ = Singleton<LuaService>::instance();
 		luaService_.runClass<CrcService>("CrcService");
 		luaService_.runMethod<CrcService>(&CrcService::runCommon, "runCommon");
 	#ifdef __LOG__
-		logService_.logInfo(log_1("CrcService run runScript finish!"));
+		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
 
@@ -108,12 +108,12 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("CrcService run runPreinit!"));
+		logService_.logInfo(log_1("start!"));
 	#endif
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&CrcService::runInit, this));
 	#ifdef __LOG__
-		logService_.logInfo(log_1("CrcService run runPreinit finish!"));
+		logService_.logInfo(log_1("finish!"));
 	#endif
 		return true;
 	}
@@ -122,11 +122,11 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("CrcService run runInit!"));
+		logService_.logInfo(log_1("start!"));
 	#endif
 		CrcService::runScript();
 	#ifdef __LOG__
-		logService_.logInfo(log_1("CrcService run runInit finish!"));
+		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
 

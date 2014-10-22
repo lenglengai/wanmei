@@ -24,14 +24,14 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("TimeService run runScript!"));
+		logService_.logInfo(log_1("start!"));
 	#endif
 		LuaService& luaService_ = Singleton<LuaService>::instance();
 		luaService_.runClass<TimeService>("TimeService");
 		luaService_.runMethod<TimeService>(&TimeService::getServerTime, "getServerTime");
 		luaService_.runMethod<TimeService>(&TimeService::getNowSecond, "getNowSecond");
 	#ifdef __LOG__
-		logService_.logInfo(log_1("TimeService run runScript finish!"));
+		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
 
@@ -39,7 +39,7 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("TimeService run runPreinit!"));
+		logService_.logInfo(log_1("start!"));
 	#endif
 		
 		system_clock::time_point nowPoint = system_clock::now();
@@ -48,7 +48,7 @@ namespace std {
 		system_clock::time_point startPoint = system_clock::from_time_t(startTime);
 		if (startPoint > nowPoint) {
 		#ifdef __LOG__
-			logService_.logError(log_1("runPreinit runPreinit startPoint > nowPoint!"));
+			logService_.logError(log_1("startPoint > nowPoint!"));
 		#endif
 			return false;
 		}
@@ -57,7 +57,7 @@ namespace std {
 		system_clock::time_point endPoint = system_clock::from_time_t(endTime);
 		if (nowPoint > endPoint) {
 		#ifdef __LOG__
-			logService_.logError(log_1("runPreinit runPreinit nowPoint > endPoint!"));
+			logService_.logError(log_1("nowPoint > endPoint!"));
 		#endif
 			return false;
 		}
@@ -68,7 +68,7 @@ namespace std {
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&TimeService::runInit, this));
 		#ifdef __LOG__
-		logService_.logInfo(log_1("TimeService run runPreinit finish!"));
+		logService_.logInfo(log_1("finish!"));
 		#endif
 		return true;
 	}
@@ -101,11 +101,11 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("TimeService run runInit!"));
+		logService_.logInfo(log_1("start!"));
 	#endif
 		TimeService::runScript();
 	#ifdef __LOG__
-		logService_.logInfo(log_1("TimeService run runInit finish!"));
+		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
 

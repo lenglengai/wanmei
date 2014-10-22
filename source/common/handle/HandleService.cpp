@@ -19,7 +19,7 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("HandleService run runPreinit"));
+		logService_.logInfo(log_1("start"));
 	#endif
 #if defined(__SERVER__) && defined(__CPU__)
 		CpuService& cpuService_ = Singleton<CpuService>::instance();
@@ -30,7 +30,7 @@ namespace std {
 		initService_.m_tRunStart1.connect(boost::bind(&HandleService::runStart, this));
 		initService_.m_tRunStop.connect(boost::bind(&HandleService::runStop, this));
 	#ifdef __LOG__
-		logService_.logInfo(log_1("HandleService run runPreinit finish!"));
+		logService_.logInfo(log_1("finish!"));
 	#endif
 		return true;
 	}
@@ -39,14 +39,14 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("HandleService run runInit"));
+		logService_.logInfo(log_1("start"));
 	#endif
 		for (__i32 i = 0; i < mHandleCount; ++i) {
 			HandlePtr handle(new Handle());
 			mHandles[i] = handle;
 		}
 	#ifdef __LOG__
-		logService_.logInfo(log_1("HandleService run runInit finish"));
+		logService_.logInfo(log_1("finish"));
 	#endif
 	}
 
@@ -54,7 +54,7 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("HandleService run runStart"));
+		logService_.logInfo(log_1("start"));
 	#endif
 		std::map<__i32, HandlePtr>::iterator it = mHandles.begin();
 		for ( ; it != mHandles.end(); ++it ) {
@@ -62,7 +62,7 @@ namespace std {
 			handle->runStart();
 		}
 	#ifdef __LOG__
-		logService_.logInfo(log_1("HandleService run runStart finish"));
+		logService_.logInfo(log_1("finish"));
 	#endif
 	}
 
@@ -70,7 +70,7 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("stop handle service"));
+		logService_.logInfo(log_1("start"));
 	#endif
 		std::map<__i32, HandlePtr>::iterator it = mHandles.begin();
 		for (; it != mHandles.end(); ++it) {
@@ -78,7 +78,7 @@ namespace std {
 			handle->runStop();
 		}
 	#ifdef __LOG__
-		logService_.logInfo(log_1("stop handle service finish!"));
+		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
 

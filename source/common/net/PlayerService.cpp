@@ -10,7 +10,7 @@ namespace std{
 			LogService& logService_ = Singleton<LogService>::instance();
 			__i32 protocolId = nPacket->getProtocolId();
 			__i32 packetId = nPacket->getPacketId(); 
-			logService_.logError(log_3("PlayerService pushPacket isInSwitch: ", protocolId, packetId));
+			logService_.logError(log_2(protocolId, packetId));
 			return false;
 		}
 		nPacket->setPlayer(nPlayer);
@@ -18,7 +18,7 @@ namespace std{
 		auto it = mSingleWires.find(wireId);
 		if ( it == mSingleWires.end())  {
 			LogService& logService_ = Singleton<LogService>::instance();
-			logService_.logError(log_2("PlayerService pushPacket wireId: ", wireId));
+			logService_.logError(log_1(wireId));
 			return false;
 		}
 		SingleWirePtr& singleWire_ = it->second;
@@ -65,13 +65,13 @@ namespace std{
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("PlayerService runPreinit!"));
+		logService_.logInfo(log_1("start!"));
 	#endif
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&PlayerService::runInit, this));
 		initService_.m_tRunStart0.connect(boost::bind(&PlayerService::runStart, this));
 	#ifdef __LOG__
-		logService_.logInfo(log_1("PlayerService runPreinit finish!"));
+		logService_.logInfo(log_1("finish!"));
 	#endif
 		return true;
 	}
@@ -80,24 +80,25 @@ namespace std{
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("PlayerService runInit!"));
+		logService_.logInfo(log_1("start!"));
 	#endif
 
 	#ifdef __CLIENT__
 		mSingleWire.reset(new SingleWire());
 	#endif
 
-	#if defined(__SERVER__) && defined(__CPU__)
+	#if defined(__SERVER__) && defined(__WITHCPU__)
 		CpuService& cpuService_ = Singleton<CpuService>::instance();
 		__i16 cpuCount = cpuService_.getCpuCount();
 		for ( __i16 i = 1; i <= cpuCount; ++i ) {
 			SingleWirePtr singleWire_(new SingleWire());
 			mSingleWires[i] = singleWire_;
+			mPlayerCounts[i] = 0;
 		}
 	#endif
 	
 	#ifdef __LOG__
-		logService_.logInfo(log_1("PlayerService runInit finish!"));
+		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
 	
@@ -105,7 +106,7 @@ namespace std{
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("PlayerService runInit!"));
+		logService_.logInfo(log_1("start!"));
 	#endif
 
 		HandleService& handleService_ = Singleton<HandleService>::instance();
@@ -116,10 +117,10 @@ namespace std{
 		handleService_.addContext(context_, 1);
 	#endif
 
-	#if defined(__SERVER__) && defined(__CPU__)
+	#if defined(__SERVER__) && defined(__WITHCPU__)
 		__i32 contextId_ = 1;
 		auto it = mSingleWires.begin();
-		for ( ; it < mSingleWires.end(); ++it ) {
+		for ( ; it != mSingleWires.end(); ++it ) {
 			SingleWirePtr& singleWire_ = it->second;
 			ContextPtr context_ = std::dynamic_pointer_cast<Context, SingleWire>(singleWire_);
 			handleService_.addContext(context_, contextId_);
@@ -128,7 +129,7 @@ namespace std{
 	#endif
 	
 	#ifdef __LOG__
-		logService_.logInfo(log_1("PlayerService runInit finish!"));
+		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
 	

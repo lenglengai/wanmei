@@ -5,10 +5,6 @@ namespace std {
 
 	void SingleWire::pushPacket(PacketPtr& nPacket)
 	{
-	#ifdef __LOG__
-		LogService& logService = Singleton<LogService>::instance();
-		logService.logInfo(log_1("Haha Message!"));
-	#endif
 		std::lock_guard<std::mutex> lock_(mMutex);
 		mPackets.push_back(nPacket);
 	}
@@ -27,11 +23,12 @@ namespace std {
 	void SingleWire::runContext()
 	{
 		PacketPtr packet_ = this->popPacket();
+		if (!packet_) return;
 	#ifdef __SERVER__
 		PlayerPtr * player_ = packet_->getPlayer();
 		packet_->handleRun(*player_);
 	#endif
-	#ifdef __CLIENT_
+	#ifdef __CLIENT__
 		PlayerPtr& player_ = SingletonPtr<Player>::instance();
 		packet_->handleRun(player_);
 	#endif
