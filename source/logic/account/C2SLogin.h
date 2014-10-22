@@ -19,7 +19,7 @@ namespace std {
 		__i32 getPassward();
 		
 		C2SLogin();
-		C2SLogin(std::string& nPlayerName, std::string& nPassward);
+		C2SLogin(std::string& nPlayerName, __i32 nPassward);
 		~C2SLogin();
 
 	private:

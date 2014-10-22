@@ -3,6 +3,11 @@
 #ifdef __NET__
 namespace std {
 
+	void Robot::setWireId(__i16 nWireId)
+	{
+		mWireId = nWireId;
+	}
+	
 	__i16 Robot::getWireId()
 	{
 		return mWireId;

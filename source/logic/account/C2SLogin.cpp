@@ -15,7 +15,7 @@ namespace std {
 	bool C2SLogin::runBlock(BlockPtr& nBlock)
 	{
 		nBlock->runString(mPlayerName);
-		nBlock->runString(mPassward);
+		nBlock->runInt32(mPassward);
 		return true;
 	}
 	

@@ -1,6 +1,3 @@
-/ying/build/profile.prof
-/ying/build/cmake.sublime-workspace
-
 /build/*.pyc
 /mbclient/proj.android/gen
 /mbclient/proj.android/libs
@@ -24,7 +21,9 @@
 /document/*.zargo~
 /project/*.sublime-workspace
 /ying/build/journey
-/ying/build/server
 /ying/build/configure
 /ying/build/gameServer
 /ying/build/gameClient
+/ying/binary/tcpClient.xml
+/ying/binary/tcpServer.xml
+/ying/binary/profile.prof

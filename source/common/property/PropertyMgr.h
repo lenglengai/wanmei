@@ -13,8 +13,6 @@ namespace std {
 		void addProperty(PropertyPtr& nProperty, PropertyIdPtr& nPropertyId);
 		PropertyPtr& getProperty(IPropertyId& nPropertyId);
 
-		void initProperty();
-
 		PropertyMgr();
 		virtual ~PropertyMgr();
 

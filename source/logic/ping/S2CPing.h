@@ -4,7 +4,7 @@
 namespace std {
 
 	class PingProtocol;
-	class S2CPing : public Packet<S2CPing, PingProtocol, false>, boost::noncopyable
+	class S2CPing : public Packet<S2CPing, PingProtocol>, boost::noncopyable
 	{
 	public:
 		static const char * sPacketName;

@@ -11,6 +11,9 @@ namespace std {
 		
 		SingleWire();
 		~SingleWire();
+	
+	private:
+		PacketPtr popPacket();
 		
 	private:
 		std::deque<PacketPtr> mPackets;

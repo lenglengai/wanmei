@@ -31,20 +31,6 @@ namespace std {
 		mPropertys[propertyId_] = nProperty;
 	}
 
-	void PropertyMgr::initProperty()
-	{
-		map<__i32, PropertyPtr>::iterator it = mPropertys.begin();
-		for ( ; it != mPropertys.end(); ++it ) {
-			PropertyPtr& property_ = it->second;
-			property_->runInit0();
-		}
-		it = mPropertys.begin();
-		for ( ; it != mPropertys.end(); ++it ) {
-			PropertyPtr& property_ = it->second;
-			property_->runInit1();
-		}
-	}
-
 	PropertyMgr::PropertyMgr()
 	{
 		mPropertys.clear();

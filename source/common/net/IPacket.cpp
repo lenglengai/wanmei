@@ -36,7 +36,7 @@ namespace std {
 #ifdef __SERVER__
 	void IPacket::setPlayer(PlayerPtr& nPlayer)
 	{
-		mPlayer = nPlayer;
+		mPlayer = &nPlayer;
 	}
 	
 	PlayerPtr * IPacket::getPlayer()
@@ -58,13 +58,17 @@ namespace std {
 		: mProtocol(0)
 		, mPacket(0)
 		, mInline(true)
+	#ifdef __SERVER__
 		, mPlayer(nullptr)
+	#endif
 	{
 	}
 
 	IPacket::~IPacket()
 	{
+	#ifdef __SERVER__
 		mPlayer = nullptr;
+	#endif
 		mProtocol = 0;
 		mInline = true;
 		mPacket = 0;

@@ -28,10 +28,18 @@ namespace std {
 			return false;
 		}
 		if (inline_) {
+		#ifdef __LOG__
+			LogService& logService = Singleton<LogService>::instance();
+			logService.logError(log_1("inline_ "));
+		#endif
 			PlayerService& playerService_ = Singleton<PlayerService>::instance();
-			return playerService_->pushPacket(nPacket, nPlayer);
+			return playerService_.pushPacket(packet_, nPlayer);
 		} else {
-			return nPacket->handleRun(nPlayer);
+		#ifdef __LOG__
+			LogService& logService = Singleton<LogService>::instance();
+			logService.logError(log_1("out "));
+		#endif
+			return packet_->handleRun(nPlayer);
 		}
 	}
 

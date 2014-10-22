@@ -32,7 +32,7 @@ namespace std {
 		PropertyIdPtr propertyIdPtr_ = PropertyIdPtr(new PropertyId<PingSecond>());
 		tcpClient_.registerCreate(propertyIdPtr_);
 
-		mPingTick.reset(new PingTick(this));
+		mPingTick.reset(new PingTick());
 
 		this->addPacketId(PacketIdPtr(new PacketId<S2CPing>()));
 	#endif
@@ -57,7 +57,7 @@ namespace std {
 	#endif
 	#ifdef __CLIENT__
 		HandleService& handleService_ = Singleton<HandleService>::instance();
-		ContextPtr context_ = mPingTick;
+		ContextPtr context_ = std::dynamic_pointer_cast<Context, PingTick>(mPingTick);
 		handleService_.addContext(context_, 1);
 	#endif
 	#ifdef __LOG__

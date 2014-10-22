@@ -65,7 +65,6 @@
 ../../../source/common/archive/ArchiveService.cpp
 ../../../source/common/archive/JourneyDescripter.cpp
 ../../../source/common/handle/Context.cpp
-../../../source/common/handle/ContextService.cpp
 ../../../source/common/handle/Handle.cpp
 ../../../source/common/handle/HandleService.cpp
 ../../../source/common/ioservice/IoService.cpp

@@ -55,7 +55,7 @@ namespace std {
 		
 	private:
 	    std::set<std::string> mArchives;
-		InitType_ mInitType;
+		__i16 mInitType;
 		bool mConfigure;
 	};
 

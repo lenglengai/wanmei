@@ -7,7 +7,7 @@ namespace std{
 	{
 	#ifdef __SERVER__
 		if (nPlayer->isInSwitch()) {
-			LogService_& logService_ = Singleton<LogService_>::instance();
+			LogService& logService_ = Singleton<LogService>::instance();
 			__i32 protocolId = nPacket->getProtocolId();
 			__i32 packetId = nPacket->getPacketId(); 
 			logService_.logError(log_3("PlayerService pushPacket isInSwitch: ", protocolId, packetId));
@@ -17,28 +17,49 @@ namespace std{
 		__i16 wireId = nPlayer->getWireId();
 		auto it = mSingleWires.find(wireId);
 		if ( it == mSingleWires.end())  {
-			LogService_& logService_ = Singleton<LogService_>::instance();
+			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_2("PlayerService pushPacket wireId: ", wireId));
 			return false;
 		}
 		SingleWirePtr& singleWire_ = it->second;
-		singleWire_.pushPacket(nPacket);
+		singleWire_->pushPacket(nPacket);
 	#endif
 	#ifdef __CLIENT__
-		mSingleWire.pushPacket(nPacket);
+		mSingleWire->pushPacket(nPacket);
 	#endif
 		return true;
 	}
 	
+#ifdef __SERVER__
 	PlayerPtr& PlayerService::generatePlayer()
 	{
+		PlayerPtr player_(new Player());
 		std::lock_guard<std::mutex> lock_(mMutex);
 		++mPlayerId;
-		PlayerPtr player_(new Player());
 		player_->setPlayerId(mPlayerId);
+		__i16 wireId = this->runWireId();
+		player_->setWireId(wireId);
 		mPlayers[mPlayerId] = player_;
 		return mPlayers[mPlayerId];
 	}
+	
+	__i16 PlayerService::runWireId()
+	{
+		__i16 playerCount_ = 30000;
+		__i16 singleWire_ = 30000;
+		std::map<__i16, __i16>::iterator it = mPlayerCounts.begin();
+		for ( ; it != mPlayerCounts.end(); ++it ) {
+			__i16 tempWire_ = it->first;
+			__i16 tempCount_ = it->second;
+			if (tempCount_ < playerCount_) {
+				playerCount_ = tempCount_;
+				singleWire_ = tempWire_;
+			}
+		}
+		mPlayerCounts[singleWire_] = playerCount_ + 1;
+		return singleWire_;
+	}
+#endif
 	
 	bool PlayerService::runPreinit()
 	{
@@ -82,28 +103,55 @@ namespace std{
 	
 	void PlayerService::runStart()
 	{
+	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("PlayerService runInit!"));
+	#endif
+
+		HandleService& handleService_ = Singleton<HandleService>::instance();
+		
+	#ifdef __CLIENT__
+		mSingleWire.reset(new SingleWire());
+		ContextPtr context_ = std::dynamic_pointer_cast<Context, SingleWire>(mSingleWire);
+		handleService_.addContext(context_, 1);
+	#endif
+
+	#if defined(__SERVER__) && defined(__CPU__)
+		__i32 contextId_ = 1;
+		auto it = mSingleWires.begin();
+		for ( ; it < mSingleWires.end(); ++it ) {
+			SingleWirePtr& singleWire_ = it->second;
+			ContextPtr context_ = std::dynamic_pointer_cast<Context, SingleWire>(singleWire_);
+			handleService_.addContext(context_, contextId_);
+			contextId_++;
+		}
+	#endif
+	
+	#ifdef __LOG__
+		logService_.logInfo(log_1("PlayerService runInit finish!"));
+	#endif
 	}
 	
-	PlayerService::PlayerService()
-	#ifdef __SERVER__
-		: mPlayerId (0)
-	#endif
+	void PlayerService::runClear()
 	{
 	#ifdef __SERVER__
-		mSingleWires.clear();
-		mPlayers.clear();
-	#endif
-	}
-	
-	PlayerService::~PlayerService()
-	{
-	#ifdef __SERVER__
+		mPlayerCounts.clear();
 		mSingleWires.clear();
 		mPlayers.clear();
 		mPlayerId = 0;
 	#endif
 	}
 	
-	static PreInit<PlayerService> sPlayerServicePreInit;
+	PlayerService::PlayerService()
+	{
+		this->runClear();
+	}
+	
+	PlayerService::~PlayerService()
+	{
+		this->runClear();
+	}
+	
+	static Preinit<PlayerService> sPlayerServicePreInit;
 }
 #endif

@@ -19,11 +19,18 @@ namespace std{
 		
 		PlayerService();
 		~PlayerService();
+		
+	private:
+	#ifdef __SERVER__
+		__i16 runWireId();
+	#endif
+		void runClear();
 	
 	private:
 	#ifdef __SERVER__
 		std::map<__i16, SingleWirePtr> mSingleWires;
 		std::map<__i64, PlayerPtr> mPlayers;
+		std::map<__i16, __i16> mPlayerCounts;
 		std::mutex mMutex;
 		__i64 mPlayerId;
 	#endif

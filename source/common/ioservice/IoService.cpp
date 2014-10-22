@@ -19,7 +19,7 @@ namespace std {
 		initService_.m_tRunInit0.connect(boost::bind(&IoService::runInit, this));
 		initService_.m_tRunStart0.connect(boost::bind(&IoService::runStart, this));
 		initService_.m_tRunRun.connect(boost::bind(&IoService::runRun, this));
-		//initService_.m_tRunStop.connect(boost::bind(&IoService::runStop, this));
+		initService_.m_tRunStop.connect(boost::bind(&IoService::runStop, this));
 	#ifdef __LOG__
 		logService_.logInfo(log_1("IoService run runPreinit finish!"));
 	#endif
@@ -52,7 +52,7 @@ namespace std {
 		InitService& initService_ = Singleton<InitService>::instance();
 		mSignals.reset(new asio::signal_set(this->getIoService()));
 		mSignals->add(SIGINT); mSignals->add(SIGTERM);
-		mSignals->async_wait(boost::bind(&IoService::runStop, this));
+		mSignals->async_wait(boost::bind(&InitService::runStop, &initService_));
 	#ifdef __LOG__
 		logService_.logInfo(log_1("IoService runStart finish"));
 	#endif
@@ -105,8 +105,8 @@ namespace std {
 
 	void IoService::runClear()
 	{
-		mIoServices.clear();
-		mWorks.clear();
+		//mIoServices.clear();
+		//mWorks.clear();
 		mNextIoService = 0;
 		mIoServiceCount = 1;
 	}

@@ -16,6 +16,7 @@ namespace std {
 	class Robot : public PropertyMgr
 	{
 	public:
+		void setWireId(__i16 nWireId);
 		__i16 getWireId();
 		bool isInSwitch();
 		

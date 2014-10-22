@@ -28,12 +28,10 @@ namespace std {
 	PingTick::PingTick()
 		: mSendTick(0)
 	{
-		mPackets.clear();
 	}
 
 	PingTick::~PingTick()
 	{
-		mPackets.clear();
 		mSendTick = 0;
 	}
 #endif
