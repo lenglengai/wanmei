@@ -5,14 +5,11 @@ namespace std {
 
 	bool PingProtocol::runPreinit()
 	{
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start!"));
-	#endif
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&PingProtocol::runInit, this));
 		initService_.m_tRunStart0.connect(boost::bind(&PingProtocol::runStart, this));
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 		return true;
@@ -20,10 +17,6 @@ namespace std {
 
 	void PingProtocol::runInit()
 	{
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start!"));
-	#endif
 		ProtocolService& protocolService_ =  Singleton<ProtocolService>::instance();
 		protocolService_.runRegister(this);
 
@@ -45,22 +38,20 @@ namespace std {
 		this->addPacketId(PacketIdPtr(new PacketId<C2SPing>()));
 	#endif
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
 
 	void PingProtocol::runStart()
 	{
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start!"));
-	#endif
 	#ifdef __CLIENT__
 		HandleService& handleService_ = Singleton<HandleService>::instance();
 		ContextPtr context_ = std::dynamic_pointer_cast<Context, PingTick>(mPingTick);
 		handleService_.addContext(context_, 1);
 	#endif
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 	}

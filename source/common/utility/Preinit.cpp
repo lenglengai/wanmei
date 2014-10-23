@@ -9,15 +9,12 @@ namespace std {
 	
 	bool PreinitSlot::runPreinit()
 	{
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start!"));
-	#endif
 		for ( auto& it : mPreinits) {
 			bool result_ = it();
 			if (!result_) return result_;
 		}
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 		return true;

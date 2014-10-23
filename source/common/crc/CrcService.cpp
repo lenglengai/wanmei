@@ -92,27 +92,21 @@ namespace std {
 
 	void CrcService::runScript()
 	{
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start!"));
-	#endif
 		LuaService& luaService_ = Singleton<LuaService>::instance();
 		luaService_.runClass<CrcService>("CrcService");
 		luaService_.runMethod<CrcService>(&CrcService::runCommon, "runCommon");
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
 
 	bool CrcService::runPreinit()
 	{
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start!"));
-	#endif
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&CrcService::runInit, this));
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 		return true;
@@ -120,12 +114,9 @@ namespace std {
 
 	void CrcService::runInit()
 	{
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start!"));
-	#endif
 		CrcService::runScript();
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 	}

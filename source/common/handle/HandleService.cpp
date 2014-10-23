@@ -17,10 +17,6 @@ namespace std {
 
 	bool HandleService::runPreinit()
 	{
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start"));
-	#endif
 #if defined(__SERVER__) && defined(__CPU__)
 		CpuService& cpuService_ = Singleton<CpuService>::instance();
 		mHandleCount = cpuService_.getCpuCount();
@@ -30,6 +26,7 @@ namespace std {
 		initService_.m_tRunStart1.connect(boost::bind(&HandleService::runStart, this));
 		initService_.m_tRunStop.connect(boost::bind(&HandleService::runStop, this));
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 		return true;
@@ -37,47 +34,38 @@ namespace std {
 
 	void HandleService::runInit()
 	{
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start"));
-	#endif
 		for (__i32 i = 0; i < mHandleCount; ++i) {
 			HandlePtr handle(new Handle());
 			mHandles[i] = handle;
 		}
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish"));
 	#endif
 	}
 
 	void HandleService::runStart()
 	{
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start"));
-	#endif
 		std::map<__i32, HandlePtr>::iterator it = mHandles.begin();
 		for ( ; it != mHandles.end(); ++it ) {
 			HandlePtr& handle = it->second;
 			handle->runStart();
 		}
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish"));
 	#endif
 	}
 
 	void HandleService::runStop()
 	{
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start"));
-	#endif
 		std::map<__i32, HandlePtr>::iterator it = mHandles.begin();
 		for (; it != mHandles.end(); ++it) {
 			HandlePtr& handle = it->second;
 			handle->runStop();
 		}
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 	}

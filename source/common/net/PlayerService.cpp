@@ -63,14 +63,11 @@ namespace std{
 	
 	bool PlayerService::runPreinit()
 	{
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start!"));
-	#endif
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&PlayerService::runInit, this));
 		initService_.m_tRunStart0.connect(boost::bind(&PlayerService::runStart, this));
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 		return true;
@@ -78,11 +75,6 @@ namespace std{
 	
 	void PlayerService::runInit()
 	{
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start!"));
-	#endif
-
 	#ifdef __CLIENT__
 		mSingleWire.reset(new SingleWire());
 	#endif
@@ -98,17 +90,13 @@ namespace std{
 	#endif
 	
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
 	
 	void PlayerService::runStart()
 	{
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start!"));
-	#endif
-
 		HandleService& handleService_ = Singleton<HandleService>::instance();
 		
 	#ifdef __CLIENT__
@@ -129,6 +117,7 @@ namespace std{
 	#endif
 	
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 	}

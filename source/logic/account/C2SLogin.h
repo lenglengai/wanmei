@@ -4,7 +4,7 @@
 namespace std {
 
 	class LoginProtocol;
-	class C2SLogin : public Packet<C2SLogin, LoginProtocol, false>, boost::noncopyable
+	class C2SLogin : public Packet<C2SLogin, LoginProtocol>, boost::noncopyable
 	{
 	public:
 		static const char * sPacketName;

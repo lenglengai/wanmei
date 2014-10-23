@@ -73,12 +73,6 @@ namespace std {
 
 	void Session::handleReadTimeout(const boost::system::error_code& nError)
 	{
-		if (nError) {
-		#ifdef __LOG__
-			LogService& logService_ = Singleton<LogService>::instance();
-			logService_.logError(log_1(nError.message()));
-		#endif
-		}
 		if (mReadTimer.expires_at() <= asio::deadline_timer::traits_type::now()) {
 			this->runClose();
 		#ifdef __LOG__
@@ -105,12 +99,6 @@ namespace std {
 
 	void Session::handleWriteTimeout(const boost::system::error_code& nError)
 	{
-		if (nError) {
-		#ifdef __LOG__
-			LogService& logService_ = Singleton<LogService>::instance();
-			logService_.logError(log_1(nError.message()));
-		#endif
-		}
 		if (mWriteTimer.expires_at() <= asio::deadline_timer::traits_type::now()) {
 			this->runClose();
 		#ifdef __LOG__

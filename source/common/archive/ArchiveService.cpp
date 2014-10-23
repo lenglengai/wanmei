@@ -46,7 +46,6 @@ namespace std {
 	{
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start!"));
 	#endif
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunLoad0.connect(boost::bind(&ArchiveService::runLoad, this));
@@ -58,15 +57,12 @@ namespace std {
 	
 	void ArchiveService::runLoad()
 	{
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start!"));
-	#endif
 		std::string configure_ = "configure.jf";
 		mArchiveReader.runOpen(configure_.c_str());
 		m_tRunConfigure();
 		mArchiveReader.runClose();
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 	}

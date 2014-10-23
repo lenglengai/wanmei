@@ -7,10 +7,6 @@ namespace std {
 
 	bool IoService::runPreinit()
 	{
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start"));
-	#endif
 #if defined(__SERVER__) && defined(__WITHCPU__)
 		CpuService& cpuService_ = Singleton<CpuService>::instance();
 		mIoServiceCount = cpuService_.getCpuCount();
@@ -21,6 +17,7 @@ namespace std {
 		initService_.m_tRunRun.connect(boost::bind(&IoService::runRun, this));
 		initService_.m_tRunStop.connect(boost::bind(&IoService::runStop, this));
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 		return true;
@@ -28,10 +25,6 @@ namespace std {
 
 	void IoService::runInit()
 	{
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start"));
-	#endif
 		for (__i32 i = 0; i < mIoServiceCount; ++i) {
 			IoServicePtr ioService(new asio::io_service());
 			WorkPtr work(new asio::io_service::work(*ioService));
@@ -39,31 +32,25 @@ namespace std {
 			mWorks.push_back(work);
 		}
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish"));
 	#endif
 	}
 	
 	void IoService::runStart()
 	{
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start"));
-	#endif
 		InitService& initService_ = Singleton<InitService>::instance();
 		mSignals.reset(new asio::signal_set(this->getIoService()));
 		mSignals->add(SIGINT); mSignals->add(SIGTERM);
 		mSignals->async_wait(boost::bind(&InitService::runStop, &initService_));
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish"));
 	#endif
 	}
 
 	void IoService::runRun()
 	{
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start"));
-	#endif
 		vector<std::shared_ptr<std::thread>> threads;
 		for (size_t i = 0; i < mIoServices.size(); ++i) {
 			std::shared_ptr<std::thread> thread_(new std::thread(boost::bind(&asio::io_service::run, mIoServices[i])));
@@ -75,20 +62,18 @@ namespace std {
 		}
 	#endif
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish"));
 	#endif
 	}
 
 	void IoService::runStop()
 	{
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start"));
-	#endif
 		for (size_t i = 0; i < mIoServices.size(); ++i) {
 			mIoServices[i]->stop();
 		}
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish"));
 	#endif
 	}

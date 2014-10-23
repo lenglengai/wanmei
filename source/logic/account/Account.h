@@ -5,6 +5,7 @@ namespace std {
 
 	class Account
 	{
+	private:
 	};
 	
 }

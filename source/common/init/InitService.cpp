@@ -47,13 +47,10 @@ namespace std {
 	#endif
 			return;
 		}
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start!"));
-	#endif
 		mInitType = InitType_::mLoad0_;
 		this->m_tRunLoad0();
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
@@ -67,13 +64,10 @@ namespace std {
 	#endif
 			return;
 		}
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start!"));
-	#endif
 		mInitType = InitType_::mLoad1_;
 		this->m_tRunLoad1();
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
@@ -87,13 +81,10 @@ namespace std {
 	#endif
 			return;
 		}
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start!"));
-	#endif
 		mInitType = InitType_::mInit0_;
 		this->m_tRunInit0();
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
@@ -107,13 +98,10 @@ namespace std {
 	#endif
 			return;
 		}
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start!"));
-	#endif
 		mInitType = InitType_::mInit1_;
 		this->m_tRunInit1();
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
@@ -127,13 +115,10 @@ namespace std {
 	#endif
 			return;
 		}
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start"));
-	#endif
 		mInitType = InitType_::mStart0_;
 		this->m_tRunStart0();
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
@@ -147,13 +132,10 @@ namespace std {
 	#endif
 			return;
 		}
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start!"));
-	#endif
 		mInitType = InitType_::mStart1_;
 		this->m_tRunStart1();
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
@@ -167,13 +149,10 @@ namespace std {
 	#endif
 			return;
 		}
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start!"));
-	#endif
 		mInitType = InitType_::mRun_;
 		this->m_tRunRun();
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
@@ -201,27 +180,21 @@ namespace std {
 	#endif
 			return;
 		}
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start!"));
-	#endif
 		mInitType = InitType_::mStop_;
 		this->m_tRunStop();
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
 
 	void InitService::runSave()
 	{
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start!"));
-	#endif
 		PROFILER_UPDATE();
 		PROFILER_OUTPUT("profile.prof");
 		this->m_tRunSave();
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 	}
@@ -235,13 +208,10 @@ namespace std {
 	#endif
 			return;
 		}
-	#ifdef __LOG__
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("start!"));
-	#endif
 		mInitType = InitType_::mExit_;
 		this->m_tRunExit();
 	#ifdef __LOG__
+		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	#endif
 	}

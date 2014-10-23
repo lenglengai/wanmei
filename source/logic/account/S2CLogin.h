@@ -18,13 +18,17 @@ namespace std {
 		
 		void setErrorCode(__i32 nErrorCode);
 		__i32 getErrorCode();
-	
+		
+		void setWireId(__i16 nWireId);
+		__i16 getWireId();
+		
 		S2CLogin();
-		S2CLogin(__i32 nErrorCode);
+		S2CLogin(__i32 nErrorCode, __i16 nWireId);
 		~S2CLogin();
 
 	private:
 		__i32 mErrorCode;
+		__i16 mWireId;
 	};
 	typedef std::shared_ptr<S2CLogin> S2CLoginPtr;
 	
