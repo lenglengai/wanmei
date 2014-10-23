@@ -3,10 +3,10 @@
 #ifdef __ACCOUNT__
 namespace std {
 
-	bool LoginProtocol::runPreinit()
+	bool AccountProtocol::runPreinit()
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunInit0.connect(boost::bind(&LoginProtocol::runInit, this));
+		initService_.m_tRunInit0.connect(boost::bind(&AccountProtocol::runInit, this));
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
@@ -14,7 +14,7 @@ namespace std {
 		return true;
 	}
 
-	void LoginProtocol::runInit()
+	void AccountProtocol::runInit()
 	{
 		ProtocolService& protocolService_ =  Singleton<ProtocolService>::instance();
 		protocolService_.runRegister(this);
@@ -30,37 +30,22 @@ namespace std {
 	#endif
 	}
 
-#ifdef __CLIENT__
-	bool LoginProtocol::runPacket(PacketPtr& nPacket, PlayerPtr& nPlayer)
+	const char * AccountProtocol::getProtocolName()
 	{
-		return true;
-	}
-#endif
-
-	const char * LoginProtocol::getProtocolName()
-	{
-		return "LoginProtocol";
+		return "AccountProtocol";
 	}
 
-	LoginProtocol::LoginProtocol()
-	#ifdef __CLIENT__
-		: mPlayer ("")
-		, mContextId (0)
-		, mPassward (0)
-	#endif
+	AccountProtocol::AccountProtocol()
+
 	{
 	}
 
-	LoginProtocol::~LoginProtocol()
+	AccountProtocol::~AccountProtocol()
 	{
-	#ifdef __CLIENT__
-		mPlayer = "";
-		mContextId = 0;
-		mPassward = 0;
-	#endif
+
 	}
 	
-	static Preinit<LoginProtocol> sLoginProtocolPreinit;
+	static Preinit<AccountProtocol> sAccountProtocolPreinit;
 
 }
 #endif

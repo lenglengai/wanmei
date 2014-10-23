@@ -31,6 +31,7 @@ namespace std {
 	#ifdef __SERVER__
 		PlayerPtr * mPlayer;
 	#endif
+		__i32 mVersion;
 		__i32 mProtocol;
 		__i32 mPacket;
 		bool mInline;

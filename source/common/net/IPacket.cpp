@@ -17,6 +17,7 @@ namespace std {
 
 	bool IPacket::runHeader(BlockPtr& nBlock)
 	{
+		nBlock->runInt32(mVersion);
 		nBlock->runInt32(mProtocol);
 		nBlock->runBool(mInline);
 		nBlock->runInt32(mPacket);
@@ -62,6 +63,8 @@ namespace std {
 		, mPlayer(nullptr)
 	#endif
 	{
+		mVersion = VERHIGH << 16;
+		mVersion += VERLOW;
 	}
 
 	IPacket::~IPacket()
