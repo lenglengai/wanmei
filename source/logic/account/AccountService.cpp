@@ -16,12 +16,14 @@ namespace std {
 	
 	void AccountService::runInit()
 	{
+	#ifdef __SERVER__
 		for (__i16 i = 0; i < mAccountMgrCount; ++i) {
             AccountMgrPtr accountMgr_(new AccountMgr(i));
             mAccountMgrs[i] = accountMgr_;
         }
+	#endif
 	}
-		
+	
     AccountService::AccountService()
 	#ifdef __SERVER__
 		: mAccountMgrCount(20)

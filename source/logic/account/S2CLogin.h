@@ -3,8 +3,8 @@
 #ifdef __ACCOUNT__
 namespace std {
 
-	class LoginProtocol;
-	class S2CLogin : public Packet<S2CLogin, LoginProtocol>, boost::noncopyable
+	class AccountProtocol;
+	class S2CLogin : public Packet<S2CLogin, AccountProtocol>, boost::noncopyable
 	{
 	public:
 		static const char * sPacketName;

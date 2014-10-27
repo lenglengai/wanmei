@@ -3,12 +3,14 @@
 #ifdef __ACCOUNT__
 namespace std {
 
-	AccountMgr::AccountMgr()
+	AccountMgr::AccountMgr(__i16 nAccountMgrId)
+		: mAccountMgrId(nAccountMgrId)
 	{
 	}
 
 	AccountMgr::~AccountMgr()
 	{
+		mAccountMgrId = 0;
 	}
 
 }

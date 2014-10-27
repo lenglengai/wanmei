@@ -57,9 +57,9 @@ namespace std {
 	{
 	}
 
-	S2CLogin::S2CLogin(__i32 nErrorCode)
+	S2CLogin::S2CLogin(__i32 nErrorCode, __i16 nWireId)
 		: mErrorCode(nErrorCode)
-		, mWireId(0)
+		, mWireId(nWireId)
 	{
 	}
 
