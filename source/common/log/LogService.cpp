@@ -22,6 +22,14 @@ namespace std {
 	namespace attrs = boost::log::attributes;
 	#endif
 
+	void LogService::runScript()
+	{
+		LuaService& luaService_ = Singleton<LuaService>::instance();
+		luaService_.runClass<LogService>("LogService");
+		luaService_.runMethod<LogService>(&LogService::logLuaError, "logError");
+		luaService_.runMethod<LogService>(&LogService::logLuaInfo, "logInfo");
+	}
+
 	void LogService::logLuaError(const char * nValue)
 	{
 	#ifdef __BOOSTLOG__
