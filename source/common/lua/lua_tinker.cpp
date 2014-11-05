@@ -718,6 +718,7 @@ lua_tinker::table::table(lua_State* L, const char* name)
 	}
 
 	m_obj = new table_obj(L, lua_gettop(L));
+	m_obj->inc_ref();
 }
 
 lua_tinker::table::table(lua_State* L, int index)
