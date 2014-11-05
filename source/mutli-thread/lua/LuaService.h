@@ -8,6 +8,12 @@ namespace std {
 	class __funapi LuaService : boost::noncopyable
 	{
 	public:
+		template<typename F>
+		void runFun(F nFun, const char * nName)
+		{
+			lua_tinker::def(mLuaState, nName, nFun);
+		}
+		
 		template<class C>
 		void runClass(const char * nName)
 		{
