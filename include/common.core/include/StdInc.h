@@ -10,7 +10,7 @@
 #include <deque>
 #include <memory>
 #include <functional>
-#include <chrono>
-#include <atomic>
 #include <mutex>
+#include <atomic>
+#include <chrono>
 #include <thread>
