@@ -1,9 +1,11 @@
 #pragma once
 
+#include "PropertyId.h"
+
 #ifdef __PROPERTY__
 namespace std {
 
-	class __funapi PropertySink : public boost::noncopyable
+	class __funapi PropertySink : boost::noncopyable
 	{
 	public:
 		void runCreate(PropertyMgrPtr& nPropertyMgr);

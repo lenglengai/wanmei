@@ -5,12 +5,12 @@ namespace std {
 
 	void Property::setPropertyMgr(PropertyMgrPtr& nPropertyMgr)
 	{
-		mPropertyMgr = nPropertyMgr;
+		mPropertyMgr = (&nPropertyMgr);
 	}
 
-	PropertyMgrWtr& Property::getPropertyMgr()
+	PropertyMgrPtr& Property::getPropertyMgr()
 	{
-		return mPropertyMgr;
+		return (*mPropertyMgr);
 	}
 
 	void Property::runPreinit()
@@ -26,11 +26,13 @@ namespace std {
 	}
 	
 	Property::Property()
+		: mPropertyMgr(nullptr)
 	{
 	}
 
 	Property::~Property()
 	{
+		mPropertyMgr = nullptr;
 	}
 
 }

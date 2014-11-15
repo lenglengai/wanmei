@@ -5,7 +5,7 @@
 #ifdef __PROPERTY__
 namespace std {
 
-	class __funapi IPropertyId : public boost::noncopyable
+	class __funapi IPropertyId : boost::noncopyable
 	{
 	public:
 		virtual PropertyPtr createProperty() = 0;

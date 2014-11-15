@@ -16,8 +16,7 @@ namespace std {
 
 		__i32 getPropertyId()
 		{
-			CrcService& crcService_ = Singleton<CrcService>::instance();
-			return crcService_.runCommon(typeid(T).name());
+			return T::sPropertyId;
 		}
 	};
 

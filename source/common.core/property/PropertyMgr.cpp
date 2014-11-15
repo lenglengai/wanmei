@@ -6,7 +6,7 @@ namespace std {
 	PropertyPtr& PropertyMgr::getProperty(IPropertyId& nPropertyId)
 	{
 		__i32 propertyId_ = nPropertyId.getPropertyId();
-		map<__i32, PropertyPtr>::iterator it = mPropertys.find(propertyId_);
+		auto it = mPropertys.find(propertyId_);
 		if (it == mPropertys.end()) {
 		#ifdef __LOG__
 			LogService& logService_ = Singleton<LogService>::instance();
@@ -20,7 +20,7 @@ namespace std {
 	void PropertyMgr::addProperty(PropertyPtr& nProperty, PropertyIdPtr& nPropertyId)
 	{
 		__i32 propertyId_ = nPropertyId->getPropertyId();
-		map<__i32, PropertyPtr>::iterator it = mPropertys.find(propertyId_);
+		auto it = mPropertys.find(propertyId_);
 		if (it != mPropertys.end()) {
 		#ifdef __LOG__
 			LogService& logService_ = Singleton<LogService>::instance();

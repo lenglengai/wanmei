@@ -5,14 +5,13 @@ namespace std {
 
 	class PropertyMgr;
 	typedef std::shared_ptr<PropertyMgr> PropertyMgrPtr;
-	typedef std::weak_ptr<PropertyMgr> PropertyMgrWtr;
-	class __funapi Property : public boost::noncopyable
+	class __funapi Property : boost::noncopyable
 	{
 	public:
 		void setPropertyMgr(PropertyMgrPtr& nPropertyMgr);
 
 	protected:
-		PropertyMgrWtr& getPropertyMgr();
+		PropertyMgrPtr& getPropertyMgr();
 
 	public:
 		virtual void runPreinit();
@@ -23,7 +22,7 @@ namespace std {
 		virtual ~Property();
 		
 	private:
-		PropertyMgrWtr mPropertyMgr;
+		PropertyMgrPtr * mPropertyMgr;
 	};
 	typedef std::shared_ptr<Property> PropertyPtr;
 

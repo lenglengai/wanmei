@@ -9,9 +9,12 @@ namespace std {
 	
 	bool PreinitSlot::runPreinit()
 	{
+		bool result_ = false;
 		for ( auto& it : mPreinits) {
-			bool result_ = it();
-			if (!result_) return result_;
+			result_ = it();
+			if (!result_) {
+				return result_;
+			}
 		}
 	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
@@ -19,7 +22,7 @@ namespace std {
 	#endif
 		return true;
 	}
-		
+	
 	PreinitSlot::PreinitSlot()
 	{
 		mPreinits.clear();
@@ -29,5 +32,5 @@ namespace std {
 	{
 		mPreinits.clear();
 	}
-		
+	
 }
