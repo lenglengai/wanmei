@@ -10,7 +10,6 @@ namespace std {
 
 	void LuaScript::runClose()
 	{
-		
 	}
 
 	LuaScript::LuaScript(lua_State * nLuaState, int nLuaRef)

@@ -18,6 +18,7 @@ namespace std {
 
 	private:
 		map<__i32, PropertyPtr> mPropertys;
+		map<__i32, IDoing
 	};
 
 }
