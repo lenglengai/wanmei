@@ -16,10 +16,8 @@ namespace std {
 				return result_;
 			}
 		}
-	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
-	#endif
 		return true;
 	}
 	

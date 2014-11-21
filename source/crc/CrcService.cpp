@@ -1,8 +1,7 @@
-#include "../Common.h"
+#include "../../include/Include.h"
 
 #include "crypt_buf.h"
 
-#ifdef __CRC__
 namespace std {
 
 	__i64 CrcService::runId(const char * nName)
@@ -95,30 +94,24 @@ namespace std {
 		LuaService& luaService_ = Singleton<LuaService>::instance();
 		luaService_.runClass<CrcService>("CrcService");
 		luaService_.runMethod<CrcService>(&CrcService::runCommon, "runCommon");
-	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
-	#endif
 	}
 
 	bool CrcService::runPreinit()
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&CrcService::runInit, this));
-	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
-	#endif
 		return true;
 	}
 
 	void CrcService::runInit()
 	{
 		CrcService::runScript();
-	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
-	#endif
 	}
 
 	CrcService::CrcService()
@@ -131,5 +124,3 @@ namespace std {
 	
 	static Preinit<CrcService> sCrcServicePreinit;
 }
-#endif
-

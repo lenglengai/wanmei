@@ -9,6 +9,7 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/signals2.hpp>
+#include <boost/format.hpp>
 #include <boost/bind.hpp>
 
 #ifdef __WINDOW__

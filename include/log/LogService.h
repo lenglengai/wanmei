@@ -1,7 +1,5 @@
 #pragma once
 
-#include <boost/format.hpp>
-
 #ifdef __BOOSTLOG__
 #include <boost/log/sources/logger.hpp>
 #endif

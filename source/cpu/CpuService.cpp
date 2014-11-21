@@ -1,4 +1,4 @@
-#include "../Common.h"
+#include "../../include/Include.h"
 
 #ifdef __WINDOW__
 #include <windows.h>
@@ -6,7 +6,6 @@
 #include <sysconf.h>
 #endif
 
-#ifdef __WITHCPU__
 namespace std {
 
 	__i16 CpuService::getCpuCount()
@@ -23,10 +22,8 @@ namespace std {
 #else
 		mCpuCount = sysconf(_SC_NPROCESSORS_CONF);
 #endif
-#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
-#endif
 		return true;
 	}
 	
@@ -43,4 +40,3 @@ namespace std {
 	static Preinit<CpuService> sCpuServicePreinit;
 	
 }
-#endif

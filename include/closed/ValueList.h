@@ -10,10 +10,8 @@ namespace std {
 			__i32 index_ = nId << 16 + nNo;
 			auto it = mValues.find(index_);
 			if ( it != mValues.end() ) {
-			#ifdef __LOG__
 				LogService& logService_ = Singleton<LogService>::instance();
 				logService_.logError(log_2(nId, nNo));
-			#endif
 				return;
 			}
 			void * value_ = reinterpreter_cast<void *>(&nT);
@@ -25,10 +23,8 @@ namespace std {
 			__i32 index_ = nId << 16 + nNo;
 			auto it = mValues.find(index_);
 			if ( it != mValues.end() ) {
-			#ifdef __LOG__
 				LogService& logService_ = Singleton<LogService>::instance();
 				logService_.logError(log_2(nId, nNo));
-			#endif
 				return;
 			}
 			void * value_ = reinterpreter_cast<void *>(nT);
@@ -40,10 +36,8 @@ namespace std {
 			__i32 index_ = nId << 16 + nNo;
 			auto it = mValues.find(index_);
 			if ( it == mValues.end() ) {
-			#ifdef __LOG__
 				LogService& logService_ = Singleton<LogService>::instance();
 				logService_.logError(log_2(nId, nNo));
-			#endif
 				return nullptr;
 			}
 			return reinterpreter_cast<T *>(mValues[index_]);

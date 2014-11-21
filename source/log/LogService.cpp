@@ -1,12 +1,6 @@
-#include "../Common.h"
+#include "../../include/Include.h"
 
 #ifdef __BOOSTLOG__
-
-#ifdef __WINDOW__
-#pragma warning( push )
-#pragma warning( disable : 4819 )
-#endif
-
 #include <boost/log/sinks.hpp>
 #include <boost/log/common.hpp>
 #include <boost/log/support/date_time.hpp>
@@ -14,14 +8,8 @@
 #include <boost/log/attributes.hpp>
 #include <boost/log/utility/setup/console.hpp>
 #include <boost/smart_ptr.hpp>
-
-#ifdef __WINDOW__
-#pragma warning( pop )
 #endif
 
-#endif
-
-#ifdef __LOG__
 namespace std {
 
 #ifdef __BOOSTLOG__
@@ -142,4 +130,3 @@ namespace std {
 	}
 
 }
-#endif

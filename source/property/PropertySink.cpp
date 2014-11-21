@@ -25,10 +25,8 @@ namespace std {
 		__i32 propertyId_ = nPropertyId->getPropertyId();
 		auto it = mPropertyIds.find(propertyId_);
 		if (it != mPropertyIds.end()) {
-		#ifdef __LOG__
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1(propertyId_));
-		#endif
 			return;
 		}
 		mPropertyIds[propertyId_] = nPropertyId;
