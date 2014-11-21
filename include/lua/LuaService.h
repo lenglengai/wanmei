@@ -1,8 +1,5 @@
 #pragma once
 
-#include "LuaScript.h"
-
-#ifdef __LUA__
 namespace std {
 
 	class __funapi LuaService : boost::noncopyable
@@ -47,6 +44,3 @@ namespace std {
 	};
 
 }
-#endif
-
-
