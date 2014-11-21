@@ -2,7 +2,7 @@
 
 namespace std{
 
-	class PreinitSlot
+	class PreinitSlot : boost::noncopyable
 	{
 	public:
 		void pushPreinit(std::function<bool ()>& nPreinit);
@@ -16,7 +16,7 @@ namespace std{
 	};
 	
 	template <class T>
-	class Preinit
+	class Preinit : boost::noncopyable
 	{
 	public:
 		static bool runPreinit()
@@ -34,7 +34,7 @@ namespace std{
 	};
 	
 	template <class T>
-	class PreinitPtr
+	class PreinitPtr : boost::noncopyable
 	{
 	public:
 		static void runPreinit()

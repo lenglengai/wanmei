@@ -7,6 +7,10 @@ namespace std {
 	public:
 		__i32 closedMgrId();
 		
+	private:
+		void runClear();
+		
+	public:
 		ClosedMgr();
 		~ClosedMgr();
 		

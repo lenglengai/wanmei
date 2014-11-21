@@ -28,3 +28,25 @@
 #ifdef __LOGINSERVER__
 #include "projInc/LoginServer.h"
 #endif
+
+#include "shiny/Shiny.h"
+
+#include "log/LogService.h"
+#include "cpu/CpuService.h"
+#include "crc/CrcService.h"
+#include "random/RandomService.h"
+#include "time/TimeService.h"
+
+#include "property/Property.h"
+#include "property/IPropertyId.h"
+#include "property/PropertyId.h"
+#include "property/PropertyMgr.h"
+#include "property/PropertySink.h"
+
+#include "closed/Closed.h"
+#include "closed/ClosedMgr.h"
+#include "closed/ClosedModule.h"
+#include "closed/ClosedService.h"
+#include "closed/ValueList.h"
+#include "closed/IDoing.h"
+#include "closed/DoingService.h"

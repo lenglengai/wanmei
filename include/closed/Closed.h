@@ -10,7 +10,11 @@ namespace std {
 		__i32 closedType();
 		__i32 closedId();
 		__i32 closedNo();
+	
+	private:
+		void runClear();
 		
+	public:
 		Closed();
 		~Closed();
 		
