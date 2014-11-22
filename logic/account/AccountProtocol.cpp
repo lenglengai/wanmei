@@ -7,10 +7,9 @@ namespace std {
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&AccountProtocol::runInit, this));
-	#ifdef __LOG__
+		
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
-	#endif
 		return true;
 	}
 
@@ -24,10 +23,8 @@ namespace std {
 	#ifdef __SERVER__
 		this->addPacketId(PacketIdPtr(new PacketId<C2SLogin>()));
 	#endif
-	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
-	#endif
 	}
 
 	const char * AccountProtocol::getProtocolName()

@@ -7,10 +7,9 @@ namespace std {
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&AccountService::runInit, this));
-	#ifdef __LOG__
+
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
-	#endif
 		return true;
 	}
 	
