@@ -1,5 +1,7 @@
 #pragma once
 
-#define __PROFILER__
+#define __CLIENT__
 #define __BOOSTLOG__
+#define __TCPCLIENT__
+#define __RUNING__
 
