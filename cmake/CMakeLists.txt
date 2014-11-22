@@ -17,8 +17,6 @@ else()
   set(CMAKE_CXX_FLAGS "-std=c++11")
 endif()
 
-include_directories(../../../${__WORKSPACE__}/cppInc)
-
 include_directories($ENV{BOOST_ROOT})
 link_directories($ENV{BOOST_ROOT}/stage/lib)
 SET(Boost_USE_STATIC_LIBS TRUE)
