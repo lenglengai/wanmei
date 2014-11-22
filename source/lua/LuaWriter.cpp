@@ -1,3 +1,5 @@
+#include "../../include/Include.h"
+
 namespace std {
 
 	void LuaWriter::runString(std::string& nValue, const char * nName)

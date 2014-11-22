@@ -1,6 +1,5 @@
-#include "../Common.h"
+#include "../../include/Include.h"
 
-#ifdef __LUA__
 namespace std {
 
 	LuaScriptPtr LuaService::createLuaScript()
@@ -14,10 +13,8 @@ namespace std {
 
 	bool LuaService::runPreinit()
 	{
-	#ifdef __LOG__
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
-	#endif
 		return true;
 	}
 	
@@ -41,4 +38,3 @@ namespace std {
 	static Preinit<LuaService> sLuaServicePreinit;
 
 }
-#endif

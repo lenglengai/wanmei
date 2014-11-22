@@ -5,9 +5,10 @@ namespace std {
 	class __funapi TimeService : boost::noncopyable
 	{
 	public:
+	#ifdef __CLIENT__
 		void setServerTime(__i64 nTime);
+	#endif
 		__i64 getServerTime();
-		__i64 getNowSecond();
 		
 		static void runScript();
 		bool runPreinit();

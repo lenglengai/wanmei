@@ -29,13 +29,14 @@
 #include "projInc/LoginServer.h"
 #endif
 
-#include "shiny/Shiny.h"
-
 #include "log/LogService.h"
 #include "cpu/CpuService.h"
 #include "crc/CrcService.h"
 #include "random/RandomService.h"
 #include "time/TimeService.h"
+#include "lua/LuaWriter.h"
+#include "lua/LuaScript.h"
+#include "lua/LuaService.h"
 
 #include "property/Property.h"
 #include "property/IPropertyId.h"

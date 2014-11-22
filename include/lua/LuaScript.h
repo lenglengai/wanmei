@@ -1,8 +1,7 @@
 #pragma once
 
-#include "lua_tinker.h"
+#include "../../dependence/lua/lua_tinker.h"
 
-#ifdef __LUA__
 namespace std {
 
 	class __funapi LuaScript : boost::noncopyable
@@ -29,5 +28,4 @@ namespace std {
 	typedef std::weak_ptr<LuaScript> LuaScriptWtr;
 
 }
-#endif
 

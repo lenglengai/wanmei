@@ -1,6 +1,5 @@
-#include "../Common.h"
+#include "../../include/Include.h"
 
-#ifdef __LUA__
 namespace std {
 
 	void LuaScript::runFile(const char * nPath)
@@ -24,4 +23,3 @@ namespace std {
 	}
 
 }
-#endif

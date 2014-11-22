@@ -2,7 +2,7 @@
 
 namespace std {
 
-	class LuaWriter
+	class LuaWriter : boost::noncopyable
 	{
 	public:
 		void runString(std::string& nValue, const char * nName);

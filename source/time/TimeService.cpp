@@ -2,29 +2,34 @@
 
 namespace std {
 
+#ifdef __CLIENT__
 	void TimeService::setServerTime(__i64 nTime)
-	{
-		mCurrent = nTime;
-	}
-
-	__i64 TimeService::getServerTime()
-	{
-		return mCurrent;
-	}
-
-	__i64 TimeService::getNowSecond()
 	{
 		system_clock::time_point time_ = system_clock::now();
 		duration<__i64> timePeriod = duration_cast<duration<__i64>>(time_ - mBegin);
-		return timePeriod.count();
+		mCurrent = nTime - timePeriod.count();
 	}
+#endif
 
+	__i64 TimeService::getServerTime()
+	{
+	#ifdef __CLIENT__
+		system_clock::time_point time_ = system_clock::now();
+		duration<__i64> timePeriod = duration_cast<duration<__i64>>(time_ - mBegin);
+		return (timePeriod.count() + mCurrent);
+	#endif
+	#ifdef __SERVER__
+		system_clock::time_point time_ = system_clock::now();
+		duration<__i64> timePeriod = duration_cast<duration<__i64>>(time_ - mBegin);
+		return timePeriod.count();
+	#endif
+	}
+	
 	void TimeService::runScript()
 	{
 		LuaService& luaService_ = Singleton<LuaService>::instance();
 		luaService_.runClass<TimeService>("TimeService");
 		luaService_.runMethod<TimeService>(&TimeService::getServerTime, "getServerTime");
-		luaService_.runMethod<TimeService>(&TimeService::getNowSecond, "getNowSecond");
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	}
