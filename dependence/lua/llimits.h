@@ -107,7 +107,7 @@ typedef lu_int32 Instruction;
 
 
 #ifndef lua_lock
-#ifdef WIN32
+#ifdef _WIN32
 #define lua_lock(L)     EnterCriticalSection(&(G(L)->mLock))
 #define lua_unlock(L)   LeaveCriticalSection(&(G(L)->mLock))
 #else

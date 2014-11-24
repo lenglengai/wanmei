@@ -19,13 +19,17 @@ endif()
 
 include_directories($ENV{BOOST_ROOT})
 link_directories($ENV{BOOST_ROOT}/stage/lib)
-SET(Boost_USE_STATIC_LIBS TRUE)
+set(Boost_USE_STATIC_LIBS TRUE)
 find_package(Boost COMPONENTS system date_time regex chrono thread filesystem log log_setup REQUIRED)
 
-aux_source_directory(. MAIN_SRC)
+set( ROOT_PATH ${CMAKE_SOURCE_DIR}/.. )
+set( DEP_PATH ${ROOT_PATH}/dependence )
+set( SRC_PATH ${ROOT_PATH}/source )
 
-file(STRINGS ../../../source/CPPLISTS SOURCELISTS)
-separate_arguments(SOURCELISTS)
+set( MAIN_SRC  ${SRC_PATH}/Main.cpp )
 
-add_executable(${PROJECT_NAME} ${MAIN_SRC} ${SOURCELISTS})
-target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
+add_subdirectory(libbzlib)
+add_subdirectory(liblua)
+
+add_executable(${PROJECT_NAME} ${MAIN_SRC})
+target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} libbzlib liblua)
