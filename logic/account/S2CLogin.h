@@ -13,7 +13,6 @@ namespace std {
 		bool handleRun(PlayerPtr& nPlayer);
 	#endif
 		bool runBlock(BlockPtr& nBlock);
-		const char * getPacketName();
 		bool isDefault();
 		
 		void setErrorCode(__i32 nErrorCode);

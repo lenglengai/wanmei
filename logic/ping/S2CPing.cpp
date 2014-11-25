@@ -10,6 +10,8 @@ namespace std {
 	{
 		PingProtocol& pingProtocol_ = Singleton<PingProtocol>::instance();
 		pingProtocol_.finishPing();
+		TimeService& timeService_ = Singleton<TimeService>::instance();
+		timeService_.setServerTime(mServerTime);
 		PropertyId<PingSecond> pingSecondId;
 		PropertyPtr& property_ = nPlayer->getProperty(pingSecondId);
 		PingSecondPtr pingSecondPtr_ = std::dynamic_pointer_cast<PingSecond, Property>(property_);
@@ -18,13 +20,9 @@ namespace std {
 	}
 #endif
 
-	const char * S2CPing::getPacketName()
-	{
-		return "C2SPing";
-	}
-
 	bool S2CPing::runBlock(BlockPtr& nBlock)
 	{
+		nBlock->runInt64(mServerTime);
 		nBlock->runInt32(mSecond);
 		return true;
 	}
@@ -46,17 +44,20 @@ namespace std {
 	}
 
 	S2CPing::S2CPing()
-		: mSecond(0)
+		: mServerTime(0)
+		, mSecond(0)
 	{
 	}
 
-	S2CPing::S2CPing(__i32 nSecond)
-		: mSecond(nSecond)
+	S2CPing::S2CPing(__i32 nSecond, __i64 nServerTime)
+		: mServerTime(nServerTime)
+		, mSecond(nSecond)
 	{
 	}
 
 	S2CPing::~S2CPing()
 	{
+		mServerTime = 0;
 		mSecond = 0;
 	}
 	

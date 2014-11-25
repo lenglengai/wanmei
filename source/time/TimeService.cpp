@@ -5,24 +5,25 @@ namespace std {
 #ifdef __CLIENT__
 	void TimeService::setServerTime(__i64 nTime)
 	{
-		system_clock::time_point time_ = system_clock::now();
-		duration<__i64> timePeriod = duration_cast<duration<__i64>>(time_ - mBegin);
-		mCurrent = nTime - timePeriod.count();
+		mCurrent = nTime - this->getLocalTime();
 	}
 #endif
 
 	__i64 TimeService::getServerTime()
 	{
 	#ifdef __CLIENT__
-		system_clock::time_point time_ = system_clock::now();
-		duration<__i64> timePeriod = duration_cast<duration<__i64>>(time_ - mBegin);
-		return (timePeriod.count() + mCurrent);
+		return (this->getLocalTime() + mCurrent);
 	#endif
 	#ifdef __SERVER__
-		system_clock::time_point time_ = system_clock::now();
-		duration<__i64> timePeriod = duration_cast<duration<__i64>>(time_ - mBegin);
-		return timePeriod.count();
+		return this->getLocalTime();
 	#endif
+	}
+	
+	__i64 TimeService::getLocalTime()
+	{
+		chrono::system_clock::time_point time_ = chrono::system_clock::now();
+		chrono::duration<__i64> timePeriod = chrono::duration_cast<chrono::duration<__i64>>(time_ - mBegin);
+		return timePeriod.count();
 	}
 	
 	void TimeService::runScript()
@@ -30,16 +31,17 @@ namespace std {
 		LuaService& luaService_ = Singleton<LuaService>::instance();
 		luaService_.runClass<TimeService>("TimeService");
 		luaService_.runMethod<TimeService>(&TimeService::getServerTime, "getServerTime");
+		luaService_.runMethod<TimeService>(&TimeService::getLocalTime, "getLocalTime");
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	}
 
 	bool TimeService::runPreinit()
 	{
-		system_clock::time_point nowPoint = system_clock::now();
+		chrono::system_clock::time_point nowPoint = chrono::system_clock::now();
 		
 		time_t startTime = this->fromTime(STARTYEAR, STARTMONTH, STARTDAY);
-		system_clock::time_point startPoint = system_clock::from_time_t(startTime);
+		chrono::system_clock::time_point startPoint = chrono::system_clock::from_time_t(startTime);
 		if (startPoint > nowPoint) {
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1("startPoint > nowPoint!"));
@@ -47,7 +49,7 @@ namespace std {
 		}
 		
 		time_t endTime = this->fromTime(ENDYEAR, ENDMONTH, ENDDAY);
-		system_clock::time_point endPoint = system_clock::from_time_t(endTime);
+		chrono::system_clock::time_point endPoint = chrono::system_clock::from_time_t(endTime);
 		if (nowPoint > endPoint) {
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1("nowPoint > endPoint!"));
@@ -55,7 +57,7 @@ namespace std {
 		}
 		
 		time_t begTime = this->fromTime(INITYEAR, INITMONTH, INITDAY);
-		mBegin = system_clock::from_time_t(begTime);
+		mBegin = chrono::system_clock::from_time_t(begTime);
 		
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&TimeService::runInit, this));

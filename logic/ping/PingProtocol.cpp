@@ -55,13 +55,13 @@ namespace std {
 	void PingProtocol::startPing()
 	{
 		TimeService& timeService_ = Singleton<TimeService>::instance();
-		mClock = timeService_.getNowSecond();
+		mClock = timeService_.getLocalTime();
 	}
 
 	void PingProtocol::finishPing()
 	{
 		TimeService& timeService_ = Singleton<TimeService>::instance();
-		__i64 second_ = timeService_.getNowSecond();
+		__i64 second_ = timeService_.getLocalTime();
 		mPing = second_ - mClock;
 
 		LogService& logService_ = Singleton<LogService>::instance();

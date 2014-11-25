@@ -157,8 +157,6 @@ namespace std {
 
 	void InitService::runSave()
 	{
-		PROFILER_UPDATE();
-		PROFILER_OUTPUT("profile.prof");
 		this->m_tRunSave();
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));

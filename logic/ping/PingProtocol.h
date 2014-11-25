@@ -1,14 +1,9 @@
 #pragma once
 
-#include "S2CPing.h"
-#include "C2SPing.h"
-#include "PingTick.h"
-#include "PingSecond.h"
-
 #ifdef __PING__
 namespace std {
 
-	class PingProtocol : public IProtocol, boost::noncopyable
+	class PingProtocol : public IProtocol
 	{
 	public:
 	#ifdef __CLIENT__

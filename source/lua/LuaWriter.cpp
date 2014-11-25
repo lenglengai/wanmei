@@ -29,7 +29,7 @@ namespace std {
 		mFirst = false;
 	}
 
-	void LuaWriter::tableBegin(const char * nName, bool nReturn = false)
+	void LuaWriter::tableBegin(const char * nName, bool nReturn)
 	{
 		this->runFirst();
 		if (nReturn) {
@@ -41,7 +41,7 @@ namespace std {
 		mFirst = true;
 	}
 
-	void LuaWriter::tableEnd(bool nReturn = false)
+	void LuaWriter::tableEnd(bool nReturn)
 	{
 		mValue += "}";
 		mFirst = false;
@@ -58,7 +58,7 @@ namespace std {
 		for (auto& i : nValue) {
 			std::string temp_ = nName; temp_ += "_";
 			temp_ += __convert<std::string, __i32>(count_, mConvertTypeText_);
-			runString(i, temp_);
+			runString(i.c_str(), temp_.c_str());
 			count_++;
 		}
 		tableEnd();
@@ -68,7 +68,7 @@ namespace std {
 	{
 		mFirst = true;
 		mValue = "";
-		mTable = "":
+		mTable = "";
 	}
 
 	const char * LuaWriter::getValue()

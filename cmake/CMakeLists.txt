@@ -17,6 +17,8 @@ else()
   set(CMAKE_CXX_FLAGS "-std=c++11")
 endif()
 
+include_directories(../${__WORKSPACE__}/cppInc)
+
 include_directories($ENV{BOOST_ROOT})
 link_directories($ENV{BOOST_ROOT}/stage/lib)
 set(Boost_USE_STATIC_LIBS TRUE)
@@ -26,11 +28,14 @@ set( ROOT_PATH ${CMAKE_SOURCE_DIR}/.. )
 set( DEP_PATH ${ROOT_PATH}/dependence )
 set( INC_PATH ${ROOT_PATH}/include )
 set( SRC_PATH ${ROOT_PATH}/source )
+set( LOGIC_PATH ${ROOT_PATH}/logic )
 
 set( MAIN_SRC  ${SRC_PATH}/Main.cpp )
 
 add_subdirectory(libbzlib)
 add_subdirectory(liblua)
+add_subdirectory(libcore)
+add_subdirectory(liblogic)
 
 add_executable(${PROJECT_NAME} ${MAIN_SRC})
-target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} libbzlib liblua)
+target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} libbzlib liblua libcore liblogic)

@@ -26,11 +26,11 @@ class BuildCMake(buildbase.BuildBase):
 
     def __initSource(self):
         if 'journey' == self.mProject:
-            self.mSource = '../../../build/build-cmake/journey/'
+            self.mSource = '../../../cmake/build-cmake/journey/'
         else:
-            self.mSource = '../../../build/build-cmake/source/'
+            self.mSource = '../../../cmake/'
         self.mSource = os.path.abspath(self.mSource)
-            
+		
     def insertBuildParameter(self, nBuildParameter):
         sysName = platform.system()
         if 'Windows' == sysName:

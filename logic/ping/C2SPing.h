@@ -4,7 +4,7 @@
 namespace std {
 
 	class PingProtocol;
-	class C2SPing : public Packet<C2SPing, PingProtocol>, boost::noncopyable
+	class C2SPing : public Packet<C2SPing, PingProtocol>
 	{
 	public:
 		static const char * sPacketName;

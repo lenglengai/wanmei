@@ -20,7 +20,7 @@ class BuildIDE(buildbase.BuildBase):
         self.mProject = nProject
         cmdPath = '../%s/build/%s/' % (nWorkspace, nProject)
         buildbase.BuildBase.runChdir(self, cmdPath)
-                
+		
     def insertBuildParameter(self, nBuildParameter):
         if 'u' == nBuildParameter:
             self.mMake = True

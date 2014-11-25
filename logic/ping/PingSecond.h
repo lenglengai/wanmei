@@ -6,6 +6,8 @@ namespace std {
 	class PingSecond : public Property
 	{
 	public:
+		static __i32 sPropertyId;
+	public:
 		void setSecond(__i32 nSecond);
 		__i32 getSecond();
 

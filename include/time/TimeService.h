@@ -9,6 +9,7 @@ namespace std {
 		void setServerTime(__i64 nTime);
 	#endif
 		__i64 getServerTime();
+		__i64 getLocalTime();
 		
 		static void runScript();
 		bool runPreinit();

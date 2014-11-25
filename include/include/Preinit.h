@@ -37,10 +37,10 @@ namespace std{
 	class PreinitPtr : boost::noncopyable
 	{
 	public:
-		static void runPreinit()
+		static bool runPreinit()
 		{
-			T& t_ = SingletonPtr<T>::instance();
-			t_->runPreinit();
+			std::shared_ptr<T>& t_ = SingletonPtr<T>::instance();
+			return t_->runPreinit();
 		}
 		
 		PreinitPtr()

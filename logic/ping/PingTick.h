@@ -4,7 +4,7 @@
 namespace std {
 
 #ifdef __CLIENT__
-	class PingTick : public Context, boost::noncopyable
+	class PingTick : public Context
 	{
 	public:
 		void runContext();
@@ -13,7 +13,6 @@ namespace std {
 		~PingTick();
 
 	private:
-		std::mutex mMutex;
 		__i64 mSendTick;
 	};
 	typedef std::shared_ptr<PingTick> PingTickPtr;

@@ -3,6 +3,8 @@
 #ifdef __PING__
 namespace std {
 
+	__i32 PingSecond::sPropertyId = 0x1FFFF;
+	
 	void PingSecond::setSecond(__i32 nSecond)
 	{
 		mSecond = nSecond;

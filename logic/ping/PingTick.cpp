@@ -9,7 +9,7 @@ namespace std {
 		InitService& initService_ = Singleton<InitService>::instance();
 		if (initService_.isPause()) return;
 		TimeService& timeService_ = Singleton<TimeService>::instance();
-		__i64 second_ = timeService_.getNowSecond();
+		__i64 second_ = timeService_.getLocalTime();
 		__i64 clock_ = second_ - mSendTick;
 		if (clock_ < 70) return;
 		PlayerPtr& player_ = SingletonPtr<Player>::instance();

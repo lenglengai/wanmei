@@ -5,7 +5,8 @@ namespace std {
 	void PropertySink::runCreate(PropertyMgrPtr& nPropertyMgr)
 	{
 		list<PropertyPtr> propertys_;
-		for (auto& propertyId_ : mPropertyIds) {
+		for (auto& it : mPropertyIds) {
+			PropertyIdPtr& propertyId_ = it.second;
 			PropertyPtr property_ = propertyId_->createProperty();
 			property_->setPropertyMgr(nPropertyMgr);
 			nPropertyMgr->addProperty(property_, propertyId_);

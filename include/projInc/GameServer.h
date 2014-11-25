@@ -5,3 +5,4 @@
 #define __BOOSTLOG__
 #define __TCPSERVER__
 #define __RUNING__
+#define __PING__

@@ -6,6 +6,7 @@
 #include <sysconf.h>
 #endif
 
+#ifdef __WITHCPU__
 namespace std {
 
 	__i16 CpuService::getCpuCount()
@@ -40,3 +41,5 @@ namespace std {
 	static Preinit<CpuService> sCpuServicePreinit;
 	
 }
+#endif
+

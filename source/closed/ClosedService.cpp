@@ -3,11 +3,11 @@
 namespace std {
 
 	ClosedService::ClosedService() {
-		mClosedModules.clear():
+		mClosedModules.clear();
 	}
 	
 	ClosedService::~ClosedService() {
-		mClosedModules.clear():
+		mClosedModules.clear();
 	}
 
 }

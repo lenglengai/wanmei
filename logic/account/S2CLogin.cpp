@@ -12,11 +12,6 @@ namespace std {
 	}
 #endif
 
-	const char * S2CLogin::getPacketName()
-	{
-		return "S2CLogin";
-	}
-
 	bool S2CLogin::runBlock(BlockPtr& nBlock)
 	{
 		nBlock->runInt32(mErrorCode);

@@ -16,7 +16,9 @@ namespace std {
 		RandomService& randomService_ = Singleton<RandomService>::instance();
 		second_ = randomService_.runRandom();
 		pingSecondPtr_->setSecond(second_);
-		PacketPtr packet_(new S2CPing(second_));
+		TimeService& timeService_ = Singleton<TimeService>::instance();
+		__i64 serverTime_ = timeService_.getServerTime();
+		PacketPtr packet_(new S2CPing(second_, serverTime_));
 		nPlayer->runSend(packet_);
 		return true;
 	}
