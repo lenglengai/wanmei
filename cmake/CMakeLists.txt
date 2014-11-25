@@ -26,8 +26,8 @@ find_package(Boost COMPONENTS system date_time regex chrono thread filesystem lo
 
 set( ROOT_PATH ${CMAKE_SOURCE_DIR}/.. )
 set( DEP_PATH ${ROOT_PATH}/dependence )
-set( INC_PATH ${ROOT_PATH}/include )
-set( SRC_PATH ${ROOT_PATH}/source )
+set( INC_PATH ${ROOT_PATH}/core/include )
+set( SRC_PATH ${ROOT_PATH}/core/source )
 set( LOGIC_PATH ${ROOT_PATH}/logic )
 
 set( MAIN_SRC  ${SRC_PATH}/Main.cpp )
