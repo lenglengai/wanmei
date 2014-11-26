@@ -4,6 +4,11 @@ namespace std {
 
 	bool ProtocolService::runReadBlock(ReadBlockPtr& nReadBlock, PlayerPtr& nPlayer)
 	{
+		__i16 version_ = 0; nReadBlock->runInt16(version_);
+		SettingService& settingService_ = Singleton<SettingService>::instance();
+		if (ERRORINT::MUSTUPDATE == settingService_.checkVersion(version_)) {
+			return false;
+		}
 		__i32 protocolId = 0; nReadBlock->runInt32(protocolId);
 		map<__i32, IProtocol *>::iterator it = mProtocols.find(protocolId);
 		if (it == mProtocols.end()) {

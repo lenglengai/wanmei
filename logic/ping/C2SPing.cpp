@@ -3,8 +3,6 @@
 #ifdef __PING__
 namespace std {
 
-	const char * C2SPing::sPacketName = "C2SPing";
-
 #ifdef __SERVER__
 	bool C2SPing::handleRun(PlayerPtr& nPlayer)
 	{

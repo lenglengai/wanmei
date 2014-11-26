@@ -2,8 +2,6 @@
 
 #ifdef __PING__
 namespace std {
-
-	const char * S2CPing::sPacketName = "S2CPing";
 	
 #ifdef __CLIENT__
 	bool S2CPing::handleRun(PlayerPtr& nPlayer)

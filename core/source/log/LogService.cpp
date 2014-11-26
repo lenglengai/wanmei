@@ -114,11 +114,9 @@ namespace std {
 
 	void LogService::runInit()
 	{
-		this->logInfo(log_1("LogService run runInit!"));
-		
 		LogService::runScript();
 		
-		this->logInfo(log_1("LogService run runInit finish!"));
+		this->logInfo(log_1("finish!"));
 	}
 
 	LogService::LogService()

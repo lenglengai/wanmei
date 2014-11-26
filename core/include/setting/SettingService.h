@@ -6,11 +6,10 @@ namespace std {
 	{
 	public:
 		bool runPreinit();
+		__i16 getVersion();
 		const std::string& systemPath();
 
-	#ifdef __SERVER__
-		__i32 checkVersion(__i32 nVersion);
-	#endif
+		__i16 checkVersion(__i16 nVersion);
 
 		SettingService();
 		~SettingService();

@@ -7,8 +7,6 @@ namespace std {
 	class S2CPing : public Packet<S2CPing, PingProtocol>
 	{
 	public:
-		static const char * sPacketName;
-	public:
 	#ifdef __CLIENT__
 		bool handleRun(PlayerPtr& nPlayer);
 	#endif

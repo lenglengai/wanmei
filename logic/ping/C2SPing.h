@@ -7,8 +7,6 @@ namespace std {
 	class C2SPing : public Packet<C2SPing, PingProtocol>
 	{
 	public:
-		static const char * sPacketName;
-	public:
 	#ifdef __SERVER__
 		bool handleRun(PlayerPtr& nPlayer);
 	#endif

@@ -7,19 +7,19 @@ namespace std {
 		return true;
 	}
 
-	void IPacket::setHeader(__i32 nProtocol, bool nInline, __i32 nPacket)
+	void IPacket::setHeader(__i32 nProtocol, bool nInline, __i32 nPacketId)
 	{
 		mProtocol = nProtocol;
 		mInline = nInline;
-		mPacket = nPacket;
+		mPacketId = nPacketId;
 	}
 
 	bool IPacket::runHeader(BlockPtr& nBlock)
 	{
-		nBlock->runInt32(mVersion);
+		nBlock->runInt16(mVersion);
 		nBlock->runInt32(mProtocol);
 		nBlock->runBool(mInline);
-		nBlock->runInt32(mPacket);
+		nBlock->runInt32(mPacketId);
 		return true;
 	}
 
@@ -30,7 +30,7 @@ namespace std {
 	
 	__i32 IPacket::getPacketId()
 	{
-		return mPacket;
+		return mPacketId;
 	}
 	
 #ifdef __SERVER__
@@ -47,7 +47,7 @@ namespace std {
 
 	bool IPacket::isDefault()
 	{
-		return ((0 == mProtocol) || (0 == mPacket));
+		return ((0 == mProtocol) || (0 == mPacketId));
 	}
 
 	void IPacket::runInit()
@@ -56,14 +56,14 @@ namespace std {
 
 	IPacket::IPacket()
 		: mProtocol(0)
-		, mPacket(0)
+		, mPacketId(0)
 		, mInline(true)
 	#ifdef __SERVER__
 		, mPlayer(nullptr)
 	#endif
 	{
-		mVersion = VERHIGH << 16;
-		mVersion += VERLOW;
+		SettingService& settingService_ = Singleton<SettingService>::instance();
+		mVersion = settingService_.getVersion();
 	}
 
 	IPacket::~IPacket()
@@ -73,7 +73,7 @@ namespace std {
 	#endif
 		mProtocol = 0;
 		mInline = true;
-		mPacket = 0;
+		mPacketId = 0;
 	}
 
 }

@@ -10,7 +10,7 @@ namespace std {
 	public:
 		virtual bool handleRun(PlayerPtr& nPlayer);
 		virtual bool runBlock(BlockPtr& nBlock) = 0;
-		void setHeader(__i32 nProtocol, bool nInline, __i32 nPacket);
+		void setHeader(__i32 nProtocol, bool nInline, __i32 nPacketId);
 		bool runHeader(BlockPtr& nBlock);
 		__i32 getProtocolId();
 		__i32 getPacketId();
@@ -28,9 +28,9 @@ namespace std {
 	#ifdef __SERVER__
 		PlayerPtr * mPlayer;
 	#endif
-		__i32 mVersion;
+		__i16 mVersion;
 		__i32 mProtocol;
-		__i32 mPacket;
+		__i32 mPacketId;
 		bool mInline;
 	};
 	typedef std::shared_ptr<IPacket> PacketPtr;
@@ -42,10 +42,9 @@ namespace std {
 		void runInit()
 		{
 			T1& protocol_ = Singleton<T1>::instance();
-			mProtocol = protocol_.getProtocolId();
-			mInline = nInline;
+			mProtocol = protocol_.getProtocolId(); mInline = nInline;
 			CrcService& crcService_ = Singleton<CrcService>::instance();
-			mPacket = crcService_.runCommon(T0::sPacketName);
+			mPacketId = crcService_.runClassId<T0>();
 		}
 	};
 	
@@ -72,7 +71,7 @@ namespace std {
 			if (0 == mPacketId)
 			{
 				CrcService& crcService_ = Singleton<CrcService>::instance();
-				mPacketId = crcService_.runCommon(T::sPacketName);
+				mPacketId = crcService_.runClassId<T>();
 			}
 			return mPacketId;
 		}

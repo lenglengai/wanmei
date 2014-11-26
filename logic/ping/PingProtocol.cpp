@@ -65,7 +65,7 @@ namespace std {
 		mPing = second_ - mClock;
 
 		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_2("current ping is : ", mPing));
+		logService_.logInfo(log_2("current ping is", mPing));
 	}
 #endif
 
