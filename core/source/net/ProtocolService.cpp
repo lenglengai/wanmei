@@ -20,18 +20,6 @@ namespace std {
 		return protocol_->runReadBlock(nReadBlock, nPlayer);
 	}
 
-	void ProtocolService::runRegister(IProtocol * nProtocol)
-	{
-		__i32 protocolId = nProtocol->getProtocolId();
-		map<__i32, IProtocol *>::iterator it = mProtocols.find(protocolId);
-		if (it != mProtocols.end()) {
-			LogService& logService_ = Singleton<LogService>::instance();
-			logService_.logError(log_1(protocolId));
-			return;
-		}
-		mProtocols[protocolId] = nProtocol;
-	}
-
 	bool ProtocolService::runPreinit()
 	{
 		this->runClear();

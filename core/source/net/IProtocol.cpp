@@ -13,8 +13,6 @@ namespace std {
 			return false;
 		}
 		PacketPtr packet_ = packetId_->createPacket();
-		__i32 protocolId_ = this->getProtocolId();
-		packet_->setHeader(protocolId_, inline_, packetType_);
 		BlockPtr block_ = nReadBlock;
 		packet_->runBlock(block_);
 		if (packet_->isDefault()) {
@@ -54,18 +52,7 @@ namespace std {
 		mPacketIds[packetId_] = nPacketId;
 	}
 
-	__i32 IProtocol::getProtocolId()
-	{
-		if (0 == mProtocolId)
-		{
-			CrcService& crcService_ = Singleton<CrcService>::instance();
-			mProtocolId = crcService_.runCommon(this->getProtocolName());
-		}
-		return mProtocolId;
-	}
-
 	IProtocol::IProtocol()
-		: mProtocolId(0)
 	{
 		mPacketIds.clear();
 	}
@@ -73,7 +60,6 @@ namespace std {
 	IProtocol::~IProtocol()
 	{
 		mPacketIds.clear();
-		mProtocolId = 0;
 	}
 
 }

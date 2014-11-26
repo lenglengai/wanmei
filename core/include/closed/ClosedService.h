@@ -4,7 +4,9 @@ namespace std {
 
 	class __funapi ClosedService : boost::noncopyable
 	{
-	public:		
+	public:
+		ClosedMgrPtr& getClosedMgr(__i32 nModule, __i32 nClosedMgr);
+		
 		ClosedService();
 		~ClosedService();
 		

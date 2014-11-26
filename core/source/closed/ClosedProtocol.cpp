@@ -1,20 +1,19 @@
-#include "../LogicInc.h"
+#include "../../include/Include.h"
 
-#ifdef __PING__
 namespace std {
 
-	bool PingProtocol::runPreinit()
+	bool ClosedProtocol::runPreinit()
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunInit0.connect(boost::bind(&PingProtocol::runInit, this));
-		initService_.m_tRunStart0.connect(boost::bind(&PingProtocol::runStart, this));
+		initService_.m_tRunInit0.connect(boost::bind(&ClosedProtocol::runInit, this));
+		initService_.m_tRunStart0.connect(boost::bind(&ClosedProtocol::runStart, this));
 
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 		return true;
 	}
 
-	void PingProtocol::runInit()
+	void ClosedProtocol::runInit()
 	{
 		ProtocolService& protocolService_ =  Singleton<ProtocolService>::instance();
 		protocolService_.runRegister(this);
@@ -40,7 +39,7 @@ namespace std {
 		logService_.logInfo(log_1("finish!"));
 	}
 
-	void PingProtocol::runStart()
+	void ClosedProtocol::runStart()
 	{
 	#ifdef __CLIENT__
 		HandleService& handleService_ = Singleton<HandleService>::instance();
@@ -52,13 +51,13 @@ namespace std {
 	}
 
 #ifdef __CLIENT__
-	void PingProtocol::startPing()
+	void ClosedProtocol::startPing()
 	{
 		TimeService& timeService_ = Singleton<TimeService>::instance();
 		mClock = timeService_.getLocalTime();
 	}
 
-	void PingProtocol::finishPing()
+	void ClosedProtocol::finishPing()
 	{
 		TimeService& timeService_ = Singleton<TimeService>::instance();
 		__i64 second_ = timeService_.getLocalTime();
@@ -69,7 +68,12 @@ namespace std {
 	}
 #endif
 
-	PingProtocol::PingProtocol()
+	const char * ClosedProtocol::getProtocolName()
+	{
+		return "PingProtocol";
+	}
+
+	ClosedProtocol::ClosedProtocol()
 #ifdef __CLIENT__
 		: mClock(0)
 		, mPing(0)
@@ -77,7 +81,7 @@ namespace std {
 	{
 	}
 
-	PingProtocol::~PingProtocol()
+	ClosedProtocol::~ClosedProtocol()
 	{
 #ifdef __CLIENT__
 		mClock = 0;
@@ -85,7 +89,6 @@ namespace std {
 #endif
 	}
 	
-	static Preinit<PingProtocol> sPingProtocolPreinit;
+	static Preinit<ClosedProtocol> sClosedProtocolPreinit;
 
 }
-#endif

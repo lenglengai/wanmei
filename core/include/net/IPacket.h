@@ -10,7 +10,8 @@ namespace std {
 	public:
 		virtual bool handleRun(PlayerPtr& nPlayer);
 		virtual bool runBlock(BlockPtr& nBlock) = 0;
-		void setHeader(__i32 nProtocol, bool nInline, __i32 nPacketId);
+		void setValueList(ValueList& nValueList);
+		ValueList * getValueList();
 		bool runHeader(BlockPtr& nBlock);
 		__i32 getProtocolId();
 		__i32 getPacketId();
@@ -28,6 +29,7 @@ namespace std {
 	#ifdef __SERVER__
 		PlayerPtr * mPlayer;
 	#endif
+		ValueList * mValueList;
 		__i16 mVersion;
 		__i32 mProtocol;
 		__i32 mPacketId;
@@ -41,9 +43,9 @@ namespace std {
 	public:
 		void runInit()
 		{
-			T1& protocol_ = Singleton<T1>::instance();
-			mProtocol = protocol_.getProtocolId(); mInline = nInline;
+			T1& protocol_ = Singleton<T1>::instance(); mInline = nInline;
 			CrcService& crcService_ = Singleton<CrcService>::instance();
+			mProtocol = crcService_.runClassId<T1>();
 			mPacketId = crcService_.runClassId<T0>();
 		}
 	};
@@ -68,8 +70,7 @@ namespace std {
 
 		static __i32 getClassId()
 		{
-			if (0 == mPacketId)
-			{
+			if (0 == mPacketId) {
 				CrcService& crcService_ = Singleton<CrcService>::instance();
 				mPacketId = crcService_.runClassId<T>();
 			}

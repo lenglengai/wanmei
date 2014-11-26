@@ -6,14 +6,17 @@ namespace std {
 	{
 		return true;
 	}
-
-	void IPacket::setHeader(__i32 nProtocol, bool nInline, __i32 nPacketId)
+	
+	void IPacket::setValueList(ValueList& nValueList)
 	{
-		mProtocol = nProtocol;
-		mInline = nInline;
-		mPacketId = nPacketId;
+		mValueList = (&nValueList);
 	}
-
+	
+	ValueList * IPacket::getValueList()
+	{
+		return mValueList;
+	}
+	
 	bool IPacket::runHeader(BlockPtr& nBlock)
 	{
 		nBlock->runInt16(mVersion);
@@ -58,6 +61,7 @@ namespace std {
 		: mProtocol(0)
 		, mPacketId(0)
 		, mInline(true)
+		, mValueList(nullptr)
 	#ifdef __SERVER__
 		, mPlayer(nullptr)
 	#endif
@@ -71,6 +75,7 @@ namespace std {
 	#ifdef __SERVER__
 		mPlayer = nullptr;
 	#endif
+		mValueList = nullptr;
 		mProtocol = 0;
 		mInline = true;
 		mPacketId = 0;

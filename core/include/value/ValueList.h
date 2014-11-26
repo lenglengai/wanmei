@@ -43,6 +43,8 @@ namespace std {
 			return reinterpreter_cast<T *>(mValues[index_]);
 		}
 		
+		void runClear();
+		
 		ValueList();
 		~ValueList();
 		

@@ -2,6 +2,10 @@
 
 namespace std {
 
+	std::map<__i32, ClosedsPtr>& ClosedMgr::getCloseds() {
+		return mCloseds;
+	}
+	
 	__i32 ClosedMgr::closedMgrId() {
 		return mClosedMgrId;
 	}

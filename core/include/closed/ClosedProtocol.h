@@ -1,15 +1,11 @@
 #pragma once
 
-#ifdef __PING__
 namespace std {
 
 	class PingProtocol : public IProtocol
 	{
 	public:
-	#ifdef __CLIENT__
-		void startPing();
-		void finishPing();
-	#endif
+		const char * getProtocolName();
 
 		bool runPreinit();
 		void runInit();
@@ -27,4 +23,3 @@ namespace std {
 	};
 
 }
-#endif
