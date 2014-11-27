@@ -13,7 +13,7 @@ namespace std {
 		~Values();
 		
 	private:
-		std::list<__i32, ValuePtr> mValues;
+		std::map<__i32, ValuePtr> mValues;
 	};
 	typedef std::shared_ptr<Values> ValuesPtr;
 	

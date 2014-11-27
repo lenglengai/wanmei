@@ -34,7 +34,7 @@ namespace std {
 		__i8 getValue();
 		
 		Value();
-		Value(__i8 nValue);
+		explicit Value(__i8 nValue);
 		~Value();
 		
 	private:
@@ -49,7 +49,7 @@ namespace std {
 		__i16 getValue();
 		
 		Value();
-		Value(__i16 nValue);
+		explicit Value(__i16 nValue);
 		~Value();
 		
 	private:
@@ -64,7 +64,7 @@ namespace std {
 		__i32 getValue();
 		
 		Value();
-		Value(__i32 nValue);
+		explicit Value(__i32 nValue);
 		~Value();
 		
 	private:
@@ -79,7 +79,7 @@ namespace std {
 		__i64 getValue();
 		
 		Value();
-		Value(__i64 nValue);
+		explicit Value(__i64 nValue);
 		~Value();
 		
 	private:
@@ -94,7 +94,7 @@ namespace std {
 		float getValue();
 		
 		Value();
-		Value(float nValue);
+		explicit Value(float nValue);
 		~Value();
 		
 	private:
@@ -109,7 +109,7 @@ namespace std {
 		double getValue();
 		
 		Value();
-		Value(double nValue);
+		explicit Value(double nValue);
 		~Value();
 		
 	private:
@@ -124,7 +124,7 @@ namespace std {
 		std::string& getValue();
 		
 		Value();
-		Value(const char * nValue);
+		explicit Value(const char * nValue);
 		~Value();
 		
 	private:

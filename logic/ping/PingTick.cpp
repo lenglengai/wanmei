@@ -11,7 +11,7 @@ namespace std {
 		TimeService& timeService_ = Singleton<TimeService>::instance();
 		__i64 second_ = timeService_.getLocalTime();
 		__i64 clock_ = second_ - mSendTick;
-		if (clock_ < 70) return;
+		if (clock_ < 120) return;
 		PlayerPtr& player_ = SingletonPtr<Player>::instance();
 		PropertyId<PingSecond> proertyId_;
 		PropertyPtr& property_ = player_->getProperty(proertyId_);

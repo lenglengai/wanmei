@@ -6,7 +6,7 @@ namespace std {
 	{
 	public:
 	#ifdef __CLIENT__
-		void setServerTime(__i64 nTime);
+		void setServerTime(__i64 nServerTime);
 	#endif
 		__i64 getServerTime();
 		__i64 getLocalTime();

@@ -5,12 +5,12 @@ namespace std {
 #ifdef __SERVER__
 	bool C2SClosed::handleRun(PlayerPtr& nPlayer)
 	{
-		ClosedService& closedService_ = Singleton<ClosedService>::Instance();
+		ClosedService& closedService_ = Singleton<ClosedService>::instance();
 		ClosedMgrPtr& closedMgr_ = closedService_.getClosedMgr(mModule, mClosed);
 		if (!closedMgr_) return false;
 		std::map<__i32, ClosedsPtr>& closeds_ = closedMgr_->getCloseds();
 		for (auto it : closeds_) {
-			this->runCloseds(nPlayer, it->second);
+			this->runCloseds(nPlayer, it.second);
 		}
 		return true;
 	}
@@ -70,7 +70,7 @@ namespace std {
 			for ( int i = 0; i < valueSize_; ++i ) {
 				__i8 valueType_ = 0;
 				nBlock->runInt8(valueType_);
-				if (0 = valueType_) {
+				if (0 == valueType_) {
 					return false;
 				} else if (1 == valueType_) {
 					__i8 count_ = 0; 

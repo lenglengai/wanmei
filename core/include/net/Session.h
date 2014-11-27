@@ -15,8 +15,8 @@ namespace std {
 	class Session : public std::enable_shared_from_this<Session>,  boost::noncopyable
 	{
 	public:
-		enum { write_timeout = 90 };
-		enum { read_timeout = 90 };
+		enum { write_timeout = 150 };
+		enum { read_timeout = 150 };
 
 		bool runSend(PacketPtr& nPacket);
 		asio::ip::tcp::socket& getSocket();
@@ -25,7 +25,7 @@ namespace std {
 		__i32 getSessionState();
 		void openSession();
 
-		Session(asio::io_service& nIoService, PlayerPtr& nPlayer);
+		explicit Session(asio::io_service& nIoService, PlayerPtr& nPlayer);
 		~Session();
 
 	private:

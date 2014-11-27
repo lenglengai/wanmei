@@ -16,7 +16,7 @@ namespace std {
 		
 	private:
 		std::deque<PacketPtr> mPackets;
-		//ValueList mValueList;
+		ValueList mValueList;
 		std::mutex mMutex;
 	};
 	typedef std::weak_ptr<SingleWire> SingleWireWtr;

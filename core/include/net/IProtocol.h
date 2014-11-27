@@ -5,7 +5,6 @@ namespace std {
 	class IProtocol : boost::noncopyable
 	{
 	public:
-		bool runReadBlock(ReadBlockPtr& nReadBlock, PlayerPtr& nPlayer);
 		IPacketId * getPacketId(__i32 nPacketType);
 		void addPacketId(PacketIdPtr nPacketId);
 		

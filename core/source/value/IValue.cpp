@@ -9,7 +9,8 @@ namespace std {
 	
 	bool Value<__i8>::runBlock(BlockPtr& nBlock)
 	{
-		nBlock->runInt8(1);
+		__i8 value_ = 1;
+		nBlock->runInt8(value_);
 		nBlock->runInt8(mValue);
 		return false;
 	}
@@ -36,7 +37,8 @@ namespace std {
 	
 	bool Value<__i16>::runBlock(BlockPtr& nBlock)
 	{
-		nBlock->runInt8(2);
+		__i8 value_ = 2;
+		nBlock->runInt8(value_);
 		nBlock->runInt16(mValue);
 		return false;
 	}
@@ -63,7 +65,8 @@ namespace std {
 	
 	bool Value<__i32>::runBlock(BlockPtr& nBlock)
 	{
-		nBlock->runInt8(3);
+		__i8 value_ = 3;
+		nBlock->runInt8(value_);
 		nBlock->runInt32(mValue);
 		return false;
 	}
@@ -90,7 +93,8 @@ namespace std {
 	
 	bool Value<__i64>::runBlock(BlockPtr& nBlock)
 	{
-		nBlock->runInt8(4);
+		__i8 value_ = 4;
+		nBlock->runInt8(value_);
 		nBlock->runInt64(mValue);
 		return false;
 	}
@@ -117,7 +121,8 @@ namespace std {
 	
 	bool Value<float>::runBlock(BlockPtr& nBlock)
 	{
-		nBlock->runInt8(5);
+		__i8 value_ = 5;
+		nBlock->runInt8(value_);
 		nBlock->runFloat(mValue);
 		return false;
 	}
@@ -144,7 +149,8 @@ namespace std {
 	
 	bool Value<double>::runBlock(BlockPtr& nBlock)
 	{
-		nBlock->runInt8(6);
+		__i8 value_ = 6;
+		nBlock->runInt8(value_);
 		nBlock->runDouble(mValue);
 		return false;
 	}
@@ -171,7 +177,8 @@ namespace std {
 	
 	bool Value<std::string>::runBlock(BlockPtr& nBlock)
 	{
-		nBlock->runInt8(7);
+		__i8 value_ = 7;
+		nBlock->runInt8(value_);
 		nBlock->runString(mValue);
 		return false;
 	}

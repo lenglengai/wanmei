@@ -16,7 +16,7 @@ namespace std {
 		__i32 getSecond();
 
 		S2CPing();
-		S2CPing(__i32 nSecond, __i64 nServerTime);
+		explicit S2CPing(__i32 nSecond, __i64 nServerTime);
 		~S2CPing();
 
 	private:

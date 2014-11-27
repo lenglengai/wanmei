@@ -10,8 +10,9 @@ namespace std {
 	public:
 		virtual bool handleRun(PlayerPtr& nPlayer);
 		virtual bool runBlock(BlockPtr& nBlock) = 0;
-		//void setValueList(ValueList& nValueList);
-		//ValueList * getValueList();
+		void setHeader(__i32 nProtocol, bool nInline, __i32 nPacketId);
+		void setValueList(ValueList& nValueList);
+		ValueList * getValueList();
 		bool runHeader(BlockPtr& nBlock);
 		__i32 getProtocolId();
 		__i32 getPacketId();
@@ -29,7 +30,7 @@ namespace std {
 	#ifdef __SERVER__
 		PlayerPtr * mPlayer;
 	#endif
-		//ValueList * mValueList;
+		ValueList * mValueList;
 		__i16 mVersion;
 		__i32 mProtocol;
 		__i32 mPacketId;

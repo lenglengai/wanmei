@@ -3,7 +3,7 @@
 namespace std {
 
 	void ValueList::insert(__i32 nNo, ValuePtr& nValue) {
-		__i32 index_ = mClosedNo << 16 + nNo;
+		__i32 index_ = (mClosedNo << 16) + nNo;
 		auto it = mValues.find(index_);
 		if ( it != mValues.end() ) {
 			LogService& logService_ = Singleton<LogService>::instance();
@@ -19,7 +19,7 @@ namespace std {
 	}
 	
 	ValuePtr& ValueList::getAt(__i32 nId, __i32 nNo) {
-		__i32 index_ = nId << 16 + nNo;
+		__i32 index_ = (nId << 16) + nNo;
 		auto it = mValues.find(index_);
 		if ( it == mValues.end() ) {
 			LogService& logService_ = Singleton<LogService>::instance();

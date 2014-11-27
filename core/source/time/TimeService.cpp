@@ -3,9 +3,9 @@
 namespace std {
 
 #ifdef __CLIENT__
-	void TimeService::setServerTime(__i64 nTime)
+	void TimeService::setServerTime(__i64 nServerTime)
 	{
-		mCurrent = nTime - this->getLocalTime();
+		mCurrent = nServerTime - this->getLocalTime();
 	}
 #endif
 

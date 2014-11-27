@@ -4,7 +4,7 @@
 namespace std {
 
 	class PingProtocol;
-	class C2SPing : public Packet<C2SPing, PingProtocol>
+	class C2SPing : public Packet<C2SPing, PingProtocol, false>
 	{
 	public:
 	#ifdef __SERVER__
@@ -15,7 +15,7 @@ namespace std {
 		__i32 getSecond();
 
 		C2SPing();
-		C2SPing(__i32 nSecond);
+		explicit C2SPing(__i32 nSecond);
 		~C2SPing();
 
 	private:

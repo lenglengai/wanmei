@@ -17,7 +17,7 @@ namespace std {
 
 		void runClose();
 
-		LuaScript(lua_State * nLuaState, int nLuaRef);
+		explicit LuaScript(lua_State * nLuaState, int nLuaRef);
 		~LuaScript();
 
 	private:

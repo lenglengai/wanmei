@@ -7,7 +7,7 @@ namespace std {
 		auto it = mValues.find(nId);
 		if ( it != mValues.end() ) {
 			LogService& logService_ = Singleton<LogService>::instance();
-			logService_.logError(log_2(nId));
+			logService_.logError(log_1(nId));
 			return;
 		}
 		mValues[nId] = nValue;

@@ -5,8 +5,8 @@ namespace std {
 	class __funapi DoingService : boost::noncopyable
 	{
 	public:
-		//void runClosed(PlayerPtr& nPlayer, ClosedPtr& nClosed,
-		//	Values& nValues, ValueList * nValueList);
+		void runClosed(PlayerPtr& nPlayer, ClosedPtr& nClosed,
+			Values& nValues, ValueList * nValueList);
 		
 		DoingService();
 		~DoingService();
