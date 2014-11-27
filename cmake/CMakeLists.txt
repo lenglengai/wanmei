@@ -70,21 +70,29 @@ set(closedi ${INC_PATH}/closed )
 set(closeds ${SRC_PATH}/closed )
 
 set( CLOSED_SRC
+	${closeds}/C2SClosed.cpp
 	${closeds}/Closed.cpp
 	${closeds}/ClosedMgr.cpp
 	${closeds}/ClosedModule.cpp
+	${closeds}/ClosedProtocol.cpp
+	${closeds}/Closeds.cpp
 	${closeds}/ClosedService.cpp
 	${closeds}/DoingService.cpp
-	${closeds}/ValueList.cpp )
+	${closeds}/IndexValue.cpp
+	${closeds}/S2CClosed.cpp)
 
 SET( CLOSED_H
+	${closedi}/C2SClosed.h
 	${closedi}/Closed.h
 	${closedi}/ClosedMgr.h
 	${closedi}/ClosedModule.h
+	${closedi}/ClosedProtocol.h
+	${closedi}/Closeds.h
 	${closedi}/ClosedService.h
 	${closedi}/DoingService.h
 	${closedi}/IDoing.h
-	${closedi}/ValueList.h)
+	${closedi}/IndexValue.h
+	${closedi}/S2CClosed.h)
 ##############################################################
 set(compressi ${INC_PATH}/compress )
 set(compresss ${SRC_PATH}/compress )
@@ -214,7 +222,15 @@ SET( NET_H
 	${neti}/SingleWire.h
 	${neti}/TcpClient.h
 	${neti}/TcpServer.h
-	${neti}/WriteBlock.h)
+	${neti}/WriteBlock.h)	
+##############################################################
+set( projInci ${INC_PATH}/projInc )
+
+SET( PROJINC_H
+	${propertyi}/CocoClient.h
+	${propertyi}/GameClient.h
+	${propertyi}/GameServer.h
+	${propertyi}/LoginServer.h)
 ##############################################################
 set( propertyi ${INC_PATH}/property )
 set( propertys ${SRC_PATH}/property )
@@ -258,6 +274,19 @@ set( TIME_SRC
 SET( TIME_H
 	${timei}/TimeService.h)
 ##############################################################
+set( valuei ${INC_PATH}/value )
+set( values ${SRC_PATH}/value )
+
+set( VALUE_SRC
+	${values}/IValue.cpp
+	${values}/ValueList.cpp
+	${values}/Values.cpp)
+
+SET( VALUE_H
+	${valuei}/IValue.h
+	${valuei}/ValueList.h
+	${valuei}/Values.h)
+##############################################################
 set(pings ${LOGIC_PATH}/ping )
 
 set( PING_SRC
@@ -291,10 +320,12 @@ add_executable(${PROJECT_NAME}
 	${LOG_SRC} ${LOG_H}
 	${LUA_SRC} ${LUA_H}
 	${NET_SRC} ${NET_H}
+	${PROJINC_H}
 	${PROPERTY_SRC} ${PROPERTY_H}
 	${RANDOM_SRC} ${RANDOM_H}
 	${SETTING_SRC} ${SETTING_H}
 	${TIME_SRC} ${TIME_H}
+	${VALUE_SRC} ${VALUE_H}
 	${PING_SRC} ${PING_H})
 	
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} libbzlib liblua)
