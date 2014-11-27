@@ -27,6 +27,8 @@ namespace std {
 
 		bool runDouble(double& nValue);
 		bool runDoubles(list<double>& nValue);
+		
+		bool isReader();
 
 		void runClear();
 		void runEnd();

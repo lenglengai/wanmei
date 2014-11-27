@@ -5,12 +5,13 @@ namespace std {
 	class __funapi Closed : boost::noncopyable
 	{
 	public:
+		std::list<IndexValuePtr>& getIndexValues();
 		std::list<__i32>& getPreClosed();
 		__i32 closedModule();
 		__i32 closedType();
 		__i32 closedId();
 		__i32 closedNo();
-	
+		
 	private:
 		void runClear();
 		
@@ -19,6 +20,7 @@ namespace std {
 		~Closed();
 		
 	private:
+		std::list<IndexValuePtr> mIndexValues;
 		std::list<__i32> mPreClosed;
 		__i32 mClosedModule;
 		__i32 mClosedType;

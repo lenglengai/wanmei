@@ -197,6 +197,11 @@ namespace std {
 		}
 		return true;
 	}
+	
+	bool ReadBlock::isReader()
+	{
+		return true;
+	}
 
 	BlockPushType_ ReadBlock::runPush(char * nBuffer, __i16 nSize)
 	{

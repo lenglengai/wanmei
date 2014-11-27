@@ -33,6 +33,8 @@ namespace std{
 
 		bool runDouble(double& nValue);
 		bool runDoubles(list<double>& nValue);
+		
+		bool isReader();
 
 		BlockPushType_ runPush(char * nBuffer, __i16 nSize);
 		void endPush();

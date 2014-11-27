@@ -5,11 +5,14 @@ namespace std {
 	class __funapi DoingService : boost::noncopyable
 	{
 	public:
+		void runClosed(PlayerPtr& nPlayer, ClosedPtr& nClosed,
+			Values& nValues, ValueList * nValueList);
+		
 		DoingService();
 		~DoingService();
 		
 	private:
-		std::map<__i32, DoingPtr> mDoings;
+		std::map<__i32, IDoing *> mDoings;
 	};
 
 }

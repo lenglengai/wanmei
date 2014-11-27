@@ -2,27 +2,39 @@
 
 namespace std {
 
-	std::list<__i32>& Closed::getPreClosed() {
+	std::list<IndexValue>& getIndexValues()
+	{
+		return mIndexValues;
+	}
+	
+	std::list<__i32>& Closed::getPreClosed()
+	{
 		return mPreClosed;
 	}
 	
-	__i32 Closed::closedModule() {
+	__i32 Closed::closedModule()
+	{
 		return mClosedModule;
 	}
 	
-	__i32 Closed::closedType() {
+	__i32 Closed::closedType()
+	{
 		return mClosedType;
 	}
 	
-	__i32 Closed::closedId() {
+	__i32 Closed::closedId()
+	{
 		return mClosedId;
 	}
 	
-	__i32 Closed::closedNo() {
+	__i32 Closed::closedNo()
+	{
 		return mClosedNo;
 	}
 	
-	void Closed::runClear() {
+	void Closed::runClear()
+	{
+		mIndexValues.clear();
 		mPreClosed.clear();
 		mClosedModule = 0;
 		mClosedType = 0;
@@ -30,11 +42,13 @@ namespace std {
 		mClosedNo = 0;
 	}
 	
-	Closed::Closed() {
+	Closed::Closed()
+	{
 		this->runClear();
 	}
 	
-	Closed::~Closed() {
+	Closed::~Closed()
+	{
 		this->runClear();
 	}
 

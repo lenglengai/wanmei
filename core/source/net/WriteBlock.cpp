@@ -152,6 +152,11 @@ namespace std {
 		return true;
 	}
 
+	bool WriteBlock::isReader()
+	{
+		return false;
+	}
+	
 	bool WriteBlock::runCopy(const char * nValue, __i16 nLength)
 	{
 		if ((mLength + nLength + sizeof(__i16)) > PACKETMAX) {

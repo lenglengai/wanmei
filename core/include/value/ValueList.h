@@ -5,51 +5,17 @@ namespace std {
 	class __funapi ValueList : boost::noncopyable
 	{
 	public:
-		template<typename T>
-		void insert(__i32 nId, __i32 nNo, T& nT) {
-			__i32 index_ = nId << 16 + nNo;
-			auto it = mValues.find(index_);
-			if ( it != mValues.end() ) {
-				LogService& logService_ = Singleton<LogService>::instance();
-				logService_.logError(log_2(nId, nNo));
-				return;
-			}
-			void * value_ = reinterpreter_cast<void *>(&nT);
-			mValues[index_] = value_;
-		}
-		
-		template<typename T>
-		void insert(__i32 nId, __i32 nNo, T * nT) {
-			__i32 index_ = nId << 16 + nNo;
-			auto it = mValues.find(index_);
-			if ( it != mValues.end() ) {
-				LogService& logService_ = Singleton<LogService>::instance();
-				logService_.logError(log_2(nId, nNo));
-				return;
-			}
-			void * value_ = reinterpreter_cast<void *>(nT);
-			mValues[index_] = value_;
-		}
-		
-		template<typename T>
-		T * getAt(__i32 nId, __i32 nNo) {
-			__i32 index_ = nId << 16 + nNo;
-			auto it = mValues.find(index_);
-			if ( it == mValues.end() ) {
-				LogService& logService_ = Singleton<LogService>::instance();
-				logService_.logError(log_2(nId, nNo));
-				return nullptr;
-			}
-			return reinterpreter_cast<T *>(mValues[index_]);
-		}
-		
+		void insert(__i32 nId, __i32 nNo, ValuePtr& nValue);
+		ValuePtr& getAt(__i32 nId, __i32 nNo);
+		void setClosedNo(__i32 nClosedNo);
 		void runClear();
 		
 		ValueList();
 		~ValueList();
 		
 	private:
-		std::map<__i32, void *> mValues;
+		std::map<__i32, ValuePtr> mValues;
+		__i32 mClosedNo;
 	};
 	typedef std::shared_ptr<ValueList> ValueListPtr;
 
