@@ -23,8 +23,8 @@ namespace std {
 	{
 		PacketPtr packet_ = this->popPacket();
 		if (!packet_) return;
-		mValueList.runClear();
-		packet_->setValueList(mValueList);
+		//mValueList.runClear();
+		//packet_->setValueList(mValueList);
 	#ifdef __SERVER__
 		PlayerPtr * player_ = packet_->getPlayer();
 		packet_->handleRun(*player_);

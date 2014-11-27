@@ -227,10 +227,10 @@ SET( NET_H
 set( projInci ${INC_PATH}/projInc )
 
 SET( PROJINC_H
-	${propertyi}/CocoClient.h
-	${propertyi}/GameClient.h
-	${propertyi}/GameServer.h
-	${propertyi}/LoginServer.h)
+	${projInci}/CocoClient.h
+	${projInci}/GameClient.h
+	${projInci}/GameServer.h
+	${projInci}/LoginServer.h)
 ##############################################################
 set( propertyi ${INC_PATH}/property )
 set( propertys ${SRC_PATH}/property )

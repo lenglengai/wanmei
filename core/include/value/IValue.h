@@ -10,7 +10,7 @@ namespace std {
 	typedef std::shared_ptr<IValue> ValuePtr;
 
 	template <typename T>
-	class __funapi Value : IValue
+	class __funapi Value : public IValue
 	{
 	public:
 		std::shared_ptr<T>& getValue()
@@ -18,7 +18,7 @@ namespace std {
 			return mValue;
 		}
 		
-		Value<T>()
+		Value()
 		{
 		}
 		
@@ -27,105 +27,105 @@ namespace std {
 	};
 	
 	template <>
-	class __funapi Value<__i8> : IValue
+	class __funapi Value<__i8> : public IValue
 	{
 	public:
 		bool runBlock(BlockPtr& nBlock);
 		__i8 getValue();
 		
-		Value<__i8>();
-		Value<__i8>(__i8 nValue);
-		~Value<__i8>();
+		Value();
+		Value(__i8 nValue);
+		~Value();
 		
 	private:
 		__i8 mValue;
 	};
 
 	template <>
-	class __funapi Value<__i16> : IValue
+	class __funapi Value<__i16> : public IValue
 	{
 	public:
 		bool runBlock(BlockPtr& nBlock);
 		__i16 getValue();
 		
-		Value<__i16>();
-		Value<__i16>(__i16 nValue);
-		~Value<__i16>();
+		Value();
+		Value(__i16 nValue);
+		~Value();
 		
 	private:
 		__i16 mValue;
 	};
 	
 	template <>
-	class __funapi Value<__i32> : IValue
+	class __funapi Value<__i32> : public IValue
 	{
 	public:
 		bool runBlock(BlockPtr& nBlock);
 		__i32 getValue();
 		
-		Value<__i32>();
-		Value<__i32>(__i32 nValue);
-		~Value<__i32>();
+		Value();
+		Value(__i32 nValue);
+		~Value();
 		
 	private:
 		__i32 mValue;
 	};
 	
 	template <>
-	class __funapi Value<__i64> : IValue
+	class __funapi Value<__i64> : public IValue
 	{
 	public:
 		bool runBlock(BlockPtr& nBlock);
 		__i64 getValue();
 		
-		Value<__i64>();
-		Value<__i64>(__i64 nValue);
-		~Value<__i64>();
+		Value();
+		Value(__i64 nValue);
+		~Value();
 		
 	private:
 		__i64 mValue;
 	};
 	
 	template <>
-	class __funapi Value<float> : IValue
+	class __funapi Value<float> : public IValue
 	{
 	public:
 		bool runBlock(BlockPtr& nBlock);
 		float getValue();
 		
-		Value<float>();
-		Value<float>(float nValue);
-		~Value<float>();
+		Value();
+		Value(float nValue);
+		~Value();
 		
 	private:
 		float mValue;
 	};
 	
 	template <>
-	class __funapi Value<double> : IValue
+	class __funapi Value<double> : public IValue
 	{
 	public:
 		bool runBlock(BlockPtr& nBlock);
 		double getValue();
 		
-		Value<double>();
-		Value<double>(double nValue);
-		~Value<double>();
+		Value();
+		Value(double nValue);
+		~Value();
 		
 	private:
 		double mValue;
 	};
 
 	template <>
-	class __funapi Value<std::string> : IValue
+	class __funapi Value<std::string> : public IValue
 	{
 	public:
 		bool runBlock(BlockPtr& nBlock);
 		std::string& getValue();
 		
-		Value<std::string>();
-		Value<std::string>(const char * nValue);
-		~Value<std::string>();
+		Value();
+		Value(const char * nValue);
+		~Value();
 		
 	private:
 		std::string mValue;

@@ -5,7 +5,7 @@ namespace std {
 	class __funapi ValueList : boost::noncopyable
 	{
 	public:
-		void insert(__i32 nId, __i32 nNo, ValuePtr& nValue);
+		void insert(__i32 nNo, ValuePtr& nValue);
 		ValuePtr& getAt(__i32 nId, __i32 nNo);
 		void setClosedNo(__i32 nClosedNo);
 		void runClear();

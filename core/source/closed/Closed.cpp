@@ -2,7 +2,7 @@
 
 namespace std {
 
-	std::list<IndexValue>& getIndexValues()
+	std::list<IndexValuePtr>& Closed::getIndexValues()
 	{
 		return mIndexValues;
 	}

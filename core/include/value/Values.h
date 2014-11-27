@@ -14,7 +14,7 @@ namespace std {
 		
 	private:
 		std::list<__i32, ValuePtr> mValues;
-	}
+	};
 	typedef std::shared_ptr<Values> ValuesPtr;
 	
 }
