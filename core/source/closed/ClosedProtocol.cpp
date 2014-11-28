@@ -16,7 +16,7 @@ namespace std {
 	{
 		ProtocolService& protocolService_ =  Singleton<ProtocolService>::instance();
 		protocolService_.runRegister(this);
-
+		
 	#ifdef __CLIENT__
 		this->addPacketId(PacketIdPtr(new PacketId<S2CClosed>()));
 	#endif

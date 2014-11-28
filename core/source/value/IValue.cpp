@@ -193,7 +193,7 @@ namespace std {
 	{
 	}
 	
-	Value<std::string>::Value(const char * nValue)
+	Value<std::string>::Value(std::string& nValue)
 		: mValue (nValue)
 	{
 	}

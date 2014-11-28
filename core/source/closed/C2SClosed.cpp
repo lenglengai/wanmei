@@ -105,7 +105,7 @@ namespace std {
 				} else if (7 == valueType_) {
 					std::string count_(""); 
 					nBlock->runString(count_);
-					ValuePtr value_(new Value<std::string>(count_.c_str()));
+					ValuePtr value_(new Value<std::string>(count_));
 					mValues.push_back(value_);
 				}
 			}

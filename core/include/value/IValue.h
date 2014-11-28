@@ -124,7 +124,7 @@ namespace std {
 		std::string& getValue();
 		
 		Value();
-		explicit Value(const char * nValue);
+		explicit Value(std::string& nValue);
 		~Value();
 		
 	private:

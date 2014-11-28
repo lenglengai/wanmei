@@ -83,6 +83,10 @@
 #include "archive/ArchiveWriter.h"
 #include "archive/ArchiveService.h"
 
+#include "console/IConsole.h"
+#include "console/ConsoleContext.h"
+#include "console/ConsoleService.h"
+
 #include "closed/IndexValue.h"
 #include "closed/Closed.h"
 #include "closed/Closeds.h"

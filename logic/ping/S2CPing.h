@@ -4,7 +4,7 @@
 namespace std {
 
 	class PingProtocol;
-	class S2CPing : public Packet<S2CPing, PingProtocol>
+	class S2CPing : public Packet<S2CPing, PingProtocol, false>
 	{
 	public:
 	#ifdef __CLIENT__

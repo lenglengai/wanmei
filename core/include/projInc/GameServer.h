@@ -6,3 +6,4 @@
 #define __TCPSERVER__
 #define __RUNING__
 #define __PING__
+#define __CONSOLE__

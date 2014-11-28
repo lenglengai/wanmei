@@ -109,6 +109,18 @@ set( COMPRESS_SRC
 SET( COMPRESS_H
 	${compressi}/CompressService.h )
 ##############################################################
+set(consolei ${INC_PATH}/console )
+set(consoles ${SRC_PATH}/console )
+
+set( CONSOLE_SRC
+	${consoles}/ConsoleContext.cpp
+	${consoles}/ConsoleService.cpp)
+
+SET( CONSOLE_H
+	${consolei}/ConsoleContext.h
+	${consolei}/ConsoleService.h
+	${consolei}/IConsole.h)
+##############################################################
 set( cpui ${INC_PATH}/cpu )
 set( cpus ${SRC_PATH}/cpu )
 
@@ -230,7 +242,7 @@ SET( NET_H
 	${neti}/TcpServer.h
 	${neti}/WriteBlock.h)
 	
-install(FILES ${nets}/config/tcpAddress.xml DESTINATION  ${BIN_PATH} )
+file(COPY ${nets}/config/tcpAddress.xml DESTINATION ${BIN_PATH} )
 ##############################################################
 set( projInci ${INC_PATH}/projInc )
 
@@ -319,6 +331,7 @@ add_executable(${PROJECT_NAME}
 	${ARCHIVE_SRC} ${ARCHIVE_H}
 	${CLOSED_SRC} ${CLOSED_H}
 	${COMPRESS_SRC} ${COMPRESS_H}
+	${CONSOLE_SRC} ${CONSOLE_H}
 	${CPU_SRC} ${CPU_H}
 	${CRC_SRC} ${CRC_H}
 	${HANDLE_SRC} ${HANDLE_H}

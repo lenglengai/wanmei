@@ -13,6 +13,12 @@ namespace std {
 		void runValues(Values& nValues, ClosedPtr& nClosed);
 	#endif
 		bool runBlock(BlockPtr& nBlock);
+		
+		template<typename T>
+		void runPush(T& nT) {
+			ValuePtr value_(new Value<T>(nT));
+			mValues.push_back(value_);
+		}
 
 		C2SClosed();
 		~C2SClosed();
