@@ -33,7 +33,7 @@ namespace std {
 		ArchiveWriter archiveWriter;
 		std::string journey = "journey_"; 
 		journey += nJourneyId; journey += ".jf";
-		archiveWriter.openUrl(journey.c_str());
+		archiveWriter.runOpen(journey.c_str());
 		
 		SettingService& settingService = Singleton<SettingService>::instance();
 		settingService.setSystemPath(nJourneyPath);
@@ -46,7 +46,7 @@ namespace std {
 		count_++; archiveWriter.runCount(count_);
 		archiveWriter.runArchive(journeyDescripter.streamUrl());
 		for (auto it : journeyKeys) {
-			archiveWriter.runArchive(it->getFileName());
+			archiveWriter.runArchive(it->getFileName().c_str());
 		}
 		archiveWriter.runClose();
 	}
@@ -88,7 +88,7 @@ namespace std {
 			return;
 		}
 		IJourney * journey_ = it->second;
-		journey_->loadJourney(nJourneyId, fileName_);
+		journey_->loadJourney(nJourneyId, fileName_.c_str());
 	}
 
 	bool ArchiveService::runPreinit()

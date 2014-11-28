@@ -11,6 +11,11 @@ namespace std {
 	{
 		return mFileName;
 	}
+	
+	bool JourneyKey::isDefault()
+	{
+		return ((mJourneyId == "") || (mFileName == ""));
+	}
 
 	JourneyKey::JourneyKey()
 		: mJourneyId("")

@@ -7,6 +7,8 @@ namespace std {
 	public:
 		ClosedMgrPtr& getClosedMgr(__i32 nModule, __i32 nClosedMgr);
 		
+		bool runPreinit();
+		
 		ClosedService();
 		~ClosedService();
 		

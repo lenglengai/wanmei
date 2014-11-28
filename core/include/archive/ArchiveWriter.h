@@ -7,11 +7,11 @@ namespace std {
 	public:
 		void runOpen(const char * nUrl);
 		void runArchives(std::set<std::string>& nArchives);
+		void runArchive(const char * nArchive);
 		void runCount(__i32 nCount);
 		void runClose();
 
 	private:
-		void runArchive(const char * nArchive);
 		__i32 readBuf(const char * nPath);
 		__i32 writeBuf(__i32 nSize);
 

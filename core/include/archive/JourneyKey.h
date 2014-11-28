@@ -6,14 +6,15 @@ namespace std {
 	{
 	public:
 		template<class T>
-		void serialize(T& nSerialize)
+		void serialize(T * nSerialize, __i32 nCount)
 		{
-			nSerialize.runString(mJourneyId, "journeyId");
-			nSerialize.runString(mFileName, "fileName");
+			nSerialize->runString(mJourneyId, "journeyId");
+			nSerialize->runString(mFileName, "fileName");
 		}
 
 		std::string& getJourneyId();
 		std::string& getFileName();
+		bool isDefault();
 
 		JourneyKey();
 		~JourneyKey();
