@@ -226,7 +226,9 @@ SET( NET_H
 	${neti}/SingleWire.h
 	${neti}/TcpClient.h
 	${neti}/TcpServer.h
-	${neti}/WriteBlock.h)	
+	${neti}/WriteBlock.h)
+	
+file(COPY ${nets}/config/tcpAddress.xml DESTINATION  ${BIN_PATH} )
 ##############################################################
 set( projInci ${INC_PATH}/projInc )
 
