@@ -9,7 +9,7 @@ class BuildCMake(buildbase.BuildBase):
 
     @staticmethod
     def getName():
-        return 'me'
+        return 'cemdr'
 
     def interName(self):
         return BuildCMake.getName()
@@ -17,6 +17,9 @@ class BuildCMake(buildbase.BuildBase):
     def __init__(self, nWorkspace, nProject):
         self.mWorkspace = nWorkspace
         self.mProject = nProject
+        self.mMake = False
+        self.mCMake = False
+        self.mBuild = False
         self.__initChdir()
         self.__initSource()
         
@@ -30,23 +33,59 @@ class BuildCMake(buildbase.BuildBase):
         else:
             self.mSource = '../../../cmake/'
         self.mSource = os.path.abspath(self.mSource)
-		
+        
     def insertBuildParameter(self, nBuildParameter):
         sysName = platform.system()
         if 'Windows' == sysName:
             if 'e' == nBuildParameter:
                 self.mPlatform = 'Visual Studio 12 2013'
-            if 'm' == nBuildParameter:
+                self.mCMake = True
+            if 'c' == nBuildParameter:
                 self.mPlatform = 'NMake Makefiles'
+                self.mMake = True
+                self.mCMake = True
         elif 'Darwin' == sysName:
             if 'e' == nBuildParameter:
                 self.mPlatform = 'Xcode'
-            if 'm' == nBuildParameter:
+                self.mCMake = True
+            if 'c' == nBuildParameter:
                 self.mPlatform = 'Unix Makefiles'
+                self.mMake = True
+                self.mCMake = True
         else:
-            self.mPlatform = 'Unix Makefiles'
+            if 'e' == nBuildParameter:
+                self.mPlatform = 'Unix Makefiles'
+                self.mMake = True
+                self.mCMake = True
+            if 'c' == nBuildParameter:
+                self.mPlatform = 'Unix Makefiles'
+                self.mMake = True
+                self.mCMake = True
+        if 'm' == nBuildParameter:
+            self.mMake = True
+        if 'd' == nBuildParameter:
+            self.mDebug = 'DEBUG'
+            self.mBuild = True
+        if 'r' == nBuildParameter:
+            self.mDebug = 'RELEASE'
+            self.mBuild = True
             
     def runBuild(self):
-        cmakeCmd = 'cmake %s -G\"%s\" -D__WORKSPACE__=%s -D__PROJECT__=%s' % (self.mSource, self.mPlatform, self.mWorkspace, self.mProject)
-        buildbase.BuildBase.interBuild(self, cmakeCmd)
+        if True == self.mCMake:
+            cmakeCmd = 'cmake %s -G\"%s\" -D__WORKSPACE__=%s -D__PROJECT__=%s' % (self.mSource, self.mPlatform, self.mWorkspace, self.mProject)
+            buildbase.BuildBase.interBuild(self, cmakeCmd)
+        if True == self.mBuild:
+            makeCmd = 'make'
+            sysName = platform.system()
+            if 'Windows' == sysName:
+                if False == self.mMake:
+                    makeCmd = 'msbuild %s.sln  /p:Configuration=%s' % (self.mProject, self.mDebug)
+                else:
+                    makeCmd = 'nmake'
+            elif 'Darwin' == sysName:
+                if False == self.mMake:
+                    makeCmd = 'xcodebuild -project %s.xcodeproj -configuration %s' % (self.mProject, self.mDebug)
+            else:
+                makeCmd = 'make'
+            buildbase.BuildBase.interBuild(self, makeCmd)
 

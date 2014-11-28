@@ -24,12 +24,16 @@ link_directories($ENV{BOOST_ROOT}/stage/lib)
 set(Boost_USE_STATIC_LIBS TRUE)
 find_package(Boost COMPONENTS system date_time regex chrono thread filesystem log log_setup REQUIRED)
 
+##############################################################
 set( ROOT_PATH ${CMAKE_SOURCE_DIR}/.. )
 set( DEP_PATH ${ROOT_PATH}/dependence )
 set( INC_PATH ${ROOT_PATH}/core/include )
 set( SRC_PATH ${ROOT_PATH}/core/source )
 set( LOGIC_PATH ${ROOT_PATH}/logic )
+set( BIN_PATH ${ROOT_PATH}/${__WORKSPACE__}/binary )
 
+set(EXECUTABLE_OUTPUT_PATH ${BIN_PATH})
+##############################################################
 set( MAIN_SRC  ${SRC_PATH}/Main.cpp )
 ##############################################################
 set(archivei ${INC_PATH}/archive )
