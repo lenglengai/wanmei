@@ -49,6 +49,7 @@ set( ARCHIVE_SRC
 	${archives}/BinReader.cpp
 	${archives}/BinWriter.cpp
 	${archives}/JourneyDescripter.cpp
+	${archives}/JourneyKey.cpp
 	${archives}/LogWriter.cpp
 	${archives}/XmlReader.cpp)
 
@@ -63,6 +64,7 @@ SET( ARCHIVE_H
 	${archivei}/BinWriter.h
 	${archivei}/IJourney.h
 	${archivei}/JourneyDescripter.h
+	${archivei}/JourneyKey.h
 	${archivei}/LogWriter.h
 	${archivei}/rapidxml.hpp
 	${archivei}/rapidxml_iterators.hpp
@@ -228,7 +230,7 @@ SET( NET_H
 	${neti}/TcpServer.h
 	${neti}/WriteBlock.h)
 	
-file(COPY ${nets}/config/tcpAddress.xml DESTINATION  ${BIN_PATH} )
+install(FILES ${nets}/config/tcpAddress.xml DESTINATION  ${BIN_PATH} )
 ##############################################################
 set( projInci ${INC_PATH}/projInc )
 

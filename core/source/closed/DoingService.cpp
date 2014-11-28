@@ -15,12 +15,16 @@ namespace std {
 		doing_->runClosed(nPlayer, nClosed, nValues, nValueList);
 	}
 	
-	DoingService::DoingService() {
+	DoingService::DoingService()
+	{
 		mDoings.clear();
 	}
 	
-	DoingService::~DoingService() {
+	DoingService::~DoingService()
+	{
 		mDoings.clear();
 	}
 
+	static Preinit<DoingService> sDoingServicePreinit;
+	
 }

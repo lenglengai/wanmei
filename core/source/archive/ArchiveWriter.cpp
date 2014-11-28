@@ -12,6 +12,13 @@ namespace std {
 			this->runArchive(it.c_str());
 		}
 	}
+	
+	void ArchiveWriter::runCount(__i32 nCount)
+	{
+		__i32 pos_ = (ArchiveHash::hashSize()) * nCount;
+		pos_ += sizeof(__i16); pos_ += ArchiveHead::hashSize();
+		mBinWriter.runSeek(pos_);
+	}
 
 	void ArchiveWriter::runOpen(const char * nUrl)
 	{

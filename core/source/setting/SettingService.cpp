@@ -2,6 +2,16 @@
 
 namespace std {
 
+	void SettingService::setSystemPath(const char * nSystemPath)
+	{
+		mSystemPath = nSystemPath;
+	}
+	
+	const string& SettingService::systemPath()
+	{
+		return mSystemPath;
+	}
+
 	__i16 SettingService::checkVersion(__i16 nVersion)
 	{
 		__i32 high = nVersion >> 10;
@@ -18,16 +28,9 @@ namespace std {
 
 	bool SettingService::runPreinit()
 	{
-		//mSystemPath = nPath;
-		
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 		return true;
-	}
-
-	const string& SettingService::systemPath()
-	{
-		return mSystemPath;
 	}
 
 	SettingService::SettingService()

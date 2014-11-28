@@ -12,26 +12,19 @@ namespace std {
 		return "journeyDescripter.xml";
 	}
 
-	std::list<std::string>& JourneyDescripter::getJourneys()
+	std::list<JourneyKeyPtr>& JourneyDescripter::getJourneyKeys()
 	{
-		return mJourneys;
+		return mJourneyKeys;
 	}
 	
-	__i32 JourneyDescripter::getJourneyId()
-	{
-		return mJourneyId;
-	}
-
 	JourneyDescripter::JourneyDescripter()
-		: mJourneyId(0)
 	{
-		mJourneys.clear();
+		mJourneyKeys.clear();
 	}
 
 	JourneyDescripter::~JourneyDescripter()
 	{
-		mJourneys.clear();
-		mJourneyId = 0;
+		mJourneyKeys.clear();
 	}
 
 }

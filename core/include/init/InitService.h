@@ -41,9 +41,8 @@ namespace std {
 		boost::signals2::signal<void()> m_tRunExit;
 		void runExit();
 		
-		void registerArchive(const char * nArchive);
 		void runConfigure();
-
+		
 	private:
 		void runClear();
 
@@ -52,9 +51,7 @@ namespace std {
 		~InitService();
 		
 	private:
-	    std::set<std::string> mArchives;
 		__i16 mInitType;
-		bool mConfigure;
 	};
 
 }

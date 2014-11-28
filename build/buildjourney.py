@@ -12,7 +12,7 @@ class BuildJourney(buildbase.BuildBase):
         return 'j'
 
     def interName(self):
-        return BuildCMake.getName()
+        return BuildJourney.getName()
 
     def __init__(self, nWorkspace, nNo):
         self.mWorkspace = nWorkspace
@@ -28,8 +28,8 @@ class BuildJourney(buildbase.BuildBase):
         self.mJourneyPath = os.path.abspath(self.mJourneyPath)
         
     def runBuild(self):
-        journeyCmd = 'journey.exe %s' % self.mJourneyPath
+        journeyCmd = 'gameServer.exe -j self.mNo %s' % self.mJourneyPath
         sysName = platform.system()
         if 'Windows' != sysName:
-            journeyCmd = './journey %s' % self.mJourneyPath
+            journeyCmd = './gameServer -j self.mNo %s' % self.mJourneyPath
         buildbase.BuildBase.interBuild(self, journeyCmd)

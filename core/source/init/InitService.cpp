@@ -5,38 +5,25 @@ namespace std {
 	bool InitService::runPreinit(bool nConfigure)
 	{
 		if (mInitType > InitType_::mNone_) return false;
-		mConfigure = nConfigure;
-
+		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		archiveService_.setConfigure(nConfigure);
+		
 		LogService& logService_ = Singleton<LogService>::instance();
 		if (!logService_.runPreinit()) return false;
-
+		
 		PreinitSlot& preinitSlot = Singleton<PreinitSlot>::instance();
 		preinitSlot.runPreinit();
-
+		
 		mInitType = InitType_::mPreinit_;
 		return true;
 	}
 	
-    void InitService::registerArchive(const char * nArchive)
-    {
-        if (false == mConfigure)  return;
-        auto it = mArchives.find(nArchive);
-        if ( it != mArchives.end()) {
-            LogService& logService_ = Singleton<LogService>::instance();
-            logService_.logError(log_1(nArchive));
-            return;
-        }
-        mArchives.insert(nArchive);
-    }
-
-    void InitService::runConfigure()
-    {
-        ArchiveWriter archiveWriter;
-        archiveWriter.runOpen("configure.jf");
-        archiveWriter.runArchives(mArchives);
-        archiveWriter.runClose();
-    }
-
+	void InitService::runConfigure()
+	{
+		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		archiveService_.runConfigure();
+	}
+	
 	void InitService::runLoad0()
 	{
 		if (InitType_::mPreinit_ != mInitType) {
@@ -188,7 +175,6 @@ namespace std {
 		m_tRunSave.disconnect_all_slots();
 		m_tRunExit.disconnect_all_slots();
 		mInitType = InitType_::mNone_;
-		mConfigure = false;
         mArchives.clear();
 	}
 

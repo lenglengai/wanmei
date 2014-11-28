@@ -8,21 +8,18 @@ namespace std {
 		template<class T>
 		void headSerialize(T& nSerialize)
 		{
-			nSerialize.runInt32(mJourneyId, "journeyId");
-			nSerialize.runStrings(mJourneys, "journeys", "journey");
+			nSerialize.runStreamsCount(mJourneyKeys, "journeyKeys", "journeyKey");
 		}
 		const char * streamName();
 		const char * streamUrl();
 
-		std::list<std::string>& getJourneys();
-		__i32 getJourneyId();
+		std::list<JourneyKeyPtr>& getJourneyKeys();
 
 		JourneyDescripter();
 		~JourneyDescripter();
 
 	private:
-		std::list<std::string> mJourneys;
-		__i32 mJourneyId;
+		std::list<JourneyKeyPtr> mJourneyKeys;
 	};
 
 }

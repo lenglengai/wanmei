@@ -22,4 +22,6 @@ namespace std {
 		mClosedModules.clear();
 	}
 
+	static Preinit<ClosedService> sClosedServicePreinit;
+	
 }

@@ -2,10 +2,11 @@
 
 namespace std {
 
-	void ArchiveReader::runOpen(const char * nPath)
+	bool ArchiveReader::runOpen(const char * nPath)
 	{
-		mBinReader.openUrl(nPath);
+		if (!mBinReader.openUrl(nPath)) return false;
 		mArchive.headSerialize(mBinReader);
+		return true;
 	}
 
 	bool ArchiveReader::readKey(const char * nKey, char ** nBuf, __i32 * nSize)

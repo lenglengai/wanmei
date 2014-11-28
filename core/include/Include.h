@@ -70,6 +70,7 @@
 #include "net/TcpServer.h"
 
 #include "archive/IJourney.h"
+#include "archive/JourneyKey.h"
 #include "archive/JourneyDescripter.h"
 #include "archive/XmlReader.h"
 #include "archive/LogWriter.h"

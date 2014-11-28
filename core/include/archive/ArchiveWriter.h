@@ -7,6 +7,7 @@ namespace std {
 	public:
 		void runOpen(const char * nUrl);
 		void runArchives(std::set<std::string>& nArchives);
+		void runCount(__i32 nCount);
 		void runClose();
 
 	private:
