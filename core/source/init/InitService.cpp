@@ -175,7 +175,6 @@ namespace std {
 		m_tRunSave.disconnect_all_slots();
 		m_tRunExit.disconnect_all_slots();
 		mInitType = InitType_::mNone_;
-        mArchives.clear();
 	}
 
 	InitService::InitService()

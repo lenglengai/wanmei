@@ -8,6 +8,8 @@ namespace std {
 		void runClosed(PlayerPtr& nPlayer, ClosedPtr& nClosed,
 			Values& nValues, ValueList * nValueList);
 		
+		bool runPreinit();
+		
 		DoingService();
 		~DoingService();
 		

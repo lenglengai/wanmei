@@ -15,6 +15,13 @@ namespace std {
 		doing_->runClosed(nPlayer, nClosed, nValues, nValueList);
 	}
 	
+	bool DoingService::runPreinit()
+	{
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("finish!"));
+		return true;
+	}
+	
 	DoingService::DoingService()
 	{
 		mDoings.clear();
