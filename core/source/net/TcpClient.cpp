@@ -59,12 +59,12 @@ namespace std {
 
 	const char * TcpClient::streamName()
 	{
-		return "tcpClient";
+		return "tcpAddress";
 	}
 
 	const char * TcpClient::streamUrl()
 	{
-		return "tcpClient.xml";
+		return "tcpAddress.xml";
 	}
 
 	bool TcpClient::runPreinit()

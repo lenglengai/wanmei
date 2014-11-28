@@ -38,12 +38,12 @@ namespace std {
 
 	const char * TcpServer::streamName()
 	{
-		return "tcpServer";
+		return "tcpAddress";
 	}
 
 	const char * TcpServer::streamUrl()
 	{
-		return "tcpServer.xml";
+		return "tcpAddress.xml";
 	}
 
 	bool TcpServer::runPreinit()
