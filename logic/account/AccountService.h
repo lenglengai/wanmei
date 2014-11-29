@@ -2,7 +2,6 @@
 
 #include "AccountMgr.h"
 
-#ifdef __ACCOUNT__
 namespace std {
 	
 	class AccountService : boost::noncopyable
@@ -27,4 +26,3 @@ namespace std {
 	};
 	
 }
-#endif

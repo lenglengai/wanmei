@@ -1,6 +1,5 @@
 #include "../LogicInc.h"
 
-#ifdef __ACCOUNT__
 namespace std {
 
 	bool AccountService::runPreinit()
@@ -52,4 +51,3 @@ namespace std {
     }
 	
 }
-#endif

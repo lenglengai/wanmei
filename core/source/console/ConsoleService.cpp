@@ -6,9 +6,9 @@ namespace std {
 	void ConsoleService::runCommand(std::list<std::string>& nCommand)
 	{
 		__i32 count_ = static_cast<__i32>(nCommand.size());
-		if (count < 1) {
+		if (count_ < 1) {
 			LogService& logService_ = Singleton<LogService>::instance();
-			logService_.logError(log_1(count));
+			logService_.logError(log_1(count_));
 			return;
 		}
 		std::string& strConsole_ = nCommand.front();
