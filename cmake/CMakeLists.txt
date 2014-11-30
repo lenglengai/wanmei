@@ -242,7 +242,7 @@ SET( NET_H
 	${neti}/TcpServer.h
 	${neti}/WriteBlock.h)
 	
-file(COPY ${nets}/config/tcpAddress.xml DESTINATION ${BIN_PATH} )
+file(COPY ${nets}/tcpAddress.xml DESTINATION ${BIN_PATH})
 ##############################################################
 set( projInci ${INC_PATH}/projInc )
 

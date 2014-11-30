@@ -5,12 +5,14 @@ namespace std {
 	class IDbConnection : boost::noncopyable
 	{
 	public:
+		void runRecycle();
+		bool runGet();
+	
+	private:
 		void runActivate(bool nForce = false);
 		void runConnect();
 		void runDisconnect();
-		void runRecycle();
-		bool runGet();
-		
+
 	protected:
 		virtual void internalConnect() = 0;
 		virtual void internalDisconnect() = 0;
@@ -24,7 +26,7 @@ namespace std {
 		__i64 mTimeStamp;
 		bool mConnected;
 		bool mBusy;
-	}
+	};
 	typedef std::shared_ptr<IDbConnection> DbConnectionPtr;
 	
 }

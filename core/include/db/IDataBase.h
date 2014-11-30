@@ -6,10 +6,7 @@ namespace std {
 	{
 	public:
 		void recycleConnection(DbConnectionPtr& nDbConnection);
-		virtual DbConnectionPtr createConnection() = 0;
 		DbConnectionPtr& getConnection();
-		__i32 getMaxUsedSeconds();
-		
 		
 		template<class T>
 		void headSerialize(T& nSerialize)
@@ -31,6 +28,11 @@ namespace std {
 		std::string& getPassword();
 		std::string& getDbName();
 		__i32 getPort();
+		
+		__i32 getMaxUsedSeconds();
+		
+	protected:
+		virtual DbConnectionPtr createConnection() = 0;
 		
 	private:
 		void runClear();

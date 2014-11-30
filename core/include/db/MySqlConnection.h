@@ -16,6 +16,6 @@ namespace std {
 		
 	private:
 		MYSQL mMYSQL;
-	}
+	};
 	
 }
