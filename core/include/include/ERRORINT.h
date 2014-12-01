@@ -11,6 +11,7 @@ namespace std {
 		static const __i16 SYSTEMMAINTAIN = 4;
 		static const __i16 SERVERERROR = 5;
 		static const __i16 SERVERCLOSED = 6;
+		static const __i16 DBERROR = 7;
 		static const __i16 END = 0;
 	};
 

@@ -8,9 +8,8 @@ namespace std {
         mSelect_,
         mInsert_,
         mInsertUpdate_,
-        mInsertUpdateEx_,
         mUpdate_,
         mDelete_,
-    }
+    };
 	
 }

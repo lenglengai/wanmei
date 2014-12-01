@@ -5,8 +5,7 @@ namespace std {
 	class IDataBase : boost::noncopyable
 	{
 	public:
-		void recycleConnection(DbConnectionPtr& nDbConnection);
-		DbConnectionPtr& getConnection();
+		virtual __i16 runSql(ISqlHeadstream * nSqlHeadstream) = 0;
 		
 		template<class T>
 		void headSerialize(T& nSerialize)
@@ -31,9 +30,6 @@ namespace std {
 		
 		__i32 getMaxUsedSeconds();
 		
-	protected:
-		virtual DbConnectionPtr createConnection() = 0;
-		
 	private:
 		void runClear();
 		
@@ -49,8 +45,6 @@ namespace std {
 		__i32 mPort;
 		__i32 mMaxConnections;
 		__i32 mMaxUsedSeconds;
-		std::list<DbConnectionPtr> mDbConnections;
-		std::mutex mMutex;
 	};
 	typedef std::shared_ptr<IDataBase> DataBasePtr;
 	

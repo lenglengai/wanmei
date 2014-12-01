@@ -17,5 +17,6 @@ namespace std {
         mUpdateSelect_,
         mUpdateWhen_,
         mUpdateThen_,
-    }
+    };
+	
 }

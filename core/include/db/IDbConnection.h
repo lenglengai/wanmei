@@ -5,6 +5,7 @@ namespace std {
 	class IDbConnection : boost::noncopyable
 	{
 	public:
+		virtual __i16 runSql(ISqlHeadstream * nSqlHeadstream) = 0;
 		void runRecycle();
 		bool runGet();
 	

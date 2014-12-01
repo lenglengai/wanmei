@@ -1,101 +1,93 @@
-
+#include "../../include/Include.h"
 
 namespace std {
 
-    void SqlCommand::serialize(bool& nValue, string& nName, SqlFieldId_ nSqlFieldId)
+    void SqlCommand::serialize(bool& nValue, const char * nName, __i8 nSqlFieldId)
 	{
 		this->runType(nValue, "TINYINT(1)", nName, nSqlFieldId);
 	}
 
-    void SqlCommand::serialize(__i8& nValue, string& nName, SqlFieldId_ nSqlFieldId)
-	{
-		this->runType(nValue, "INT(10)", nName, nSqlFieldId);
-	}
-		
-	void SqlCommand::serialize(std::list<__i8>& nValue, string& nName)
-	{
-        if (SqlDeal_.mWhere_ == mSqlDeal) {
-            this._runWhere(nValue, nName);
-        }
-	}
-
-    void SqlCommand::serialize(__i16& nValue, string& nName, SqlFieldId_ nSqlFieldId)
+    void SqlCommand::serialize(__i8& nValue, const char * nName, __i8 nSqlFieldId)
 	{
 		this->runType(nValue, "INT(10)", nName, nSqlFieldId);
 	}
 	
-    void SqlCommand::serialize(std::list<__i16>& nValue, string& nName)
-	{
-        if (SqlDeal_.mWhere_ == mSqlDeal) {
-            this._runWhere(nValue, nName);
-        }
-	}
-
-    void SqlCommand::serialize(__i32& nValue, string& nName, SqlFieldId_ nSqlFieldId)
+    void SqlCommand::serialize(__i16& nValue, const char * nName, __i8 nSqlFieldId)
 	{
 		this->runType(nValue, "INT(10)", nName, nSqlFieldId);
 	}
 	
-    void SqlCommand::serialize(std::list<__i32>& nValue, string& nName)
+    void SqlCommand::serialize(__i32& nValue, const char * nName, __i8 nSqlFieldId)
 	{
-        if (SqlDeal_.mWhere_ == mSqlDeal) {
-            this._runWhere(nValue, nName);
-        }
+		this->runType(nValue, "INT(10)", nName, nSqlFieldId);
 	}
-
-    void SqlCommand::serialize(__i64& nValue, string& nName, SqlFieldId_ nSqlFieldId)
+	
+    void SqlCommand::serialize(__i64& nValue, const char * nName, __i8 nSqlFieldId)
 	{
 		this->runType(nValue, "BIGINT", nName, nSqlFieldId);
 	}
 	
-    void SqlCommand::serialize(std::list<__i64>& nValue, string& nName)
-	{
-        if (SqlDeal_.mWhere_ == mSqlDeal) {
-            this._runWhere(nValue, nName);
-        }
-	}
-
-    void SqlCommand::serialize(string& nValue, string& nName, SqlFieldId_ nSqlFieldId)
+    void SqlCommand::serialize(string& nValue, const char * nName, __i8 nSqlFieldId)
 	{
 		this->runType(nValue, "VARCHAR(255)", nName, nSqlFieldId);
 	}
 	
-    void SqlCommand::serialize(std::list<string>& nValue, string& nName)
-	{
-        if (SqlDeal_.mWhere_ == mSqlDeal) {
-            this._runWhere(nValue, nName);
-        }
-	}
-
-    void SqlCommand::serialize(float& nValue, string& nName, SqlFieldId_ nSqlFieldId)
+    void SqlCommand::serialize(float& nValue, const char * nName, __i8 nSqlFieldId)
 	{
 		this->runType(nValue, "FLOAT", nName, nSqlFieldId);
 	}
 	
-    void SqlCommand::serialize(std::list<float>& nValue, string& nName)
-	{
-        if (SqlDeal_.mWhere_ == mSqlDeal) {
-            this._runWhere(nValue, nName);
-        }
-	}
-
-    void SqlCommand::serialize(double& nValue, string& nName, SqlFieldId_ nSqlFieldId)
+    void SqlCommand::serialize(double& nValue, const char * nName, __i8 nSqlFieldId)
 	{
 		this->runType(nValue, "DOUBLE", nName, nSqlFieldId);
 	}
 	
-    void SqlCommand::serialize(std::list<double>& nValue, string& nName)
+	void SqlCommand::runHeadstream(ISqlHeadstream * nSqlStream)
 	{
-        if (SqlDeal_.mWhere_ == mSqlDeal) {
-            this._runWhere(nValue, nName);
+		SqlType_ sqlType_ = nSqlStream->getSqlType();
+		if (SqlType_::mCreate_ == sqlType_) {
+			this->runCreate(nSqlStream);
+		} else if (SqlType_::mSelect_ == sqlType_) {
+			this->runSelect(nSqlStream);
+		} else if (SqlType_::mDelete_ == sqlType_) {
+            this->runDelete(nSqlStream);
+        } else if (SqlType_::mUpdate_ == sqlType_) {
+            this->runUpdate(nSqlStream);
+        } else if (SqlType_::mInsert_ == sqlType_) {
+			this->runInsert(nSqlStream);
+        } else if (SqlType_::mInsertUpdate_ == sqlType_) {
+			this->runInsertUpdate(nSqlStream);
+        } else {
         }
-	}
-
-    void SqlCommand::serialize(char *& nValue, __i32& nLength, string& nName, SqlFieldId_ nSqlFieldId)
+    }
+	
+	std::string& SqlCommand::getValue()
 	{
+		return mValue;
 	}
 	
-	void SqlCommand::runCreate(const char * nValue, string& nName, SqlFieldId_ nSqlFieldId)
+	void SqlCommand::runCreate(ISqlHeadstream * nSqlHeadstream)
+	{
+		mValue += "CREATE TABLE ";
+		mValue += mFieldCharacter;
+		mValue += nSqlHeadstream->getTableName();
+		mValue += mFieldCharacter;
+		mValue += "(";
+		mBeg = true;
+		mSqlDeal = SqlDeal_::mCreate_;
+		nSqlHeadstream->runSelect(this);
+		mBeg = true;
+		mEnd = false;
+		mSqlDeal = SqlDeal_::mPrimary_;
+		nSqlHeadstream->runSelect(this);
+		if (mEnd) {
+			mValue += ")";
+		}
+		mValue += ")ENGINE=MYISAM DEFAULT CHARSET=utf8;";
+		mSqlDeal = SqlDeal_::mNone_;
+	}
+
+	void SqlCommand::runCreate(const char * nValue, const char * nName, __i8 nSqlFieldId)
 	{
 		if (false == mBeg) {
            mValue += ",";
@@ -122,7 +114,7 @@ namespace std {
         }
     }
 
-    void SqlCommand::runPrimary(string& nName)
+    void SqlCommand::runPrimary(const char * nName)
 	{
         if (false == mBeg) {
             mValue += ",";
@@ -137,79 +129,6 @@ namespace std {
             mBeg = false;
         }
     }
-	
-	void SqlCommand::runSelect(string& nName)
-	{
-        if (false == mBeg) {
-            mValue += ",";
-        }
-        mValue += mFieldCharacter;
-        mValue += nName;
-        mValue += mFieldCharacter;
-        if (mBeg) {
-            mBeg = false;
-        }
-    }
-	
-    void SqlCommand::runInsertUpdate(string& nName)
-	{
-        if (false == mBeg) {
-            mValue += ",";
-        }
-        mValue += mFieldCharacter;
-        mValue += nName;
-        mValue += mFieldCharacter;
-        mValue += "=VALUES(";
-        mValue += mFieldCharacter;
-        mValue += nName;
-        mValue += mFieldCharacter;
-        mValue += ")";
-        if (mBeg) {
-            mBeg = false;
-        }
-    }
-
-	void SqlCommand::runHeadstream(ISqlHeadstream * nSqlStream)
-	{
-		SqlType_ sqlType_ = nSqlStream->getSqlType();
-		if (SqlType_::mCreate_ == sqlType_) {
-			this->runCreate(nSqlStream);
-		} else if (SqlType_::mSelect_ == sqlType_) {
-			this->runSelect(nSqlStream);
-		} else if (SqlType_::mInsert_ == sqlType_) {
-			this->runInsert(nSqlStream);
-        } else if (SqlType_::mInsertUpdate_ == sqlType_) {
-            this->runInsertUpdate(nSqlStream);
-        } else if (SqlType_::mInsertUpdateEx_ == sqlType_) {
-            this->runInsertUpdateEx(nSqlStream);
-        } else if (SqlType_::mUpdate_ == sqlType_) {
-            this->runUpdate(nSqlStream);
-        } else if (SqlType_::mDelete_ == sqlType_) {
-            this->runDelete(nSqlStream);
-        } else {
-        }
-    }
-		
-	void SqlCommand::runCreate(ISqlHeadstream * nSqlHeadstream)
-	{
-		mValue += "CREATE TABLE ";
-		mValue += mFieldCharacter;
-		mValue += nSqlHeadstream->getTableName();
-		mValue += mFieldCharacter;
-		mValue += "(";
-		mBeg = true;
-		mSqlDeal = SqlDeal_::mCreate_;
-		nSqlHeadstream->runSelect(this);
-		mBeg = true;
-		mEnd = false;
-		mSqlDeal = SqlDeal_::mPrimary_;
-		nSqlHeadstream->runSelect(this);
-		if (mEnd) {
-			mValue += ")";
-		}
-		mValue += ")ENGINE=MYISAM DEFAULT CHARSET=utf8;";
-		mSqlDeal = SqlDeal_::mNone_;
-	}
 	
 	void SqlCommand::runSelect(ISqlHeadstream * nSqlHeadstream)
 	{
@@ -227,66 +146,43 @@ namespace std {
 		mSqlDeal = SqlDeal_::mNone_;
 	}
 	
-	void SqlCommand::runInsert(ISqlHeadstream * nSqlHeadstream)
+	void SqlCommand::runSelect(const char * nName)
 	{
-		mValue += "INSERT INTO ";
+        if (false == mBeg) {
+            mValue += ",";
+        }
+        mValue += mFieldCharacter;
+        mValue += nName;
+        mValue += mFieldCharacter;
+        if (mBeg) {
+            mBeg = false;
+        }
+    }
+	
+	void SqlCommand::runWhere(string& nValue, const char * nName)
+	{
+		mValue += "WHERE ";
+		mValue += mFieldCharacter;
+		mValue += nName;
+		mValue += mFieldCharacter;
+		mValue += "=";
+		mValue += mValueCharacter;
+		mValue += nValue;
+		mValue += mValueCharacter;
+		mValue += " ";
+	}
+	
+	void SqlCommand::runDelete(ISqlHeadstream * nSqlHeadstream)
+	{
+		mValue += "DELETE FROM ";
 		mValue += mFieldCharacter;
 		mValue += nSqlHeadstream->getTableName();
 		mValue += mFieldCharacter;
-		mValue += " (";
-		mBeg = true;
-		mSqlDeal = SqlDeal_::mSelect_;
-		nSqlHeadstream->runSelect(this);
-		mValue += ") VALUES (";
-		mBeg = true;
-		mSqlDeal = SqlDeal_::mInsert_;
-		nSqlHeadstream->runSelect(this);
-		mValue += ") ";
+		mValue += " ";
 		mSqlDeal = SqlDeal_::mWhere_;
 		nSqlHeadstream->runWhere(this);
 		mSqlDeal = SqlDeal_::mNone_;
     }
-	
-	void SqlCommand::runInsertUpdate(ISqlHeadstream * nSqlHeadstream)
-	{
-		mValue += "INSERT INTO ";
-		mValue += mFieldCharacter;
-		mValue += nSqlHeadstream->getTableName();
-		mValue += mFieldCharacter;
-		mValue += " (";
-		mBeg = true;
-		mSqlDeal = SqlDeal_::mSelect_;
-		nSqlHeadstream->runSelect(this);
-		mValue += ") VALUES (";
-		mBeg = true;
-		mSqlDeal = SqlDeal_::mInsert_;
-		nSqlHeadstream->runSelect(this);
-		mValue += ") ";
-		mSqlDeal = SqlDeal_::mInsertUpdate_;
-		nSqlHeadstream->runSelect(this);
-		mSqlDeal = SqlDeal_::mWhere_;
-		nSqlHeadstream->runWhere(this);
-		mSqlDeal = SqlDeal_::mNone_;
-	}
-	
-	void SqlCommand::runInsertUpdateEx(ISqlHeadstream * nSqlHeadstream)
-	{
-		mValue += "INSERT INTO ";
-		mValue += mFieldCharacter;
-		mValue += nSqlHeadstream->getTableName();
-		mValue += mFieldCharacter;
-		mValue += " VALUES (";
-		mBeg = true;
-		mSqlDeal = SqlDeal_::mInsertUpdateE_;
-		nSqlHeadstream->runSelect(this);
-		mValue += ") ON DUPLICATE KEY UPDATE ";
-		mBeg = true;
-		mSqlDeal = SqlDeal_::mInsertUpdateEx_;
-		nSqlHeadstream->runSelect(this);
-		mSqlDeal = SqlDeal_::mWhere_;
-		nSqlHeadstream->runWhere(this);
-		mSqlDeal = SqlDeal_::mNone_;
-	}
 	
 	void SqlCommand::runUpdate(ISqlHeadstream * nSqlHeadstream)
 	{
@@ -304,20 +200,100 @@ namespace std {
 		mSqlDeal = SqlDeal_::mNone_;
     }
 	
-	void SqlCommand::runDelete(ISqlHeadstream * nSqlHeadstream)
+	void SqlCommand::runUpdate(string& nValue, const char * nName)
 	{
-		mValue += "DELETE FROM ";
+		if (false == mBeg) {
+			mValue += ",";
+        }
+        mValue += mFieldCharacter;
+        mValue += nName;
+        mValue += mFieldCharacter;
+        mValue += "=";
+        mValue += mValueCharacter;
+        mValue += nValue;
+        mValue += mValueCharacter;
+        if (mBeg) {
+            mBeg = false;
+        }
+	}
+	
+	void SqlCommand::runInsert(ISqlHeadstream * nSqlHeadstream)
+	{
+		mValue += "INSERT INTO ";
 		mValue += mFieldCharacter;
 		mValue += nSqlHeadstream->getTableName();
 		mValue += mFieldCharacter;
-		mValue += " ";
-		mSqlDeal = SqlDeal_::mWhere_;
-		nSqlHeadstream->runWhere(this);
+		mValue += "(";
+		mBeg = true;
+		mSqlDeal = SqlDeal_::mSelect_;
+		nSqlHeadstream->runSelect(this);
+		mValue += ")VALUES(";
+		mBeg = true;
+		mSqlDeal = SqlDeal_::mInsert_;
+		nSqlHeadstream->runSelect(this);
+		mValue += ")";
 		mSqlDeal = SqlDeal_::mNone_;
     }
+	
+	void SqlCommand::runInsertUpdate(ISqlHeadstream * nSqlHeadstream)
+	{
+		mValue += "INSERT INTO ";
+		mValue += mFieldCharacter;
+		mValue += nSqlHeadstream->getTableName();
+		mValue += mFieldCharacter;
+		mValue += "(";
+		mBeg = true;
+		mSqlDeal = SqlDeal_::mSelect_;
+		nSqlHeadstream->runSelect(this);
+		mValue += ")VALUES(";
+		mBeg = true;
+		mSqlDeal = SqlDeal_::mInsert_;
+		nSqlHeadstream->runSelect(this);
+		mValue += ")ON DUPLICATE KEY UPDATE ";
+		mBeg = true;
+		mSqlDeal = SqlDeal_::mInsertUpdate_;
+		nSqlHeadstream->runSelect(this);
+		mSqlDeal = SqlDeal_::mNone_;
+	}
+
+	void SqlCommand::runInsertUpdate(const char * nName)
+	{
+		if (false == mBeg) {
+			mValue += ",";
+        }
+		mValue += mFieldCharacter;
+		mValue += nName;
+		mValue += mFieldCharacter;
+		mValue += "=VALUES(";
+		mValue += mFieldCharacter;
+		mValue += nName;
+		mValue += mFieldCharacter;
+		mValue += ")";
+		if (mBeg) {
+			mBeg = false;
+        }
+    }
 		
+	void SqlCommand::runClear()
+	{
+		mSqlDeal = SqlDeal_::mNone_;
+		mValue = "";
+		mName = "";
+		mBeg = false;
+		mEnd = false;
+	}
+	
+	SqlCommand::SqlCommand()
+	{
+		this->runClear();
+	}
+	
+	SqlCommand::~SqlCommand()
+	{
+		this->runClear();
+	}
+	
 	const char * SqlCommand::mValueCharacter = "'";
-	const char * SqlCommand::mFieldCharacter = "`";
-	const char * SqlCommand::mUpdateCharacter = "@";
+	const char * SqlCommand::mFieldCharacter = "";
 	
 }

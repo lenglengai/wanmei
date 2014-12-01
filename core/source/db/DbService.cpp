@@ -2,6 +2,11 @@
 
 namespace std {
 	
+	__i16 DbService::runSql(ISqlHeadstream * nSqlHeadstream)
+	{
+		return mDataBase->runSql(nSqlHeadstream);
+	}
+	
 	bool DbService::runPreinit()
 	{
 		return true;

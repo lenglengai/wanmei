@@ -5,7 +5,7 @@ namespace std {
 	class DbService : boost::noncopyable
 	{
 	public:
-		void runSql(
+		void runSql(ISqlHeadstream * nSqlHeadstream);
 		bool runPreinit();
 		void runInit();
 		
