@@ -1,7 +1,7 @@
 #include "../../include/Include.h"
 
 namespace std {
-
+	
 	__i16 MySqlConnection::runSql(ISqlHeadstream * nSqlHeadstream)
 	{
 		SqlCommand sqlCommand;
@@ -21,8 +21,70 @@ namespace std {
 				continue;
 			}
 		}
-		
+		if ( SqlType_::mSelect_ == nSqlHeadstream->getSqlType() ) {
+			MySqlQuery mySqlQuery(mMYSQL);
+			__i16 errorCode = mySqlQuery.runQuery();
+			if ( ERRORINT::SUCESS != errorCode) {
+				return errorCode;
+			}
+			sqlCommand.setDbQuery(&mySqlQuery);
+			sqlCommand.runHeadstream(nSqlHeadstream, true);
+		}
 		return ERRORINT::SUCESS;
+	}
+	
+	void MySqlConnection::runRecycle()
+	{
+		mBusy = false;
+	}
+	
+	bool MySqlConnection::runGet()
+	{
+		this->runActivate();
+		if ( (!mBusy) && mConnected ) {
+			mBusy = true;
+			return true;
+		}
+		return false;
+	}
+	
+	void MySqlConnection::runActivate(bool nForce)
+	{
+		if ( (!mConnected ) || nForce ) {
+			this->runDisconnect();
+			this->runConnect();
+			return;
+		}
+		if (!mBusy) {
+			TimeService& timeService_ = Singleton<TimeService>::instance();
+			__i64 currentTime_ = timeService_.getLocalTime();
+			if (currentTime_ > mTimeStamp) {
+				this->runDisconnect();
+				this->runConnect();
+			}
+		}
+	}
+	
+	void MySqlConnection::runConnect()
+	{
+		if (!mConnected) {
+			internalConnect();
+			TimeService& timeService_ = Singleton<TimeService>::instance();
+			mTimeStamp = timeService_.getLocalTime();
+			mTimeStamp += mDataBase->getMaxUsedSeconds();
+			mConnected = true;
+			mBusy = false;
+		}
+	}
+	
+	void MySqlConnection::runDisconnect()
+	{
+		if (mConnected) {
+			internalDisconnect();
+			mConnected = false;
+			mBusy = false;
+			mTimeStamp = 0;
+		}
 	}
 	
 	void MySqlConnection::internalConnect()
@@ -50,12 +112,19 @@ namespace std {
 	}
 	
 	MySqlConnection::MySqlConnection(IDataBase * nDataBase)
-		: IDbConnection(nDataBase)
+		: mDataBase (nDataBase)
+		, mBusy (false)
+		, mConnected (false)
+		, mTimeStamp (0)
 	{
 	}
 	
 	MySqlConnection::~MySqlConnection()
 	{
+		mDataBase = nullptr;
+		mConnected = false;
+		mTimeStamp = 0;
+		mBusy = false;
 	}
 	
 }

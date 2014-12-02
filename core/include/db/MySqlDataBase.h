@@ -4,21 +4,19 @@ namespace std {
 
 	class MySqlDataBase : public IDataBase
 	{
-	protected:
+	public:
 		void runSql(ISqlHeadstream * nSqlHeadstream);
-		DbConnectionPtr createConnection();
 		
-		void recycleConnection(DbConnectionPtr& nDbConnection);
-		DbConnectionPtr& getConnection();
-		
-		virtual DbConnectionPtr createConnection() = 0;
+	private:
+		void recycleConnection(MySqlConnectionPtr& nMySqlConnection);
+		MySqlConnectionPtr& getConnection();
 		
 	public:
 		MySqlDataBase();
 		~MySqlDataBase();
 	
 	private:
-		std::list<DbConnectionPtr> mDbConnections;
+		std::list<MySqlConnectionPtr> mMySqlConnections;
 		std::mutex mMutex;
 	};
 	

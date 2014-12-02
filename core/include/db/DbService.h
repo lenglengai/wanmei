@@ -6,6 +6,7 @@ namespace std {
 	{
 	public:
 		void runSql(ISqlHeadstream * nSqlHeadstream);
+		
 		bool runPreinit();
 		void runInit();
 		

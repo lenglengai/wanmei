@@ -11,12 +11,8 @@ namespace std {
         mWhere_,
         mInsert_,
         mInsertUpdate_,
-        mInsertUpdateE_,
-        mInsertUpdateEx_,
         mUpdate_,
-        mUpdateSelect_,
-        mUpdateWhen_,
-        mUpdateThen_,
+		mQuery_,
     };
 	
 }

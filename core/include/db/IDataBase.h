@@ -37,7 +37,7 @@ namespace std {
 		IDataBase();
 		virtual ~IDataBase();
 		
-	private:
+	protected:
 		std::string mHostName;
 		std::string mUserName;
 		std::string mPassword;

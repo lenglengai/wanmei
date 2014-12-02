@@ -2,6 +2,16 @@
 
 namespace std {
 
+	void SqlCommand::serialize(const char * nName, __i8 nSqlFieldId)
+	{
+		if (SqlDeal_::mSelect_ == mSqlDeal) {
+			this->runSelect(nName);
+		} else if ( (SqlDeal_::mInsertUpdate_ == mSqlDeal) 
+			&& ((nSqlFieldId & SqlFieldId_::mPrimary_) == 0)){
+			this->runInsertUpdate(nName);
+		}
+	}
+	
     void SqlCommand::serialize(bool& nValue, const char * nName, __i8 nSqlFieldId)
 	{
 		this->runType(nValue, "TINYINT(1)", nName, nSqlFieldId);
@@ -42,13 +52,19 @@ namespace std {
 		this->runType(nValue, "DOUBLE", nName, nSqlFieldId);
 	}
 	
-	void SqlCommand::runHeadstream(ISqlHeadstream * nSqlStream)
+	void SqlCommand::runHeadstream(ISqlHeadstream * nSqlStream, bool nDbQuery)
 	{
 		SqlType_ sqlType_ = nSqlStream->getSqlType();
-		if (SqlType_::mCreate_ == sqlType_) {
+		if (SqlType_::mDataBase_ == sqlType_) {
+			this->runDataBase(nSqlStream);
+		} else if (SqlType_::mCreate_ == sqlType_) {
 			this->runCreate(nSqlStream);
 		} else if (SqlType_::mSelect_ == sqlType_) {
-			this->runSelect(nSqlStream);
+			if (nDbQuery) {
+				this->runDbQuery(nSqlStream);
+			} else {
+				this->runSelect(nSqlStream);
+			}
 		} else if (SqlType_::mDelete_ == sqlType_) {
             this->runDelete(nSqlStream);
         } else if (SqlType_::mUpdate_ == sqlType_) {
@@ -64,6 +80,11 @@ namespace std {
 	std::string& SqlCommand::getValue()
 	{
 		return mValue;
+	}
+	
+	void SqlCommand::setDbQuery(IDbQuery * nDbQuery)
+	{
+		mDbQuery = nDbQuery;
 	}
 	
 	void SqlCommand::runCreate(ISqlHeadstream * nSqlHeadstream)
@@ -273,7 +294,20 @@ namespace std {
 			mBeg = false;
         }
     }
-		
+	
+	void SqlCommand::runDbQuery(ISqlHeadstream * nSqlHeadstream)
+	{
+		mSqlDeal = SqlDeal_::mQuery_;
+		nSqlHeadstream->runSelect(this);
+	}
+	
+	void SqlCommand::runDataBase(ISqlHeadstream * nSqlHeadstream)
+	{
+		mValue += "CREATE DATABASE ";
+		mValue += nSqlHeadstream->getTableName();
+		mValue += ";";
+	}
+	
 	void SqlCommand::runClear()
 	{
 		mSqlDeal = SqlDeal_::mNone_;
@@ -281,6 +315,8 @@ namespace std {
 		mName = "";
 		mBeg = false;
 		mEnd = false;
+		
+		mDbQuery = nullptr;
 	}
 	
 	SqlCommand::SqlCommand()

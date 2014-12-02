@@ -5,6 +5,8 @@ namespace std {
 	class SqlCommand : boost::noncopyable
 	{
 	public:
+		void serialize(const char * nName, __i8 nSqlFieldId = SqlFieldId_::mNone_);
+		
         void serialize(bool& nValue, const char * nName, __i8 nSqlFieldId = SqlFieldId_::mNone_);
 
         void serialize(__i8& nValue, const char * nName, __i8 nSqlFieldId = SqlFieldId_::mNone_);
@@ -20,9 +22,33 @@ namespace std {
         void serialize(float& nValue, const char * nName, __i8 nSqlFieldId = SqlFieldId_::mNone_);
 
         void serialize(double& nValue, const char * nName, __i8 nSqlFieldId = SqlFieldId_::mNone_);
+
+		template <class __t>
+		void serialize(__t& nValue)
+		{
+			if (SqlDeal_::mInsert_ == mSqlDeal) {
+				this->runInsert(nValue);
+			}
+		}
 		
+		template <class __t>
+		void serialize(std::list<std::shared_ptr<__t> >& nValues)
+		{
+			if (SqlDeal_::mInsert_ == mSqlDeal) {
+				bool first_ = true;
+				for (auto& it : nValues) {
+					if (!first_) {
+						mValue += "),(";
+						mBeg = true;
+					}
+					it->runSelect(this);
+					first_ = false;
+				}
+			}
+		}
 	public:
-		void runHeadstream(ISqlHeadstream * nSqlStream);
+		void runHeadstream(ISqlHeadstream * nSqlStream, bool nDbQuery = false);
+		void setDbQuery(IDbQuery * nDbQuery);
 		std::string& getValue();
 		
 	private:
@@ -45,6 +71,8 @@ namespace std {
 			} else if ( (SqlDeal_::mInsertUpdate_ == mSqlDeal) 
 				&& ((nSqlFieldId & SqlFieldId_::mPrimary_) == 0)){
 				this->runInsertUpdate(nName);
+			} else if (SqlDeal_::mQuery_ == mSqlDeal) {
+				this->runQuery(nValue);
 			}
 		}
 		
@@ -121,6 +149,15 @@ namespace std {
 		void runInsertUpdate(ISqlHeadstream * nSqlHeadstream);
 		void runInsertUpdate(const char * nName);
 		
+		void runDbQuery(ISqlHeadstream * nSqlHeadstream);
+		template <typename __t>
+        void runQuery(__t& nValue)
+		{
+			
+        }
+		
+		void runDataBase(ISqlHeadstream * nSqlHeadstream);
+		
 		void runClear();
 		
 	public:
@@ -136,6 +173,8 @@ namespace std {
         std::string mName;
         bool mBeg;
         bool mEnd;
+		
+		IDbQuery * mDbQuery
 	};
 	
 }

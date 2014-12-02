@@ -4,11 +4,18 @@
 
 namespace std {
 	
-	class MySqlConnection : public IDbConnection
+	class MySqlConnection : boost::noncopyable
 	{
 	public:
 		__i16 runSql(ISqlHeadstream * nSqlHeadstream);
-	protected:
+		void runRecycle();
+		bool runGet();
+		
+	private:
+		void runActivate(bool nForce = false);
+		void runConnect();
+		void runDisconnect();
+		
 		void internalConnect();
 		void internalDisconnect();
 	
@@ -17,7 +24,13 @@ namespace std {
 		~MySqlConnection();
 		
 	private:
+		IDataBase * mDataBase;
+		__i64 mTimeStamp;
+		bool mConnected;
+		bool mBusy;
+		
 		MYSQL mMYSQL;
 	};
+	typedef std::shared_ptr<MySqlConnection> MySqlConnectionPtr;
 	
 }
