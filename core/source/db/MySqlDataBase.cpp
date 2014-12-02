@@ -13,6 +13,7 @@ namespace std {
 		}
 		__i16 result_ = mySqlConnection_->runSql(nSqlHeadstream);
 		this->recycleConnection(mySqlConnection_);
+		return result_;
 	}
 	
 	void MySqlDataBase::recycleConnection(MySqlConnectionPtr& nMySqlConnection)

@@ -5,8 +5,6 @@
 #include <errmsg.h>
 #include <mysql.h>
 
-#pragma comment(lib, "libmysql.lib")
-
 namespace std {
 
 	class MySqlQuery : public IDbQuery
