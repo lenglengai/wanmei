@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#ifdef __WITHMYSQL__
 namespace std {
 
     struct SqlFieldId_
@@ -15,3 +16,4 @@ namespace std {
     };
 	
 }
+#endif

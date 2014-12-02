@@ -1,89 +1,16 @@
 #include "../../include/Include.h"
 
+#ifdef __WITHMYSQL__
 namespace std {
 
-	__i8 MySqlQuery::getInt8()
+	void MySqlQuery::getValue(string& nValue)
 	{
-	    string tempStr;
 		char * value_ = reinterpret_cast<char *>(mMYSQL_ROW[mIndex]);
 		__i16 size_ = static_cast<__i16>(mLengths[mIndex]);
 		if ( (nullptr != value_) && (size_ > 0) ) {
-			tempStr.assign(value_, size_);
+			nValue.assign(value_, size_);
 		}
 		++mIndex;
-		return __convert<__i8, string>(tempStr);
-	}
-	
-	__i16 MySqlQuery::getInt16()
-	{
-	    string tempStr;
-		char * value_ = reinterpret_cast<char *>(mMYSQL_ROW[mIndex]);
-		__i16 size_ = static_cast<__i16>(mLengths[mIndex]);
-		if ( (nullptr != value_) && (size_ > 0) ) {
-			tempStr.assign(value_, size_);
-		}
-		++mIndex;
-		return __convert<__i16, string>(tempStr);
-	}
-	
-	__i32 MySqlQuery::getInt32()
-	{
-	    string tempStr;
-		char * value_ = reinterpret_cast<char *>(mMYSQL_ROW[mIndex]);
-		__i16 size_ = static_cast<__i16>(mLengths[mIndex]);
-		if ( (nullptr != value_) && (size_ > 0) ) {
-			tempStr.assign(value_, size_);
-		}
-		++mIndex;
-		return __convert<__i32, string>(tempStr);
-	}
-	
-	__i64 MySqlQuery::getInt64()
-	{
-	    string tempStr;
-		char * value_ = reinterpret_cast<char *>(mMYSQL_ROW[mIndex]);
-		__i16 size_ = static_cast<__i16>(mLengths[mIndex]);
-		if ( (nullptr != value_) && (size_ > 0) ) {
-			tempStr.assign(value_, size_);
-		}
-		++mIndex;
-		return __convert<__i64, string>(tempStr);
-	}
-	
-	float MySqlQuery::getFloat()
-	{
-	    string tempStr;
-		char * value_ = reinterpret_cast<char *>(mMYSQL_ROW[mIndex]);
-		__i16 size_ = static_cast<__i16>(mLengths[mIndex]);
-		if ( (nullptr != value_) && (size_ > 0) ) {
-			tempStr.assign(value_, size_);
-		}
-		++mIndex;
-		return __convert<float, string>(tempStr);
-	}
-	
-	double MySqlQuery::getDouble()
-	{
-	    string tempStr;
-		char * value_ = reinterpret_cast<char *>(mMYSQL_ROW[mIndex]);
-		__i16 size_ = static_cast<__i16>(mLengths[mIndex]);
-		if ( (nullptr != value_) && (size_ > 0) ) {
-			tempStr.assign(value_, size_);
-		}
-		++mIndex;
-		return __convert<double, string>(tempStr);
-	}
-	
-	string MySqlQuery::getString()
-	{
-	    string tempStr;
-		char * value_ = reinterpret_cast<char *>(mMYSQL_ROW[mIndex]);
-		__i16 size_ = static_cast<__i16>(mLengths[mIndex]);
-		if ( (nullptr != value_) && (size_ > 0) ) {
-			tempStr.assign(value_, size_);
-		}
-		++mIndex;
-		return tempStr;
 	}
 		
 	__i16 MySqlQuery::runQuery()
@@ -92,11 +19,11 @@ namespace std {
 		if (!mMYSQL_RES) {
 			if (0 != mysql_errno(&mMYSQL)) {
 				LogService& logService_ = Singleton<LogService>::instance();
-				logService_.logError(log_1(mysql_error(mMYSQL)));
+				logService_.logError(log_1(mysql_error(&mMYSQL)));
 				return ERRORINT::DBERROR;
 			}  else {
 				LogService& logService_ = Singleton<LogService>::instance();
-				logService_.logError(log_1("mysql_store_result")));
+				logService_.logError(log_1("mysql_store_result"));
 				return ERRORINT::DBERROR;
 			}
 		}
@@ -127,4 +54,4 @@ namespace std {
 	}
 	
 }
-
+#endif

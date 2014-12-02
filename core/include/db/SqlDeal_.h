@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#ifdef __WITHMYSQL__
 namespace std {
 	
 	enum class SqlDeal_ : __i8
@@ -16,3 +17,4 @@ namespace std {
     };
 	
 }
+#endif

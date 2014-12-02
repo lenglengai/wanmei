@@ -1,14 +1,16 @@
 #pragma once
 
+#ifdef __WITHMYSQL__
 namespace std {
 
 	class DbService : boost::noncopyable
 	{
 	public:
-		void runSql(ISqlHeadstream * nSqlHeadstream);
+		__i16 runSql(ISqlHeadstream * nSqlHeadstream);
 		
 		bool runPreinit();
-		void runInit();
+		void runLoad();
+		void runStart();
 		
 		DbService();
 		~DbService();
@@ -18,3 +20,4 @@ namespace std {
 	};
 	
 }
+#endif

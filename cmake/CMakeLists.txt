@@ -19,6 +19,9 @@ endif()
 
 include_directories(../${__WORKSPACE__}/cppInc)
 
+include_directories($ENV{MYSQL_ROOT}/include/mysql)
+link_directories($ENV{MYSQL_ROOT}/lib)
+
 include_directories($ENV{BOOST_ROOT})
 link_directories($ENV{BOOST_ROOT}/stage/lib)
 set(Boost_USE_STATIC_LIBS TRUE)
@@ -120,6 +123,35 @@ SET( CONSOLE_H
 	${consolei}/ConsoleContext.h
 	${consolei}/ConsoleService.h
 	${consolei}/IConsole.h)
+##############################################################
+set(dbi ${INC_PATH}/db )
+set(dbs ${SRC_PATH}/db )
+
+set( DB_SRC
+	${dbs}/DataBaseCreate.cpp
+	${dbs}/IDbQuery.cpp
+	${dbs}/IDataBase.cpp
+	${dbs}/DbService.cpp
+	${dbs}/SqlCommand.cpp
+	${dbs}/MySqlDbQuery.cpp
+	${dbs}/MySqlConnection.cpp
+	${dbs}/MySqlDataBase.cpp)
+
+SET( DB_H
+	${dbi}/DataBaseCreate.H
+	${dbi}/SqlDeal_.h
+	${dbi}/SqlFieldId_.h
+	${dbi}/SqlType_.h
+	${dbi}/ISqlStream.h
+	${dbi}/ISqlHeadstream.h
+	${dbi}/IDbQuery.h
+	${dbi}/IDataBase.h
+	${dbi}/DbService.h
+	${dbi}/SqlCommand.h
+	${dbi}/MySqlDbQuery.h
+	${dbi}/MySqlConnection.h
+	${dbi}/MySqlDataBase.h)
+file(COPY ${dbs}/dataBase.xml DESTINATION ${BIN_PATH})
 ##############################################################
 set( cpui ${INC_PATH}/cpu )
 set( cpus ${SRC_PATH}/cpu )
@@ -332,6 +364,7 @@ add_executable(${PROJECT_NAME}
 	${CLOSED_SRC} ${CLOSED_H}
 	${COMPRESS_SRC} ${COMPRESS_H}
 	${CONSOLE_SRC} ${CONSOLE_H}
+	${DB_SRC} ${DB_H}
 	${CPU_SRC} ${CPU_H}
 	${CRC_SRC} ${CRC_H}
 	${HANDLE_SRC} ${HANDLE_H}
@@ -349,4 +382,4 @@ add_executable(${PROJECT_NAME}
 	${VALUE_SRC} ${VALUE_H}
 	${PING_SRC} ${PING_H})
 	
-target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} libbzlib liblua)
+target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} libbzlib liblua libmysql)

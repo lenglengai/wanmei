@@ -1,5 +1,6 @@
 #pragma once
 
+#ifdef __WITHMYSQL__
 namespace std {
 	
 	class SqlCommand : boost::noncopyable
@@ -153,7 +154,7 @@ namespace std {
 		template <typename __t>
         void runQuery(__t& nValue)
 		{
-			
+			mDbQuery->returnResult(nValue);
         }
 		
 		void runDataBase(ISqlHeadstream * nSqlHeadstream);
@@ -174,7 +175,8 @@ namespace std {
         bool mBeg;
         bool mEnd;
 		
-		IDbQuery * mDbQuery
+		IDbQuery * mDbQuery;
 	};
 	
 }
+#endif

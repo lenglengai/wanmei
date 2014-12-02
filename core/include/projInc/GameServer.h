@@ -7,3 +7,4 @@
 #define __RUNING__
 #define __PING__
 #define __CONSOLE__
+#define __WITHMYSQL__

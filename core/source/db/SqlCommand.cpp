@@ -1,5 +1,6 @@
 #include "../../include/Include.h"
 
+#ifdef __WITHMYSQL__
 namespace std {
 
 	void SqlCommand::serialize(const char * nName, __i8 nSqlFieldId)
@@ -333,3 +334,4 @@ namespace std {
 	const char * SqlCommand::mFieldCharacter = "";
 	
 }
+#endif

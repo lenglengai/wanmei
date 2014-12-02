@@ -1,5 +1,6 @@
 #pragma once
 
+#ifdef __WITHMYSQL__
 namespace std {
 
 	class IDataBase : boost::noncopyable
@@ -18,9 +19,10 @@ namespace std {
 			nSerialize.runInt32(mMaxConnections, "maxConnections");
 			nSerialize.runInt32(mMaxUsedSeconds, "maxUsedSeconds");
 		}
-		
+				
 		const char * streamName();
 		const char * streamUrl();
+		void runLoad();
 		
 		std::string& getHostName();
 		std::string& getUserName();
@@ -49,3 +51,4 @@ namespace std {
 	typedef std::shared_ptr<IDataBase> DataBasePtr;
 	
 }
+#endif

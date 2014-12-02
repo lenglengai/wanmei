@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#ifdef __WITHMYSQL__
 namespace std {
 
     enum class SqlType_ : __i8
@@ -14,3 +15,4 @@ namespace std {
     };
 	
 }
+#endif

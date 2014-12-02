@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#ifdef __WITHMYSQL__
 namespace std {
 
 	class SqlCommand;
@@ -13,3 +14,4 @@ namespace std {
     };
 	
 }
+#endif

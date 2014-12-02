@@ -52,6 +52,9 @@ namespace std {
 		initService_.m_tRunStart0.connect(boost::bind(&TcpServer::runStart, this));
 		initService_.m_tRunStop.connect(boost::bind(&TcpServer::runStop, this));
 		
+		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		archiveService_.m_tRunConfigure.connect(boost::bind(&TcpServer::runLoad, this));
+		
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 		return true;

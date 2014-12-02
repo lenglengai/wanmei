@@ -1,12 +1,13 @@
 #pragma once
 
+#ifdef __WITHMYSQL__
 namespace std {
 
 	class MySqlDataBase : public IDataBase
 	{
 	public:
-		void runSql(ISqlHeadstream * nSqlHeadstream);
-		
+		__i16 runSql(ISqlHeadstream * nSqlHeadstream);
+		void runLoad();
 	private:
 		void recycleConnection(MySqlConnectionPtr& nMySqlConnection);
 		MySqlConnectionPtr& getConnection();
@@ -21,3 +22,4 @@ namespace std {
 	};
 	
 }
+#endif

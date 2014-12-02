@@ -1,7 +1,17 @@
 #include "../../include/Include.h"
 
+#ifdef __WITHMYSQL__
 namespace std {
 
+	void IDataBase::runLoad()
+	{
+		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		archiveService_.xmlUrlStream(this);
+
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("finish!"));
+	}
+	
 	__i32 IDataBase::getMaxUsedSeconds()
 	{
 		return mMaxUsedSeconds;
@@ -14,7 +24,7 @@ namespace std {
 	
 	const char * IDataBase::streamUrl()
 	{
-		return "dataBase.xml"
+		return "dataBase.xml";
 	}
 	
 	std::string& IDataBase::getHostName()
@@ -45,7 +55,7 @@ namespace std {
 	void IDataBase::runClear()
 	{
 		mMaxConnections = 100;
-		mMaxUsedHours = 10;
+		mMaxUsedSeconds = 10;
 		
 		mHostName = "127.0.0.1";
 		mUserName = "root";
@@ -65,3 +75,4 @@ namespace std {
 	}
 	
 }
+#endif

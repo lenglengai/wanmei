@@ -1,18 +1,23 @@
 #pragma once
 
+#ifdef __WITHMYSQL__
 namespace std {
 
 	class IDbQuery : boost::noncopyable
 	{
 	public:
-		virtual __i8 getInt8() = 0;
-		virtual __i16 getInt16() = 0;
-		virtual __i32 getInt32() = 0;
-		virtual __i64 getInt64() = 0;
-		virtual float getFloat() = 0;
-		virtual double getDouble() = 0;
-		virtual string getString() = 0;
+		template <typename __t>
+		void returnResult(__t& nValue)
+		{
+			string value_(""); this->getValue(value_);
+			nValue = __convert<__t, string>(value_);
+		}
+		void returnResult(string& nValue);
+		virtual bool nextRow() = 0;
+		
+	protected:
+		virtual void getValue(string& nValue) = 0;
 	};
 	
 }
-
+#endif

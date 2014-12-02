@@ -1,5 +1,6 @@
 #include "../../include/Include.h"
 
+#ifdef __WITHMYSQL__
 namespace std {
 	
 	__i16 MySqlConnection::runSql(ISqlHeadstream * nSqlHeadstream)
@@ -12,7 +13,7 @@ namespace std {
 			if (0 == r) break;
 			if (i > 0) {
 				LogService& logService_ = Singleton<LogService>::instance();
-				logService_.logError(log_1(mysql_error(mMYSQL)));
+				logService_.logError(log_1(mysql_error(&mMYSQL)));
 				return ERRORINT::DBERROR;
 			}
 			int errorNo = mysql_errno(&mMYSQL);
@@ -95,11 +96,11 @@ namespace std {
 			return;
 		}
 		if ( nullptr == mysql_real_connect(&mMYSQL,
-			nDataBase->getHostName().c_str(),
-			nDataBase->getUserName().c_str(),
-			nDataBase->getPassword();.c_str(),
-			nDataBase->getDbName().c_str(),
-			nDataBase->getPort(), NULL, 0) ) {
+			mDataBase->getHostName().c_str(),
+			mDataBase->getUserName().c_str(),
+			mDataBase->getPassword().c_str(),
+			mDataBase->getDbName().c_str(),
+			mDataBase->getPort(), nullptr, 0) ) {
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1(mysql_error(&mMYSQL)));
 			return;
@@ -128,3 +129,4 @@ namespace std {
 	}
 	
 }
+#endif

@@ -1,5 +1,6 @@
 #include "../../include/Include.h"
 
+#ifdef __WITHMYSQL__
 namespace std {
 
 	__i16 MySqlDataBase::runSql(ISqlHeadstream * nSqlHeadstream)
@@ -41,6 +42,15 @@ namespace std {
 		}
 	}
 	
+	void MySqlDataBase::runLoad()
+	{		
+		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		archiveService_.xmlUrlStream(this);
+
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("finish!"));
+	}
+	
 	MySqlDataBase::MySqlDataBase()
 	{
 		mMySqlConnections.clear();
@@ -56,3 +66,4 @@ namespace std {
 	}
 	
 }
+#endif

@@ -1,7 +1,6 @@
 #pragma once
 
-#include <mysql.h>
-
+#ifdef __WITHMYSQL__
 namespace std {
 	
 	class MySqlConnection : boost::noncopyable
@@ -10,11 +9,11 @@ namespace std {
 		__i16 runSql(ISqlHeadstream * nSqlHeadstream);
 		void runRecycle();
 		bool runGet();
+		void runDisconnect();
 		
 	private:
 		void runActivate(bool nForce = false);
 		void runConnect();
-		void runDisconnect();
 		
 		void internalConnect();
 		void internalDisconnect();
@@ -34,3 +33,4 @@ namespace std {
 	typedef std::shared_ptr<MySqlConnection> MySqlConnectionPtr;
 	
 }
+#endif
