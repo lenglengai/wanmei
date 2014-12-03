@@ -162,6 +162,14 @@ namespace std {
 		logService_.logInfo(log_1("finish!"));
 	}
 
+	void InitService::runInitDB()
+	{
+		this->m_tInitDB();
+		this->m_tInitTable();
+		LogService& logService_ = Singleton<LogService>::instance();
+		logService_.logInfo(log_1("finish!"));
+	}
+
 	void InitService::runClear()
 	{
 		m_tRunLoad0.disconnect_all_slots();
@@ -174,6 +182,8 @@ namespace std {
 		m_tRunStop.disconnect_all_slots();
 		m_tRunSave.disconnect_all_slots();
 		m_tRunExit.disconnect_all_slots();
+		m_tInitDB.disconnect_all_slots();
+		m_tInitTable.disconnect_all_slots();
 		mInitType = InitType_::mNone_;
 	}
 

@@ -13,6 +13,8 @@ namespace std {
 			mCommands.clear();
 		} else if ("clear" == command_) {
 			mCommands.clear();
+		} else if ("cls" == command_) {
+			std::system("cls");
 		} else if ("print" == command_) {
 			for (auto& it : mCommands) {
 				std::cout << it << std::endl;

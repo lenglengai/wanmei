@@ -108,6 +108,8 @@ namespace std {
 			m_tRunConfigure();
 			mArchiveReader.runClose();
 			mRelease = true;
+		} else {
+			m_tRunConfigure();
 		}
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));

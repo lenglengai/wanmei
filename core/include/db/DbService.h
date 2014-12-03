@@ -10,7 +10,7 @@ namespace std {
 		
 		bool runPreinit();
 		void runLoad();
-		void runStart();
+		void runInitDB();
 		
 		DbService();
 		~DbService();

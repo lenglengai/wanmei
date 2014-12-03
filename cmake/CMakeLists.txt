@@ -153,6 +153,15 @@ SET( DB_H
 	${dbi}/MySqlDataBase.h)
 file(COPY ${dbs}/dataBase.xml DESTINATION ${BIN_PATH})
 ##############################################################
+set(debugi ${INC_PATH}/debug )
+set(debugs ${SRC_PATH}/debug )
+
+set( DEBUG_SRC
+	${debugs}/DebugService.cpp)
+
+SET( DEBUG_H
+	${debugi}/DebugService.H)
+##############################################################
 set( cpui ${INC_PATH}/cpu )
 set( cpus ${SRC_PATH}/cpu )
 
@@ -365,6 +374,7 @@ add_executable(${PROJECT_NAME}
 	${COMPRESS_SRC} ${COMPRESS_H}
 	${CONSOLE_SRC} ${CONSOLE_H}
 	${DB_SRC} ${DB_H}
+	${DEBUG_SRC} ${DEBUG_H}
 	${CPU_SRC} ${CPU_H}
 	${CRC_SRC} ${CRC_H}
 	${HANDLE_SRC} ${HANDLE_H}

@@ -40,6 +40,10 @@ namespace std {
 		
 		boost::signals2::signal<void()> m_tRunExit;
 		void runExit();
+
+		boost::signals2::signal<void()> m_tInitDB;
+		boost::signals2::signal<void()> m_tInitTable;
+		void runInitDB();
 		
 		void runConfigure();
 		

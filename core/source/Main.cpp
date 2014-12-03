@@ -11,8 +11,13 @@ int main( int argc, char * argv[] )
 	} else if ( (argc > 1) && (std::string("-j") == argv[1]) ) {
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
 		archiveService_.formatJourney(argv[2], argv[3]);
+	} else if ((argc > 1) && (std::string("-b") == argv[1])) {
+		initService.runPreinit();
+		initService.runLoad0();
+		initService.runLoad1();
+		initService.runInitDB();
 	} else {
-		if (!initService.runPreinit("")) return 0;
+		if (!initService.runPreinit()) return 0;
 		initService.runLoad0();
 		initService.runLoad1();
 		initService.runInit0();

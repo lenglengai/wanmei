@@ -11,7 +11,7 @@ namespace std {
 	bool DbService::runPreinit()
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunStart0.connect(boost::bind(&DbService::runStart, this));
+		initService_.m_tInitDB.connect(boost::bind(&DbService::runInitDB, this));
 
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
 		archiveService_.m_tRunConfigure.connect(boost::bind(&DbService::runLoad, this));
@@ -31,7 +31,7 @@ namespace std {
 		logService_.logInfo(log_1("finish!"));
 	}
 
-	void DbService::runStart()
+	void DbService::runInitDB()
 	{
 		DataBaseCreate dataBaseCreate;
 		mDataBase->runSql(&dataBaseCreate);

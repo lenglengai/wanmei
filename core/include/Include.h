@@ -29,6 +29,8 @@
 #include "projInc/LoginServer.h"
 #endif
 
+#include "debug/DebugService.h"
+
 #include "log/LogService.h"
 #include "lua/LuaWriter.h"
 #include "lua/LuaScript.h"
