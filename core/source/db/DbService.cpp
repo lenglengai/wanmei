@@ -36,6 +36,9 @@ namespace std {
 		DataBaseCreate dataBaseCreate;
 		mDataBase->runSql(&dataBaseCreate);
 		
+		DataBaseUse dataBaseUse;
+		mDataBase->runSql(&dataBaseUse);
+		
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));
 	}

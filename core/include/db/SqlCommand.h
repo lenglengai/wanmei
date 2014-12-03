@@ -159,6 +159,8 @@ namespace std {
 		
 		void runDataBase(ISqlHeadstream * nSqlHeadstream);
 		
+		void runSetDB(ISqlHeadstream * nSqlHeadstream);
+		
 		void runClear();
 		
 	public:

@@ -56,7 +56,9 @@ namespace std {
 	void SqlCommand::runHeadstream(ISqlHeadstream * nSqlStream, bool nDbQuery)
 	{
 		SqlType_ sqlType_ = nSqlStream->getSqlType();
-		if (SqlType_::mDataBase_ == sqlType_) {
+		if (SqlType_::mSetDB_ == sqlType_) {
+			this->runSetDB(nSqlStream);
+		} else if (SqlType_::mDataBase_ == sqlType_) {
 			this->runDataBase(nSqlStream);
 		} else if (SqlType_::mCreate_ == sqlType_) {
 			this->runCreate(nSqlStream);
@@ -304,7 +306,14 @@ namespace std {
 	
 	void SqlCommand::runDataBase(ISqlHeadstream * nSqlHeadstream)
 	{
-		mValue += "CREATE DATABASE ";
+		mValue += "CREATE DATABASE IF NOT EXISTS ";
+		mValue += nSqlHeadstream->getTableName();
+		mValue += ";";
+	}
+	
+	void SqlCommand::runSetDB(ISqlHeadstream * nSqlHeadstream)
+	{
+		mValue += "Use ";
 		mValue += nSqlHeadstream->getTableName();
 		mValue += ";";
 	}
