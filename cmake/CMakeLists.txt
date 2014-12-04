@@ -128,7 +128,8 @@ set(dbi ${INC_PATH}/db )
 set(dbs ${SRC_PATH}/db )
 
 set( DB_SRC
-	${dbs}/DataBaseCreate.cpp
+	${dbs}/DbCreate.cpp
+	${dbs}/DbSet.cpp
 	${dbs}/IDbQuery.cpp
 	${dbs}/IDataBase.cpp
 	${dbs}/DbService.cpp
@@ -138,7 +139,8 @@ set( DB_SRC
 	${dbs}/MySqlDataBase.cpp)
 
 SET( DB_H
-	${dbi}/DataBaseCreate.H
+	${dbi}/DbCreate.H
+	${dbi}/DbSet.H
 	${dbi}/SqlDeal_.h
 	${dbi}/SqlFieldId_.h
 	${dbi}/SqlType_.h

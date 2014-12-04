@@ -99,7 +99,8 @@ namespace std {
 			mDataBase->getHostName().c_str(),
 			mDataBase->getUserName().c_str(),
 			mDataBase->getPassword().c_str(),
-			nullptr, mDataBase->getPort(), nullptr, 0) ) {
+			mDataBase->getDbName().c_str(),
+			mDataBase->getPort(), nullptr, 0) ) {
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1(mysql_error(&mMYSQL)));
 			return;

@@ -42,6 +42,11 @@ namespace std {
 		return mPassword;
 	}
 	
+	void IDataBase::setDbName(const char * nDbName)
+	{
+		mDbName = nDbName;
+	}
+	
 	std::string& IDataBase::getDbName()
 	{
 		return mDbName;

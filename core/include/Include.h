@@ -101,7 +101,8 @@
 #include "db/MySqlDbQuery.h"
 #include "db/MySqlConnection.h"
 #include "db/MySqlDataBase.h"
-#include "db/DataBaseCreate.h"
+#include "db/DbCreate.h"
+#include "db/DbSet.h"
 
 #include "closed/IndexValue.h"
 #include "closed/Closed.h"

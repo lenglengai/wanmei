@@ -3,7 +3,7 @@
 #ifdef __WITHMYSQL__
 namespace std {
 
-    class DataBaseCreate : public ISqlHeadstream
+    class DbCreate : public ISqlHeadstream
     {
 	public:
         void runSelect(SqlCommand * nSqlCommand);

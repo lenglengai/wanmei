@@ -24,6 +24,7 @@ namespace std {
 		const char * streamUrl();
 		void runLoad();
 		
+		void setDbName(const char * nDbName);
 		std::string& getHostName();
 		std::string& getUserName();
 		std::string& getPassword();

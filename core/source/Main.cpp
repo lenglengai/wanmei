@@ -16,6 +16,7 @@ int main( int argc, char * argv[] )
 		initService.runLoad0();
 		initService.runLoad1();
 		initService.runInitDB();
+		initService.runExit();
 	} else {
 		if (!initService.runPreinit()) return 0;
 		initService.runLoad0();

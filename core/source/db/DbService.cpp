@@ -33,11 +33,13 @@ namespace std {
 
 	void DbService::runInitDB()
 	{
-		DataBaseCreate dataBaseCreate;
-		mDataBase->runSql(&dataBaseCreate);
+		mDataBase->setDbName("");
 		
-		DataBaseUse dataBaseUse;
-		mDataBase->runSql(&dataBaseUse);
+		DbCreate dbCreate;
+		mDataBase->runSql(&dbCreate);
+		
+		DbSet dbSet;
+		mDataBase->runSql(&dbSet);
 		
 		LogService& logService_ = Singleton<LogService>::instance();
 		logService_.logInfo(log_1("finish!"));

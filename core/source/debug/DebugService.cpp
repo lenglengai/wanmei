@@ -48,8 +48,7 @@ namespace std {
 		DWORD dwOldProtect = 0;
 		::VirtualProtect(_XcptFilter, 5, PAGE_EXECUTE_READWRITE, &dwOldProtect);
 		*(char*)_XcptFilter = 0xe9;
-		*(unsigned int*)((char*)_XcptFilter + 1) =
-			(unsigned int)MyXcptFilter - ((unsigned int)_XcptFilter + 5);
+		*(unsigned int*)((char*)_XcptFilter + 1) = (unsigned int)MyXcptFilter - ((unsigned int)_XcptFilter + 5);
 		::VirtualProtect(_XcptFilter, 5, dwOldProtect, &dwOldProtect);
 	#endif
 		LogService& logService_ = Singleton<LogService>::instance();
