@@ -1,0 +1,24 @@
+#pragma once
+
+namespace std {
+
+	class WireProtocol;
+	class C2SSwitchWire : public Packet<C2SSwitchWire, WireProtocol>
+	{
+	public:
+	#ifdef __SERVER__
+		bool handleRun(PlayerPtr& nPlayer);
+	#endif
+		bool runBlock(BlockPtr& nBlock);
+		void setWire(__i32 nWire);
+		__i32 getWire();
+
+		C2SSwitchWire();
+		~C2SSwitchWire();
+
+	private:
+		__i32 mWire;
+	};
+	typedef std::shared_ptr<C2SSwitchWire> C2SSwitchWirePtr;
+	
+}
