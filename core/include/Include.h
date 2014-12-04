@@ -103,6 +103,7 @@
 #include "db/MySqlDataBase.h"
 #include "db/DbCreate.h"
 #include "db/DbSet.h"
+#include "db/DbDrop.h"
 
 #include "closed/IndexValue.h"
 #include "closed/Closed.h"

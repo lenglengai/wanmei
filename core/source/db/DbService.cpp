@@ -35,6 +35,9 @@ namespace std {
 	{
 		mDataBase->setDbName("");
 		
+		DbDrop dbDrop;
+		mDataBase->runSql(&dbDrop);
+		
 		DbCreate dbCreate;
 		mDataBase->runSql(&dbCreate);
 		

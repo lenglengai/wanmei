@@ -161,6 +161,8 @@ namespace std {
 		
 		void runSetDB(ISqlHeadstream * nSqlHeadstream);
 		
+		void runDropDB(ISqlHeadstream * nSqlHeadstream);
+		
 		void runClear();
 		
 	public:

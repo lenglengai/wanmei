@@ -1,7 +1,5 @@
 #pragma once
 
-#include "AccountMgr.h"
-
 namespace std {
 	
 	class AccountService : boost::noncopyable

@@ -30,12 +30,10 @@ namespace std {
 			std::string className_ = typeid(T).name();
 			className_ = className_.substr(6);
 			result_ = this->runName(className_.c_str());
-			logService_.logInfo(log_2(className_, result_));
 		#else
 			const char * className_ = typeid(T).name();
 			char * realName_ = abi::__cxa_demangle(className_, 0, 0, 0);
 			result_ = this->runName(realName_);
-			logService_.logInfo(log_2(className_, result_));
 			::free(realName_);
 		#endif
 			return result_;

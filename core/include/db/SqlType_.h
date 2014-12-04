@@ -5,6 +5,7 @@ namespace std {
 
     enum class SqlType_ : __i8
     {
+		mDropDB_,
 		mSetDB_,
 		mDataBase_,
         mCreate_,

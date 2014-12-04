@@ -56,7 +56,9 @@ namespace std {
 	void SqlCommand::runHeadstream(ISqlHeadstream * nSqlStream, bool nDbQuery)
 	{
 		SqlType_ sqlType_ = nSqlStream->getSqlType();
-		if (SqlType_::mSetDB_ == sqlType_) {
+		if (SqlType_::mDropDB_ == sqlType_) {
+			this->runDropDB(nSqlStream);
+		} else if (SqlType_::mSetDB_ == sqlType_) {
 			this->runSetDB(nSqlStream);
 		} else if (SqlType_::mDataBase_ == sqlType_) {
 			this->runDataBase(nSqlStream);
@@ -314,6 +316,13 @@ namespace std {
 	void SqlCommand::runSetDB(ISqlHeadstream * nSqlHeadstream)
 	{
 		mValue += "Use ";
+		mValue += nSqlHeadstream->getTableName();
+		mValue += ";";
+	}
+	
+	void SqlCommand::runDropDB(ISqlHeadstream * nSqlHeadstream)
+	{
+		mValue += "DROP DATABASE IF NOT EXISTS ";
 		mValue += nSqlHeadstream->getTableName();
 		mValue += ";";
 	}

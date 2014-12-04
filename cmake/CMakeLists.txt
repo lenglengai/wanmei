@@ -130,6 +130,7 @@ set(dbs ${SRC_PATH}/db )
 set( DB_SRC
 	${dbs}/DbCreate.cpp
 	${dbs}/DbSet.cpp
+	${dbs}/DbDrop.cpp
 	${dbs}/IDbQuery.cpp
 	${dbs}/IDataBase.cpp
 	${dbs}/DbService.cpp
@@ -139,8 +140,9 @@ set( DB_SRC
 	${dbs}/MySqlDataBase.cpp)
 
 SET( DB_H
-	${dbi}/DbCreate.H
-	${dbi}/DbSet.H
+	${dbi}/DbCreate.h
+	${dbi}/DbSet.h
+	${dbi}/DbDrop.h
 	${dbi}/SqlDeal_.h
 	${dbi}/SqlFieldId_.h
 	${dbi}/SqlType_.h
