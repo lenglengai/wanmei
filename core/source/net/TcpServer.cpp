@@ -21,6 +21,10 @@ namespace std {
 		try {
 			PlayerService& playerService_ = Singleton<PlayerService>::instance();
 			PlayerPtr& player_ = playerService_.generatePlayer();
+			while (!player_) {
+				std::this_thread::sleep_for(mDura);
+				player_ = playerService_.generatePlayer();
+			}
 			mNewPlayer = &player_;
 			PropertyMgrPtr propertyMgrPtr_ = std::dynamic_pointer_cast<PropertyMgr, Player>(player_);
             this->runCreate(propertyMgrPtr_);
@@ -99,6 +103,7 @@ namespace std {
 		: mAddress("127.0.0.1")
 		, mNewPlayer(nullptr)
 		, mPort("8080")
+		, mDura(60000)
 	{
 	}
 

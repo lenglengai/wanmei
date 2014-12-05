@@ -28,6 +28,7 @@ namespace std {
 
 	private:
 		std::shared_ptr<asio::ip::tcp::acceptor> mAcceptor;
+		std::chrono::milliseconds mDura;
 		PlayerPtr * mNewPlayer;
 		string mAddress;
 		string mPort;

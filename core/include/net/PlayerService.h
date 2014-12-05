@@ -1,11 +1,12 @@
 #pragma once
 
-namespace std{
+namespace std {
 	
 	class PlayerService : boost::noncopyable
 	{
 	public:
 		bool pushPacket(PacketPtr& nPacket, PlayerPtr& nPlayer);
+		bool switchWire(PlayerPtr& nPlayer, __i16 nWireId);
 	#ifdef __SERVER__
 		PlayerPtr& generatePlayer();
 	#endif
@@ -30,6 +31,7 @@ namespace std{
 		std::map<__i16, __i16> mPlayerCounts;
 		std::mutex mMutex;
 		__i64 mPlayerId;
+		__i16 mMaxCount;
 	#endif
 	#ifdef __CLIENT__
 		SingleWirePtr mSingleWire;

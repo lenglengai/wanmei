@@ -5,13 +5,6 @@ namespace std{
 	bool PlayerService::pushPacket(PacketPtr& nPacket, PlayerPtr& nPlayer)
 	{
 	#ifdef __SERVER__
-		if (nPlayer->isInSwitch()) {
-			LogService& logService_ = Singleton<LogService>::instance();
-			__i32 protocolId = nPacket->getProtocolId();
-			__i32 packetId = nPacket->getPacketId(); 
-			logService_.logError(log_2(protocolId, packetId));
-			return false;
-		}
 		nPacket->setPlayer(nPlayer);
 		__i16 wireId = nPlayer->getWireId();
 		auto it = mSingleWires.find(wireId);
@@ -29,15 +22,38 @@ namespace std{
 		return true;
 	}
 	
+	bool PlayerService::switchWire(PlayerPtr& nPlayer, __i16 nWireId)
+	{
+		if ( nPlayer->inLock() ) {
+			return false;
+		]
+		__i16 wireId_ = nPlayer->getWireId();
+		auto it = mPlayerCounts.find(nWireId);
+		if (it == mPlayerCounts.end()) {
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(nWireId));
+			return false;
+		}
+		std::lock_guard<std::mutex> lock_(mMutex);
+		if (it.second >= mMaxCount) {
+			return false;
+		}
+	}
+	
 #ifdef __SERVER__
 	PlayerPtr& PlayerService::generatePlayer()
 	{
 		PlayerPtr player_(new Player());
-		std::lock_guard<std::mutex> lock_(mMutex);
 		++mPlayerId;
 		player_->setPlayerId(mPlayerId);
-		__i16 wireId = this->runWireId();
-		player_->setWireId(wireId);
+		std::lock_guard<std::mutex> lock_(mMutex);
+		__i16 wireId_ = this->runWireId();
+		if (0 == wireId_) {
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(nWireId));
+			return __defaultptr<Player>();
+		}
+		player_->setWireId(wireId_);
 		mPlayers[mPlayerId] = player_;
 		return mPlayers[mPlayerId];
 	}
@@ -46,14 +62,16 @@ namespace std{
 	{
 		__i16 playerCount_ = 30000;
 		__i16 singleWire_ = 30000;
-		std::map<__i16, __i16>::iterator it = mPlayerCounts.begin();
-		for ( ; it != mPlayerCounts.end(); ++it ) {
-			__i16 tempWire_ = it->first;
-			__i16 tempCount_ = it->second;
+		__i16 tempCount_ = 0;
+		for ( auto& it : mPlayerCounts ) {
+			tempCount_ = it.second;
 			if (tempCount_ < playerCount_) {
 				playerCount_ = tempCount_;
-				singleWire_ = tempWire_;
+				singleWire_ = it.first;
 			}
+		}
+		if (playerCount_ >= mMaxCount) {
+			return 0;
 		}
 		mPlayerCounts[singleWire_] = playerCount_ + 1;
 		return singleWire_;
@@ -122,6 +140,7 @@ namespace std{
 		mPlayerCounts.clear();
 		mSingleWires.clear();
 		mPlayers.clear();
+		mMaxCount = 1000;
 		mPlayerId = 0;
 	#endif
 	}

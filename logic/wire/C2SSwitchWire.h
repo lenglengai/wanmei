@@ -10,15 +10,15 @@ namespace std {
 		bool handleRun(PlayerPtr& nPlayer);
 	#endif
 		bool runBlock(BlockPtr& nBlock);
-		void setWire(__i32 mWire);
-		__i32 getWire();
+		void setWireId(__i32 nWireId);
+		__i32 getWireId();
 
 		C2SSwitchWire();
-		C2SSwitchWire(__i32 nWire);
+		C2SSwitchWire(__i32 nWireId);
 		~C2SSwitchWire();
 
 	private:
-		__i32 mWire;
+		__i32 mWireId;
 	};
 	typedef std::shared_ptr<C2SSwitchWire> C2SSwitchWirePtr;
 	

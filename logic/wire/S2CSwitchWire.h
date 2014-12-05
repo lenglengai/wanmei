@@ -1,10 +1,9 @@
 #pragma once
 
-#ifdef __PING__
 namespace std {
 
 	class WireProtocol;
-	class S2CSwitchWire : public Packet<S2CSwitchWire, WireProtocol, false>
+	class S2CSwitchWire : public Packet<S2CSwitchWire, WireProtocol>
 	{
 	public:
 	#ifdef __CLIENT__
@@ -12,17 +11,16 @@ namespace std {
 	#endif
 		bool runBlock(BlockPtr& nBlock);
 		bool isDefault();
-		void setSecond(__i32 nSecond);
-		__i32 getSecond();
+		void setWireId(__i16 nWireId);
+		__i16 getWireId();
 
 		S2CSwitchWire();
+		S2CSwitchWire(__i16 nWireId);
 		~S2CSwitchWire();
 
 	private:
-		__i64 mServerTime;
-		__i32 mSecond;
+		__i16 mWireId;
 	};
-	typedef std::shared_ptr<S2CPing> S2CPingPtr;
+	typedef std::shared_ptr<S2CSwitchWire> S2CSwitchWirePtr;
 	
 }
-#endif

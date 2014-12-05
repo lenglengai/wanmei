@@ -1,63 +1,50 @@
 #include "../LogicInc.h"
 
-#ifdef __PING__
 namespace std {
 	
 #ifdef __CLIENT__
-	bool S2CPing::handleRun(PlayerPtr& nPlayer)
+	bool S2CSwitchWire::handleRun(PlayerPtr& nPlayer)
 	{
-		PingProtocol& pingProtocol_ = Singleton<PingProtocol>::instance();
-		pingProtocol_.finishPing();
-		TimeService& timeService_ = Singleton<TimeService>::instance();
-		timeService_.setServerTime(mServerTime);
-		PropertyId<PingSecond> pingSecondId;
-		PropertyPtr& property_ = nPlayer->getProperty(pingSecondId);
-		PingSecondPtr pingSecondPtr_ = std::dynamic_pointer_cast<PingSecond, Property>(property_);
-		pingSecondPtr_->setSecond(mSecond);
+		nPlayer->setWireId(mWireId);
 		return true;
 	}
 #endif
 
-	bool S2CPing::runBlock(BlockPtr& nBlock)
+	bool S2CSwitchWire::runBlock(BlockPtr& nBlock)
 	{
-		nBlock->runInt64(mServerTime);
-		nBlock->runInt32(mSecond);
+		nBlock->runInt64(mWireId);
 		return true;
 	}
 
-	bool S2CPing::isDefault()
+	bool S2CSwitchWire::isDefault()
 	{
-		if (0 == mSecond) return true;
+		if (0 == mWireId) return true;
 		return IPacket::isDefault();
 	}
 
-	void S2CPing::setSecond(__i32 nSecond)
+	void S2CSwitchWire::setWireId(__i32 nWireId)
 	{
-		mSecond = nSecond;
+		mWireId = nWireId;
 	}
 
-	__i32 S2CPing::getSecond()
+	__i32 S2CSwitchWire::getWireId()
 	{
-		return mSecond;
+		return mWireId;
 	}
 
-	S2CPing::S2CPing()
-		: mServerTime(0)
-		, mSecond(0)
-	{
-	}
-
-	S2CPing::S2CPing(__i32 nSecond, __i64 nServerTime)
-		: mServerTime(nServerTime)
-		, mSecond(nSecond)
+	S2CSwitchWire::S2CSwitchWire()
+		: mWireId(0)
 	{
 	}
 
-	S2CPing::~S2CPing()
+	S2CSwitchWire::S2CSwitchWire(__i32 nWireId)
+		: mWireId(nWireId)
 	{
-		mServerTime = 0;
-		mSecond = 0;
+	}
+
+	S2CSwitchWire::~S2CSwitchWire()
+	{
+		mWireId = 0;
 	}
 	
 }
-#endif
