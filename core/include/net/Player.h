@@ -10,6 +10,8 @@ namespace std {
 		SessionPtr& getSession();
 	#ifdef __CLIENT__
 		bool runPreinit();
+		__i64 getSendTick();
+		bool isSendTick();
 	#endif
 		Player();
 		virtual ~Player();
@@ -17,6 +19,9 @@ namespace std {
 	private:
 	    SessionPtr mSession;
 		__i64 mPlayerId;
+	#ifdef __CLIENT__
+		std::atomic<__i64> mSendTick;
+	#endif
 	};
 	
 }

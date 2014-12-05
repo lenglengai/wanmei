@@ -16,7 +16,7 @@ namespace std {
 	{
 	public:
 		enum { write_timeout = 150 };
-		enum { read_timeout = 150 };
+		enum { read_timeout = 300 };
 
 		bool runSend(PacketPtr& nPacket);
 		asio::ip::tcp::socket& getSocket();

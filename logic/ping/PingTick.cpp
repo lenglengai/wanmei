@@ -8,11 +8,8 @@ namespace std {
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
 		if (initService_.isPause()) return;
-		TimeService& timeService_ = Singleton<TimeService>::instance();
-		__i64 second_ = timeService_.getLocalTime();
-		__i64 clock_ = second_ - mSendTick;
-		if (clock_ < 120) return;
 		PlayerPtr& player_ = SingletonPtr<Player>::instance();
+		if (!player_->isSendTick()) return;
 		PropertyId<PingSecond> proertyId_;
 		PropertyPtr& property_ = player_->getProperty(proertyId_);
 		PingSecondPtr pingSecondPtr_ = std::dynamic_pointer_cast<PingSecond, Property>(property_);
@@ -21,18 +18,15 @@ namespace std {
 		if (player_->runSend(packet_)) {
 			PingProtocol& pingProtocol_ = Singleton<PingProtocol>::instance();
 			pingProtocol_.startPing();
-			mSendTick = second_;
 		}
 	}
 
 	PingTick::PingTick()
-		: mSendTick(0)
 	{
 	}
 
 	PingTick::~PingTick()
 	{
-		mSendTick = 0;
 	}
 #endif
 	

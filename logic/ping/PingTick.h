@@ -11,9 +11,6 @@ namespace std {
 
 		PingTick();
 		~PingTick();
-
-	private:
-		__i64 mSendTick;
 	};
 	typedef std::shared_ptr<PingTick> PingTickPtr;
 #endif
