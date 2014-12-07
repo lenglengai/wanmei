@@ -22,20 +22,25 @@ namespace std {
 		return (true == mInSwitch);
 	}
 	
-	void Robot::setLock(bool nLock)
+	void Robot::runLock()
 	{
-		mInLock = nLock;
+		mInLock++;
+	}
+	
+	void Robot::runUnLock()
+	{
+		mInLock--;
 	}
 	
 	bool Robot::inLock()
 	{
-		return (true == mInLock);
+		return (mInLock > 0);
 	}
 	
 	Robot::Robot()
 		: mRobotType (RobotType_::mRobot_)
 		, mInSwitch(false)
-		, mInLock(false)
+		, mInLock(0)
 		, mWireId(0)
 	{
 	}
@@ -43,7 +48,7 @@ namespace std {
 	Robot::Robot(RobotType_ nRobotType)
 		: mRobotType (nRobotType)
 		, mInSwitch(false)
-		, mInLock(false)
+		, mInLock(0)
 		, mWireId(0)
 	{
 	}
@@ -52,7 +57,7 @@ namespace std {
 	{
 		mRobotType = RobotType_::mRobot_;
 		mInSwitch = false;
-		mInLock = false;
+		mInLock = 0;
 		mWireId = 0;
 	}
 

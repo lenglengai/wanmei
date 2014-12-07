@@ -19,7 +19,8 @@ namespace std {
 		__i16 getWireId();
 		void setSwitch(bool nSwitch);
 		bool inSwitch();
-		void setLock(bool nLock);
+		void runLock();
+		void runUnLock();
 		bool inLock();
 		
 		Robot();
@@ -28,7 +29,7 @@ namespace std {
 		
 	private:
 		std::atomic<bool> mInSwitch;
-		std::atomic<bool> mInLock;
+		std::atomic<__i16> mInLock;
 		RobotType_ mRobotType;
 		__i16 mWireId;
 	};

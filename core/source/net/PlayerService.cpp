@@ -5,6 +5,13 @@ namespace std{
 	bool PlayerService::pushPacket(PacketPtr& nPacket, PlayerPtr& nPlayer)
 	{
 	#ifdef __SERVER__
+		if (nPlayer->isInSwitch()) {
+			LogService& logService_ = Singleton<LogService>::instance();
+			__i32 protocolId = nPacket->getProtocolId();
+			__i32 packetId = nPacket->getPacketId();
+			logService_.logError(log_2(protocolId, packetId));
+			return false;
+		}
 		nPacket->setPlayer(nPlayer);
 		__i16 wireId = nPlayer->getWireId();
 		auto it = mSingleWires.find(wireId);
@@ -25,6 +32,7 @@ namespace std{
 	bool PlayerService::switchWire(PlayerPtr& nPlayer, __i16 nWireId)
 	{
 		if ( nPlayer->inLock() ) {
+			nPlayer->setIn
 			return false;
 		]
 		__i16 wireId_ = nPlayer->getWireId();
