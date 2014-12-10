@@ -28,7 +28,7 @@ namespace std {
 		virtual ~Robot();
 		
 	private:
-		std::atomic<bool> mInSwitch;
+		std::atomic<__i64> mInSwitch;
 		std::atomic<__i16> mInLock;
 		RobotType_ mRobotType;
 		__i16 mWireId;
