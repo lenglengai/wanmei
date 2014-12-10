@@ -38,14 +38,14 @@ namespace std{
 
 		BlockPushType_ runPush(char * nBuffer, __i16 nSize);
 		void endPush();
+		void runClear();
 
 		ReadBlock();
 		~ReadBlock();
 
 	private:
 		char * getBuffer(__i16 nSize);
-		void runClear();
-
+		
 	private:
 		char mValue[PACKETMAX];
 		__i16 mLeft;

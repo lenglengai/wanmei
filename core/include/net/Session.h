@@ -22,6 +22,7 @@ namespace std {
 		asio::ip::tcp::socket& getSocket();
 		void runStart();
 		void runClose();
+		void setPlayer(PlayerPtr& nPlayer);
 		__i32 getSessionState();
 		void openSession();
 
@@ -39,18 +40,23 @@ namespace std {
 
 	private:
 		atomic<__i32> mSessionState;
-		boost::asio::deadline_timer mReadTimer;
-		boost::asio::deadline_timer mWriteTimer;
-		boost::array<__i8, PACKETMAX> mReadBuffer;
-		std::atomic<bool> mSending;
-		WriteBlockPtr mWriteBlockPtr;
 		asio::ip::tcp::socket mSocket;
-		deque<PacketPtr> mPackets;
-		ReadBlockPtr mReadBlock;
-		PlayerPtr& mPlayer;
+		
 		std::mutex mMutex;
+		std::deque<PacketPtr> mPackets;
+		std::atomic<bool> mSending;
+		
+		boost::asio::deadline_timer mReadTimer;
+		boost::array<__i8, PACKETMAX> mReadBuffer;
+		ReadBlockPtr mReadBlock;
+		
+		boost::asio::deadline_timer mWriteTimer;
+		WriteBlockPtr mWriteBlockPtr;
+		
+		PlayerPtr * mPlayer;
 	};
 	typedef std::weak_ptr<Session> SessionWtr;
 	typedef std::shared_ptr<Session> SessionPtr;
+	
 }
 
