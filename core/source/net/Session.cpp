@@ -53,7 +53,7 @@ namespace std {
 		}
 		if (mBlockPushTypeLength_ == blockPushType_) return;
 		ProtocolService& protocolService_ = Singleton<ProtocolService>::instance();
-		if (!protocolService_.runReadBlock(mReadBlock, mPlayer)) {
+		if (!protocolService_.runReadBlock(mReadBlock, shared_from_this())) {
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1("protocolService_.runReadBlock(mReadBlock, mPlayer)"));
 			this->runClose();
@@ -142,7 +142,7 @@ namespace std {
 	void Session::internalSend()
 	{
 		PacketPtr packet_ = this->popPacket();
-		if (nullptr == packet_.get()) {
+		if (!packet_) {
 			mSending = false;
 			return;
 		}
@@ -169,6 +169,7 @@ namespace std {
 		catch (boost::system::system_error& e) {
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1(e.what()));
+			this->runClose();
 		}
 	}
 
@@ -182,6 +183,11 @@ namespace std {
 		mPlayer = (&nPlayer);
 	}
 
+	PlayerPtr * Session::getPlayer()
+	{
+		return mPlayer;
+	}
+	
 	Session::Session(asio::io_service& nIoService)
 		: mSessionState(SessionState_::mClosed_)
 		, mSocket(nIoService)

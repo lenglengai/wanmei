@@ -19,12 +19,16 @@ namespace std {
 		enum { read_timeout = 300 };
 
 		bool runSend(PacketPtr& nPacket);
-		asio::ip::tcp::socket& getSocket();
+		
 		void runStart();
 		void runClose();
-		void setPlayer(PlayerPtr& nPlayer);
+		
+		asio::ip::tcp::socket& getSocket();
 		__i32 getSessionState();
 		void openSession();
+		
+		void setPlayer(PlayerPtr& nPlayer);
+		PlayerPtr * getPlayer();
 
 		explicit Session(asio::io_service& nIoService, PlayerPtr& nPlayer);
 		~Session();
@@ -51,7 +55,7 @@ namespace std {
 		ReadBlockPtr mReadBlock;
 		
 		boost::asio::deadline_timer mWriteTimer;
-		WriteBlockPtr mWriteBlockPtr;
+		WriteBlockPtr mWriteBlock;
 		
 		PlayerPtr * mPlayer;
 	};

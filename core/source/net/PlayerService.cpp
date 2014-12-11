@@ -32,6 +32,7 @@ namespace std{
 	bool PlayerService::switchWire(PlayerPtr& nPlayer, __i16 nWireId)
 	{
 		if ( nPlayer->inLock() ) {
+			
 			nPlayer->setIn
 			return false;
 		]

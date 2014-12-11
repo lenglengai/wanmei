@@ -5,7 +5,7 @@ namespace std {
 	class ProtocolService : boost::noncopyable
 	{
 	public:
-		bool runReadBlock(ReadBlockPtr& nReadBlock, PlayerPtr& nPlayer);
+		bool runReadBlock(ReadBlockPtr& nReadBlock, SessionPtr& nSession);
 		template <class T>
 		void runRegister(T * nProtocol)
 		{

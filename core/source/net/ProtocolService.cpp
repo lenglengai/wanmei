@@ -2,11 +2,13 @@
 
 namespace std {
 
-	bool ProtocolService::runReadBlock(ReadBlockPtr& nReadBlock, PlayerPtr& nPlayer)
+	bool ProtocolService::runReadBlock(ReadBlockPtr& nReadBlock, SessionPtr& nSession)
 	{
 		__i16 version_ = 0; nReadBlock->runInt16(version_);
 		SettingService& settingService_ = Singleton<SettingService>::instance();
 		if (ERRORINT::MUSTUPDATE == settingService_.checkVersion(version_)) {
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(version_));
 			return false;
 		}
 		__i32 protocolId_ = 0; nReadBlock->runInt32(protocolId_);
@@ -19,8 +21,8 @@ namespace std {
 		IProtocol * protocol_ = it->second;
 		bool inline_ = false; nReadBlock->runBool(inline_);
 		__i32 packetType_ = 0; nReadBlock->runInt32(packetType_);
-		IPacketId * packetId_ = protocol_->getPacketId(packetType_);
-		if (nullptr == packetId_) {
+		PacketIdPtr& packetId_ = protocol_->getPacketId(packetType_);
+		if (!packetId_) {
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1(packetType_));
 			return false;
@@ -34,14 +36,17 @@ namespace std {
 			logService_.logError(log_1("packet_->isDefault()"));
 			return false;
 		}
-		if (inline_) {
-			PlayerService& playerService_ = Singleton<PlayerService>::instance();
-			return playerService_.pushPacket(packet_, nPlayer);
+		if (!inline_) {
+			return packet_->handleRun(nSession);
 		}
-		else {
-			return packet_->handleRun(nPlayer);
+		PlayerPtr * player_ = nSession->getPlayer();
+		if (nullptr == player_) {
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1("nullptr == player_"));
+			return false;
 		}
-
+		PlayerService& playerService_ = Singleton<PlayerService>::instance();
+		return playerService_.pushPacket(packet_, (*player_));
 	}
 
 	bool ProtocolService::runPreinit()
