@@ -106,6 +106,11 @@ namespace std {
 		mSessionState = SessionState_::mOpened_;
 		this->runStart();
 	}
+	
+	__i32 Session::getSessionId()
+	{
+		return mSessionId;
+	}
 
 	void Session::runClose()
 	{
@@ -188,7 +193,7 @@ namespace std {
 		return mPlayer;
 	}
 	
-	Session::Session(asio::io_service& nIoService)
+	Session::Session(__i32 nSessionId, asio::io_service& nIoService)
 		: mSessionState(SessionState_::mClosed_)
 		, mSocket(nIoService)
 		, mReadBlock(new ReadBlock())
@@ -197,6 +202,7 @@ namespace std {
 		, mWriteTimer(nIoService)
 		, mSending(false)
 		, mPlayer(nullptr)
+		, mSessionId(nSessionId)
 	{
 		mReadBuffer.fill(0);
 		mPackets.clear();
@@ -211,6 +217,7 @@ namespace std {
 		mSending = false;
 		mPackets.clear();
 		mPlayer = nullptr;
+		mSessionId = 0;
 	}
 
 }

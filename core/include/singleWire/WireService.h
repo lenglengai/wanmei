@@ -5,7 +5,7 @@ namespace std {
 	class WireService : boost::noncopyable
 	{
 	public:
-		bool pushPacket(PacketPtr& nPacket, PlayerPtr& nPlayer);
+		bool pushPacket(PacketPtr& nPacket, __i16 nWireId);
 		
 		bool runPreinit();
 		void runInit();

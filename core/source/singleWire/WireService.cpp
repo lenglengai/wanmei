@@ -2,15 +2,14 @@
 
 namespace std{
 
-	bool WireService::pushPacket(PacketPtr& nPacket, PlayerPtr& nPlayer)
+	bool WireService::pushPacket(PacketPtr& nPacket, __i16 nWireId)
 	{
 	#ifdef __SERVER__
 		nPacket->setPlayer(nPlayer);
-		__i16 wireId = nPlayer->getWireId();
-		auto it = mSingleWires.find(wireId);
+		auto it = mSingleWires.find(nWireId);
 		if ( it == mSingleWires.end())  {
 			LogService& logService_ = Singleton<LogService>::instance();
-			logService_.logError(log_1(wireId));
+			logService_.logError(log_1(nWireId));
 			return false;
 		}
 		SingleWirePtr& singleWire_ = it->second;

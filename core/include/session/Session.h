@@ -27,6 +27,8 @@ namespace std {
 		__i32 getSessionState();
 		void openSession();
 		
+		__i32 getSessionId();
+		
 		void setPlayer(PlayerPtr& nPlayer);
 		PlayerPtr * getPlayer();
 
@@ -58,6 +60,8 @@ namespace std {
 		WriteBlockPtr mWriteBlock;
 		
 		PlayerPtr * mPlayer;
+		
+		__i32 mSessionId;
 	};
 	typedef std::weak_ptr<Session> SessionWtr;
 	typedef std::shared_ptr<Session> SessionPtr;

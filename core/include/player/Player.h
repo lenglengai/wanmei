@@ -7,13 +7,12 @@ namespace std {
 	public:
 		bool runSend(PacketPtr& nPacket);
 		void setPlayerId(__i64 nPlayerId);
-		SessionPtr& getSession();
 	#ifdef __CLIENT__
 		bool runPreinit();
 		__i64 getSendTick();
 		bool isSendTick();
 	#endif
-		Player();
+		Player(SessionPtr& nSession);
 		virtual ~Player();
 		
 	private:
