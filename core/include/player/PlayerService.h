@@ -28,8 +28,9 @@ namespace std {
 	#ifdef __SERVER__
 		std::map<__i16, SingleWirePtr> mSingleWires;
 		std::map<__i64, PlayerPtr> mPlayers;
-		std::map<__i16, __i16> mPlayerCounts;
-		std::mutex mMutex;
+		std::map<__i16, __i16> mCounts;
+		std::mutex mPlayerMutex;
+		std::mutex mCountMutex;
 		__i64 mPlayerId;
 		__i16 mMaxCount;
 	#endif

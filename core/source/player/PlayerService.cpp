@@ -32,8 +32,8 @@ namespace std{
 	bool PlayerService::switchWire(PlayerPtr& nPlayer, __i16 nWireId)
 	{
 		if ( nPlayer->inLock() ) {
-			
-			nPlayer->setIn
+			TimeService& timeService_ = Singleton<TimeService>::instance();
+			nPlayer->setSwitch(timeService_.getServerTime());
 			return false;
 		]
 		__i16 wireId_ = nPlayer->getWireId();

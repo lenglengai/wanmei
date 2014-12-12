@@ -8,6 +8,7 @@ namespace std {
 	class IPacket : boost::noncopyable
 	{
 	public:
+		virtual bool handleRun(SessionPtr& nSession);
 		virtual bool handleRun(PlayerPtr& nPlayer);
 		virtual bool runBlock(BlockPtr& nBlock) = 0;
 		void setHeader(__i32 nProtocol, bool nInline, __i32 nPacketId);

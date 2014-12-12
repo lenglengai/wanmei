@@ -2,6 +2,11 @@
 
 namespace std {
 
+	bool IPacket::handleRun(SessionPtr& nSession)
+	{
+		return true;
+	}
+	
 	bool IPacket::handleRun(PlayerPtr& nPlayer)
 	{
 		return true;
