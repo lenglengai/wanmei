@@ -2,7 +2,7 @@
 
 namespace std {
 
-	class __funapi PropertyMgr : boost::noncopyable
+	class __funapi PropertyMgr : noncopyable
 	{
 	public:
 		void addProperty(PropertyPtr& nProperty, PropertyIdPtr& nPropertyId);

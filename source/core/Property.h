@@ -3,7 +3,7 @@
 namespace std {
 
 	class PropertyMgr;
-	typedef std::shared_ptr<PropertyMgr> PropertyMgrPtr;
+	typedef shared_ptr<PropertyMgr> PropertyMgrPtr;
 	class __funapi Property : noncopyable
 	{
 	public:
@@ -23,6 +23,6 @@ namespace std {
 	private:
 		PropertyMgrPtr * mPropertyMgr;
 	};
-	typedef std::shared_ptr<Property> PropertyPtr;
+	typedef shared_ptr<Property> PropertyPtr;
 
 }
