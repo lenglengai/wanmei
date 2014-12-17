@@ -1,41 +1,42 @@
 #pragma once
 
-#ifdef __CONSOLE__
 namespace std {
 
-	class ConsoleService : boost::noncopyable
+	class ServiceMgr : noncopyable
 	{
 	public:
 		template <class T>
-		void registerConsole(T * nConsole)
+		void registerService(T * nService)
 		{
 			CrcService& crcService_ = Singleton<CrcService>::instance();
 			__i32 classId_ = crcService_.runClassId<T>();
-			auto it = mConsoles.find(classId_);
-			if ( it != mConsoles.end() ) {
+			auto it = mServices.find(classId_);
+			if ( it != mServices.end() ) {
 				LogService& logService_ = Singleton<LogService>::instance();
 				logService_.logError(log_1(classId_));
 				return;
 			}
-			mConsoles[classId_] = nConsole;
+			mServices[classId_] = nService;
 		}
+	#ifdef __CONSOLE__
 		void runCommand(std::list<std::string>& nCommand);
-		void setIsClient(bool nIsClient);
-		
+		void setClientConsole(bool nClientConsole);
+	#endif
+	
 		bool runPreinit();
 		void runInit();
 		void runStart();
 		void runStop();
-
-		ConsoleService();
-		~ConsoleService();
+		
+		ServiceMgr();
+		~ServiceMgr();
 		
 	private:
-		std::map<__i32, IConsole *> mConsoles;
-		ContextPtr mContext;
-		HandlePtr mHandle;
-		bool mIsClient;
+		std::map<__i32, IService *> mServices;
+	#ifdef __CONSOLE__
+		HandlePtr mConsoleHandle;
+		bool mClientConsole;
+	#endif
 	};
-
+	
 }
-#endif

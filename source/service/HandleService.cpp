@@ -3,9 +3,11 @@
 namespace std {
 
 #ifdef __CONSOLE__
-	void HandleService::runCommand(std::list<std::string>& nCommand, StringWriter& nStringWriter)
+	StringWriterPtr HandleService::runCommand(std::list<std::string>& nCommand)
 	{
-		nStringWriter.runInt32(mHandleCount, "handleCount");
+		StringWriterPtr stringWriter(new StringWriter());
+		stringWriter->runInt32(mHandleCount, "handleCount");
+		return stringWriter;
 	}
 #endif
 	
@@ -22,6 +24,8 @@ namespace std {
 		initService_.m_tRunInit0.connect(boost::bind(&HandleService::runInit, this));
 		initService_.m_tRunStart1.connect(boost::bind(&HandleService::runStart, this));
 		initService_.m_tRunStop.connect(boost::bind(&HandleService::runStop, this));
+		ServiceMgr& serviceMgr_ = Singleton<ServiceMgr>::instance();
+		serviceMgr_.registerService(this);
 		return true;
 	}
 

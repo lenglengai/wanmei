@@ -2,7 +2,7 @@
 
 namespace std {
 
-	class __funapi LuaService : noncopyable
+	class __funapi LuaService : public IService
 	{
 	public:
 		template<typename F>

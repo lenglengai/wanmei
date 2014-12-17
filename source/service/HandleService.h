@@ -2,14 +2,11 @@
 
 namespace std {
 
-	class __funapi HandleService : noncopyable
-	#ifdef __CONSOLE__
-		, public IConsole
-	#endif
+	class __funapi HandleService : IService
 	{
 	public:
 	#ifdef __CONSOLE__
-		void runCommand(std::list<std::string>& nCommand, StringWriter& nStringWriter) override final;
+		StringWriterPtr runCommand(std::list<std::string>& nCommand);
 	#endif
 		void addContext(ContextPtr& nContext, __i32 nIndex);
 		

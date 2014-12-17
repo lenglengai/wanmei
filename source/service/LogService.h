@@ -24,9 +24,12 @@ namespace std {
 #ifdef __BOOSTLOG__
 	namespace src = boost::log::sources;
 #endif
-	class __funapi LogService : boost::noncopyable
+	class __funapi LogService : public IService
 	{
 	public:
+	#ifdef __CONSOLE__
+		StringWriterPtr runCommand(std::list<std::string>& nCommand);
+	#endif
 		void luaError(const char * nValue);
 		void luaInfo(const char * nValue);
 		

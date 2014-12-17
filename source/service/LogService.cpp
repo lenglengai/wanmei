@@ -20,6 +20,36 @@ namespace std {
 	namespace attrs = boost::log::attributes;
 #endif
 
+#ifdef __CONSOLE__
+	StringWriterPtr LogService::runCommand(std::list<std::string>& nCommand)
+	{
+		StringWriterPtr stringWriter(new StringWriter());
+		std::string& command_ = nCommand.front();
+		if ("-error" == command_) {
+			nCommand.pop_front();
+			string strCommands_(""):
+			for (auto& i : nCommand) {
+				strCommands_ += i;
+				strCommands_ += " ";
+			}
+			this->logError(log_1(strCommands_));
+			stringWriter->runString("LogService", "logError sucess");
+		} else if ("-info" == command_) {
+			nCommand.pop_front();
+			string strCommands_(""):
+			for (auto& i : nCommand) {
+				strCommands_ += i;
+				strCommands_ += " ";
+			}
+			this->logInfo(log_1(strCommands_));
+			stringWriter->runString("LogService", "logInfo sucess");
+		} else {
+			stringWriter->runString("LogService", "do nothing");
+		}
+		return stringWriter;
+	}
+#endif
+	
 	void LogService::luaError(const char * nValue)
 	{
 #ifdef __BOOSTLOG__
@@ -62,9 +92,6 @@ namespace std {
 
 	bool LogService::runPreinit()
 	{
-		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunLuaApi.connect(boost::bind(&LogService::runLuaApi, this));
-
 #ifdef __BOOSTLOG__
 		auto console_sink = logging::add_console_log();
 		console_sink->set_formatter
@@ -98,7 +125,7 @@ namespace std {
     	logging::core::get()->add_sink(testSink);
 		logging::core::get()->add_global_attribute("TimeStamp", attrs::local_clock());
 #endif
-		return true;
+		return IService::runPreinit();
 	}
 
 	void LogService::runLuaApi()

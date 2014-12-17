@@ -10,8 +10,14 @@
 #include "common/Preinit.h"
 #include "common/Convert.h"
 
+#include "service/Context.h"
+#include "service/Handle.h"
+#include "service/HandleService.h"
+#include "service/IService.h"
+#include "service/ServiceMgr.h"
+#include "service/StringWriter.h"
+#include "service/Console.h"
 #include "service/LuaEngine.h"
 #include "service/LuaService.h"
 #include "service/InitService.h"
 #include "service/LogService.h"
-

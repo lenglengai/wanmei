@@ -20,6 +20,7 @@ namespace std {
 		void runInt64s(list<__i64>& nValue, const char * nName);
 
 		void runString(string& nValue, const char * nName);
+		void runString(const char * nValue, const char * nName);
 		void runStrings(list<string>& nValue, const char * nName);
 
 		void runFloat(float& nValue, const char * nName);
@@ -38,6 +39,8 @@ namespace std {
 		
 	private:
 		string mValue;
+		bool mFirst;
 	};
+	typedef shared_ptr<StringWriter> StringWriterPtr;
 	
 }

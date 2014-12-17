@@ -2,6 +2,24 @@
 
 namespace std {
 
+#ifdef __CONSOLE__
+	StringWriterPtr InitService::runCommand(std::list<std::string>& nCommand)
+	{
+		StringWriterPtr stringWriter(new StringWriter());
+		std::string& command_ = nCommand.front();
+		if ("-resume" == command_) {
+			this->runResume();
+			stringWriter->runString("InitService", "runResume sucess!");
+		} else if ("-pause" == command_) {
+			this->runPause();
+			stringWriter->runString("InitService", "runPause sucess!");
+		} else {
+			stringWriter->runString("InitService", "do nothing");
+		}
+		return stringWriter;
+	}
+#endif
+
 	bool InitService::runPreinit()
 	{
 		PreinitSlot& preinitSlot_ = Singleton<PreinitSlot>::instance();
@@ -12,6 +30,10 @@ namespace std {
 			return false;
 		}
 		preinitSlot_.runClear();
+		
+		ServiceMgr& serviceMgr_ = Singleton<ServiceMgr>::instance();
+		serviceMgr_.registerService(this);
+		
 		return true;
 	}
 	

@@ -2,9 +2,12 @@
 
 namespace std {
 
-	class __funapi InitService : noncopyable
+	class __funapi InitService : public IService
 	{
 	public:
+	#ifdef __CONSOLE__
+		StringWriterPtr runCommand(std::list<std::string>& nCommand);
+	#endif
 		bool runPreinit();
 		
 		signal<void()> m_tRunLuaApi;
