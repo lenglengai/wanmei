@@ -21,3 +21,9 @@
 #include "service/LuaService.h"
 #include "service/InitService.h"
 #include "service/LogService.h"
+
+#include "property/Property.h"
+#include "property/IPropertyId.h"
+#include "property/PropertyId.h"
+#include "property/PropertyMgr.h"
+#include "property/PropertySink.h"

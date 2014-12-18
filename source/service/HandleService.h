@@ -2,7 +2,7 @@
 
 namespace std {
 
-	class __funapi HandleService : IService
+	class __funapi HandleService : public IService
 	{
 	public:
 	#ifdef __CONSOLE__

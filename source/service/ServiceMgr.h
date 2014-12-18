@@ -2,7 +2,7 @@
 
 namespace std {
 
-	class ServiceMgr : noncopyable
+	class ServiceMgr : public IService
 	{
 	public:
 		template <class T>
