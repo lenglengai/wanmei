@@ -9,6 +9,11 @@
 #include <boost/format.hpp>
 #include <boost/bind.hpp>
 
+#ifndef __WINDOW__
+#include <cxxabi.h>
+#include <malloc.h>
+#endif
+
 #ifdef __WINDOW__
 #pragma warning( pop )
 #endif

@@ -7,7 +7,7 @@ namespace std {
 	{
 		if (mClientConsole) {
 			const string& strService_ = nCommand.getService();
-			__i32 serviceId_ = crcService_.runCommon(strService_.c_str());
+			__i32 serviceId_ = __stringid(strService_.c_str());
 			auto it = mServices.find(serviceId_);
 			if (it == mServices.end()) {
 				LogService& logService_ = Singleton<LogService>::instance();
@@ -15,16 +15,20 @@ namespace std {
 				return;
 			}
 			IService * service_ = it->second;
-			StringWriterPtr stringWriter = service_->runCommand(nCommand);
-			std::cout << stringWriter->getValue() << std::endl;
+			StringWriterPtr stringWriter_ = service_->runCommand(nCommand);
+			std::cout << stringWriter_->getValue() << std::endl;
 		} else {
 		}
 	}
 	
 	StringWriterPtr ServiceMgr::runClassId(const CommandArgs& nCommand)
 	{
-		StringWriterPtr stringWriterPtr(new StringWriter());
-		stringWriterPtr.runString(
+		StringWriterPtr stringWriter_(new StringWriter());
+		string className_("");
+		__i32 classid_ = __classid<ServiceMgr>(className_);
+		stringWriter_.runString(className_, "className");
+		stringWriter_.runInt32(classid_, "classId");
+		return stringWriter_;
 	}
 	
 	void ServiceMgr::setClientConsole(bool nClientConsole)
@@ -39,6 +43,9 @@ namespace std {
 		initService_.m_tRunInit0.connect(boost::bind(&ServiceMgr::runInit, this));
 		initService_.m_tRunStart1.connect(boost::bind(&ServiceMgr::runStart, this));
 		initService_.m_tRunStop.connect(boost::bind(&ServiceMgr::runStop, this));
+	#ifdef __CONSOLE__
+		this->registerCommand("c", std::bind(&ServiceMgr::runClassId, this, _1));
+	#endif
 		return true;
 	}
 

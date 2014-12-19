@@ -5,15 +5,15 @@ namespace std {
 	class ServiceMgr : public IService
 	{
 	public:
-		template <class T>
-		void registerService(T * nService)
+		template <class __t>
+		void registerService(__t * nService)
 		{
-			CrcService& crcService_ = Singleton<CrcService>::instance();
-			__i32 classId_ = crcService_.runClassId<T>();
+			string className_("");
+			__i32 classId_ = __classid<__t>(className_);
 			auto it = mServices.find(classId_);
 			if ( it != mServices.end() ) {
 				LogService& logService_ = Singleton<LogService>::instance();
-				logService_.logError(log_1(classId_));
+				logService_.logError(log_2(className_. classId_));
 				return;
 			}
 			mServices[classId_] = nService;

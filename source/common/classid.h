@@ -1,0 +1,26 @@
+#pragma once
+
+namespace std {
+	
+	template<typename __t>
+	const __i32 __classid(string& nClassName)
+	{
+		__i32 result_ = 0;
+		CrcService& crcService_ = Singleton<CrcService>::instance();
+	#ifdef __WINDOW__
+		nClassName = typeid(__t).name();
+		nClassName = nClassName.substr(6);
+		result_ = crcService_->runName(nClassName.c_str());
+	#else
+		const char * className_ = typeid(__t).name();
+		char * realName_ = abi::__cxa_demangle(className_, 0, 0, 0);
+		nClassName = realName_;
+		result_ = this->runName(realName_);
+		::free(realName_);
+	#endif
+		return result_;
+	}
+	
+	extern const __i32 __stringid(const char * nValue);
+	
+}
