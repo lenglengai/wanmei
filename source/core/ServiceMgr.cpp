@@ -3,31 +3,28 @@
 namespace std {
 
 #ifdef __CONSOLE__
-	void ServiceMgr::runCommand(std::list<std::string>& nCommand)
+	void ServiceMgr::runCommand(const CommandArgs& nCommand)
 	{
-		__i32 count_ = static_cast<__i32>(nCommand.size());
-		if (count_ < 1) {
-			LogService& logService_ = Singleton<LogService>::instance();
-			logService_.logInfo(log_2("command count is", count_));
-			return;
-		}
 		if (mClientConsole) {
-			std::string& strConsole_ = nCommand.front();
-		
-			CrcService& crcService_ = Singleton<CrcService>::instance();
-			__i32 consoleId_ = crcService_.runCommon(strConsole_.c_str());
-			auto it = mConsoles.find(consoleId_);
-			if (it == mConsoles.end()) {
+			const string& strService_ = nCommand.getService();
+			__i32 serviceId_ = crcService_.runCommon(strService_.c_str());
+			auto it = mServices.find(serviceId_);
+			if (it == mServices.end()) {
 				LogService& logService_ = Singleton<LogService>::instance();
-				logService_.logInfo(log_2("not find console for ", strConsole_));
+				logService_.logInfo(log_2(strService_, serviceId_));
 				return;
 			}
-			nCommand.pop_front();
-			IConsole * console_ = it->second;
-			StringWriterPtr stringWriter = console_->runCommand(nCommand);
+			IService * service_ = it->second;
+			StringWriterPtr stringWriter = service_->runCommand(nCommand);
 			std::cout << stringWriter->getValue() << std::endl;
 		} else {
 		}
+	}
+	
+	StringWriterPtr ServiceMgr::runClassId(const CommandArgs& nCommand)
+	{
+		StringWriterPtr stringWriterPtr(new StringWriter());
+		stringWriterPtr.runString(
 	}
 	
 	void ServiceMgr::setClientConsole(bool nClientConsole)

@@ -19,10 +19,16 @@ namespace std {
 			mServices[classId_] = nService;
 		}
 	#ifdef __CONSOLE__
-		StringWriterPtr runCommand(const CommandArgs& nCommand);
+		void runCommand(const CommandArgs& nCommand);
 		void setClientConsole(bool nClientConsole);
 	#endif
 	
+	private:
+	#ifdef __CONSOLE__
+		StringWriterPtr runClassId(const CommandArgs& nCommand);
+	#endif
+	
+	public:
 		bool runPreinit();
 		void runInit();
 		void runStart();
