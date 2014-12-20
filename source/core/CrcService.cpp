@@ -5,65 +5,134 @@
 namespace std {
 
 #ifdef __CONSOLE__
-	StringWriterPtr CrcService::runCommand(std::list<std::string>& nCommand)
+	StringWriterPtr CrcService::commandInfo(const CommandArgs& nCommand)
 	{
-		StringWriterPtr stringWriter(new StringWriter());
-		std::string& command_ = nCommand.front();
-		if ("-runId" == command_) {
-			nCommand.pop_front();
-			command_ = nCommand.front();
-			__i64 value_ = this->runId(command_.c_str());
-			stringWriter->runInt64(value_, "runId");
-		} else if ("-runCommon" == command_) {
-			nCommand.pop_front();
-			command_ = nCommand.front();
-			__i64 value_ = this->runCommon(command_.c_str());
-			stringWriter->runInt64(value_, "runCommon");
-		} else if ("-runComputer" == command_) {
-			__i64 value_ = this->runComputer();
-			stringWriter->runInt64(value_, "runComputer");
-		} else if ("-runCellphone" == command_) {
-			__i64 value_ = this->runCellphone();
-			stringWriter->runInt64(value_, "runCellphone");
-		} else if ("-runName" == command_) {
-			nCommand.pop_front();
-			command_ = nCommand.front();
-			__i64 value_ = this->runName(command_.c_str());
-			stringWriter->runInt64(value_, "runName");
-		} else if ("-runPassward" == command_) {
-			nCommand.pop_front();
-			command_ = nCommand.front();
-			__i64 value_ = this->runPassward(command_.c_str());
-			stringWriter->runInt64(value_, "runPassward");
-		} else if ("-runCluster" == command_) {
-			nCommand.pop_front();
-			command_ = nCommand.front();
-			__i64 value_ = this->runCluster(command_.c_str());
-			stringWriter->runInt64(value_, "runCluster");
-		} else if ("-runServer" == command_) {
-			nCommand.pop_front();
-			command_ = nCommand.front();
-			__i64 value_ = this->runServer(command_.c_str());
-			stringWriter->runInt64(value_, "runServer");
-		} else if ("-runDatabase" == command_) {
-			nCommand.pop_front();
-			command_ = nCommand.front();
-			__i64 value_ = this->runDatabase(command_.c_str());
-			stringWriter->runInt64(value_, "runDatabase");
-		} else if ("-runTable" == command_) {
-			nCommand.pop_front();
-			command_ = nCommand.front();
-			__i64 value_ = this->runTable(command_.c_str());
-			stringWriter->runInt64(value_, "runTable");
-		} else {
-			stringWriter->runString("CrcService", "do nothing");
-		}
-		return stringWriter;
+		StringWriterPtr stringWriter_(new StringWriter());
+		string className_("");
+		__i32 classid_ = __classid<CrcService>(className_);
+		stringWriter_.runString(className_className_, "className");
+		stringWriter_.runInt32(classid_, "classId");
+		return stringWriter_;
 	}
-
-#endif
-#ifdef __CONSOLE__
-	StringWriterPtr CrcService::commandClassId(const CommandArgs& nCommand)
+	
+	StringWriterPtr CrcService::commandNameId(const CommandArgs& nCommand)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		const string& strValue_ = nCommand.getCommand(1);
+		const __i64 valueId_ = this->runId(value_.c_str());
+		stringWriter_.runString(strValue_, "strValue");
+		stringWriter_.runInt64(valueId_, "valueId");
+		return stringWriter_;
+	}
+	
+	StringWriterPtr CrcService::commandIntId(const CommandArgs& nCommand)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		const string& strValue_ = nCommand.getCommand(1);
+		const __i32 value_ = __convert<string, __i32>(strValue_);
+		const __i64 valueId_ = this->runId(value_);
+		stringWriter_.runString(strValue_, "strValue");
+		stringWriter_.runInt64(valueId_, "valueId");
+		return stringWriter_;
+	}
+	
+	StringWriterPtr CrcService::commandCommon(const CommandArgs& nCommand)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		const string& strValue_ = nCommand.getCommand(1);
+		const __i32 valueId_ = this->runCommon(strValue_.c_str());
+		stringWriter_.runString(strValue_, "strValue");
+		stringWriter_.runInt32(valueId_, "valueId");
+		return stringWriter_;
+	}
+	
+	StringWriterPtr CrcService::commandComputer(const CommandArgs& nCommand)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		const __i32 computerId_ = this->runComputer();
+		stringWriter_.runInt32(computerId_, "computerId");
+		return stringWriter_;
+	}
+	
+	StringWriterPtr CrcService::commandCellphone(const CommandArgs& nCommand)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		const __i32 cellphoneId_ = this->runCellphone();
+		stringWriter_.runInt32(cellphoneId_, "cellphoneId");
+		return stringWriter_;
+	}
+	
+	StringWriterPtr CrcService::commandName(const CommandArgs& nCommand)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		const string& strValue_ = nCommand.getCommand(1);
+		const __i32 valueId_ = this->runName(strValue_.c_str());
+		stringWriter_.runString(strValue_, "strValue");
+		stringWriter_.runInt32(valueId_, "valueId");
+		return stringWriter_;
+	}
+	
+	StringWriterPtr CrcService::commandPassward(const CommandArgs& nCommand)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		const string& strValue_ = nCommand.getCommand(1);
+		const __i32 valueId_ = this->runPassward(strValue_.c_str());
+		stringWriter_.runString(strValue_, "strValue");
+		stringWriter_.runInt32(valueId_, "valueId");
+		return stringWriter_;
+	}
+	
+	StringWriterPtr CrcService::commandCluster(const CommandArgs& nCommand)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		const string& strValue_ = nCommand.getCommand(1);
+		const __i32 valueId_ = this->runCluster(strValue_.c_str());
+		stringWriter_.runString(strValue_, "strValue");
+		stringWriter_.runInt32(valueId_, "valueId");
+		return stringWriter_;
+	}
+	
+	StringWriterPtr CrcService::commandServer(const CommandArgs& nCommand)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		const string& strValue_ = nCommand.getCommand(1);
+		const __i32 valueId_ = this->runServer(strValue_.c_str());
+		stringWriter_.runString(strValue_, "strValue");
+		stringWriter_.runInt32(valueId_, "valueId");
+		return stringWriter_;
+	}
+	
+	StringWriterPtr CrcService::commandDatabase(const CommandArgs& nCommand)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		const string& strValue_ = nCommand.getCommand(1);
+		const __i32 valueId_ = this->runDatabase(strValue_.c_str());
+		stringWriter_.runString(strValue_, "strValue");
+		stringWriter_.runInt32(valueId_, "valueId");
+		return stringWriter_;
+	}
+	
+	StringWriterPtr CrcService::commandTable(const CommandArgs& nCommand)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		const string& strValue_ = nCommand.getCommand(1);
+		const __i32 valueId_ = this->commandTable(strValue_.c_str());
+		stringWriter_.runString(strValue_, "strValue");
+		stringWriter_.runInt32(valueId_, "valueId");
+		return stringWriter_;
+	}
+	
+	StringWriterPtr CrcService::commandInfo(const CommandArgs& nCommand)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		string className_("");
+		__i32 classid_ = __classid<CrcService>(className_);
+		stringWriter_.runString(className_, "className");
+		stringWriter_.runInt32(classid_, "classId");
+		return stringWriter_;
+	}
+	
+	StringWriterPtr CrcService::commandInfo(const CommandArgs& nCommand)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		string className_("");
@@ -176,20 +245,18 @@ namespace std {
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunLuaApi.connect(boost::bind(&CrcService::runLuaApi, this));
 	#ifdef __CONSOLE__
-		this->registerCommand("c", std::bind(&CrcService::commandClassId, this, _1));
-		this->registerCommand("c", std::bind(&CrcService::commandClassId, this, _1));
-		this->registerCommand("c", std::bind(&CrcService::commandClassId, this, _1));
-		this->registerCommand("c", std::bind(&CrcService::commandClassId, this, _1));
-		this->registerCommand("c", std::bind(&CrcService::commandClassId, this, _1));
-		this->registerCommand("c", std::bind(&CrcService::commandClassId, this, _1));
-		this->registerCommand("c", std::bind(&CrcService::commandClassId, this, _1));
-		this->registerCommand("c", std::bind(&CrcService::commandClassId, this, _1));
-		this->registerCommand("c", std::bind(&CrcService::commandClassId, this, _1));
-		this->registerCommand("c", std::bind(&CrcService::commandClassId, this, _1));
-		this->registerCommand("c", std::bind(&CrcService::commandClassId, this, _1));
-		this->registerCommand("c", std::bind(&CrcService::commandClassId, this, _1));
-		this->registerCommand("c", std::bind(&CrcService::commandClassId, this, _1));
-		this->registerCommand("c", std::bind(&CrcService::commandClassId, this, _1));
+		this->registerCommand("info", std::bind(&CrcService::commandInfo, this, _1));
+		this->registerCommand("nameId", std::bind(&CrcService::commandNameId, this, _1));
+		this->registerCommand("intId", std::bind(&CrcService::commandIntId, this, _1));
+		this->registerCommand("common", std::bind(&CrcService::commandCommon, this, _1));
+		this->registerCommand("computer", std::bind(&CrcService::commandComputer, this, _1));
+		this->registerCommand("cellphone", std::bind(&CrcService::commandCellphone, this, _1));
+		this->registerCommand("name", std::bind(&CrcService::commandName, this, _1));
+		this->registerCommand("passward", std::bind(&CrcService::commandPassward, this, _1));
+		this->registerCommand("cluster", std::bind(&CrcService::commandCluster, this, _1));
+		this->registerCommand("server", std::bind(&CrcService::commandServer, this, _1));
+		this->registerCommand("database", std::bind(&CrcService::commandDatabase, this, _1));
+		this->registerCommand("table", std::bind(&CrcService::commandTable, this, _1));
 	#endif
 		return true;
 	}

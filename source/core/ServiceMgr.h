@@ -25,7 +25,9 @@ namespace std {
 	
 	private:
 	#ifdef __CONSOLE__
-		StringWriterPtr runClassId(const CommandArgs& nCommand);
+		StringWriterPtr commandInfo(const CommandArgs& nCommand);
+		StringWriterPtr commandFindName(const CommandArgs& nCommand);
+		StringWriterPtr commandFindId(const CommandArgs& nCommand);
 	#endif
 	
 	public:

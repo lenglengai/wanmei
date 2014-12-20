@@ -2,12 +2,24 @@
 
 namespace std {
 
-	const string& getCommand(__i32 nIndex) const
+	void CommandArgs::runStringWriter(StringWriterPtr& nStringWriter) const
 	{
-		if (mArgs.size() > nIndex) {
-			return mArgs[nIndex];
+		nStringWriter->runString(mService, "service");
+		nStringWriter->runString(mFlags, "flags");
+		nStringWriter->runStrings(mCommandArgs, "commandArgs");
+	}
+	
+	const string& CommandArgs::getCommand(__i32 nIndex) const
+	{
+		if (mCommandArgs.size() > nIndex) {
+			return mCommandArgs[nIndex];
 		}
 		return __default<string>();
+	}
+	
+	const __i32 CommandArgs::getCommandCount() const
+	{
+		return mCommandArgs.size();
 	}
 	
 	const string& CommandArgs::getService() const
@@ -22,6 +34,7 @@ namespace std {
 	
 	void CommandArgs::runParse(const string& nCommand)
 	{
+		this->runClear();
 		string command_("");
 		__i32 i = 0, j = 0; bool space_ = true;
 		for (; i < nCommand.length(); ++i) {
@@ -32,7 +45,7 @@ namespace std {
 				++j;
 				space_ = true;
 				if (j > 1) {
-					mArgs.push_back(command_);
+					mCommandArgs.push_back(command_);
 					command_ = "";
 				}
 				continue;
@@ -55,15 +68,14 @@ namespace std {
 	
 	void CommandArgs::runClear()
 	{
-		mArgs.clear();
+		mCommandArgs.clear();
 		mService = "";
 		mFlags = "";
 	}
 	
-	CommandArgs::CommandArgs(const string& nCommand)
+	CommandArgs::CommandArgs()
 	{
 		this->runClear();
-		this->runParse(nCommand);
 	}
 	
 	CommandArgs::~CommandArgs()

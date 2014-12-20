@@ -11,7 +11,7 @@ namespace std {
 			mFirst = false;
 		}
 		mValue += nName; mValue += "\":";
-		mValue += __convert<string, bool>(nValue, mConvertTypeText_);
+		mValue += __convert<string, bool>(nValue, ConvertType_::mText_);
 	}
 	
 	void StringWriter::runInt8(const __i8 nValue, const char * nName)
@@ -41,7 +41,27 @@ namespace std {
 			} else {
 				mFirst = false;
 			}
-			mValue += __convert<string, __i8>(nValue);
+			mValue += __convert<string, __i8>(i);
+		}
+		mValue += "]";
+	}
+	
+	void StringWriter::runInt8s(const vector<__i8>& nValue, const char * nName)
+	{
+		if ( !mFirst ) {
+			mValue += ",\"";
+		} else {
+			mValue += "\"";
+		}
+		mValue += nName; mValue += "\":[";
+		mFirst = true;
+		for (auto& i : nValue) {
+			if ( !mFirst ) {
+				mValue += ",";
+			} else {
+				mFirst = false;
+			}
+			mValue += __convert<string, __i8>(i);
 		}
 		mValue += "]";
 	}
@@ -73,7 +93,27 @@ namespace std {
 			} else {
 				mFirst = false;
 			}
-			mValue += __convert<string, __i16>(nValue);
+			mValue += __convert<string, __i16>(i);
+		}
+		mValue += "]";
+	}
+	
+	void StringWriter::runInt16s(const vector<__i16>& nValue, const char * nName)
+	{
+		if ( !mFirst ) {
+			mValue += ",\"";
+		} else {
+			mValue += "\"";
+		}
+		mValue += nName; mValue += "\":[";
+		mFirst = true;
+		for (auto& i : nValue) {
+			if ( !mFirst ) {
+				mValue += ",";
+			} else {
+				mFirst = false;
+			}
+			mValue += __convert<string, __i16>(i);
 		}
 		mValue += "]";
 	}
@@ -105,7 +145,27 @@ namespace std {
 			} else {
 				mFirst = false;
 			}
-			mValue += __convert<string, __i32>(nValue);
+			mValue += __convert<string, __i32>(i);
+		}
+		mValue += "]";
+	}
+	
+	void StringWriter::runInt32s(const vector<__i32>& nValue, const char * nName)
+	{
+		if ( !mFirst ) {
+			mValue += ",\"";
+		} else {
+			mValue += "\"";
+		}
+		mValue += nName; mValue += "\":[";
+		mFirst = true;
+		for (auto& i : nValue) {
+			if ( !mFirst ) {
+				mValue += ",";
+			} else {
+				mFirst = false;
+			}
+			mValue += __convert<string, __i32>(i);
 		}
 		mValue += "]";
 	}
@@ -137,7 +197,27 @@ namespace std {
 			} else {
 				mFirst = false;
 			}
-			mValue += __convert<string, __i64>(nValue);
+			mValue += __convert<string, __i64>(i);
+		}
+		mValue += "]";
+	}
+	
+	void StringWriter::runInt64s(const vector<__i64>& nValue, const char * nName)
+	{
+		if ( !mFirst ) {
+			mValue += ",\"";
+		} else {
+			mValue += "\"";
+		}
+		mValue += nName; mValue += "\":[";
+		mFirst = true;
+		for (auto& i : nValue) {
+			if ( !mFirst ) {
+				mValue += ",";
+			} else {
+				mFirst = false;
+			}
+			mValue += __convert<string, __i64>(i);
 		}
 		mValue += "]";
 	}
@@ -186,7 +266,29 @@ namespace std {
 				mValue += "\"";
 				mFirst = false;
 			}
-			mValue += __convert<string, __i64>(nValue);
+			mValue += i;
+			mValue += "\"";
+		}
+		mValue += "]";
+	}
+	
+	void StringWriter::runStrings(const vector<string>& nValue, const char * nName)
+	{
+		if ( !mFirst ) {
+			mValue += ",\"";
+		} else {
+			mValue += "\"";
+		}
+		mValue += nName; mValue += "\":[";
+		mFirst = true;
+		for (auto& i : nValue) {
+			if ( !mFirst ) {
+				mValue += ",\"";
+			} else {
+				mValue += "\"";
+				mFirst = false;
+			}
+			mValue += i;
 			mValue += "\"";
 		}
 		mValue += "]";
@@ -219,7 +321,27 @@ namespace std {
 			} else {
 				mFirst = false;
 			}
-			mValue += __convert<string, float>(nValue);
+			mValue += __convert<string, float>(i);
+		}
+		mValue += "]";
+	}
+	
+	void StringWriter::runFloats(const vector<float>& nValue, const char * nName)
+	{
+		if ( !mFirst ) {
+			mValue += ",\"";
+		} else {
+			mValue += "\"";
+		}
+		mValue += nName; mValue += "\":[";
+		mFirst = true;
+		for (auto& i : nValue) {
+			if ( !mFirst ) {
+				mValue += ",";
+			} else {
+				mFirst = false;
+			}
+			mValue += __convert<string, float>(i);
 		}
 		mValue += "]";
 	}
@@ -251,7 +373,27 @@ namespace std {
 			} else {
 				mFirst = false;
 			}
-			mValue += __convert<string, double>(nValue);
+			mValue += __convert<string, double>(i);
+		}
+		mValue += "]";
+	}
+	
+	void StringWriter::runDoubles(const vector<double>& nValue, const char * nName)
+	{
+		if ( !mFirst ) {
+			mValue += ",\"";
+		} else {
+			mValue += "\"";
+		}
+		mValue += nName; mValue += "\":[";
+		mFirst = true;
+		for (auto& i : nValue) {
+			if ( !mFirst ) {
+				mValue += ",";
+			} else {
+				mFirst = false;
+			}
+			mValue += __convert<string, double>(i);
 		}
 		mValue += "]";
 	}
