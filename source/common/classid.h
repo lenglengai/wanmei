@@ -3,7 +3,25 @@
 namespace std {
 	
 	template<typename __t>
-	const __i32 __classid(string& nClassName)
+	const __i32 __classid()
+	{
+		__i32 result_ = 0;
+		CrcService& crcService_ = Singleton<CrcService>::instance();
+	#ifdef __WINDOW__
+		string className_ = typeid(__t).name();
+		className_ = className_.substr(6);
+		result_ = crcService_->runName(className_.c_str());
+	#else
+		const char * className_ = typeid(__t).name();
+		char * realName_ = abi::__cxa_demangle(className_, 0, 0, 0);
+		result_ = this->runName(realName_);
+		::free(realName_);
+	#endif
+		return result_;
+	}
+	
+	template<typename __t>
+	const __i32 __classinfo(string& nClassName)
 	{
 		__i32 result_ = 0;
 		CrcService& crcService_ = Singleton<CrcService>::instance();

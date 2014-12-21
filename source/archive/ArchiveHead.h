@@ -2,7 +2,7 @@
 
 namespace std {
 
-	class __funapi ArchiveHead : boost::noncopyable
+	class __funapi ArchiveHead : noncopyable
 	{
 	public:
 		static __i32 hashSize();

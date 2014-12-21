@@ -20,5 +20,9 @@
 #define INITMONTH 10
 #define INITDAY 1
 
-// base alpha beta rc release
-#define VERNAME "base"
+#define CONFIGUREFILE "configure.jf"
+
+#define PACKETMAX 1024
+
+// alpha beta release
+#define VERNAME "alpha"

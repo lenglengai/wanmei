@@ -68,7 +68,7 @@ namespace std {
 		template<class T>
 		void runStreamsCount(std::list<std::shared_ptr<T>>& nValue, const char * nNames, const char * nName, __i32 nCount = 0);
 		template<class T0, class T1>
-		void runKeyStreamsCount(std::map<T0, std::shared_ptr<T1>>& nValue, const char * nNames, const char * nName, __i32 nCount = 0);
+		void runKeyStreamsCount(std::map<T0, shared_ptr<T1>>& nValue, const char * nNames, const char * nName, __i32 nCount = 0);
 
 		bool openStr(char * nValue);
 		bool openUrl(const char * nUrl);
@@ -114,14 +114,14 @@ namespace std {
 	}
 
 	template<class T0>
-	void XmlReader::runStreamsCount(std::list<std::shared_ptr<T0> >& nValue, const char * nNames, const char * nName, __i32 nCount)
+	void XmlReader::runStreamsCount(list<shared_ptr<T0> >& nValue, const char * nNames, const char * nName, __i32 nCount)
 	{
 		mXmlNodes.push(mXmlNode);
 		xml_node<char> * xmlNode_ = mXmlNode->first_node(nNames);
 		xmlNode_ = xmlNode_->first_node();
 		for (; xmlNode_ != nullptr; xmlNode_ = xmlNode_->next_sibling()) {
 			mXmlNode = xmlNode_;
-			std::shared_ptr<T0> t_(new T0());
+			shared_ptr<T0> t_(new T0());
 			t_->serialize(this, nCount);
 			if (t_->isDefault()) continue;
 			nValue.push_back(t_);
@@ -131,7 +131,7 @@ namespace std {
 	}
 
 	template<class T0, class T1>
-	void XmlReader::runKeyStreamsCount(std::map<T0, std::shared_ptr<T1>>& nValue, const char * nNames, const char * nName, __i32 nCount)
+	void XmlReader::runKeyStreamsCount(map<T0, shared_ptr<T1>>& nValue, const char * nNames, const char * nName, __i32 nCount)
 	{
 		mXmlNodes.push(mXmlNode);
 		xml_node<char> * xmlNode_ = mXmlNode->first_node(nNames);
@@ -139,7 +139,7 @@ namespace std {
 		for (; xmlNode_ != nullptr; xmlNode_ = xmlNode_->next_sibling())
 		{
 			mXmlNode = xmlNode_;
-			std::shared_ptr<T1> t_(new T1());
+			shared_ptr<T1> t_(new T1());
 			t_->serialize(this, nCount);
 			if (t_->isDefault()) continue;
 			nValue[t_->getKey()] = t_;

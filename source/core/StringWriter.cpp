@@ -410,6 +410,16 @@ namespace std {
 		mValue += "\":{";
 	}
 	
+	void StringWriter::startClass()
+	{
+		if ( !mFirst ) {
+			mValue += ",";
+		} else {
+			mFirst = false;
+		}
+		mValue += "{";
+	}
+	
 	void StringWriter::finishClass()
 	{
 		mValue += "}";

@@ -1,4 +1,4 @@
-#include "../../include/Include.h"
+#include "../Include.h"
 
 #ifdef __COCOS2DX__
 #include <cocos2d.h>
@@ -420,7 +420,9 @@ namespace std {
 	
 	void BinReader::runClose()
 	{
-		mStream.close();
+		if (mStream.is_open()) {
+			mStream.close();
+		}
 	}
 
 	BinReader::BinReader()

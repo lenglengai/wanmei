@@ -12,7 +12,16 @@ namespace std {
 		StringWriterPtr commandInfo(const CommandArgs& nCommand);
 	#endif
 	public:
+		template<class __t>
+		void headSerialize(__t& nT)
+		{
+			nT.runInt32(mHandleCount, "handleCount");
+		}
+		const char * streamName();
+		const char * streamUrl();
+		
 		bool runPreinit();
+		void runLoad();
 		void runInit();
 		void runStart();
 		void runStop();

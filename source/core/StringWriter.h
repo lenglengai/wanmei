@@ -27,7 +27,7 @@ namespace std {
 		void runString(const char * nValue, const char * nName);
 		void runStrings(const list<string>& nValue, const char * nName);
 		void runStrings(const vector<string>& nValue, const char * nName);
-
+		
 		void runFloat(const float nValue, const char * nName);
 		void runFloats(const list<float>& nValue, const char * nName);
 		void runFloats(const vector<float>& nValue, const char * nName);
@@ -36,7 +36,41 @@ namespace std {
 		void runDoubles(const list<double>& nValue, const char * nName);
 		void runDoubles(const vector<double>& nValue, const char * nName);
 		
+		template<class __t>
+		void runStream(shared_ptr<__t>& nValue, const char * nName)
+		{
+			this->startClass(nName);
+			shared_ptr<__t1>& t_ = i.second;
+			t_->runStringWriter(this);
+			this->finishClass();
+		}
+		
+		template<class __t0, class __t1>
+		void runKeyStream(map<__t0, shared_ptr<__t1>>& nValue, const char * nName)
+		{
+			if ( !mFirst ) {
+				mValue += ",\"";
+			} else {
+				mValue += "\"";
+			}
+			mValue += nName; mValue += "\":[";
+			mFirst = true;
+			for (auto& i : nValue) {
+				if ( !mFirst ) {
+					mValue += ",";
+				} else {
+					mFirst = false;
+				}
+				this->startClass();
+				shared_ptr<__t1>& t_ = i.second;
+				t_->runStringWriter(this);
+				this->finishClass();
+			}
+			mValue += "]";
+		}
+		
 		void startClass(const char * nClassName);
+		void startClass();
 		void finishClass();
 		
 		const char * getValue();

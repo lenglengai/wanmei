@@ -2,7 +2,7 @@
 
 namespace std {
 
-	class __funapi BinReader : boost::noncopyable
+	class __funapi BinReader : noncopyable
 	{
 	public:
 		void runBool(bool& nValue, const char * nName, bool nOptimal = false);
@@ -55,15 +55,42 @@ namespace std {
 		void runDoublesCount(list<double>& nValue, const char * nName, __i32 nCount);
 		void runDoubleSemi(list<double>& nValue, const char * nName);
 
-		template<class T>
-		void runStream(T& nValue, const char * nName);
-		template<class T>
-		void runStreamCount(T& nValue, const char * nName, __i32 nCount = 0);
-		template<class T>
-		void runStreamsCount(list<std::shared_ptr<T>>& nValue, const char * nNames, const char * nName, __i32 nCount = 0);
-		template<class T0, class T1>
-		void runKeyStreamsCount(map<T0, std::shared_ptr<T1>>& nValue, const char * nNames, const char * nName, __i32 nCount = 0);
-
+		template<class __t>
+		void runStream(__t& nValue, const char * nName)
+		{
+			nValue.serialize(this, 0);
+		}
+		
+		template<class __t>
+		void runStreamCount(__t& nValue, const char * nName, __i32 nCount = 0)
+		{
+			nValue.serialize(this, nCount);
+		}
+		
+		template<class __t>
+		void runStreamsCount(list<std::shared_ptr<__t>>& nValue, const char * nNames, const char * nName, __i32 nCount = 0)
+		{
+			__i16 count_ = 0;
+			this->runInt16(count_, "count");
+			for (__i16 i = 0; i < count_; ++i) {
+				std::shared_ptr<__t> t_(new __t());
+				t_->serialize(this, nCount);
+				nValue.push_back(t_);
+			}
+		}
+		
+		template<class __t0, class __t1>
+		void runKeyStreamsCount(map<__t0, shared_ptr<__t1>>& nValue, const char * nNames, const char * nName, __i32 nCount = 0)
+		{
+			__i16 count_ = 0;
+			this->runInt16(count_, "count");
+			for (__i16 i = 0; i < count_; ++i) {
+				std::shared_ptr<__t1> t_(new __t1());
+				t_->serialize(this, nCount);
+				nValue[t_->getKey()] = t_;
+			}
+		}
+	
 		bool openUrl(const char * nUrl);
 		void selectStream(const char * nStreamName);
 		__i32 pushStream(const char * nName);
@@ -79,40 +106,5 @@ namespace std {
 	private:
 		fstream mStream;
 	};
-
-	template<class T>
-	void BinReader::runStream(T& nValue, const char * nName)
-	{
-		nValue.serialize(this, 0);
-	}
-
-	template<class T>
-	void BinReader::runStreamCount(T& nValue, const char * nName, __i32 nCount)
-	{
-		nValue.serialize(this, nCount);
-	}
-
-	template<class T0>
-	void BinReader::runStreamsCount(list<std::shared_ptr<T0> >& nValue, const char * nNames, const char * nName, __i32 nCount)
-	{
-		__i16 count_ = 0;
-		this->runInt16(count_, "count");
-		for (__i16 i = 0; i < count_; ++i) {
-			std::shared_ptr<T0> t_(new T0());
-			t_->serialize(this, nCount);
-			nValue.push_back(t_);
-		}
-	}
-
-	template<class T0, class T1>
-	void BinReader::runKeyStreamsCount(map<T0, std::shared_ptr<T1>>& nValue, const char * nNames, const char * nName, __i32 nCount)
-	{
-		__i16 count_ = 0;
-		this->runInt16(count_, "count");
-		for (__i16 i = 0; i < count_; ++i) {
-			std::shared_ptr<T1> t_(new T1());
-			t_->serialize(this, nCount);
-			nValue[t_->getKey()] = t_;
-		}
-	}
+	
 }

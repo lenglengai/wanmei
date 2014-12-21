@@ -2,68 +2,78 @@
 
 namespace std {
 
-	class __funapi ArchiveService : boost::noncopyable
+	class __funapi ArchiveService : public IService
 	{
 	public:
-		template<class T>
-		void xmlUrlStream(T * nUrlStream)
+		template<class __t>
+		bool loadBuf(__t * nT, char ** nBuf, __i32 * nSize)
 		{
+			const char * streamUrl_ = nT->streamUrl();
+			if ( !mArchiveReader.readKey(streamUrl_, nBuf, nSize) ) {
+				LogService logService_ = Singleton<LogService>::instance();
+				logService_.logError(log_1(streamUrl_));
+				return false;
+			}
+			return true;
+		}
+		
+		template<class __t>
+		void archiveStream(__t * nT, char * nBuf)
+		{
+			const char * streamName_ = nT->streamName();
 			XmlReader xmlReader_;
-			xmlReader_.openUrl(nUrlStream->streamUrl());
-			xmlReader_.selectStream(nUrlStream->streamName());
+			xmlReader_.openStr(nBuf);
+			xmlReader_.selectStream(streamName_);
+			nT->headSerialize(xmlReader_);
+			xmlReader_.runClose();
+		}
+		
+		template<class __t>
+		void xmlStream(__t * nT)
+		{
+			const char * streamUrl_ = nT->streamUrl();
+			const char * streamName_ = nT->streamName();
+			XmlReader xmlReader_;
+			xmlReader_.openUrl(streamUrl_);
+			xmlReader_.selectStream(streamName_);
 			nUrlStream->headSerialize(xmlReader_);
 			xmlReader_.runClose();
 		}
 		
-		template<class T>
-		void initUrlStream(T * nUrlStream)
+		template<class __t>
+		void loadStream(__t * nT)
 		{
-			if (mRelease) {
-				char * nBuf = nullptr; __i32 nSize = 0;
-				const char * streamUrl_ = nUrlStream->streamUrl();
-				const char * streamName_ = nUrlStream->streamName();
-				if (!mArchiveReader.readKey(streamUrl_, &nBuf, &nSize)) {
-					return;
-				}
-				XmlReader xmlReader_;
-				xmlReader_.openStr(nBuf);
-				xmlReader_.selectStream(streamName_);
-				nUrlStream->headSerialize(xmlReader_);
-				xmlReader_.runClose();
-			} else {
-				this->xmlUrlStream(nUrlStream);
-			}
-		}
-		
-		void registerArchive(const char * nArchive);
-		void setConfigure(bool nConfigure);
-		void runConfigure();
-		
-		void formatJourney(const char * nJourneyId, const char * nJourneyPath);
-		void loadJourney(__i32 nJourneyId);
-		
-		template<class T>
-		void registerJourney(T * nJourney)
-		{
-			CrcService& crcService_ = Singleton<CrcService>::instance();
-			__i32 journeyId_ = crcService_.runClassId<T>();
-			auto it = mJourneys.find(journeyId_);
-			if ( it != mJourneys.end() ) {
-				LogService& logService_ = Singleton<LogService>::instance();
-				logService_.logError(log_1(journeyId_));
+		#ifdef __CONSOLE__
+			if (mIsWriter) {
+				const char * streamUrl_ = nT->streamUrl();
+				this->registerArchive(streamUrl_);
 				return;
 			}
-			mJourneys[journeyId_] = nJourney;
+		#endif
+			if (!mIsArchive) {
+				this->xmlStream(nT);
+				return;
+			}
+			char * nBuf = nullptr; __i32 nSize = 0;
+			if (!this->loadBuf(nT, &nBuf, &nSize)) {
+				return;
+			}
+			this->archiveStream(nT, nBuf);
 		}
 		
-		bool runPreinit();
-
-		boost::signals2::signal<void ()> m_tRunConfigure;
-		void runLoad();
-
 	private:
-		void runJourney(__i32 nJourneyId, JourneyKeyPtr& nJourneyKey);
-		void runJourneyDescriptor(__i32 nJourneyId);
+	#ifdef __CONSOLE__
+		StringWriterPtr commandInfo(const CommandArgs& nCommand);
+		StringWriterPtr commandReload(const CommandArgs& nCommand);
+		StringWriterPtr commandConfigure(const CommandArgs& nCommand);
+		void registerArchive(const char * nArchive);
+	#endif
+	
+	public:
+		bool runPreinit();
+		void runInit();
+		
+	private:
 		void runClear();
 
 	public:
@@ -71,12 +81,13 @@ namespace std {
 		~ArchiveService();
 
 	private:
-		std::map<__i32, IJourney *> mJourneys;
-		std::set<std::string> mArchives;
 		ArchiveReader mArchiveReader;
-		std::set<__i32> mJourneyIds;
-		bool mConfigure;
-		bool mRelease;
+		bool mIsArchive;
+	#ifdef __CONSOLE__
+		ArchiveWriter mArchiveWriter;
+		set<string> mArchives;
+		bool mIsWriter;
+	#endif
 	};
 
 }

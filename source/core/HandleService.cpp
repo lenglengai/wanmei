@@ -7,7 +7,7 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		string className_(""); 
-		__i32 classid_ = __classid<HandleService>(className_);
+		__i32 classid_ = __classinfo<HandleService>(className_);
 		stringWriter_.runString(className_, "className");
 		stringWriter_.runInt32(classid_, "classId");
 		stringWriter_.runInt32(mHandleCount, "handleCount");
@@ -17,14 +17,29 @@ namespace std {
 	
 	void HandleService::addContext(ContextPtr& nContext, __i32 nIndex)
 	{
-		__i32 index_ = nIndex % mHandleCount;
-		HandlePtr& handle = mHandles[index_];
+		if (nIndex >= mHandleCount) {
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(nIndex));
+			return;
+		}
+		HandlePtr& handle = mHandles[nIndex];
 		handle->addContext(nContext);
 	}
 
+	const char * HandleService::streamName()
+	{
+		return "handleService";
+	}
+
+	const char * HandleService::streamUrl()
+	{
+		return "handleService.xml";
+	}
+	
 	bool HandleService::runPreinit()
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
+		initService_.m_tRunLoad0.connect(boost::bind(&HandleService::runLoad, this));
 		initService_.m_tRunInit0.connect(boost::bind(&HandleService::runInit, this));
 		initService_.m_tRunStart1.connect(boost::bind(&HandleService::runStart, this));
 		initService_.m_tRunStop.connect(boost::bind(&HandleService::runStop, this));
@@ -32,7 +47,13 @@ namespace std {
 		serviceMgr_.registerService(this);
 		return true;
 	}
-
+	
+	void HandleService::runLoad()
+	{
+		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		archiveService_.loadStream(this);
+	}
+	
 	void HandleService::runInit()
 	{
 		for (__i32 i = 0; i < mHandleCount; ++i) {

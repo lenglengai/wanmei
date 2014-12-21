@@ -2,7 +2,7 @@
 
 namespace std {
 
-	class __funapi ArchiveWriter : boost::noncopyable
+	class __funapi ArchiveWriter : noncopyable
 	{
 	public:
 		void runOpen(const char * nUrl);
