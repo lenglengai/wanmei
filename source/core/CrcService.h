@@ -18,7 +18,6 @@ namespace std {
 		const __i32 runTable(const char * nName) const;
 		
 		static CrcService * getCrcService();
-		void runLuaApi();
 		
 	private:
 	#ifdef __CONSOLE__
@@ -38,6 +37,7 @@ namespace std {
 	
 	public:
 		bool runPreinit();
+		void runLuaApi();
 		
 		CrcService();
 		~CrcService();

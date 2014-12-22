@@ -2,12 +2,19 @@
 
 namespace std {
 
-	class SessionService : boost::noncopyable
+	class SessionService : IService
 	{
 	public:
 		void removeSession(SessionPtr& nSession);
 		SessionPtr& createSession();
 		void runClear();
+	private:
+	#ifdef __CONSOLE__
+		StringWriterPtr commandInfo(const CommandArgs& nCommand);
+	#endif
+	
+	public:
+		bool runPreinit();
 		
 		SessionService();
 		~SessionService();

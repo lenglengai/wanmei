@@ -1,7 +1,7 @@
-#include "../../include/Include.h"
+#include "../Include.h"
 
 namespace std {
-
+	
 	bool IPacket::handleRun(SessionPtr& nSession)
 	{
 		return true;
@@ -12,28 +12,16 @@ namespace std {
 		return true;
 	}
 	
-	void IPacket::setHeader(__i32 nProtocol, bool nInline, __i32 nPacketId)
+	void IPacket::setHeader(__i32 nProtocol, __i32 nPacketId)
 	{
 		mProtocol = nProtocol;
-		mInline = nInline;
 		mPacketId = nPacketId;
-	}
-
-	void IPacket::setValueList(ValueList& nValueList)
-	{
-		mValueList = (&nValueList);
-	}
-	
-	ValueList * IPacket::getValueList()
-	{
-		return mValueList;
 	}
 	
 	bool IPacket::runHeader(BlockPtr& nBlock)
 	{
 		nBlock->runInt16(mVersion);
 		nBlock->runInt32(mProtocol);
-		nBlock->runBool(mInline);
 		nBlock->runInt32(mPacketId);
 		return true;
 	}
@@ -60,26 +48,19 @@ namespace std {
 	}
 #endif
 
-	bool IPacket::isDefault()
+	bool IPacket::isError()
 	{
-		return ((0 == mProtocol) || (0 == mPacketId));
-	}
-
-	void IPacket::runInit()
-	{
+		return false;
 	}
 
 	IPacket::IPacket()
 		: mProtocol(0)
 		, mPacketId(0)
-		, mInline(true)
-		, mValueList(nullptr)
 	#ifdef __SERVER__
 		, mPlayer(nullptr)
 	#endif
 	{
-		SettingService& settingService_ = Singleton<SettingService>::instance();
-		mVersion = settingService_.getVersion();
+		mVersion = __versionid();
 	}
 
 	IPacket::~IPacket()
@@ -87,9 +68,7 @@ namespace std {
 	#ifdef __SERVER__
 		mPlayer = nullptr;
 	#endif
-		mValueList = nullptr;
 		mProtocol = 0;
-		mInline = true;
 		mPacketId = 0;
 	}
 

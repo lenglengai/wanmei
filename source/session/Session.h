@@ -12,7 +12,7 @@ namespace std {
 	 static const __i32 mClosed_ = 0;
 	 static const __i32 mOpened_ = 1;
 	};
-	class Session : public std::enable_shared_from_this<Session>,  noncopyable
+	class Session : public enable_shared_from_this<Session>,  noncopyable
 	{
 	public:
 		enum { write_timeout = 150 };

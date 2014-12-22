@@ -10,6 +10,7 @@ namespace std {
 	private:
 	#ifdef __CONSOLE__
 		StringWriterPtr commandInfo(const CommandArgs& nCommand);
+		StringWriterPtr commandReload(const CommandArgs& nCommand);
 	#endif
 	public:
 		template<class __t>

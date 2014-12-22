@@ -223,6 +223,12 @@ namespace std {
 
 		return seed1;
 	}
+	
+	CrcService * CrcService::getCrcService()
+	{
+		CrcService& crcService_ = Singleton<CrcService>::instance();
+		return (&crcService_);
+	}
 
 	void CrcService::runLuaApi()
 	{

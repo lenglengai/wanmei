@@ -5,15 +5,13 @@ namespace std {
 	class Player;
 	typedef std::weak_ptr<Player> PlayerWtr;
     typedef std::shared_ptr<Player> PlayerPtr;
-	class IPacket : boost::noncopyable
+	class IPacket : noncopyable
 	{
 	public:
 		virtual bool handleRun(SessionPtr& nSession);
 		virtual bool handleRun(PlayerPtr& nPlayer);
 		virtual bool runBlock(BlockPtr& nBlock) = 0;
-		void setHeader(__i32 nProtocol, bool nInline, __i32 nPacketId);
-		void setValueList(ValueList& nValueList);
-		ValueList * getValueList();
+		void setHeader(__i32 nProtocol, __i32 nPacketId);
 		bool runHeader(BlockPtr& nBlock);
 		__i32 getProtocolId();
 		__i32 getPacketId();
@@ -21,7 +19,7 @@ namespace std {
 		void setPlayer(PlayerPtr& nPlayer);
 		PlayerPtr * getPlayer();
 	#endif
-		virtual bool isDefault();
+		virtual bool isError();
 		virtual void runInit() = 0;
 		
 		IPacket();
@@ -31,24 +29,20 @@ namespace std {
 	#ifdef __SERVER__
 		PlayerPtr * mPlayer;
 	#endif
-		ValueList * mValueList;
 		__i16 mVersion;
 		__i32 mProtocol;
 		__i32 mPacketId;
-		bool mInline;
 	};
-	typedef std::shared_ptr<IPacket> PacketPtr;
+	typedef shared_ptr<IPacket> PacketPtr;
 	
-	template<class T0, class T1, bool nInline=true>
+	template<class __t0, class __t1>
 	class Packet : public IPacket
 	{
 	public:
 		void runInit()
 		{
-			T1& protocol_ = Singleton<T1>::instance(); mInline = nInline;
-			CrcService& crcService_ = Singleton<CrcService>::instance();
-			mProtocol = crcService_.runClassId<T1>();
-			mPacketId = crcService_.runClassId<T0>();
+			mProtocol = __classid<__t0>();
+			mPacketId = __classid<__t1>();
 		}
 	};
 	
