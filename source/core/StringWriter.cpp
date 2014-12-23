@@ -11,7 +11,7 @@ namespace std {
 			mFirst = false;
 		}
 		mValue += nName; mValue += "\":";
-		mValue += __convert<string, bool>(nValue, ConvertType_::mText_);
+		mValue += __convert<bool, string>(nValue, ConvertType_::mText_);
 	}
 	
 	void StringWriter::runInt8(const __i8 nValue, const char * nName)
@@ -23,7 +23,7 @@ namespace std {
 			mFirst = false;
 		}
 		mValue += nName; mValue += "\":";
-		mValue += __convert<string, __i8>(nValue);
+		mValue += __convert<__i8, string>(nValue);
 	}
 	
 	void StringWriter::runInt8s(const list<__i8>& nValue, const char * nName)
@@ -41,7 +41,7 @@ namespace std {
 			} else {
 				mFirst = false;
 			}
-			mValue += __convert<string, __i8>(i);
+			mValue += __convert<__i8, string>(i);
 		}
 		mValue += "]";
 	}
@@ -61,7 +61,7 @@ namespace std {
 			} else {
 				mFirst = false;
 			}
-			mValue += __convert<string, __i8>(i);
+			mValue += __convert<__i8, string>(i);
 		}
 		mValue += "]";
 	}
@@ -75,7 +75,7 @@ namespace std {
 			mFirst = false;
 		}
 		mValue += nName; mValue += "\":";
-		mValue += __convert<string, __i16>(nValue);
+		mValue += __convert<__i16, string>(nValue);
 	}
 	
 	void StringWriter::runInt16s(const list<__i16>& nValue, const char * nName)
@@ -93,7 +93,7 @@ namespace std {
 			} else {
 				mFirst = false;
 			}
-			mValue += __convert<string, __i16>(i);
+			mValue += __convert<__i16, string>(i);
 		}
 		mValue += "]";
 	}
@@ -113,7 +113,7 @@ namespace std {
 			} else {
 				mFirst = false;
 			}
-			mValue += __convert<string, __i16>(i);
+			mValue += __convert<__i16, string>(i);
 		}
 		mValue += "]";
 	}
@@ -127,7 +127,7 @@ namespace std {
 			mFirst = false;
 		}
 		mValue += nName; mValue += "\":";
-		mValue += __convert<string, __i32>(nValue);
+		mValue += __convert<__i32, string>(nValue);
 	}
 	
 	void StringWriter::runInt32s(const list<__i32>& nValue, const char * nName)
@@ -145,7 +145,7 @@ namespace std {
 			} else {
 				mFirst = false;
 			}
-			mValue += __convert<string, __i32>(i);
+			mValue += __convert<__i32, string>(i);
 		}
 		mValue += "]";
 	}
@@ -165,7 +165,7 @@ namespace std {
 			} else {
 				mFirst = false;
 			}
-			mValue += __convert<string, __i32>(i);
+			mValue += __convert<__i32, string>(i);
 		}
 		mValue += "]";
 	}
@@ -179,7 +179,7 @@ namespace std {
 			mFirst = false;
 		}
 		mValue += nName; mValue += "\":";
-		mValue += __convert<string, __i64>(nValue);
+		mValue += __convert<__i64, string>(nValue);
 	}
 	
 	void StringWriter::runInt64s(const list<__i64>& nValue, const char * nName)
@@ -197,7 +197,7 @@ namespace std {
 			} else {
 				mFirst = false;
 			}
-			mValue += __convert<string, __i64>(i);
+			mValue += __convert<__i64, string>(i);
 		}
 		mValue += "]";
 	}
@@ -217,7 +217,7 @@ namespace std {
 			} else {
 				mFirst = false;
 			}
-			mValue += __convert<string, __i64>(i);
+			mValue += __convert<__i64, string>(i);
 		}
 		mValue += "]";
 	}
@@ -303,7 +303,7 @@ namespace std {
 			mFirst = false;
 		}
 		mValue += nName; mValue += "\":";
-		mValue += __convert<string, float>(nValue);
+		mValue += __convert<float, string>(nValue);
 	}
 	
 	void StringWriter::runFloats(const list<float>& nValue, const char * nName)
@@ -321,7 +321,7 @@ namespace std {
 			} else {
 				mFirst = false;
 			}
-			mValue += __convert<string, float>(i);
+			mValue += __convert<float, string>(i);
 		}
 		mValue += "]";
 	}
@@ -341,7 +341,7 @@ namespace std {
 			} else {
 				mFirst = false;
 			}
-			mValue += __convert<string, float>(i);
+			mValue += __convert<float, string>(i);
 		}
 		mValue += "]";
 	}
@@ -355,7 +355,7 @@ namespace std {
 			mFirst = false;
 		}
 		mValue += nName; mValue += "\":";
-		mValue += __convert<string, double>(nValue);
+		mValue += __convert<double, string>(nValue);
 	}
 	
 	void StringWriter::runDoubles(const list<double>& nValue, const char * nName)
@@ -373,7 +373,7 @@ namespace std {
 			} else {
 				mFirst = false;
 			}
-			mValue += __convert<string, double>(i);
+			mValue += __convert<double, string>(i);
 		}
 		mValue += "]";
 	}
@@ -393,7 +393,7 @@ namespace std {
 			} else {
 				mFirst = false;
 			}
-			mValue += __convert<string, double>(i);
+			mValue += __convert<double, string>(i);
 		}
 		mValue += "]";
 	}

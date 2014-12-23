@@ -11,7 +11,8 @@ namespace std {
 	
 	const string& CommandArgs::getCommand(__i32 nIndex) const
 	{
-		if (mCommandArgs.size() > nIndex) {
+		__i32 commandArgsCount_ = static_cast<__i32>(mCommandArgs.size());
+		if (commandArgsCount_ > nIndex) {
 			return mCommandArgs[nIndex];
 		}
 		return __default<string>();
@@ -36,8 +37,9 @@ namespace std {
 	{
 		this->runClear();
 		string command_("");
-		__i32 i = 0, j = 0; bool space_ = true;
-		for (; i < nCommand.length(); ++i) {
+		bool space_ = true;
+		__i32 commandLength_ = static_cast<__i32>(nCommand.length());
+		for (__i32 i = 0, j = 0; i < commandLength_; ++i) {
 			if (' ' == nCommand[i]) {
 				if (space_) {
 					continue;
@@ -58,7 +60,7 @@ namespace std {
 			}
 			if (0 == j) {
 				mService.push_back(nCommand[i]);
-			} else (1 == j) {
+			} else if (1 == j) {
 				mFlags.push_back(nCommand[i]);
 			} else {
 				command_.push_back(nCommand[i]);

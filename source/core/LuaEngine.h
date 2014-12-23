@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../../dependence/lua/lua_tinker.h"
+
 namespace std {
 
 	class __funapi LuaEngine : noncopyable

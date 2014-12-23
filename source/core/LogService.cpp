@@ -25,43 +25,43 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		string className_(""); 
-		__i32 classid_ = __classid<LogService>(className_);
-		stringWriter_.runString(className_, "className");
-		stringWriter_.runInt32(classid_, "classId");
+		__i32 classid_ = __classinfo<LogService>(className_);
+		stringWriter_->runString(className_, "className");
+		stringWriter_->runInt32(classid_, "classId");
 		return stringWriter_;
 	}
 	
-	StringWriterPtr commandLogError(const CommandArgs& nCommand)
+	StringWriterPtr LogService::commandLogError(const CommandArgs& nCommand)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
-		bool first_ = true; string strCommands_(""):
+		bool first_ = true; string strCommands_("");
 		for (__i32 i = 0; i < nCommand.getCommandCount(); ++i) {
 			if (!first_) {
 				strCommands_ += " ";
 			} else {
 				first_ = false;
 			}
-			strCommands_ += nCommand.getCommand();
+			strCommands_ += nCommand.getCommand(i);
 		}
 		this->logError(log_1(strCommands_));
-		stringWriter_.runString(strCommands_, "strCommands");
+		stringWriter_->runString(strCommands_, "strCommands");
 		return stringWriter_;
 	}
 	
-	StringWriterPtr commandLogInfo(const CommandArgs& nCommand)
+	StringWriterPtr LogService::commandLogInfo(const CommandArgs& nCommand)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
-		bool first_ = true; string strCommands_(""):
+		bool first_ = true; string strCommands_("");
 		for (__i32 i = 0; i < nCommand.getCommandCount(); ++i) {
 			if (!first_) {
 				strCommands_ += " ";
 			} else {
 				first_ = false;
 			}
-			strCommands_ += nCommand.getCommand();
+			strCommands_ += nCommand.getCommand(i);
 		}
 		this->logInfo(log_1(strCommands_));
-		stringWriter_.runString(strCommands_, "strCommands");
+		stringWriter_->runString(strCommands_, "strCommands");
 		return stringWriter_;
 	}
 #endif
@@ -106,15 +106,21 @@ namespace std {
 #endif
 	}
 
+	LogService * LogService::getLogService()
+	{
+		LogService& logService_ = Singleton<LogService>::instance();
+		return (&logService_);
+	}
+	
 	bool LogService::runPreinit()
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunLuaApi.connect(boost::bind(&LogService::runLuaApi, this));
 		
 	#ifdef __CONSOLE__
-		this->registerCommand("info", std::bind(&LogService::commandInfo, this, _1));
-		this->registerCommand("findName", std::bind(&LogService::commandLogError, this, _1));
-		this->registerCommand("findId", std::bind(&LogService::commandLogInfo, this, _1));
+		this->registerCommand("info", std::bind(&LogService::commandInfo, this, placeholders::_1));
+		this->registerCommand("findName", std::bind(&LogService::commandLogError, this, placeholders::_1));
+		this->registerCommand("findId", std::bind(&LogService::commandLogInfo, this, placeholders::_1));
 	#endif
 	
 #ifdef __BOOSTLOG__

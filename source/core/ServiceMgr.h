@@ -9,11 +9,11 @@ namespace std {
 		void registerService(__t * nService)
 		{
 			string className_("");
-			__i32 classId_ = __classid<__t>(className_);
+			__i32 classId_ = __classinfo<__t>(className_);
 			auto it = mServices.find(classId_);
 			if ( it != mServices.end() ) {
 				LogService& logService_ = Singleton<LogService>::instance();
-				logService_.logError(log_2(className_. classId_));
+				logService_.logError(log_2(className_, classId_));
 				return;
 			}
 			mServices[classId_] = nService;

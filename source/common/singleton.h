@@ -3,7 +3,7 @@
 namespace std {
 
 	template<class T>
-	class singleton : noncopyable
+	class Singleton : noncopyable
 	{
 	public:
 		static T& instance() {
@@ -13,7 +13,7 @@ namespace std {
 	};
 
 	template<class T>
-	class singletonptr : noncopyable
+	class SingletonPtr : noncopyable
 	{
 	public:
 		static shared_ptr<T>& instance() {

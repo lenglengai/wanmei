@@ -8,9 +8,17 @@ namespace std {
 		StringWriterPtr stringWriter_(new StringWriter());
 		string className_(""); 
 		__i32 classid_ = __classinfo<HandleService>(className_);
-		stringWriter_.runString(className_, "className");
-		stringWriter_.runInt32(classid_, "classId");
-		stringWriter_.runInt32(mHandleCount, "handleCount");
+		stringWriter_->runString(className_, "className");
+		stringWriter_->runInt32(classid_, "classId");
+		stringWriter_->runInt32(mHandleCount, "handleCount");
+		return stringWriter_;
+	}
+	
+	StringWriterPtr HandleService::commandReload(const CommandArgs& nCommand)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		this->runLoad();
+		stringWriter_->runInt32(mHandleCount, "handleCount");
 		return stringWriter_;
 	}
 #endif
@@ -43,8 +51,9 @@ namespace std {
 		initService_.m_tRunInit0.connect(boost::bind(&HandleService::runInit, this));
 		initService_.m_tRunStart1.connect(boost::bind(&HandleService::runStart, this));
 		initService_.m_tRunStop.connect(boost::bind(&HandleService::runStop, this));
-		ServiceMgr& serviceMgr_ = Singleton<ServiceMgr>::instance();
-		serviceMgr_.registerService(this);
+	#ifdef __CONSOLE__
+		this->registerCommand("info", std::bind(&HandleService::commandInfo, this, placeholders::_1));
+	#endif
 		return true;
 	}
 	

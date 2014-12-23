@@ -43,7 +43,7 @@ namespace std {
 		~CrcService();
 
 	private:
-		__i32 hashString(const char * nKey, __i16 nOffset);
+		const __i32 hashString(const char * nKey, __i16 nOffset) const;
 	};
 
 }

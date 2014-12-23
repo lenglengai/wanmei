@@ -17,26 +17,48 @@ namespace std {
 	StringWriterPtr IoService::commandReload(const CommandArgs& nCommand)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
-		string className_(""); 
-		__i32 classid_ = __classinfo<IoService>(className_);
-		stringWriter_.runString(className_, "className");
-		stringWriter_.runInt32(classid_, "classId");
-		stringWriter_.runInt32(mIoServiceCount, "ioServiceCount");
+		this->runLoad();
+		stringWriter_->runInt32(mIoServiceCount, "ioServiceCount");
 		return stringWriter_;
 	}
 #endif
 
+	const char * IoService::streamName()
+	{
+		return "ioService";
+	}
+	
+	const char * IoService::streamUrl()
+	{
+	#ifdef __SERVER__
+		return "ioServer.xml";
+	#endif
+	#ifdef __CLIENT__
+		return "ioClient.xml";
+	#endif
+	}
+	
 	bool IoService::runPreinit()
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
+		initService_.m_tRunLoad0.connect(boost::bind(&IoService::runLoad, this));
 		initService_.m_tRunInit0.connect(boost::bind(&IoService::runInit, this));
 		initService_.m_tRunStart0.connect(boost::bind(&IoService::runStart, this));
 		initService_.m_tRunRun.connect(boost::bind(&IoService::runRun, this));
 		initService_.m_tRunStop.connect(boost::bind(&IoService::runStop, this));
-		
+	#ifdef __CONSOLE__
+		this->registerCommand("info", std::bind(&IoService::commandInfo, this, _1));
+		this->registerCommand("reload", std::bind(&IoService::commandReload, this, _1));
+	#endif
 		return true;
 	}
-
+	
+	void IoService::runLoad()
+	{
+		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		archiveService_.loadStream(this);
+	}
+	
 	void IoService::runInit()
 	{
 		for (__i32 i = 0; i < mIoServiceCount; ++i) {

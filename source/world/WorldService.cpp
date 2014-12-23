@@ -18,6 +18,20 @@ namespace std{
 	#endif
 		return stringWriter_;
 	}
+	
+	StringWriterPtr WorldService::commandReload(const CommandArgs& nCommand)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		mWorlds.clear();
+		this->runLoad();
+	#ifdef __SERVER__
+		stringWriter_->runKeyStream(mWorlds, "worlds");
+	#endif
+	#ifdef __CLIENT__
+		stringWriter_->runStream(mWorld, "world");
+	#endif
+		return stringWriter_;
+	}
 #endif
 	
 	const char * WorldService::streamName()

@@ -3,6 +3,26 @@
 
 namespace std {
 
+#ifdef __CONSOLE__
+	StringWriterPtr CompressService::commandInfo(const CommandArgs& nCommand)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		string className_(""); 
+		__i32 classid_ = __classinfo<CompressService>(className_);
+		stringWriter_->runString(className_, "className");
+		stringWriter_->runInt32(classid_, "classId");
+		return stringWriter_;
+	}
+	
+	StringWriterPtr CompressService::commandRunBZip2(const CommandArgs& nCommand)
+	{
+	}
+	
+	StringWriterPtr CompressService::commandUnBZip2(const CommandArgs& nCommand)
+	{
+	}
+#endif
+	
 	void CompressService::runBZip2(char * nInBuf, __i32 nInSize, char * nOutBuf, __i32 * nOutSize)
 	{
 		unsigned int outSize = static_cast<unsigned int>(*nOutSize);
@@ -31,9 +51,9 @@ namespace std {
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunLuaApi.connect(boost::bind(&CompressService::runLuaApi, this));
 	#ifdef __CONSOLE__
-		this->registerCommand("info", std::bind(&CrcService::commandInfo, this, _1));
-		this->registerCommand("runBzip2", std::bind(&CrcService::commandRunBZip2, this, _1));
-		this->registerCommand("unBZip2", std::bind(&CrcService::commandUnBZip2, this, _1));
+		this->registerCommand("info", std::bind(&CompressService::commandInfo, this, placeholders::_1));
+		this->registerCommand("runBzip2", std::bind(&CompressService::commandRunBZip2, this, placeholders::_1));
+		this->registerCommand("unBZip2", std::bind(&CompressService::commandUnBZip2, this, placeholders::_1));
 	#endif
 		return true;
 	}
@@ -46,7 +66,7 @@ namespace std {
 	{
 	}
 	
-	static Preinit<CompressService> sCompressServicePreinit;
+	static Preinit0<CompressService> sCompressServicePreinit;
 
 }
 

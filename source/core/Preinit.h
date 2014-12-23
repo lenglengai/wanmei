@@ -14,7 +14,7 @@ namespace std{
 		
 		PreinitSlot();
 		~PreinitSlot();
-	
+		
 	private:
 		list<function<bool ()> > mPreinit0s;
 		list<function<bool ()> > mPreinit1s;
@@ -29,7 +29,7 @@ namespace std{
 			T& t_ = Singleton<T>::instance();
 			if (t_.runPreinit()) {
 				ServiceMgr& serviceMgr_ = Singleton<ServiceMgr>::instance();
-				serviceMgr_.registerService(*t_);
+				serviceMgr_.registerService(&t_);
 				return true;
 			}
 			return false;
@@ -52,7 +52,7 @@ namespace std{
 			T& t_ = Singleton<T>::instance();
 			if (t_.runPreinit()) {
 				ServiceMgr& serviceMgr_ = Singleton<ServiceMgr>::instance();
-				serviceMgr_.registerService(*t_);
+				serviceMgr_.registerService(&t_);
 				return true;
 			}
 			return false;

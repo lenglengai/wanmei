@@ -8,7 +8,7 @@
 #include <cocos2d.h>
 #endif
 
-#define log_0 boost::format("[%1%:%2%]") % __FUN__ % __LINE__
+#define log_0() boost::format("[%1%:%2%]") % __FUN__ % __LINE__
 #define log_1(y) boost::format("[%1%:%2%]%3%") % __FUN__ % __LINE__ % y
 #define log_2(y, y0) boost::format("[%1%:%2%]%3%:%4%") % __FUN__ % __LINE__ % y % y0
 #define log_3(y, y0, y1) boost::format("[%1%:%2%]%3%:%4%:%5%") % __FUN__ % __LINE__ % y % y0 % y1

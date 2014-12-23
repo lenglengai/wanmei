@@ -10,7 +10,7 @@ namespace std {
 		{
 			const char * streamUrl_ = nT->streamUrl();
 			if ( !mArchiveReader.readKey(streamUrl_, nBuf, nSize) ) {
-				LogService logService_ = Singleton<LogService>::instance();
+				LogService& logService_ = Singleton<LogService>::instance();
 				logService_.logError(log_1(streamUrl_));
 				return false;
 			}
@@ -36,7 +36,7 @@ namespace std {
 			XmlReader xmlReader_;
 			xmlReader_.openUrl(streamUrl_);
 			xmlReader_.selectStream(streamName_);
-			nUrlStream->headSerialize(xmlReader_);
+			nT->headSerialize(xmlReader_);
 			xmlReader_.runClose();
 		}
 		

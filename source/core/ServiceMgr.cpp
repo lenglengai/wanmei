@@ -16,6 +16,7 @@ namespace std {
 			}
 			IService * service_ = it->second;
 			StringWriterPtr stringWriter_ = service_->runCommand(nCommand);
+			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logInfo(log_1(stringWriter_->getValue()));
 		} else {
 		}
@@ -26,10 +27,10 @@ namespace std {
 		StringWriterPtr stringWriter_(new StringWriter());
 		string className_(""); 
 		__i32 serviceCount_ = mServices.size();
-		__i32 classid_ = __classid<ServiceMgr>(className_);
-		stringWriter_.runString(className_, "className");
-		stringWriter_.runInt32(classid_, "classId");
-		stringWriter_.runInt32(serviceCount_, "serviceCount");
+		__i32 classid_ = __classinfo<ServiceMgr>(className_);
+		stringWriter_->runString(className_, "className");
+		stringWriter_->runInt32(classid_, "classId");
+		stringWriter_->runInt32(serviceCount_, "serviceCount");
 		return stringWriter_;
 	}
 	
@@ -43,9 +44,9 @@ namespace std {
 		if (it != mServices.end()) {
 			isFind_ = true;
 		}
-		stringWriter_.runString(strService_, "strService");
-		stringWriter_.runInt32(serviceId_, "serviceId");
-		stringWriter_.runBool(isFind_, "isFind");
+		stringWriter_->runString(strService_, "strService");
+		stringWriter_->runInt32(serviceId_, "serviceId");
+		stringWriter_->runBool(isFind_, "isFind");
 		return stringWriter_;
 	}
 	
@@ -59,9 +60,9 @@ namespace std {
 		if (it != mServices.end()) {
 			isFind_ = true;
 		}
-		stringWriter_.runString(strService_, "strService");
-		stringWriter_.runInt32(serviceId_, "serviceId");
-		stringWriter_.runBool(isFind_, "isFind");
+		stringWriter_->runString(strService_, "strService");
+		stringWriter_->runInt32(serviceId_, "serviceId");
+		stringWriter_->runBool(isFind_, "isFind");
 		return stringWriter_;
 	}
 	
@@ -78,9 +79,9 @@ namespace std {
 		initService_.m_tRunStart1.connect(boost::bind(&ServiceMgr::runStart, this));
 		initService_.m_tRunStop.connect(boost::bind(&ServiceMgr::runStop, this));
 	#ifdef __CONSOLE__
-		this->registerCommand("info", std::bind(&ServiceMgr::commandInfo, this, _1));
-		this->registerCommand("findName", std::bind(&ServiceMgr::commandFindName, this, _1));
-		this->registerCommand("findId", std::bind(&ServiceMgr::commandFindId, this, _1));
+		this->registerCommand("info", std::bind(&ServiceMgr::commandInfo, this, placeholders::_1));
+		this->registerCommand("findName", std::bind(&ServiceMgr::commandFindName, this, placeholders::_1));
+		this->registerCommand("findId", std::bind(&ServiceMgr::commandFindId, this, placeholders::_1));
 	#endif
 		return true;
 	}
@@ -127,4 +128,3 @@ namespace std {
 	static Preinit1<ServiceMgr> sServiceMgrPreinit;
 
 }
-#endif

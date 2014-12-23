@@ -13,7 +13,7 @@ namespace std {
 		__i32 lower = nVersion & 0x3FF;
 		if (high != VERHIGH) return Error_::mMustUpdate_;
 		if (lower != VERLOW) return Error_::mHaveUpdate_;
-		return Error_::SUCESS;
+		return Error_::mSucess_;
 	}
 	
 }

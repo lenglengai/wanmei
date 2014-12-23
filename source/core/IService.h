@@ -11,7 +11,7 @@ namespace std {
 	
 	protected:
 	#ifdef __CONSOLE__
-		typedef function<StringWriterPtr (CommandArgs&)> CommandRunPtr;
+		typedef function<StringWriterPtr (const CommandArgs&)> CommandRunPtr;
 		void registerCommand(const char * nFlags, const CommandRunPtr& nCommandRun);
 	#endif
 		virtual void runClear();

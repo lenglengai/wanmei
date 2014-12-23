@@ -371,10 +371,7 @@ namespace std {
 		}
 		return false;
 #else
-		SettingService& settingService_ = Singleton<SettingService>::instance();
-		std::string url_ = settingService_.systemPath();
-		if ("" != url_) url_ += "/"; url_ += nUrl;
-		mStream.open(url_, ios::binary | ios::out);
+		mStream.open(nUrl, ios::binary | ios::out);
 		if (mStream.is_open()) {
 			return true;
 		}

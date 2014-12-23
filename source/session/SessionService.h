@@ -2,7 +2,7 @@
 
 namespace std {
 
-	class SessionService : IService
+	class SessionService : public IService
 	{
 	public:
 		void removeSession(SessionPtr& nSession);
@@ -20,8 +20,13 @@ namespace std {
 		~SessionService();
 		
 	private:
+	#ifdef __SERVER__
 		map<__i32, SessionPtr> mSessions;
 		std::mutex mMutex;
+	#endif
+	#ifdef __CLIENT__
+		SessionPtr mSession;
+	#endif
 		__i32 mSessionId;
 	};
 

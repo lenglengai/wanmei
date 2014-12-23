@@ -12,7 +12,7 @@ namespace std {
 		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
 		if (nullptr == xmlAttribute_) return;
 		char * text_ = xmlAttribute_->value();
-		nValue = __convert<bool, char *>(text_, mConvertTypeText_);
+		nValue = __convert<char *, bool>(text_, ConvertType_::mText_);
 	}
 
 	void XmlReader::runInt8(__i8& nValue, const char * nName, __i8 nOptimal)
@@ -21,7 +21,7 @@ namespace std {
 		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
 		if (nullptr == xmlAttribute_) return;
 		char * text_ = xmlAttribute_->value();
-		nValue = __convert<__i8, char *>(text_);
+		nValue = __convert<char *, __i8>(text_);
 	}
 
 	void XmlReader::runInt8s(std::list<__i8>& nValue, const char * nNames, const char * nName)
@@ -31,7 +31,7 @@ namespace std {
 		xmlNode_ = xmlNode_->first_node();
 		for ( ; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling() ) {
 			char * text_ = xmlNode_->value();
-			__i8 value_ = __convert<__i8, char *>(text_);
+			__i8 value_ = __convert<char *, __i8>(text_);
 			nValue.push_back(value_);
 		}
 	}
@@ -39,18 +39,18 @@ namespace std {
 	void XmlReader::runInt8Count(__i8& nValue, const char * nName, __i32 nCount, __i8 nOptimal)
 	{
 		nValue = nOptimal; string name_ = nName; name_ += "_";
-		name_.append(__convert<string, __i32>(nCount));
+		name_.append(__convert<__i32, string>(nCount));
 		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(name_.c_str());
 		if (nullptr == xmlAttribute_) return;
 		char * text_ = xmlAttribute_->value();
-		nValue = __convert<__i8, char *>(text_);
+		nValue = __convert<char *, __i8>(text_);
 	}
 
 	void XmlReader::runInt8sCount(std::list<__i8>& nValue, const char * nName, __i32 nCount)
 	{
 		for (__i32 i = 0; i < nCount; ++i) {
 			__i8 temp = 0; std::string name_ = nName;
-			name_.append(__convert<std::string, __i32>(i));
+			name_.append(__convert<__i32, string>(i));
 			this->runInt8(temp, name_.c_str());
 			if (0 != temp){
 				nValue.push_back(temp);
@@ -69,7 +69,7 @@ namespace std {
 		list<std::string>::iterator it = splits.begin();
 		for (; it != splits.end(); ++it) {
 			std::string& tempStr = (*it);
-			nValue.push_back(__convert<__i8, std::string>(tempStr));
+			nValue.push_back(__convert<string, __i8>(tempStr));
 		}
 	}
 
@@ -79,7 +79,7 @@ namespace std {
 		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
 		if (nullptr == xmlAttribute_) return;
 		char * text_ = xmlAttribute_->value();
-		nValue = __convert<__i16, char *>(text_);
+		nValue = __convert<char *, __i16>(text_);
 	}
 
 	void XmlReader::runInt16s(std::list<__i16>& nValue, const char * nNames, const char * nName)
@@ -89,7 +89,7 @@ namespace std {
 		xmlNode_ = xmlNode_->first_node();
 		for ( ; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling() ) {
 			char * text_ = xmlNode_->value();
-			__i16 value_ = __convert<__i16, char *>(text_);
+			__i16 value_ = __convert<char *, __i16>(text_);
 			nValue.push_back(value_);
 		}
 	}
@@ -97,18 +97,18 @@ namespace std {
 	void XmlReader::runInt16Count(__i16& nValue, const char * nName, __i32 nCount, __i16 nOptimal)
 	{
 		nValue = nOptimal; std::string name_ = nName; name_ += "_";
-		name_.append(__convert<string, __i32>(nCount));
+		name_.append(__convert<__i32, string>(nCount));
 		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(name_.c_str());
 		if (nullptr == xmlAttribute_) return;
 		char * text_ = xmlAttribute_->value();
-		nValue = __convert<__i16, char *>(text_);
+		nValue = __convert<char *, __i16>(text_);
 	}
 
 	void XmlReader::runInt16sCount(std::list<__i16>& nValue, const char * nName, __i32 nCount)
 	{
 		for (__i32 i = 0; i < nCount; ++i) {
 			__i16 temp = 0; std::string name_ = nName;
-			name_.append(__convert<string, __i32>(i));
+			name_.append(__convert<__i32, string>(i));
 			this->runInt16(temp, name_.c_str());
 			if (0 != temp){
 				nValue.push_back(temp);
@@ -127,7 +127,7 @@ namespace std {
 		list<string>::iterator it = splits.begin();
 		for (; it != splits.end(); ++it) {
 			string& tempStr = (*it);
-			nValue.push_back(__convert<__i16, string>(tempStr));
+			nValue.push_back(__convert<string, __i16>(tempStr));
 		}
 	}
 
@@ -137,7 +137,7 @@ namespace std {
 		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
 		if (nullptr == xmlAttribute_) return;
 		char * text_ = xmlAttribute_->value();
-		nValue = __convert<__i32, char *>(text_);
+		nValue = __convert<char *, __i32>(text_);
 	}
 
 	void XmlReader::runInt32s(std::list<__i32>& nValue, const char * nNames, const char * nName)
@@ -147,7 +147,7 @@ namespace std {
 		xmlNode_ = xmlNode_->first_node();
 		for ( ; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling() ) {
 			char * text_ = xmlNode_->value();
-			__i32 value_ = __convert<__i32, char *>(text_);
+			__i32 value_ = __convert<char *, __i32>(text_);
 			nValue.push_back(value_);
 		}
 	}
@@ -155,18 +155,18 @@ namespace std {
 	void XmlReader::runInt32Count(__i32& nValue, const char * nName, __i32 nCount, __i32 nOptimal)
 	{
 		nValue = nOptimal; string name_ = nName; name_ += "_";
-		name_.append(__convert<string, __i32>(nCount));
+		name_.append(__convert<__i32, string>(nCount));
 		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(name_.c_str());
 		if (nullptr == xmlAttribute_) return;
 		char * text_ = xmlAttribute_->value();
-		nValue = __convert<__i32, char *>(text_);
+		nValue = __convert<char *, __i32>(text_);
 	}
 
 	void XmlReader::runInt32sCount(std::list<__i32>& nValue, const char * nName, __i32 nCount)
 	{
 		for (__i32 i = 0; i < nCount; ++i) {
 			__i32 temp = 0; string name_ = nName;
-			name_.append(__convert<string, __i32>(i));
+			name_.append(__convert<__i32, string>(i));
 			this->runInt32(temp, name_.c_str());
 			if (0 != temp){
 				nValue.push_back(temp);
@@ -185,7 +185,7 @@ namespace std {
 		list<string>::iterator it = splits.begin();
 		for (; it != splits.end(); ++it) {
 			std::string& tempStr = (*it);
-			nValue.push_back(__convert<__i32, std::string>(tempStr));
+			nValue.push_back(__convert<string, __i32>(tempStr));
 		}
 	}
 
@@ -215,7 +215,7 @@ namespace std {
 	void XmlReader::runCrc32Count(__i32& nValue, const char * nName, __i32 nCount, __i32 nOptimal)
 	{
 		nValue = nOptimal; std::string name_ = nName; name_ += "_";
-		name_.append(__convert<std::string, __i32>(nCount));
+		name_.append(__convert<__i32, string>(nCount));
 		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(name_.c_str());
 		if (nullptr == xmlAttribute_) return;
 		char * text_ = xmlAttribute_->value();
@@ -228,7 +228,7 @@ namespace std {
 	{
 		for (__i32 i = 0; i < nCount; ++i) {
 			__i32 tempI32 = 0; std::string name_ = nName;
-			name_.append(__convert<std::string, __i32>(i));
+			name_.append(__convert<__i32, string>(i));
 			this->runCrc32(tempI32, name_.c_str());
 			if (0 != tempI32) nValue.push_back(tempI32);
 		}
@@ -256,7 +256,7 @@ namespace std {
 		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
 		if (nullptr == xmlAttribute_) {
 			char * text_ = xmlAttribute_->value();
-			nValue = __convert<__i64, char *>(text_);
+			nValue = __convert<char *, __i64>(text_);
 		}
 	}
 
@@ -267,7 +267,7 @@ namespace std {
 		xmlNode_ = xmlNode_->first_node();
 		for ( ; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling() ) {
 			char * text_ = xmlNode_->value();
-			__i64 value_ = __convert<__i64, char *>(text_);
+			__i64 value_ = __convert<char *, __i64>(text_);
 			nValue.push_back(value_);
 		}
 	}
@@ -275,18 +275,18 @@ namespace std {
 	void XmlReader::runInt64Count(__i64& nValue, const char * nName, __i32 nCount, __i64 nOptimal)
 	{
 		nValue = nOptimal; std::string name_ = nName; name_ += "_";
-		name_.append(__convert<string, __i32>(nCount));
+		name_.append(__convert<__i32, string>(nCount));
 		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(name_.c_str());
 		if (nullptr == xmlAttribute_) return;
 		char * text_ = xmlAttribute_->value();
-		nValue = __convert<__i64, char *>(text_);
+		nValue = __convert<char *, __i64>(text_);
 	}
 
 	void XmlReader::runInt64sCount(std::list<__i64>& nValue, const char * nName, __i32 nCount)
 	{
 		for (__i32 i = 0; i < nCount; ++i) {
 			__i64 temp = 0; std::string name_ = nName;
-			name_.append(__convert<string, __i32>(i));
+			name_.append(__convert<__i32, string>(i));
 			this->runInt64(temp, name_.c_str());
 			if (0 != temp){
 				nValue.push_back(temp);
@@ -305,7 +305,7 @@ namespace std {
 		list<std::string>::iterator it = splits.begin();
 		for (; it != splits.end(); ++it) {
 			std::string& tempStr = (*it);
-			nValue.push_back(__convert<__i64, string>(tempStr));
+			nValue.push_back(__convert<string, __i64>(tempStr));
 		}
 	}
 
@@ -331,7 +331,7 @@ namespace std {
 	void XmlReader::runStringCount(std::string& nValue, const char * nName, __i32 nCount, const char * nOptimal)
 	{
 		nValue = nOptimal; string name_ = nName; name_ += "_";
-		name_.append(__convert<string, __i32>(nCount));
+		name_.append(__convert<__i32, string>(nCount));
 		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(name_.c_str());
 		nValue = xmlAttribute_->value();
 	}
@@ -340,7 +340,7 @@ namespace std {
 	{
 		for (__i32 i = 0; i < nCount; ++i) {
 			std::string temp = ""; std::string name_ = nName;
-			name_.append(__convert<std::string, __i32>(i));
+			name_.append(__convert<__i32, string>(i));
 			this->runString(temp, name_.c_str());
 			if ("" != temp){
 				nValue.push_back(temp);
@@ -363,7 +363,7 @@ namespace std {
 		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
 		if (nullptr == xmlAttribute_) return;
 		char * text_ = xmlAttribute_->value();
-		nValue = __convert<float, char *>(text_);
+		nValue = __convert<char *, float>(text_);
 	}
 
 	void XmlReader::runFloats(std::list<float>& nValue, const char * nNames, const char * nName)
@@ -373,7 +373,7 @@ namespace std {
 		xmlNode_ = xmlNode_->first_node();
 		for ( ; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling() ) {
 			char * text_ = xmlNode_->value();
-			float value_ = __convert<float, char *>(text_);
+			float value_ = __convert<char *,float>(text_);
 			nValue.push_back(value_);
 		}
 	}
@@ -381,17 +381,17 @@ namespace std {
 	void XmlReader::runFloatCount(float& nValue, const char * nName, __i32 nCount, float nOptimal)
 	{
 		nValue = nOptimal; std::string name_ = nName; name_ += "_";
-		name_.append(__convert<std::string, __i32>(nCount));
+		name_.append(__convert<__i32, string>(nCount));
 		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(name_.c_str());
 		char * text_ = xmlAttribute_->value();
-		nValue = __convert<float, char *>(text_);
+		nValue = __convert<char *, float>(text_);
 	}
 
 	void XmlReader::runFloatsCount(std::list<float>& nValue, const char * nName, __i32 nCount)
 	{
 		for (__i32 i = 0; i < nCount; ++i) {
 			float temp = 0.f; std::string name_ = nName;
-			name_.append(__convert<std::string, __i32>(i));
+			name_.append(__convert<__i32, string>(i));
 			this->runFloat(temp, name_.c_str());
 			if (0.f != temp){
 				nValue.push_back(temp);
@@ -410,7 +410,7 @@ namespace std {
 		list<std::string>::iterator it = splits.begin();
 		for (; it != splits.end(); ++it) {
 			std::string& tempStr = (*it);
-			nValue.push_back(__convert<float, std::string>(tempStr));
+			nValue.push_back(__convert<string, float>(tempStr));
 		}
 	}
 
@@ -420,7 +420,7 @@ namespace std {
 		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
 		if (nullptr == xmlAttribute_) {
 			char * text_ = xmlAttribute_->value();
-			nValue = __convert<double, char *>(text_);
+			nValue = __convert<char *, double>(text_);
 		}
 	}
 
@@ -431,7 +431,7 @@ namespace std {
 		xmlNode_ = xmlNode_->first_node();
 		for ( ; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling() ) {
 			char * text_ = xmlNode_->value();
-			double value_ = __convert<double, char *>(text_);
+			double value_ = __convert<char *, double>(text_);
 			nValue.push_back(value_);
 		}
 	}
@@ -439,17 +439,17 @@ namespace std {
 	void XmlReader::runDoubleCount(double& nValue, const char * nName, __i32 nCount, double nOptimal)
 	{
 		nValue = nOptimal; std::string name_ = nName; name_ += "_";
-		name_.append(__convert<std::string, __i32>(nCount));
+		name_.append(__convert<__i32, string>(nCount));
 		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(name_.c_str());
 		char * text_ = xmlAttribute_->value();
-		nValue = __convert<double, char *>(text_);
+		nValue = __convert<char *, double>(text_);
 	}
 
 	void XmlReader::runDoublesCount(std::list<double>& nValue, const char * nName, __i32 nCount)
 	{
 		for (__i32 i = 0; i < nCount; ++i) {
 			double temp = 0.; std::string name_ = nName;
-			name_.append(__convert<std::string, __i32>(i));
+			name_.append(__convert<__i32, string>(i));
 			this->runDouble(temp, name_.c_str());
 			if (0. != temp){
 				nValue.push_back(temp);
@@ -468,7 +468,7 @@ namespace std {
 		list<std::string>::iterator it = splits.begin();
 		for (; it != splits.end(); ++it) {
 			std::string& tempStr = (*it);
-			nValue.push_back(__convert<double, std::string>(tempStr));
+			nValue.push_back(__convert<string, double>(tempStr));
 		}
 	}
 
@@ -483,10 +483,7 @@ namespace std {
 		}
 		return false;
 #else
-		SettingService& settingService_ = Singleton<SettingService>::instance();
-		std::string url_ = settingService_.systemPath();
-		if ("" != url_) url_ += "/"; url_ += nUrl;
-		mFileDoc.reset(new file<char>(url_.c_str()));
+		mFileDoc.reset(new file<char>(nUrl));
 		mXmlDocument.parse<0>(mFileDoc->data());
 		mXmlNode = mXmlDocument.first_node();
 		return true;

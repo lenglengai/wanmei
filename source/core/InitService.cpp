@@ -7,9 +7,9 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		string className_(""); 
-		__i32 classid_ = __classid<InitService>(className_);
-		stringWriter_.runString(className_, "className");
-		stringWriter_.runInt32(classid_, "classId");
+		__i32 classid_ = __classinfo<InitService>(className_);
+		stringWriter_->runString(className_, "className");
+		stringWriter_->runInt32(classid_, "classId");
 		return stringWriter_;
 	}
 	
@@ -17,7 +17,7 @@ namespace std {
 	{
 		this->runResume();
 		StringWriterPtr stringWriter_(new StringWriter());
-		stringWriter->runString("sucess", "runResume");
+		stringWriter_->runString("sucess", "runResume");
 		return stringWriter_;
 	}
 	
@@ -25,7 +25,7 @@ namespace std {
 	{
 		this->runPause();
 		StringWriterPtr stringWriter_(new StringWriter());
-		stringWriter->runString("sucess", "runResume");
+		stringWriter_->runString("sucess", "runResume");
 		return stringWriter_;
 	}
 #endif
@@ -44,6 +44,12 @@ namespace std {
 		ServiceMgr& serviceMgr_ = Singleton<ServiceMgr>::instance();
 		serviceMgr_.registerService(this);
 		
+	#ifdef __CONSOLE__
+		this->registerCommand("info", std::bind(&InitService::commandInfo, this, placeholders::_1));
+		this->registerCommand("resume", std::bind(&InitService::commandResume, this, placeholders::_1));
+		this->registerCommand("pause", std::bind(&InitService::commandPause, this, placeholders::_1));
+	#endif
+	
 		return true;
 	}
 	

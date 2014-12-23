@@ -54,7 +54,7 @@ namespace std {
 		{
 			const string& operator () ()const
 			{
-				static string value_ = "";
+				static string value_("");
 				return value_;
 			}
 		};
@@ -62,7 +62,7 @@ namespace std {
 	}
 
 	template<typename __t>
-	const __t __default()
+	const __t& __default()
 	{
 		return default_namespace::Default<__t>()();
 	}

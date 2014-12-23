@@ -7,9 +7,9 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		string className_("");
-		__i32 classid_ = __classid<ArchiveService>(className_);
-		stringWriter_.runString(className_className_, "className");
-		stringWriter_.runInt32(classid_, "classId");
+		__i32 classid_ = __classinfo<ArchiveService>(className_);
+		stringWriter_->runString(className_, "className");
+		stringWriter_->runInt32(classid_, "classId");
 		return stringWriter_;
 	}
 	
@@ -18,7 +18,7 @@ namespace std {
 		StringWriterPtr stringWriter_(new StringWriter());
 		this->runClear();
 		bool isOpen_ = mArchiveReader.runOpen(CONFIGUREFILE);
-		stringWriter_.runBool(isOpen_, "isOpen");
+		stringWriter_->runBool(isOpen_, "isOpen");
 		return stringWriter_;
 	}
 	
@@ -30,8 +30,8 @@ namespace std {
 		initService_.runLoad0(); initService_.runLoad1();
 		mArchiveWriter.runOpen(CONFIGUREFILE);
         mArchiveWriter.runArchives(mArchives);
-        archiveWriter.runClose();
-		stringWriter_.runString("configure", "archive");
+        mArchiveWriter.runClose();
+		stringWriter_->runString("configure", "archive");
 		return stringWriter_;
 	}
 	
@@ -52,8 +52,8 @@ namespace std {
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit1.connect(boost::bind(&ArchiveService::runInit, this));
 	#ifdef __CONSOLE__
-		this->registerCommand("info", std::bind(&CrcService::commandInfo, this, _1));
-		this->registerCommand("reload", std::bind(&CrcService::commandReload, this, _1));
+		this->registerCommand("info", std::bind(&ArchiveService::commandInfo, this, placeholders::_1));
+		this->registerCommand("reload", std::bind(&ArchiveService::commandReload, this, placeholders::_1));
 	#endif
 		return true;
 	}

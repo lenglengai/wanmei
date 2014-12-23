@@ -7,11 +7,11 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		string className_(""); __i64 serverTime_ = 0;
-		__i32 classid_ = __classid<TimeService>(className_);
-		stringWriter_.runString(className_className_, "className");
-		stringWriter_.runInt32(classid_, "classId");
+		__i32 classid_ = __classinfo<TimeService>(className_);
+		stringWriter_->runString(className_, "className");
+		stringWriter_->runInt32(classid_, "classId");
 		serverTime_ = this->getServerTime();
-		stringWriter_.runInt64(serverTime_, "serverTime");
+		stringWriter_->runInt64(serverTime_, "serverTime");
 		return stringWriter_;
 	}
 #endif
@@ -81,7 +81,7 @@ namespace std {
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunLuaApi.connect(boost::bind(&TimeService::runLuaApi, this));
 	#ifdef __CONSOLE__
-		this->registerCommand("info", std::bind(&TimeService::commandInfo, this, _1));
+		this->registerCommand("info", std::bind(&TimeService::commandInfo, this, placeholders::_1));
 	#endif
 		return true;
 	}
@@ -120,6 +120,6 @@ namespace std {
 		mCurrent = 0;
 	}
 	
-	static Preinit<TimeService> sTimeServicePreinit;
+	static Preinit0<TimeService> sTimeServicePreinit;
 
 }

@@ -7,7 +7,6 @@ import sys
 import buildcmake
 import buildclean
 import buildstart
-import buildjourney
 
 class Startup():
     
@@ -49,8 +48,6 @@ class Startup():
     def __getBuildBase(self, nName):
         if nName in buildcmake.BuildCMake.getName():
             return buildcmake.BuildCMake(self.mWorkspace, self.mProject)
-        elif nName in buildjourney.BuildJourney.getName():
-            return buildjourney.BuildJourney(self.mWorkspace, self.mProject)
         elif nName in buildclean.BuildClean.getName():
             return buildclean.BuildClean(self.mWorkspace, self.mProject)
         elif nName in buildstart.BuildStart.getName():

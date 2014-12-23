@@ -9,20 +9,19 @@
 #define BUILDDAY 1
 
 #define STARTYEAR 2014
-#define STARTMONTH 10
-#define STARTDAY 1
+#define STARTMONTH 12
+#define STARTDAY 23
 
 #define ENDYEAR 2015
-#define ENDMONTH 10
+#define ENDMONTH 2
 #define ENDDAY 1
 
 #define INITYEAR 2014
-#define INITMONTH 10
-#define INITDAY 1
+#define INITMONTH 12
+#define INITDAY 23
 
 #define CONFIGUREFILE "configure.jf"
 
 #define PACKETMAX 1024
 
-// alpha beta release
-#define VERNAME "alpha"
+#define VERNAME "release"
