@@ -6,12 +6,12 @@ namespace std {
 	{
 	public:
 	#ifdef __CONSOLE__
-		StringWriterPtr runCommand(const CommandArgs& nCommand);
+		const StringWriterPtr runCommand(const CommandArgs& nCommandArgs);
 	#endif
 	
 	protected:
 	#ifdef __CONSOLE__
-		typedef function<StringWriterPtr (const CommandArgs&)> CommandRunPtr;
+		typedef function<const StringWriterPtr (const CommandArgs&)> CommandRunPtr;
 		void registerCommand(const char * nFlags, const CommandRunPtr& nCommandRun);
 	#endif
 		virtual void runClear();

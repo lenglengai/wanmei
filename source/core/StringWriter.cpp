@@ -425,7 +425,7 @@ namespace std {
 		mValue += "}";
 	}
 	
-	const char * StringWriter::getValue()
+	const char * StringWriter::getValue() const
 	{
 		return mValue.c_str();
 	}

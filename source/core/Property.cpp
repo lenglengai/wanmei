@@ -7,7 +7,7 @@ namespace std {
 		mPropertyMgr = (&nPropertyMgr);
 	}
 
-	PropertyMgrPtr& Property::getPropertyMgr()
+	PropertyMgrPtr& Property::getPropertyMgr() const
 	{
 		return (*mPropertyMgr);
 	}

@@ -35,13 +35,13 @@ namespace std {
 	bool Handle::runInternal()
 	{
 		if (true == mStop) return false;
-		std::list<ContextPtr>::iterator it = mContexts.begin();
+		list<ContextPtr>::iterator it = mContexts.begin();
 		for (; it != mContexts.end(); ++it) {
 			ContextPtr& context_ = (*it);
 			context_->runContext();
 		}
-		std::chrono::milliseconds dura(200);
-		std::this_thread::sleep_for(dura);
+		chrono::milliseconds dura(200);
+		this_thread::sleep_for(dura);
 		return true;
 	}
 

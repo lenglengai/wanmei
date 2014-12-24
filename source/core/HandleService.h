@@ -5,12 +5,12 @@ namespace std {
 	class __funapi HandleService : public IService
 	{
 	public:
-		void addContext(ContextPtr& nContext, __i32 nIndex);
+		void addContext(ContextPtr& nContext, const __i32 nIndex);
 		
 	private:
 	#ifdef __CONSOLE__
-		StringWriterPtr commandInfo(const CommandArgs& nCommand);
-		StringWriterPtr commandReload(const CommandArgs& nCommand);
+		const StringWriterPtr commandInfo(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandReload(const CommandArgs& nCommandArgs);
 	#endif
 	public:
 		template<class __t>
@@ -18,8 +18,8 @@ namespace std {
 		{
 			nT.runInt32(mHandleCount, "handleCount");
 		}
-		const char * streamName();
-		const char * streamUrl();
+		const char * streamName() const;
+		const char * streamUrl() const;
 		
 		bool runPreinit();
 		void runLoad();

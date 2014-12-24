@@ -5,17 +5,17 @@ namespace std {
 	class __funapi RandomService : public IService
 	{
 	public:
-		__i32 luaRandom(__i32 nMin, __i32 nMax);
-		__i32 runRandom(__i32 nMin, __i32 nMax);
-		__i32 runRandom(__i32 nMax);
-		__i32 runRandom();
+		const __i32 luaRandom(const __i32 nMin, const __i32 nMax);
+		const __i32 runRandom(const __i32 nMin, const __i32 nMax);
+		const __i32 runRandom(const __i32 nMax);
+		const __i32 runRandom();
 		
-		RandomService * getRandomService();
+		static RandomService * getRandomService();
 		
 	private:
 	#ifdef __CONSOLE__
-		StringWriterPtr commandInfo(const CommandArgs& nCommand);
-		StringWriterPtr commandRandom(const CommandArgs& nCommand);
+		const StringWriterPtr commandInfo(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandRandom(const CommandArgs& nCommandArgs);
 	#endif
 	
 	public:
@@ -26,8 +26,8 @@ namespace std {
 		~RandomService();
 
 	private:
-		std::random_device mDevice;
-		std::mt19937 mEngine;
+		random_device mDevice;
+		mt19937 mEngine;
 	};
 
 }

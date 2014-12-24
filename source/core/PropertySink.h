@@ -5,8 +5,8 @@ namespace std {
 	class __funapi PropertySink : noncopyable
 	{
 	public:
-		void runCreate(PropertyMgrPtr& nPropertyMgr);
-		void registerCreate(PropertyIdPtr& nPropertyId);
+		void runCreate(PropertyMgrPtr& nPropertyMgr) const;
+		void registerCreate(const PropertyIdPtr& nPropertyId);
 
 		PropertySink();
 		virtual ~PropertySink();

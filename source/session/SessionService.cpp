@@ -6,8 +6,9 @@ namespace std{
 	StringWriterPtr SessionService::commandInfo(const CommandArgs& nCommand)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
 		string className_(""); __i32 sessionCount_ = 0;
-		__i32 classid_ = __classid<SessionService>(className_);
+		__i32 classid_ = __classinfo<SessionService>(className_);
 		stringWriter_.runString(className_className_, "className");
 		stringWriter_.runInt32(classid_, "classId");
 		stringWriter_.runInt32(mSessionId, "sessionId");
@@ -77,5 +78,5 @@ namespace std{
 		this->runClear();
 	}
 	
-	static Preinit<SessionService> sSessionServicePreInit;
+	static Preinit0<SessionService> sSessionServicePreInit;
 }

@@ -5,8 +5,8 @@ namespace std {
 	class __funapi ArchiveHead : noncopyable
 	{
 	public:
-		static __i32 hashSize();
-		bool getCompress();
+		static const __i32 hashSize();
+		const bool getCompress() const;
 		void runClear();
 
 		template<class T>

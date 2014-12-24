@@ -21,8 +21,8 @@ namespace std {
 			nT.runStream(mWorld, "world");
 		#endif
 		}
-		const char * streamName();
-		const char * streamUrl();
+		const char * streamName() const;
+		const char * streamUrl() const;
 		
 		bool runPreinit();
 		void runLoad();

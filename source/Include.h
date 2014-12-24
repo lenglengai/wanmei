@@ -47,6 +47,15 @@
 #include "core/CrcService.h"
 #include "core/CompressService.h"
 #include "core/InitService.h"
+#include "core/DebugService.h"
+#include "core/RandomService.h"
+#include "core/TimeService.h"
+
+#include "core/Property.h"
+#include "core/IPropertyId.h"
+#include "core/PropertyId.h"
+#include "core/PropertyMgr.h"
+#include "core/PropertySink.h"
 
 #include "archive/XmlReader.h"
 #include "archive/BinWriter.h"

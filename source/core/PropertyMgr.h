@@ -5,8 +5,8 @@ namespace std {
 	class __funapi PropertyMgr : noncopyable
 	{
 	public:
-		void addProperty(PropertyPtr& nProperty, PropertyIdPtr& nPropertyId);
-		PropertyPtr& getProperty(IPropertyId& nPropertyId);
+		void addProperty(const PropertyPtr& nProperty, const PropertyIdPtr& nPropertyId);
+		const PropertyPtr& getProperty(const IPropertyId& nPropertyId) const;
 
 		PropertyMgr();
 		virtual ~PropertyMgr();

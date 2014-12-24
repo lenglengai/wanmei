@@ -37,16 +37,15 @@ namespace std {
 		void runDoubles(const vector<double>& nValue, const char * nName);
 		
 		template<class __t>
-		void runStream(shared_ptr<__t>& nValue, const char * nName)
+		void runStream(const shared_ptr<__t>& nValue, const char * nName)
 		{
 			this->startClass(nName);
-			shared_ptr<__t1>& t_ = i.second;
-			t_->runStringWriter(this);
+			nValue->runStringWriter(this);
 			this->finishClass();
 		}
-		
-		template<class __t0, class __t1>
-		void runKeyStream(map<__t0, shared_ptr<__t1>>& nValue, const char * nName)
+	
+		template<class __t>
+		void runStreams(const list<shared_ptr<__t>>& nValue, const char * nName)
 		{
 			if ( !mFirst ) {
 				mValue += ",\"";
@@ -62,7 +61,30 @@ namespace std {
 					mFirst = false;
 				}
 				this->startClass();
-				shared_ptr<__t1>& t_ = i.second;
+				i->runStringWriter(this);
+				this->finishClass();
+			}
+			mValue += "]";
+		}
+		
+		template<class __t0, class __t1>
+		void runKeyStream(const map<__t0, shared_ptr<__t1>>& nValue, const char * nName)
+		{
+			if ( !mFirst ) {
+				mValue += ",\"";
+			} else {
+				mValue += "\"";
+			}
+			mValue += nName; mValue += "\":[";
+			mFirst = true;
+			for (auto& i : nValue) {
+				if ( !mFirst ) {
+					mValue += ",";
+				} else {
+					mFirst = false;
+				}
+				this->startClass();
+				const shared_ptr<__t1>& t_ = i.second;
 				t_->runStringWriter(this);
 				this->finishClass();
 			}
@@ -73,7 +95,7 @@ namespace std {
 		void startClass();
 		void finishClass();
 		
-		const char * getValue();
+		const char * getValue() const;
 		
 		StringWriter();
 		~StringWriter();

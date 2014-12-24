@@ -7,7 +7,7 @@ namespace std {
 	public:
 		bool runOpen(const char * nPath);
 		bool readKey(const char * nKey, char ** nBuf, __i32 * nSize);
-		void freeBuf(char * nBuf, __i32 nSize);
+		void freeBuf(char * nBuf, const __i32 nSize);
 		void runClose();
 
 	private:

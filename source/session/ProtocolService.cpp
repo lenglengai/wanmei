@@ -6,8 +6,9 @@ namespace std {
 	StringWriterPtr ProtocolService::commandInfo(const CommandArgs& nCommand)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
 		string className_(""); __i32 protocolCount_ = 0;
-		__i32 classid_ = __classid<ProtocolService>(className_);
+		__i32 classid_ = __classinfo<ProtocolService>(className_);
 		stringWriter_.runString(className_className_, "className");
 		stringWriter_.runInt32(classid_, "classId");
 		protocolCount_ = mProtocols.size();
@@ -18,7 +19,8 @@ namespace std {
 	StringWriterPtr ProtocolService::commandFindId(const CommandArgs& nCommand)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
-		const string& strProtocol_ = nCommand.getCommand(1);
+		nCommandArgs.runStringWriter(stringWriter_);
+		const string& strProtocol_ = nCommand.getCommandArg(1);
 		__i32 protocolId_ = __convert<string, __i32>(strProtocol_);
 		bool isFind_ = false;
 		auto it = mServices.find(protocolId_);
@@ -34,7 +36,8 @@ namespace std {
 	StringWriterPtr ProtocolService::commandFindName(const CommandArgs& nCommand)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
-		const string& strProtocol_ = nCommand.getCommand(1);
+		nCommandArgs.runStringWriter(stringWriter_);
+		const string& strProtocol_ = nCommand.getCommandArg(1);
 		__i32 protocolId_ = __stringid(strProtocol_.c_str());
 		bool isFind_ = false;
 		auto it = mProtocols.find(protocolId_);
@@ -103,6 +106,6 @@ namespace std {
 		this->runClear();
 	}
 	
-	static Preinit<ProtocolService> sProtocolServicePreinit;
+	static Preinit0<ProtocolService> sProtocolServicePreinit;
 
 }

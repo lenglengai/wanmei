@@ -15,11 +15,11 @@ namespace std {
 	{
 		string fileName = APPNAME;
 		fileName += "-";
-		fileName += __convert<string,__i32>(VERHIGH);
+		fileName += __convert<__i32, string>(VERHIGH);
 		fileName += ".";
-		fileName += __convert<string,__i32>(VERLOW);
+		fileName += __convert<__i32, string>(VERLOW);
 		fileName += ".";
-		fileName += __convert<string,__i32>(VERBUILD);
+		fileName += __convert<__i32, string>(VERBUILD);
 		fileName += ".dmp";
 		HANDLE fileHandle = ::CreateFileA(fileName.c_str(), GENERIC_WRITE,
 			FILE_SHARE_READ, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
@@ -47,7 +47,7 @@ namespace std {
 		void * _XcptFilter = (void*)GetProcAddress(::LoadLibraryA("msvcrt.dll"), "_XcptFilter");
 		DWORD dwOldProtect = 0;
 		::VirtualProtect(_XcptFilter, 5, PAGE_EXECUTE_READWRITE, &dwOldProtect);
-		*(char*)_XcptFilter = 0xe9;
+		*(unsigned char *)_XcptFilter = static_cast<unsigned char>(0xe9);
 		*(unsigned int*)((char*)_XcptFilter + 1) = (unsigned int)MyXcptFilter - ((unsigned int)_XcptFilter + 5);
 		::VirtualProtect(_XcptFilter, 5, dwOldProtect, &dwOldProtect);
 	#endif

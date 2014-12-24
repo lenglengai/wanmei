@@ -6,7 +6,7 @@ namespace std {
 	{
 	public:
 		const __i64 runId(const char * nName) const;
-		const __i64 runId(__i32 nId) const;
+		const __i64 runId(const __i32 nId) const;
 		const __i32 runCommon(const char * nName) const;
 		const __i32 runComputer() const;
 		const __i32 runCellphone() const;
@@ -21,18 +21,18 @@ namespace std {
 		
 	private:
 	#ifdef __CONSOLE__
-		StringWriterPtr commandInfo(const CommandArgs& nCommand);
-		StringWriterPtr commandNameId(const CommandArgs& nCommand);
-		StringWriterPtr commandIntId(const CommandArgs& nCommand);
-		StringWriterPtr commandCommon(const CommandArgs& nCommand);
-		StringWriterPtr commandComputer(const CommandArgs& nCommand);
-		StringWriterPtr commandCellphone(const CommandArgs& nCommand);
-		StringWriterPtr commandName(const CommandArgs& nCommand);
-		StringWriterPtr commandPassward(const CommandArgs& nCommand);
-		StringWriterPtr commandCluster(const CommandArgs& nCommand);
-		StringWriterPtr commandServer(const CommandArgs& nCommand);
-		StringWriterPtr commandDatabase(const CommandArgs& nCommand);
-		StringWriterPtr commandTable(const CommandArgs& nCommand);
+		const StringWriterPtr commandInfo(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandNameId(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandIntId(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandCommon(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandComputer(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandCellphone(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandName(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandPassward(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandCluster(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandServer(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandDatabase(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandTable(const CommandArgs& nCommandArgs);
 	#endif
 	
 	public:

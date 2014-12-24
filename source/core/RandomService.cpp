@@ -3,48 +3,50 @@
 namespace std {
 
 #ifdef __CONSOLE__
-	StringWriterPtr RandomService::commandInfo(const CommandArgs& nCommand)
+	const StringWriterPtr RandomService::commandInfo(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
 		string className_("");
-		__i32 classid_ = __classid<RandomService>(className_);
-		stringWriter_.runString(className_className_, "className");
-		stringWriter_.runInt32(classid_, "classId");
+		__i32 classid_ = __classinfo<RandomService>(className_);
+		stringWriter_->runString(className_, "className");
+		stringWriter_->runInt32(classid_, "classId");
 		return stringWriter_;
 	}
 	
-	StringWriterPtr RandomService::commandRandom(const CommandArgs& nCommand)
+	const StringWriterPtr RandomService::commandRandom(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
-		const string& strMin_ = nCommand.getCommand(1);
-		const string& strMax_ = nCommand.getCommand(2);
+		nCommandArgs.runStringWriter(stringWriter_);
+		const string& strMin_ = nCommandArgs.getCommandArg(1);
+		const string& strMax_ = nCommandArgs.getCommandArg(2);
 		const __i32 minValue_ = __convert<string, __i32>(strMin_);
 		const __i32 maxValue_ = __convert<string, __i32>(strMax_);
-		stringWriter_.runString(strMin_, "strMin");
-		stringWriter_.runInt32(minValue_, "minValue");
-		stringWriter_.runString(strMax_, "strMax");
-		stringWriter_.runInt32(maxValue_, "maxValue");
+		stringWriter_->runString(strMin_, "strMin");
+		stringWriter_->runInt32(minValue_, "minValue");
+		stringWriter_->runString(strMax_, "strMax");
+		stringWriter_->runInt32(maxValue_, "maxValue");
 		return stringWriter_;
 	}
 #endif
 
-	__i32 RandomService::luaRandom(__i32 nMin, __i32 nMax)
+	const __i32 RandomService::luaRandom(const __i32 nMin, const __i32 nMax)
 	{
 		return this->runRandom(nMin, nMax);
 	}
 
-	__i32 RandomService::runRandom(__i32 nMin, __i32 nMax)
+	const __i32 RandomService::runRandom(const __i32 nMin, const __i32 nMax)
 	{
 		std::uniform_int_distribution<> distribution_(nMin, nMax);
 		return distribution_(mEngine);
 	}
 
-	__i32 RandomService::runRandom(__i32 nMax)
+	const __i32 RandomService::runRandom(const __i32 nMax)
 	{
 		return this->runRandom(0, nMax);
 	}
 
-	__i32 RandomService::runRandom()
+	const __i32 RandomService::runRandom()
 	{
 		return this->runRandom(65535);
 	}
@@ -70,8 +72,8 @@ namespace std {
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunLuaApi.connect(boost::bind(&RandomService::runLuaApi, this));
 	#ifdef __CONSOLE__
-		this->registerCommand("info", std::bind(&RandomService::commandInfo, this, _1));
-		this->registerCommand("random", std::bind(&RandomService::commandRandom, this, _1));
+		this->registerCommand("info", std::bind(&RandomService::commandInfo, this, placeholders::_1));
+		this->registerCommand("random", std::bind(&RandomService::commandRandom, this, placeholders::_1));
 	#endif
 		return true;
 	}
@@ -84,6 +86,6 @@ namespace std {
 	{
 	}
 	
-	static Preinit<RandomService> sRandomServicePreinit;
+	static Preinit0<RandomService> sRandomServicePreinit;
 
 }

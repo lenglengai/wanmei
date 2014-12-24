@@ -6,12 +6,12 @@ namespace std {
 	class __funapi PropertyId : public IPropertyId
 	{
 	public:
-		PropertyPtr createProperty()
+		const PropertyPtr createProperty() const
 		{
 			return PropertyPtr(new T());
 		}
 
-		__i32 getPropertyId()
+		const __i32 getPropertyId() const
 		{
 			return T::sPropertyId;
 		}

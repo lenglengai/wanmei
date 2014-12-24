@@ -6,8 +6,8 @@ namespace std {
 	class __funapi Archive : noncopyable
 	{
 	public:
-		ArchiveHashPtr getArchiveHash(const char * nKey);
-		void pushArchiveHash(ArchiveHashPtr& nArchiveHash);
+		const ArchiveHashPtr& getArchiveHash(const char * nKey) const;
+		void pushArchiveHash(const ArchiveHashPtr& nArchiveHash);
 		void runClear();
 
 		template<class T>
@@ -21,7 +21,7 @@ namespace std {
 		~Archive();
 
 	private:
-		std::map<__i32, ArchiveHashPtr> mArchiveHashs;
+		map<__i32, ArchiveHashPtr> mArchiveHashs;
 		ArchiveHead mArchiveHead;
 	};
 

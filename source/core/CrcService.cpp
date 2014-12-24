@@ -5,9 +5,10 @@
 namespace std {
 
 #ifdef __CONSOLE__
-	StringWriterPtr CrcService::commandInfo(const CommandArgs& nCommand)
+	const StringWriterPtr CrcService::commandInfo(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
 		string className_("");
 		__i32 classid_ = __classinfo<CrcService>(className_);
 		stringWriter_->runString(className_, "className");
@@ -15,20 +16,22 @@ namespace std {
 		return stringWriter_;
 	}
 	
-	StringWriterPtr CrcService::commandNameId(const CommandArgs& nCommand)
+	const StringWriterPtr CrcService::commandNameId(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
-		const string& strValue_ = nCommand.getCommand(1);
+		nCommandArgs.runStringWriter(stringWriter_);
+		const string& strValue_ = nCommandArgs.getCommandArg(1);
 		const __i64 valueId_ = this->runId(strValue_.c_str());
 		stringWriter_->runString(strValue_, "strValue");
 		stringWriter_->runInt64(valueId_, "valueId");
 		return stringWriter_;
 	}
 	
-	StringWriterPtr CrcService::commandIntId(const CommandArgs& nCommand)
+	const StringWriterPtr CrcService::commandIntId(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
-		const string& strValue_ = nCommand.getCommand(1);
+		nCommandArgs.runStringWriter(stringWriter_);
+		const string& strValue_ = nCommandArgs.getCommandArg(1);
 		const __i32 value_ = __convert<string, __i32>(strValue_);
 		const __i64 valueId_ = this->runId(value_);
 		stringWriter_->runString(strValue_, "strValue");
@@ -36,86 +39,95 @@ namespace std {
 		return stringWriter_;
 	}
 	
-	StringWriterPtr CrcService::commandCommon(const CommandArgs& nCommand)
+	const StringWriterPtr CrcService::commandCommon(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
-		const string& strValue_ = nCommand.getCommand(1);
+		nCommandArgs.runStringWriter(stringWriter_);
+		const string& strValue_ = nCommandArgs.getCommandArg(1);
 		const __i32 valueId_ = this->runCommon(strValue_.c_str());
 		stringWriter_->runString(strValue_, "strValue");
 		stringWriter_->runInt32(valueId_, "valueId");
 		return stringWriter_;
 	}
 	
-	StringWriterPtr CrcService::commandComputer(const CommandArgs& nCommand)
+	const StringWriterPtr CrcService::commandComputer(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
 		const __i32 computerId_ = this->runComputer();
 		stringWriter_->runInt32(computerId_, "computerId");
 		return stringWriter_;
 	}
 	
-	StringWriterPtr CrcService::commandCellphone(const CommandArgs& nCommand)
+	const StringWriterPtr CrcService::commandCellphone(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
 		const __i32 cellphoneId_ = this->runCellphone();
 		stringWriter_->runInt32(cellphoneId_, "cellphoneId");
 		return stringWriter_;
 	}
 	
-	StringWriterPtr CrcService::commandName(const CommandArgs& nCommand)
+	const StringWriterPtr CrcService::commandName(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
-		const string& strValue_ = nCommand.getCommand(1);
+		nCommandArgs.runStringWriter(stringWriter_);
+		const string& strValue_ = nCommandArgs.getCommandArg(1);
 		const __i32 valueId_ = this->runName(strValue_.c_str());
 		stringWriter_->runString(strValue_, "strValue");
 		stringWriter_->runInt32(valueId_, "valueId");
 		return stringWriter_;
 	}
 	
-	StringWriterPtr CrcService::commandPassward(const CommandArgs& nCommand)
+	const StringWriterPtr CrcService::commandPassward(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
-		const string& strValue_ = nCommand.getCommand(1);
+		nCommandArgs.runStringWriter(stringWriter_);
+		const string& strValue_ = nCommandArgs.getCommandArg(1);
 		const __i32 valueId_ = this->runPassward(strValue_.c_str());
 		stringWriter_->runString(strValue_, "strValue");
 		stringWriter_->runInt32(valueId_, "valueId");
 		return stringWriter_;
 	}
 	
-	StringWriterPtr CrcService::commandCluster(const CommandArgs& nCommand)
+	const StringWriterPtr CrcService::commandCluster(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
-		const string& strValue_ = nCommand.getCommand(1);
+		nCommandArgs.runStringWriter(stringWriter_);
+		const string& strValue_ = nCommandArgs.getCommandArg(1);
 		const __i32 valueId_ = this->runCluster(strValue_.c_str());
 		stringWriter_->runString(strValue_, "strValue");
 		stringWriter_->runInt32(valueId_, "valueId");
 		return stringWriter_;
 	}
 	
-	StringWriterPtr CrcService::commandServer(const CommandArgs& nCommand)
+	const StringWriterPtr CrcService::commandServer(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
-		const string& strValue_ = nCommand.getCommand(1);
+		nCommandArgs.runStringWriter(stringWriter_);
+		const string& strValue_ = nCommandArgs.getCommandArg(1);
 		const __i32 valueId_ = this->runServer(strValue_.c_str());
 		stringWriter_->runString(strValue_, "strValue");
 		stringWriter_->runInt32(valueId_, "valueId");
 		return stringWriter_;
 	}
 	
-	StringWriterPtr CrcService::commandDatabase(const CommandArgs& nCommand)
+	const StringWriterPtr CrcService::commandDatabase(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
-		const string& strValue_ = nCommand.getCommand(1);
+		nCommandArgs.runStringWriter(stringWriter_);
+		const string& strValue_ = nCommandArgs.getCommandArg(1);
 		const __i32 valueId_ = this->runDatabase(strValue_.c_str());
 		stringWriter_->runString(strValue_, "strValue");
 		stringWriter_->runInt32(valueId_, "valueId");
 		return stringWriter_;
 	}
 	
-	StringWriterPtr CrcService::commandTable(const CommandArgs& nCommand)
+	const StringWriterPtr CrcService::commandTable(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
-		const string& strValue_ = nCommand.getCommand(1);
+		nCommandArgs.runStringWriter(stringWriter_);
+		const string& strValue_ = nCommandArgs.getCommandArg(1);
 		const __i32 valueId_ = this->runTable(strValue_.c_str());
 		stringWriter_->runString(strValue_, "strValue");
 		stringWriter_->runInt32(valueId_, "valueId");
@@ -132,7 +144,7 @@ namespace std {
 		return result_;
 	}
 
-	const __i64 CrcService::runId(__i32 nId) const
+	const __i64 CrcService::runId(const __i32 nId) const
 	{
 		TimeService& timeService_ = Singleton<TimeService>::instance();
 		__i64 seconds_ = timeService_.getLocalTime();

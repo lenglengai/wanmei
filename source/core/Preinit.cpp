@@ -2,17 +2,17 @@
 
 namespace std {
 
-	void PreinitSlot::pushPreinit0(std::function<bool ()>& nPreinit)
+	void PreinitSlot::pushPreinit0(const function<bool ()>& nPreinit)
 	{
 		mPreinit0s.push_back(nPreinit);
 	}
 	
-	void PreinitSlot::pushPreinit1(std::function<bool ()>& nPreinit)
+	void PreinitSlot::pushPreinit1(const function<bool ()>& nPreinit)
 	{
 		mPreinit1s.push_back(nPreinit);
 	}
 	
-	bool PreinitSlot::runPreinit0()
+	const bool PreinitSlot::runPreinit0() const
 	{
 		for ( auto& it : mPreinit0s) {
 			if (!it()) {
@@ -22,7 +22,7 @@ namespace std {
 		return true;
 	}
 	
-	bool PreinitSlot::runPreinit1()
+	const bool PreinitSlot::runPreinit1() const
 	{
 		for ( auto& it : mPreinit1s) {
 			if (!it()) {

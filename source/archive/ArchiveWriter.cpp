@@ -2,7 +2,7 @@
 
 namespace std {
 
-	void ArchiveWriter::runArchives(std::set<std::string>& nArchives)
+	void ArchiveWriter::runArchives(const set<string>& nArchives)
 	{
 		__i32 pos_ = (ArchiveHash::hashSize()) * (nArchives.size());
 		pos_ += sizeof(__i16); pos_ += ArchiveHead::hashSize();
@@ -13,7 +13,7 @@ namespace std {
 		}
 	}
 	
-	void ArchiveWriter::runCount(__i32 nCount)
+	void ArchiveWriter::runCount(const __i32 nCount)
 	{
 		__i32 pos_ = (ArchiveHash::hashSize()) * nCount;
 		pos_ += sizeof(__i16); pos_ += ArchiveHead::hashSize();
@@ -52,7 +52,7 @@ namespace std {
 		return result_;
 	}
 
-	__i32 ArchiveWriter::writeBuf(__i32 nSize)
+	__i32 ArchiveWriter::writeBuf(const __i32 nSize)
 	{
 		__i32 result_ = ARCHIVESIZE;
 		memset(mCompress, 0, ARCHIVESIZE);
@@ -61,7 +61,15 @@ namespace std {
 		mBinWriter.runWrite(mCompress, result_);
 		return result_;
 	}
-
+	
+	void ArchiveWriter::runClear()
+	{
+		memset(mCompress, 0, ARCHIVESIZE);
+		memset(mCommon, 0, ARCHIVESIZE);
+		mBinWriter.runClose();
+		mArchive.runClear();
+	}
+	
 	void ArchiveWriter::runClose()
 	{
 		mBinWriter.runSeek(0);

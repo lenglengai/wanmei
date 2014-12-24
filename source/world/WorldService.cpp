@@ -6,6 +6,7 @@ namespace std{
 	StringWriterPtr WorldService::commandInfo(const CommandArgs& nCommand)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
 		string className_(""); 
 		__i32 classid_ = __classid<WorldService>(className_);
 		stringWriter_->runString(className_, "className");
@@ -22,6 +23,7 @@ namespace std{
 	StringWriterPtr WorldService::commandReload(const CommandArgs& nCommand)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
 		mWorlds.clear();
 		this->runLoad();
 	#ifdef __SERVER__
@@ -34,12 +36,12 @@ namespace std{
 	}
 #endif
 	
-	const char * WorldService::streamName()
+	const char * WorldService::streamName() const
 	{
 		return "worldService";
 	}
 	
-	const char * WorldService::streamUrl()
+	const char * WorldService::streamUrl() const
 	{
 	#ifdef __SERVER__
 		return "worldServer.xml";

@@ -3,9 +3,9 @@
 namespace std {
 
 #ifdef __CONSOLE__
-	StringWriterPtr IService::runCommand(const CommandArgs& nCommand)
+	const StringWriterPtr IService::runCommand(const CommandArgs& nCommandArgs)
 	{
-		const string& flags_ = nCommand.getFlags();
+		const string& flags_ = nCommandArgs.getFlags();
 		auto it = mCommandRuns.find(flags_);
 		if ( it == mCommandRuns.end() ) {
 			LogService& logService_ = Singleton<LogService>::instance();
@@ -13,7 +13,7 @@ namespace std {
 			return __defaultptr<StringWriter>();
 		}
 		CommandRunPtr& commandRun_ = mCommandRuns[flags_];
-		return commandRun_(nCommand);
+		return commandRun_(nCommandArgs);
 	}
 	
 	void IService::registerCommand(const char * nFlags, const CommandRunPtr& nCommandRun)

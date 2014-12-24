@@ -17,6 +17,8 @@ namespace std {
 			return true;
 		}
 		
+		void freeBuf(char * nBuf, const __i32 nSize);
+		
 		template<class __t>
 		void archiveStream(__t * nT, char * nBuf)
 		{
@@ -59,19 +61,19 @@ namespace std {
 				return;
 			}
 			this->archiveStream(nT, nBuf);
+			this->freeBuf(nBuf, nSize);
 		}
-		
+				
 	private:
 	#ifdef __CONSOLE__
-		StringWriterPtr commandInfo(const CommandArgs& nCommand);
-		StringWriterPtr commandReload(const CommandArgs& nCommand);
-		StringWriterPtr commandConfigure(const CommandArgs& nCommand);
+		const StringWriterPtr commandInfo(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandReload(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandConfigure(const CommandArgs& nCommandArgs);
 		void registerArchive(const char * nArchive);
 	#endif
 	
 	public:
 		bool runPreinit();
-		void runInit();
 		
 	private:
 		void runClear();

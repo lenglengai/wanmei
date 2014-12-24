@@ -21,9 +21,10 @@ namespace std {
 #endif
 
 #ifdef __CONSOLE__
-	StringWriterPtr LogService::commandInfo(const CommandArgs& nCommand)
+	const StringWriterPtr LogService::commandInfo(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
 		string className_(""); 
 		__i32 classid_ = __classinfo<LogService>(className_);
 		stringWriter_->runString(className_, "className");
@@ -31,34 +32,36 @@ namespace std {
 		return stringWriter_;
 	}
 	
-	StringWriterPtr LogService::commandLogError(const CommandArgs& nCommand)
+	const StringWriterPtr LogService::commandLogError(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
 		bool first_ = true; string strCommands_("");
-		for (__i32 i = 0; i < nCommand.getCommandCount(); ++i) {
+		for (__i32 i = 1; i <= nCommandArgs.getCommandCount(); ++i) {
 			if (!first_) {
 				strCommands_ += " ";
 			} else {
 				first_ = false;
 			}
-			strCommands_ += nCommand.getCommand(i);
+			strCommands_ += nCommandArgs.getCommandArg(i);
 		}
 		this->logError(log_1(strCommands_));
 		stringWriter_->runString(strCommands_, "strCommands");
 		return stringWriter_;
 	}
 	
-	StringWriterPtr LogService::commandLogInfo(const CommandArgs& nCommand)
+	const StringWriterPtr LogService::commandLogInfo(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
 		bool first_ = true; string strCommands_("");
-		for (__i32 i = 0; i < nCommand.getCommandCount(); ++i) {
+		for (__i32 i = 1; i <= nCommandArgs.getCommandCount(); ++i) {
 			if (!first_) {
 				strCommands_ += " ";
 			} else {
 				first_ = false;
 			}
-			strCommands_ += nCommand.getCommand(i);
+			strCommands_ += nCommandArgs.getCommandArg(i);
 		}
 		this->logInfo(log_1(strCommands_));
 		stringWriter_->runString(strCommands_, "strCommands");

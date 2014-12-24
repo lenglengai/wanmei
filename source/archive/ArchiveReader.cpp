@@ -22,7 +22,7 @@ namespace std {
 		return true;
 	}
 
-	void ArchiveReader::freeBuf(char * nBuf, __i32 nSize)
+	void ArchiveReader::freeBuf(char * nBuf, const __i32 nSize)
 	{
 		delete[] nBuf;
 	}
@@ -41,12 +41,12 @@ namespace std {
 
 	ArchiveReader::ArchiveReader()
 	{
-		mCommon = new char[ARCHIVESIZE];
 		this->runClear();
 	}
 
 	ArchiveReader::~ArchiveReader()
 	{
+		this->runClear();
 		delete[] mCommon;
 		mCommon = nullptr;
 	}

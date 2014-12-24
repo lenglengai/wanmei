@@ -9,8 +9,8 @@ namespace std {
 		
 	private:
 	#ifdef __CONSOLE__
-		StringWriterPtr commandInfo(const CommandArgs& nCommand);
-		StringWriterPtr commandReload(const CommandArgs& nCommand);
+		const StringWriterPtr commandInfo(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandReload(const CommandArgs& nCommandArgs);
 	#endif
 	
 	public:
@@ -19,8 +19,8 @@ namespace std {
 		{
 			nT.runInt32(mIoServiceCount, "ioServiceCount");
 		}
-		const char * streamName();
-		const char * streamUrl();
+		const char * streamName() const;
+		const char * streamUrl() const;
 		
 		bool runPreinit();
 		void runLoad();

@@ -3,9 +3,10 @@
 namespace std {
 
 #ifdef __CONSOLE__
-	StringWriterPtr ArchiveService::commandInfo(const CommandArgs& nCommand)
+	const StringWriterPtr ArchiveService::commandInfo(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
 		string className_("");
 		__i32 classid_ = __classinfo<ArchiveService>(className_);
 		stringWriter_->runString(className_, "className");
@@ -13,19 +14,26 @@ namespace std {
 		return stringWriter_;
 	}
 	
-	StringWriterPtr ArchiveService::commandReload(const CommandArgs& nCommand)
+	const StringWriterPtr ArchiveService::commandReload(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
 		this->runClear();
 		bool isOpen_ = mArchiveReader.runOpen(CONFIGUREFILE);
+		if( isOpen_ ) {
+			mIsArchive = true;
+		} else {
+			mIsArchive = false;
+		}
 		stringWriter_->runBool(isOpen_, "isOpen");
 		return stringWriter_;
 	}
 	
-	StringWriterPtr ArchiveService::commandConfigure(const CommandArgs& nCommand)
+	const StringWriterPtr ArchiveService::commandConfigure(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
-		mIsWriter = true; mArchives.clear();
+		nCommandArgs.runStringWriter(stringWriter_);
+		mArchiveWriter.runClear(); mArchives.clear(); mIsWriter = true;
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.runLoad0(); initService_.runLoad1();
 		mArchiveWriter.runOpen(CONFIGUREFILE);
@@ -47,30 +55,35 @@ namespace std {
     }
 #endif
 	
-	bool ArchiveService::runPreinit()
+	void ArchiveService::freeBuf(char * nBuf, const __i32 nSize)
 	{
-		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunInit1.connect(boost::bind(&ArchiveService::runInit, this));
-	#ifdef __CONSOLE__
-		this->registerCommand("info", std::bind(&ArchiveService::commandInfo, this, placeholders::_1));
-		this->registerCommand("reload", std::bind(&ArchiveService::commandReload, this, placeholders::_1));
-	#endif
-		return true;
+		mArchiveReader.freeBuf(nBuf, nSize);
 	}
 	
-	void ArchiveService::runInit()
+	bool ArchiveService::runPreinit()
 	{
 		if( mArchiveReader.runOpen(CONFIGUREFILE) ) {
 			mIsArchive = true;
 		} else {
 			mIsArchive = false;
 		}
+	#ifdef __CONSOLE__
+		this->registerCommand("info", std::bind(&ArchiveService::commandInfo, this, placeholders::_1));
+		this->registerCommand("reload", std::bind(&ArchiveService::commandReload, this, placeholders::_1));
+		this->registerCommand("configure", std::bind(&ArchiveService::commandConfigure, this, placeholders::_1));
+	#endif
+		return true;
 	}
-
+	
 	void ArchiveService::runClear()
 	{
 		mArchiveReader.runClose();
 		mIsArchive = true;
+	#ifdef __CONSOLE__
+		mArchiveWriter.runClear();
+		mArchives.clear();
+		mIsWriter = false;
+	#endif
 	}
 
 	ArchiveService::ArchiveService()
@@ -83,7 +96,7 @@ namespace std {
 		this->runClear();
 	}
 	
-	static Preinit1<ArchiveService> sArchiveServicePreinit;
+	static Preinit0<ArchiveService> sArchiveServicePreinit;
 
 }
 

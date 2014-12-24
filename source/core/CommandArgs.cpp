@@ -9,11 +9,11 @@ namespace std {
 		nStringWriter->runStrings(mCommandArgs, "commandArgs");
 	}
 	
-	const string& CommandArgs::getCommand(__i32 nIndex) const
+	const string& CommandArgs::getCommandArg(const __i32 nIndex) const
 	{
 		__i32 commandArgsCount_ = static_cast<__i32>(mCommandArgs.size());
-		if (commandArgsCount_ > nIndex) {
-			return mCommandArgs[nIndex];
+		if (commandArgsCount_ >= nIndex) {
+			return mCommandArgs[nIndex - 1];
 		}
 		return __default<string>();
 	}

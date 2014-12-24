@@ -7,6 +7,7 @@ namespace std {
 	StringWriterPtr TcpClient::commandInfo(const CommandArgs& nCommand)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
 		string className_(""); 
 		__i32 classid_ = __classinfo<TcpClient>(className_);	
 		stringWriter_.runString(className_, "className");
@@ -19,6 +20,7 @@ namespace std {
 	StringWriterPtr TcpClient::commandReload(const CommandArgs& nCommand)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
 		this->runLoad();
 		stringWriter_.runString(mAddress, "address");
 		stringWriter_.runString(mPort, "port");
@@ -72,12 +74,12 @@ namespace std {
 		}
 	}
 
-	const char * TcpClient::streamName()
+	const char * TcpClient::streamName() const
 	{
 		return "tcpAddress";
 	}
 
-	const char * TcpClient::streamUrl()
+	const char * TcpClient::streamUrl() const
 	{
 		return "tcpAddress.xml";
 	}
@@ -132,6 +134,6 @@ namespace std {
 		mPort = "8080";
 	}
 	
-	static Preinit<TcpClient> sTcpClientPreinit;
+	static Preinit0<TcpClient> sTcpClientPreinit;
 }
 #endif

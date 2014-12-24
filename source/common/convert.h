@@ -16,7 +16,7 @@ namespace std {
 		template<typename T1, typename T2>
 		struct Convert
 		{
-			T2 operator () (const T1& nValue, const ConvertType_ nConvertType) const
+			const T2 operator () (const T1& nValue, const ConvertType_ nConvertType) const
 			{
 				return static_cast<T1>(nValue);
 			}
@@ -25,7 +25,7 @@ namespace std {
 		template<typename T2>
 		struct Convert<bool, T2>
 		{
-			T2 operator () (const bool nValue, const ConvertType_ nConvertType) const
+			const T2 operator () (const bool nValue, const ConvertType_ nConvertType) const
 			{
 				return ((true == nValue) ? 1 : 0);
 			}
@@ -34,7 +34,7 @@ namespace std {
 		template<typename T2>
 		struct Convert<char *, T2>
 		{
-			T2 operator () (const char * nValue, const ConvertType_ nConvertType) const
+			const T2 operator () (const char * nValue, const ConvertType_ nConvertType) const
 			{
 				if (ConvertType_::mBinary_ == nConvertType) {
 					return ( *((T2 *)nValue) );
@@ -50,7 +50,7 @@ namespace std {
 		template<typename T2>
 		struct Convert<string, T2>
 		{
-			T2 operator () (const string& nValue, const ConvertType_ nConvertType) const
+			const T2 operator () (const string& nValue, const ConvertType_ nConvertType) const
 			{
 				stringstream stringStream_;
 				stringStream_ << nValue;
@@ -63,7 +63,7 @@ namespace std {
 		template<typename T1>
 		struct Convert<T1, bool>
 		{
-			bool operator () (const T1& nValue, const ConvertType_ nConvertType) const
+			const bool operator () (const T1& nValue, const ConvertType_ nConvertType) const
 			{
 				return ((1 == nValue) ? true : false);
 			}
@@ -72,7 +72,7 @@ namespace std {
 		template<>
 		struct Convert<float, bool>
 		{
-			bool operator () (float& nValue, ConvertType_ nConvertType)
+			const bool operator () (const float& nValue, const ConvertType_ nConvertType) const
 			{
 				return ( ( (0.001f > nValue) && (-0.001f < nValue) ) ? true : false);
 			}
@@ -81,7 +81,7 @@ namespace std {
 		template<>
 		struct Convert<double, bool>
 		{
-			bool operator () (double& nValue, ConvertType_ nConvertType)
+			const bool operator () (const double& nValue, const ConvertType_ nConvertType) const
 			{
 				return (((0.001 > nValue) && (-0.001 < nValue)) ? true : false);
 			}
@@ -90,7 +90,7 @@ namespace std {
 		template<>
 		struct Convert<char *, bool>
 		{
-			bool operator () (const char * nValue, const ConvertType_ nConvertType) const
+			const bool operator () (const char * nValue, const ConvertType_ nConvertType) const
 			{
 				if (ConvertType_::mBinary_ == nConvertType) {
 					__i8 value_ = *((__i8 *)nValue);
@@ -109,7 +109,7 @@ namespace std {
 		template<>
 		struct Convert<string, bool>
 		{
-			bool operator () (const string& nValue, const ConvertType_ nConvertType) const
+			const bool operator () (const string& nValue, const ConvertType_ nConvertType) const
 			{
 				if (ConvertType_::mText_ == nConvertType) {
 					string value_(nValue);
@@ -127,7 +127,7 @@ namespace std {
 		template<>
 		struct Convert<char *, __i8>
 		{
-			__i8 operator () (const char * nValue, const ConvertType_ nConvertType) const
+			const __i8 operator () (const char * nValue, const ConvertType_ nConvertType) const
 			{
 				if (ConvertType_::mBinary_ == nConvertType) {
 					return ( *((__i8 *)nValue) );
@@ -142,7 +142,7 @@ namespace std {
 		template<>
 		struct Convert<string, __i8>
 		{
-			__i8 operator () (const string& nValue, const ConvertType_ nConvertType) const
+			const __i8 operator () (const string& nValue, const ConvertType_ nConvertType) const
 			{
 				stringstream stringStream_;
 				stringStream_ << nValue;
@@ -154,7 +154,7 @@ namespace std {
 		template<typename T1>
 		struct Convert<T1, string>
 		{
-			string operator () (const T1& nValue, const ConvertType_ nConvertType) const
+			const string operator () (const T1& nValue, const ConvertType_ nConvertType) const
 			{
 				stringstream stringStream_;
 				stringStream_ << nValue;
@@ -167,7 +167,7 @@ namespace std {
 		template<>
 		struct Convert<bool, string>
 		{
-			string operator () (const bool nValue, const ConvertType_ nConvertType) const
+			const string operator () (const bool nValue, const ConvertType_ nConvertType) const
 			{
 				if (ConvertType_::mText_ == nConvertType) {
 					return ((true == nValue) ? "true" : "false");
@@ -179,7 +179,7 @@ namespace std {
 		template<>
 		struct Convert<__i8, string>
 		{
-			string operator () (const __i8 nValue, const ConvertType_ nConvertType) const
+			const string operator () (const __i8 nValue, const ConvertType_ nConvertType) const
 			{
 				__i16 value_ = static_cast<__i16>(nValue);
 				stringstream stringStream_;
@@ -191,7 +191,7 @@ namespace std {
 	}
 
 	template<typename T1, typename T2>
-	T2 __convert(const T1 nValue, const ConvertType_ nConvertType = ConvertType_::mCommon_)
+	const T2 __convert(const T1 nValue, const ConvertType_ nConvertType = ConvertType_::mCommon_)
 	{
 		return convert_namespace::Convert<T1, T2>()(nValue, nConvertType);
 	}

@@ -2,11 +2,11 @@
 
 namespace std {
 
-	void PropertySink::runCreate(PropertyMgrPtr& nPropertyMgr)
+	void PropertySink::runCreate(PropertyMgrPtr& nPropertyMgr) const
 	{
 		list<PropertyPtr> propertys_;
 		for (auto& it : mPropertyIds) {
-			PropertyIdPtr& propertyId_ = it.second;
+			const PropertyIdPtr& propertyId_ = it.second;
 			PropertyPtr property_ = propertyId_->createProperty();
 			property_->setPropertyMgr(nPropertyMgr);
 			nPropertyMgr->addProperty(property_, propertyId_);
@@ -21,7 +21,7 @@ namespace std {
 		}
 	}
 
-	void PropertySink::registerCreate(PropertyIdPtr& nPropertyId)
+	void PropertySink::registerCreate(const PropertyIdPtr& nPropertyId)
 	{
 		__i32 propertyId_ = nPropertyId->getPropertyId();
 		auto it = mPropertyIds.find(propertyId_);

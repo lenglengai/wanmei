@@ -4,6 +4,6 @@ namespace std {
 	
 	extern const __i16 __versionid();
 	
-	Error_ __vercheck(__i16 nVersion);
+	const Error_ __vercheck(const __i16 nVersion);
 	
 }

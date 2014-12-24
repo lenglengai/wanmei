@@ -4,11 +4,13 @@ namespace std {
 
 	class __funapi InitService : public IService
 	{
+	public:
+		static InitService * getInitService();
 	private:
 	#ifdef __CONSOLE__
-		StringWriterPtr commandInfo(const CommandArgs& nCommand);
-		StringWriterPtr commandResume(const CommandArgs& nCommand);
-		StringWriterPtr commandPause(const CommandArgs& nCommand);
+		const StringWriterPtr commandInfo(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandResume(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandPause(const CommandArgs& nCommandArgs);
 	#endif
 	public:
 		bool runPreinit();

@@ -2,18 +2,18 @@
 
 namespace std {
 
-	ArchiveHashPtr Archive::getArchiveHash(const char * nKey)
+	const ArchiveHashPtr& Archive::getArchiveHash(const char * nKey) const
 	{
 		CrcService& crcService = Singleton<CrcService>::instance();
 		__i32 hash_ = crcService.runCommon(nKey);
 		auto it = mArchiveHashs.find(hash_);
 		if (it == mArchiveHashs.end()) {
-			return ArchiveHashPtr(new ArchiveHash());
+			return __defaultptr<ArchiveHash>();
 		}
 		return it->second;
 	}
 
-	void Archive::pushArchiveHash(ArchiveHashPtr& nArchiveHash)
+	void Archive::pushArchiveHash(const ArchiveHashPtr& nArchiveHash)
 	{
 		mArchiveHashs[nArchiveHash->getKey()] = nArchiveHash;
 	}

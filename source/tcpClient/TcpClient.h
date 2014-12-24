@@ -19,8 +19,8 @@ namespace std {
 			nSerialize.runString(mAddress, "address");
 			nSerialize.runString(mPort, "port");
 		}
-		const char * streamName();
-		const char * streamUrl();
+		const char * streamName() const;
+		const char * streamUrl() const;
 		bool runPreinit();
 		void runLoad();
 		void runStart();

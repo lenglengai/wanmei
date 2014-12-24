@@ -29,12 +29,12 @@ namespace std {
 		}
 	}
 
-	const char * TcpServer::streamName()
+	const char * TcpServer::streamName() const
 	{
 		return "tcpAddress";
 	}
 
-	const char * TcpServer::streamUrl()
+	const char * TcpServer::streamUrl() const
 	{
 		return "tcpAddress.xml";
 	}
@@ -89,7 +89,7 @@ namespace std {
 		mPort = "8080";
 	}
 	
-	static Preinit<TcpServer> sTcpServerPreinit;
+	static Preinit0<TcpServer> sTcpServerPreinit;
 
 }
 #endif

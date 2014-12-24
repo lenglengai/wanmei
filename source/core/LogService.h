@@ -36,9 +36,9 @@ namespace std {
 		
 	private:
 	#ifdef __CONSOLE__
-		StringWriterPtr commandInfo(const CommandArgs& nCommand);
-		StringWriterPtr commandLogError(const CommandArgs& nCommand);
-		StringWriterPtr commandLogInfo(const CommandArgs& nCommand);
+		const StringWriterPtr commandInfo(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandLogError(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandLogInfo(const CommandArgs& nCommandArgs);
 	#endif
 	
 	public:

@@ -3,9 +3,10 @@
 namespace std {
 
 #ifdef __CONSOLE__
-	StringWriterPtr HandleService::commandInfo(const CommandArgs& nCommand)
+	const StringWriterPtr HandleService::commandInfo(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
 		string className_(""); 
 		__i32 classid_ = __classinfo<HandleService>(className_);
 		stringWriter_->runString(className_, "className");
@@ -14,16 +15,17 @@ namespace std {
 		return stringWriter_;
 	}
 	
-	StringWriterPtr HandleService::commandReload(const CommandArgs& nCommand)
+	const StringWriterPtr HandleService::commandReload(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
 		this->runLoad();
 		stringWriter_->runInt32(mHandleCount, "handleCount");
 		return stringWriter_;
 	}
 #endif
 	
-	void HandleService::addContext(ContextPtr& nContext, __i32 nIndex)
+	void HandleService::addContext(ContextPtr& nContext, const __i32 nIndex)
 	{
 		if (nIndex >= mHandleCount) {
 			LogService& logService_ = Singleton<LogService>::instance();
@@ -34,12 +36,12 @@ namespace std {
 		handle->addContext(nContext);
 	}
 
-	const char * HandleService::streamName()
+	const char * HandleService::streamName() const
 	{
 		return "handleService";
 	}
 
-	const char * HandleService::streamUrl()
+	const char * HandleService::streamUrl() const
 	{
 		return "handleService.xml";
 	}
@@ -101,6 +103,6 @@ namespace std {
 		mHandleCount = 1;
 	}
 	
-	static Preinit1<HandleService> sHandleServicePreinit;
+	static Preinit0<HandleService> sHandleServicePreinit;
 
 }

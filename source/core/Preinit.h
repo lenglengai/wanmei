@@ -5,10 +5,10 @@ namespace std{
 	class PreinitSlot : noncopyable
 	{
 	public:
-		void pushPreinit0(function<bool ()>& nPreinit);
-		void pushPreinit1(function<bool ()>& nPreinit);
-		bool runPreinit0();
-		bool runPreinit1();
+		void pushPreinit0(const function<bool ()>& nPreinit);
+		void pushPreinit1(const function<bool ()>& nPreinit);
+		const bool runPreinit0() const;
+		const bool runPreinit1() const;
 		
 		void runClear();
 		
@@ -24,7 +24,7 @@ namespace std{
 	class Preinit0 : noncopyable
 	{
 	public:
-		static bool runPreinit()
+		static const bool runPreinit()
 		{
 			T& t_ = Singleton<T>::instance();
 			if (t_.runPreinit()) {
@@ -47,7 +47,7 @@ namespace std{
 	class Preinit1 : noncopyable
 	{
 	public:
-		static bool runPreinit()
+		static const bool runPreinit()
 		{
 			T& t_ = Singleton<T>::instance();
 			if (t_.runPreinit()) {
@@ -61,7 +61,7 @@ namespace std{
 		Preinit1()
 		{
 			PreinitSlot& preinitSlot_ = Singleton<PreinitSlot>::instance();
-			function<bool ()> preinit_ = function<bool ()>(&Preinit1<T>::runPreinit);
+			function<bool ()> preinit_ = function<bool ()>(&Preinit0<T>::runPreinit);
 			preinitSlot_.pushPreinit1(preinit_);
 		}
 	};

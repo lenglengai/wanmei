@@ -72,10 +72,16 @@ set( CORE_SRC
 	${cores}/LogService.cpp
 	${cores}/InitService.cpp
 	${cores}/TimeService.cpp
+	${cores}/DebugService.cpp
 	${cores}/LuaEngine.cpp
 	${cores}/LuaService.cpp
 	${cores}/CompressService.cpp
-	${cores}/Console.cpp )
+	${cores}/RandomService.cpp
+	${cores}/TimeService.cpp
+	${cores}/Console.cpp 
+	${cores}/Property.cpp 
+	${cores}/PropertyMgr.cpp 
+	${cores}/PropertySink.cpp )
 
 SET( CORE_H
 	${cores}/StringWriter.h
@@ -93,7 +99,15 @@ SET( CORE_H
 	${cores}/LuaEngine.h
 	${cores}/LuaService.h
 	${cores}/CompressService.h
-	${cores}/Console.h )
+	${cores}/RandomService.h
+	${cores}/TimeService.h
+	${cores}/DebugService.h
+	${cores}/Console.h 
+	${cores}/IPropertyId.h 
+	${cores}/Property.h
+	${cores}/PropertyId.h 
+	${cores}/PropertyMgr.h 
+	${cores}/PropertySink.h )
 ##############################################################
 set(archives ${SRC_PATH}/archive )
 

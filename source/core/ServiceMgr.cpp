@@ -3,10 +3,10 @@
 namespace std {
 
 #ifdef __CONSOLE__
-	void ServiceMgr::runCommand(const CommandArgs& nCommand)
+	void ServiceMgr::runCommand(const CommandArgs& nCommandArgs) const
 	{
 		if (mClientConsole) {
-			const string& strService_ = nCommand.getService();
+			const string& strService_ = nCommandArgs.getService();
 			__i32 serviceId_ = __stringid(strService_.c_str());
 			auto it = mServices.find(serviceId_);
 			if (it == mServices.end()) {
@@ -15,16 +15,17 @@ namespace std {
 				return;
 			}
 			IService * service_ = it->second;
-			StringWriterPtr stringWriter_ = service_->runCommand(nCommand);
+			const StringWriterPtr stringWriter_ = service_->runCommand(nCommandArgs);
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logInfo(log_1(stringWriter_->getValue()));
 		} else {
 		}
 	}
 	
-	StringWriterPtr ServiceMgr::commandInfo(const CommandArgs& nCommand)
+	const StringWriterPtr ServiceMgr::commandInfo(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
 		string className_(""); 
 		__i32 serviceCount_ = mServices.size();
 		__i32 classid_ = __classinfo<ServiceMgr>(className_);
@@ -34,10 +35,11 @@ namespace std {
 		return stringWriter_;
 	}
 	
-	StringWriterPtr ServiceMgr::commandFindName(const CommandArgs& nCommand)
+	const StringWriterPtr ServiceMgr::commandFindName(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
-		const string& strService_ = nCommand.getCommand(1);
+		nCommandArgs.runStringWriter(stringWriter_);
+		const string& strService_ = nCommandArgs.getCommandArg(1);
 		__i32 serviceId_ = __stringid(strService_.c_str());
 		bool isFind_ = false;
 		auto it = mServices.find(serviceId_);
@@ -50,10 +52,11 @@ namespace std {
 		return stringWriter_;
 	}
 	
-	StringWriterPtr ServiceMgr::commandFindId(const CommandArgs& nCommand)
+	const StringWriterPtr ServiceMgr::commandFindId(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
-		const string& strService_ = nCommand.getCommand(1);
+		nCommandArgs.runStringWriter(stringWriter_);
+		const string& strService_ = nCommandArgs.getCommandArg(1);
 		__i32 serviceId_ = __convert<string, __i32>(strService_);
 		bool isFind_ = false;
 		auto it = mServices.find(serviceId_);
@@ -66,7 +69,7 @@ namespace std {
 		return stringWriter_;
 	}
 	
-	void ServiceMgr::setClientConsole(bool nClientConsole)
+	void ServiceMgr::setClientConsole(const bool nClientConsole)
 	{
 		mClientConsole = nClientConsole;
 	}
@@ -125,6 +128,4 @@ namespace std {
 #endif
 	}
 	
-	static Preinit1<ServiceMgr> sServiceMgrPreinit;
-
 }

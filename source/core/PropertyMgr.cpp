@@ -2,7 +2,7 @@
 
 namespace std {
 	
-	PropertyPtr& PropertyMgr::getProperty(IPropertyId& nPropertyId)
+	const PropertyPtr& PropertyMgr::getProperty(const IPropertyId& nPropertyId) const
 	{
 		__i32 propertyId_ = nPropertyId.getPropertyId();
 		auto it = mPropertys.find(propertyId_);
@@ -14,7 +14,7 @@ namespace std {
 		return it->second;
 	}
 
-	void PropertyMgr::addProperty(PropertyPtr& nProperty, PropertyIdPtr& nPropertyId)
+	void PropertyMgr::addProperty(const PropertyPtr& nProperty, const PropertyIdPtr& nPropertyId)
 	{
 		__i32 propertyId_ = nPropertyId->getPropertyId();
 		auto it = mPropertys.find(propertyId_);

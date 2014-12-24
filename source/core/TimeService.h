@@ -6,21 +6,21 @@ namespace std {
 	{
 	public:
 	#ifdef __CLIENT__
-		void setServerTime(__i64 nServerTime);
+		void setServerTime(const __i64 nServerTime);
 	#endif
-		__i64 getServerTime();
-		__i64 getLocalTime();
+		const __i64 getServerTime() const;
+		const __i64 getLocalTime() const;
 		
 		static TimeService * getTimeService();
 		
 	private:
-		time_t fromTime(__i32 nYear, __i32 nMonth, __i32 nDay);
-		time_t fromTime(__i32 nYear, __i32 nMonth, __i32 nDay, __i32 nHour);
-		time_t fromTime(__i32 nYear, __i32 nMonth, __i32 nDay, __i32 nHour, __i32 nMin);
-		time_t fromTime(__i32 nYear, __i32 nMonth, __i32 nDay, __i32 nHour, __i32 nMin, __i32 nSec);
+		const time_t fromTime(const __i32 nYear, const __i32 nMonth, const __i32 nDay) const;
+		const time_t fromTime(const __i32 nYear, const __i32 nMonth, const __i32 nDay, const __i32 nHour) const;
+		const time_t fromTime(const __i32 nYear, const __i32 nMonth, const __i32 nDay, const __i32 nHour, const __i32 nMin) const;
+		const time_t fromTime(const __i32 nYear, const __i32 nMonth, const __i32 nDay, const __i32 nHour, const __i32 nMin, const __i32 nSec) const;
 		
 	#ifdef __CONSOLE__
-		StringWriterPtr commandInfo(const CommandArgs& nCommand);
+		const StringWriterPtr commandInfo(const CommandArgs& nCommandArgs);
 	#endif
 	
 	public:

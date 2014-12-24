@@ -10,7 +10,7 @@ namespace std {
 		void setPropertyMgr(PropertyMgrPtr& nPropertyMgr);
 
 	protected:
-		PropertyMgrPtr& getPropertyMgr();
+		PropertyMgrPtr& getPropertyMgr() const;
 
 	public:
 		virtual void runPreinit();

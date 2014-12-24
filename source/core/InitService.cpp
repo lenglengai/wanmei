@@ -3,28 +3,49 @@
 namespace std {
 
 #ifdef __CONSOLE__
-	StringWriterPtr InitService::commandInfo(const CommandArgs& nCommand)
+	const StringWriterPtr InitService::commandInfo(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
 		string className_(""); 
 		__i32 classid_ = __classinfo<InitService>(className_);
 		stringWriter_->runString(className_, "className");
 		stringWriter_->runInt32(classid_, "classId");
+		stringWriter_->runInt32(VERHIGH, "highVersion");
+		stringWriter_->runInt32(VERLOW, "lowVersion");
+		stringWriter_->runInt32(VERBUILD, "buildVersion");
+		stringWriter_->runInt32(BUILDYEAR, "buildYear");
+		stringWriter_->runInt32(BUILDMONTH, "buildMonth");
+		stringWriter_->runInt32(BUILDDAY, "buildDay");
+		stringWriter_->runInt32(STARTYEAR, "startYear");
+		stringWriter_->runInt32(STARTMONTH, "startMonth");
+		stringWriter_->runInt32(STARTDAY, "startDay");
+		stringWriter_->runInt32(ENDYEAR, "endYear");
+		stringWriter_->runInt32(ENDMONTH, "endMonth");
+		stringWriter_->runInt32(ENDDAY, "endDay");
+		stringWriter_->runInt32(INITYEAR, "initYear");
+		stringWriter_->runInt32(INITMONTH, "initMonth");
+		stringWriter_->runInt32(INITDAY, "initDay");
+		stringWriter_->runString(CONFIGUREFILE, "configureFile");
+		stringWriter_->runInt32(PACKETMAX, "maxPacketSize");
+		stringWriter_->runString(VERNAME, "versionName");
 		return stringWriter_;
 	}
 	
-	StringWriterPtr InitService::commandResume(const CommandArgs& nCommand)
+	const StringWriterPtr InitService::commandResume(const CommandArgs& nCommandArgs)
 	{
 		this->runResume();
 		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
 		stringWriter_->runString("sucess", "runResume");
 		return stringWriter_;
 	}
 	
-	StringWriterPtr InitService::commandPause(const CommandArgs& nCommand)
+	const StringWriterPtr InitService::commandPause(const CommandArgs& nCommandArgs)
 	{
 		this->runPause();
 		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
 		stringWriter_->runString("sucess", "runResume");
 		return stringWriter_;
 	}
@@ -32,6 +53,10 @@ namespace std {
 
 	bool InitService::runPreinit()
 	{
+		ServiceMgr& serviceMgr_ = Singleton<ServiceMgr>::instance();
+		serviceMgr_.runPreinit();
+		serviceMgr_.registerService(this);
+				
 		PreinitSlot& preinitSlot_ = Singleton<PreinitSlot>::instance();
 		if ( !preinitSlot_.runPreinit0() ) {
 			return false;
@@ -40,9 +65,6 @@ namespace std {
 			return false;
 		}
 		preinitSlot_.runClear();
-		
-		ServiceMgr& serviceMgr_ = Singleton<ServiceMgr>::instance();
-		serviceMgr_.registerService(this);
 		
 	#ifdef __CONSOLE__
 		this->registerCommand("info", std::bind(&InitService::commandInfo, this, placeholders::_1));
@@ -53,10 +75,17 @@ namespace std {
 		return true;
 	}
 	
+	InitService * InitService::getInitService()
+	{
+		InitService& initService_ = Singleton<InitService>::instance();
+		return (&initService_);
+	}
+	
 	void InitService::runLuaApi()
 	{
 		LuaService& luaService_ = Singleton<LuaService>::instance();
 		luaService_.runClass<InitService>("InitService");
+		luaService_.runFun(&InitService::getInitService, "InitService");
 		luaService_.runMethod<InitService>(&InitService::runResume, "runResume");
 		luaService_.runMethod<InitService>(&InitService::runPause, "runPause");
 		

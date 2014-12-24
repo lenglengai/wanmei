@@ -3,9 +3,10 @@
 namespace std {
 
 #ifdef __CONSOLE__
-	StringWriterPtr IoService::commandInfo(const CommandArgs& nCommand)
+	const StringWriterPtr IoService::commandInfo(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
 		string className_(""); 
 		__i32 classid_ = __classinfo<IoService>(className_);
 		stringWriter_.runString(className_, "className");
@@ -14,21 +15,22 @@ namespace std {
 		return stringWriter_;
 	}
 	
-	StringWriterPtr IoService::commandReload(const CommandArgs& nCommand)
+	const StringWriterPtr IoService::commandReload(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
 		this->runLoad();
 		stringWriter_->runInt32(mIoServiceCount, "ioServiceCount");
 		return stringWriter_;
 	}
 #endif
 
-	const char * IoService::streamName()
+	const char * IoService::streamName() const
 	{
 		return "ioService";
 	}
 	
-	const char * IoService::streamUrl()
+	const char * IoService::streamUrl() const
 	{
 	#ifdef __SERVER__
 		return "ioServer.xml";
@@ -126,6 +128,6 @@ namespace std {
 		this->runClear();
 	}
 	
-	static Preinit<IoService> sIoServicePreinit;
+	static Preinit0<IoService> sIoServicePreinit;
 
 }
