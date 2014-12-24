@@ -19,8 +19,8 @@ namespace std {
 		virtual bool runInt64(__i64& nValue) = 0;
 		virtual bool runInt64s(list<__i64>& nValue) = 0;
 
-		virtual bool runString(std::string& nValue) = 0;
-		virtual bool runStrings(list<std::string>& nValue) = 0;
+		virtual bool runString(string& nValue) = 0;
+		virtual bool runStrings(list<string>& nValue) = 0;
 
 		virtual bool runFloat(float& nValue) = 0;
 		virtual bool runFloats(list<float>& nValue) = 0;

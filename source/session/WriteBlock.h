@@ -58,6 +58,6 @@ namespace std {
 		char mBuffer[PACKETMAX];
 		__i16 mLength;
 	};
-	typedef std::shared_ptr<WriteBlock> WriteBlockPtr;
+	typedef shared_ptr<WriteBlock> WriteBlockPtr;
 
 }

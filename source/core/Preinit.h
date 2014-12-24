@@ -61,7 +61,7 @@ namespace std{
 		Preinit1()
 		{
 			PreinitSlot& preinitSlot_ = Singleton<PreinitSlot>::instance();
-			function<bool ()> preinit_ = function<bool ()>(&Preinit0<T>::runPreinit);
+			function<bool ()> preinit_ = function<bool ()>(&Preinit1<T>::runPreinit);
 			preinitSlot_.pushPreinit1(preinit_);
 		}
 	};

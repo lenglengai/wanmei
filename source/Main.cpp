@@ -7,7 +7,6 @@ int main( int argc, char * argv[] )
 	InitService& initService = Singleton<InitService>::instance();
 	if (!initService.runPreinit()) return 0;
 	initService.runLoad0();
-	initService.runLoad0();
 	initService.runLoad1();
 	initService.runInit0();
 	initService.runInit1();

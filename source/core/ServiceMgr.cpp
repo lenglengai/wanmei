@@ -79,7 +79,7 @@ namespace std {
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&ServiceMgr::runInit, this));
-		initService_.m_tRunStart1.connect(boost::bind(&ServiceMgr::runStart, this));
+		initService_.m_tRunStart0.connect(boost::bind(&ServiceMgr::runStart, this));
 		initService_.m_tRunStop.connect(boost::bind(&ServiceMgr::runStop, this));
 	#ifdef __CONSOLE__
 		this->registerCommand("info", std::bind(&ServiceMgr::commandInfo, this, placeholders::_1));
