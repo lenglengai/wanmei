@@ -4,10 +4,9 @@ namespace std {
 
 	bool Session::runSend(PacketPtr& nPacket)
 	{
-		InitService& initService_ = Singleton<InitService>::instance();
-		if ( (initService_.isPause()) || (SessionState_::mClosed_ == mSessionState) ) {
+		if ( SessionState_::mClosed_ == mSessionState ) {
 			LogService& logService_ = Singleton<LogService>::instance();
-			logService_.logError(log_2(initService_.isPause(), mSessionState));
+			logService_.logError(log_1(mSessionState));
 			return false;
 		}
 		this->pushPacket(nPacket);
@@ -45,13 +44,13 @@ namespace std {
 			return;
 		}
 		BlockPushType_ blockPushType_ = mReadBlock->runPush(mReadBuffer.data(), nBytes);
-		if (mBlockPushTypeError_ == blockPushType_) {
+		if (BlockPushType_::mError_ == blockPushType_) {
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1("mBlockPushTypeError_ == blockPushType_"));
 			this->runClose();
 			return;
 		}
-		if (mBlockPushTypeLength_ == blockPushType_) return;
+		if (BlockPushType_::mLength_ == blockPushType_) return;
 		ProtocolService& protocolService_ = Singleton<ProtocolService>::instance();
 		if (!protocolService_.runReadBlock(mReadBlock, shared_from_this())) {
 			LogService& logService_ = Singleton<LogService>::instance();
@@ -96,7 +95,7 @@ namespace std {
 		}
 	}
 
-	__i32 Session::getSessionState()
+	__i32 Session::getSessionState() const
 	{
 		return mSessionState;
 	}
@@ -107,7 +106,7 @@ namespace std {
 		this->runStart();
 	}
 	
-	__i32 Session::getSessionId()
+	__i32 Session::getSessionId() const
 	{
 		return mSessionId;
 	}
@@ -129,13 +128,13 @@ namespace std {
 
 	void Session::pushPacket(PacketPtr& nPacket)
 	{
-		std::lock_guard<std::mutex> lock_(mMutex);
+		lock_guard<mutex> lock_(mMutex);
 		mPackets.push_back(nPacket);
 	}
 
 	PacketPtr Session::popPacket()
 	{
-		std::lock_guard<std::mutex> lock_(mMutex);
+		lock_guard<mutex> lock_(mMutex);
 		PacketPtr packet_;
 		if (mPackets.size() > 0) {
 			packet_ = mPackets.front();
@@ -178,7 +177,7 @@ namespace std {
 		}
 	}
 
-	asio::ip::tcp::socket& Session::getSocket()
+	const asio::ip::tcp::socket& Session::getSocket() const
 	{
 		return mSocket;
 	}
@@ -192,12 +191,17 @@ namespace std {
 		mSecondPlayer = (&nPlayer);
 	}
 
-	PlayerPtr * Session::getPlayer()
+	PlayerPtr * Session::getPlayer() const
 	{
 		if (nullptr != mSecondPlayer) {
 			return mSecondPlayer;
 		}
 		return mMainPlayer;
+	}
+	
+	bool Session::isInLook() const
+	{
+		return (nullptr != mSecondPlayer);
 	}
 	
 	Session::Session(__i32 nSessionId, asio::io_service& nIoService)

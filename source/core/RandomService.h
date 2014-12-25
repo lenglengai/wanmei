@@ -5,10 +5,10 @@ namespace std {
 	class __funapi RandomService : public IService
 	{
 	public:
-		const __i32 luaRandom(const __i32 nMin, const __i32 nMax);
-		const __i32 runRandom(const __i32 nMin, const __i32 nMax);
-		const __i32 runRandom(const __i32 nMax);
-		const __i32 runRandom();
+		__i32 luaRandom(const __i32 nMin, const __i32 nMax);
+		__i32 runRandom(const __i32 nMin, const __i32 nMax);
+		__i32 runRandom(const __i32 nMax);
+		__i32 runRandom();
 		
 		static RandomService * getRandomService();
 		

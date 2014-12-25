@@ -28,21 +28,21 @@ namespace std {
 		bool runDouble(double& nValue);
 		bool runDoubles(list<double>& nValue);
 		
-		bool isReader();
+		bool isReader() const;
 
 		void runClear();
 		void runEnd();
 
-		char * getBuffer();
-		__i16 getLength();
-		__i16 getTotal();
+		const char * getBuffer() const;
+		__i16 getLength() const;
+		__i16 getTotal() const;
 
 		WriteBlock();
 		~WriteBlock();
 	
 	private:
 		template<typename T>
-		bool runCopy(T& nT)
+		bool runCopy(const T& nT)
 		{
 			if ((mLength + sizeof(__i16)+sizeof(T)) > PACKETMAX) {
 				return false;
@@ -52,7 +52,7 @@ namespace std {
 			return true;
 		}
 
-		bool runCopy(const char * nValue, __i16 nLength);
+		bool runCopy(const char * nValue, const __i16 nLength);
 
 	private:
 		char mBuffer[PACKETMAX];

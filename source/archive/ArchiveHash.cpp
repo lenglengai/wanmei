@@ -2,7 +2,7 @@
 
 namespace std {
 
-	const __i32 ArchiveHash::hashSize()
+	__i32 ArchiveHash::hashSize()
 	{
 		return (sizeof(__i32)* 4);
 	}
@@ -12,7 +12,7 @@ namespace std {
 		mHash = nHash;
 	}
 
-	const __i32 ArchiveHash::getHash() const
+	__i32 ArchiveHash::getHash() const
 	{
 		return mHash;
 	}
@@ -22,7 +22,7 @@ namespace std {
 		mBeg = nBeg;
 	}
 
-	const __i32 ArchiveHash::getBeg() const
+	__i32 ArchiveHash::getBeg() const
 	{
 		return mBeg;
 	}
@@ -32,7 +32,7 @@ namespace std {
 		mEnd = nEnd;
 	}
 
-	const __i32 ArchiveHash::getEnd() const
+	__i32 ArchiveHash::getEnd() const
 	{
 		return mEnd;
 	}
@@ -42,17 +42,17 @@ namespace std {
 		mSize = nSize;
 	}
 
-	const __i32 ArchiveHash::getSize() const
+	__i32 ArchiveHash::getSize() const
 	{
 		return mSize;
 	}
 
-	const bool ArchiveHash::isDefault() const
+	bool ArchiveHash::isDefault() const
 	{
 		return (0 == mHash);
 	}
 
-	const __i32 ArchiveHash::getKey() const
+	__i32 ArchiveHash::getKey() const
 	{
 		return mHash;
 	}

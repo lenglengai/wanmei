@@ -95,8 +95,8 @@ namespace std {
 		void selectStream(const char * nStreamName) const;
 		__i32 pushStream(const char * nName);
 		void popStream();
-		void runRead(char * nValue, __i32 nLength);
-		void runSeek(__i32 nPos);
+		void runRead(char * nValue, const __i32 nLength);
+		void runSeek(const __i32 nPos);
 		__i32 runLength();
 		void runClose();
 

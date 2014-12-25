@@ -2,12 +2,12 @@
 
 namespace std {
 
-	void Robot::setWireId(__i16 nWireId)
+	void Robot::setWireId(const __i16 nWireId)
 	{
 		mWireId = nWireId;
 	}
 	
-	__i16 Robot::getWireId()
+	__i16 Robot::getWireId() const
 	{
 		return mWireId;
 	}
@@ -22,7 +22,7 @@ namespace std {
 		mInSwitch = false;
 	}
 	
-	bool Robot::inSwitch()
+	bool Robot::inSwitch() const
 	{
 		return (true == mInSwitch);
 	}
@@ -37,7 +37,7 @@ namespace std {
 		mInLock--;
 	}
 	
-	bool Robot::inLock()
+	bool Robot::inLock() const
 	{
 		return (mInLock > 0);
 	}
@@ -50,7 +50,7 @@ namespace std {
 	{
 	}
 	
-	Robot::Robot(RobotType_ nRobotType)
+	Robot::Robot(const RobotType_ nRobotType)
 		: mRobotType (nRobotType)
 		, mInSwitch(false)
 		, mInLock(0)

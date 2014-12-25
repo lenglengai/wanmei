@@ -2,10 +2,10 @@
 
 namespace std {
 	
-	extern const __i32 __stringid(const char * nValue);
+	extern __i32 __stringid(const char * nValue);
 	
 	template<typename __t>
-	const __i32 __classid()
+	__i32 __classid()
 	{
 		__i32 result_ = 0;
 	#ifdef __WINDOW__
@@ -22,7 +22,7 @@ namespace std {
 	}
 	
 	template<typename __t>
-	const __i32 __classinfo(string& nClassName)
+	__i32 __classinfo(string& nClassName)
 	{
 		__i32 result_ = 0;
 	#ifdef __WINDOW__

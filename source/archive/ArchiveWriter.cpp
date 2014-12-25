@@ -30,7 +30,7 @@ namespace std {
 		__i32 beg_ = mBinWriter.runTell();
 		__i32 size_ = this->readBuf(nArchive);
 		__i32 end_ = this->writeBuf(size_);
-		std::shared_ptr<ArchiveHash> archiveHash(new ArchiveHash());
+		shared_ptr<ArchiveHash> archiveHash(new ArchiveHash());
 		CrcService& crcService = Singleton<CrcService>::instance();
 		__i32 hash_ = crcService.runCommon(nArchive);
 		archiveHash->setHash(hash_);

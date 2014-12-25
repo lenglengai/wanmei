@@ -28,7 +28,7 @@ namespace std {
 		virtual bool runDouble(double& nValue) = 0;
 		virtual bool runDoubles(list<double>& nValue) = 0;
 		
-		virtual bool isReader() = 0;
+		virtual bool isReader() const = 0;
 	};
 	typedef shared_ptr<IBlock> BlockPtr;
 

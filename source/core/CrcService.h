@@ -5,17 +5,17 @@ namespace std {
 	class __funapi CrcService : public IService
 	{
 	public:
-		const __i64 runId(const char * nName) const;
-		const __i64 runId(const __i32 nId) const;
-		const __i32 runCommon(const char * nName) const;
-		const __i32 runComputer() const;
-		const __i32 runCellphone() const;
-		const __i32 runName(const char * nName) const;
-		const __i32 runPassward(const char * nName) const;
-		const __i32 runCluster(const char * nName) const;
-		const __i32 runServer(const char * nName) const;
-		const __i32 runDatabase(const char * nName) const;
-		const __i32 runTable(const char * nName) const;
+		__i64 runId(const char * nName) const;
+		__i64 runId(const __i32 nId) const;
+		__i32 runCommon(const char * nName) const;
+		__i32 runComputer() const;
+		__i32 runCellphone() const;
+		__i32 runName(const char * nName) const;
+		__i32 runPassward(const char * nName) const;
+		__i32 runCluster(const char * nName) const;
+		__i32 runServer(const char * nName) const;
+		__i32 runDatabase(const char * nName) const;
+		__i32 runTable(const char * nName) const;
 		
 		static CrcService * getCrcService();
 		
@@ -43,7 +43,7 @@ namespace std {
 		~CrcService();
 
 	private:
-		const __i32 hashString(const char * nKey, __i16 nOffset) const;
+		__i32 hashString(const char * nKey, __i16 nOffset) const;
 	};
 
 }

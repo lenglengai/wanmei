@@ -10,7 +10,7 @@ namespace std {
 		Context();
 		virtual ~Context();
 	};
-	typedef std::weak_ptr<Context> ContextWtr;
-	typedef std::shared_ptr<Context> ContextPtr;
+	typedef weak_ptr<Context> ContextWtr;
+	typedef shared_ptr<Context> ContextPtr;
 
 }

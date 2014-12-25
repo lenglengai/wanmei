@@ -3,20 +3,41 @@
 namespace std{
 
 #ifdef __CONSOLE__
-	StringWriterPtr SessionService::commandInfo(const CommandArgs& nCommand)
+	const StringWriterPtr SessionService::commandInfo(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
 		string className_(""); __i32 sessionCount_ = 0;
 		__i32 classid_ = __classinfo<SessionService>(className_);
-		stringWriter_.runString(className_className_, "className");
-		stringWriter_.runInt32(classid_, "classId");
-		stringWriter_.runInt32(mSessionId, "sessionId");
+		stringWriter_->runString(className_, "className");
+		stringWriter_->runInt32(classid_, "classId");
+		stringWriter_->runInt32(mSessionId, "sessionId");
+	#ifdef __SERVER__
 		{
-			std::lock_guard<std::mutex> lock_(mMutex);
+			lock_guard<mutex> lock_(mMutex);
 			sessionCount_ = mSessions.size();
 		}
-		stringWriter_.runInt32(sessionCount_, "sessionCount");
+		stringWriter_->runInt32(sessionCount_, "sessionCount");
+	#endif
+		return stringWriter_;
+	}
+	
+	const StringWriterPtr SessionService::commandFindId(const CommandArgs& nCommandArgs)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
+	#ifdef __SERVER__
+		const string& strSession_ = nCommandArgs.getCommandArg(1);
+		__i32 sessionId_ = __convert<string, __i32>(strSession_);
+		bool isFind_ = false;
+		auto it = mSessions.find(sessionId_);
+		if (it != mSessions.end()) {
+			isFind_ = true;
+		}
+		stringWriter_->runString(strSession_, "strSession");
+		stringWriter_->runInt32(sessionId_, "sessionId");
+		stringWriter_->runBool(isFind_, "isFind");
+	#endif
 		return stringWriter_;
 	}
 #endif
@@ -24,7 +45,8 @@ namespace std{
 	bool SessionService::runPreinit()
 	{
 	#ifdef __CONSOLE__
-		this->registerCommand("info", std::bind(&SessionService::commandInfo, this, _1));
+		this->registerCommand("info", std::bind(&SessionService::commandInfo, this, placeholders::_1));
+		this->registerCommand("findId", std::bind(&SessionService::commandFindId, this, placeholders::_1));
 	#endif
 		return true;
 	}
@@ -33,7 +55,7 @@ namespace std{
 	{
 	#ifdef __SERVER__
 		__i32 sessionId_ = nSession->getSessionId();
-		std::lock_guard<std::mutex> lock_(mMutex);
+		lock_guard<mutex> lock_(mMutex);
 		auto it = mSessions.find(sessionId_);
 		if (it != mSessions.end()) {
 			LogService& logService_ = Singleton<LogService>::instance();
@@ -50,7 +72,7 @@ namespace std{
 		IoService& ioService_ = Singleton<IoService>::instance();
 		asio::io_service& ioservice = ioService_.getIoService();
 		SessionPtr session_(new Session(++mSessionId, ioservice));
-		std::lock_guard<std::mutex> lock_(mMutex);
+		lock_guard<mutex> lock_(mMutex);
 		mSessions[mSessionId] = session_;
 		return mSessions[mSessionId];
 	#endif

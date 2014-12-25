@@ -5,17 +5,17 @@ namespace std {
 	class __funapi ArchiveHash : noncopyable
 	{
 	public:
-		static const __i32 hashSize();
+		static __i32 hashSize();
 		void setHash(const __i32 nHash);
-		const __i32 getHash() const;
+		__i32 getHash() const;
 		void setBeg(const __i32 nBeg);
-		const __i32 getBeg() const;
+		__i32 getBeg() const;
 		void setEnd(const __i32 nEnd);
-		const __i32 getEnd() const;
+		__i32 getEnd() const;
 		void setSize(const __i32 nSize);
-		const __i32 getSize() const;
-		const bool isDefault() const;
-		const __i32 getKey() const;
+		__i32 getSize() const;
+		bool isDefault() const;
+		__i32 getKey() const;
 
 		template<class T>
 		void serialize(T * nSerialize, const __i32 nCount)

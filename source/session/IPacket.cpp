@@ -12,7 +12,7 @@ namespace std {
 		return true;
 	}
 	
-	void IPacket::setHeader(__i32 nProtocol, __i32 nPacketId)
+	void IPacket::setHeader(const __i32 nProtocol, const __i32 nPacketId)
 	{
 		mProtocol = nProtocol;
 		mPacketId = nPacketId;
@@ -26,12 +26,12 @@ namespace std {
 		return true;
 	}
 
-	__i32 IPacket::getProtocolId()
+	__i32 IPacket::getProtocolId() const
 	{
 		return mProtocol;
 	}
 	
-	__i32 IPacket::getPacketId()
+	__i32 IPacket::getPacketId() const
 	{
 		return mPacketId;
 	}
@@ -42,13 +42,13 @@ namespace std {
 		mPlayer = &nPlayer;
 	}
 	
-	PlayerPtr * IPacket::getPlayer()
+	PlayerPtr * IPacket::getPlayer() const
 	{
 		return mPlayer;
 	}
 #endif
 
-	bool IPacket::isError()
+	bool IPacket::isError() const
 	{
 		return false;
 	}

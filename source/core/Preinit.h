@@ -7,8 +7,8 @@ namespace std{
 	public:
 		void pushPreinit0(const function<bool ()>& nPreinit);
 		void pushPreinit1(const function<bool ()>& nPreinit);
-		const bool runPreinit0() const;
-		const bool runPreinit1() const;
+		bool runPreinit0() const;
+		bool runPreinit1() const;
 		
 		void runClear();
 		
@@ -24,7 +24,7 @@ namespace std{
 	class Preinit0 : noncopyable
 	{
 	public:
-		static const bool runPreinit()
+		static bool runPreinit()
 		{
 			T& t_ = Singleton<T>::instance();
 			if (t_.runPreinit()) {
@@ -47,7 +47,7 @@ namespace std{
 	class Preinit1 : noncopyable
 	{
 	public:
-		static const bool runPreinit()
+		static bool runPreinit()
 		{
 			T& t_ = Singleton<T>::instance();
 			if (t_.runPreinit()) {

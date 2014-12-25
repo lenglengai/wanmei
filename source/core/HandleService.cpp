@@ -75,7 +75,7 @@ namespace std {
 
 	void HandleService::runStart()
 	{
-		std::map<__i32, HandlePtr>::iterator it = mHandles.begin();
+		map<__i32, HandlePtr>::iterator it = mHandles.begin();
 		for ( ; it != mHandles.end(); ++it ) {
 			HandlePtr& handle = it->second;
 			handle->runStart();
@@ -84,9 +84,8 @@ namespace std {
 
 	void HandleService::runStop()
 	{
-		std::map<__i32, HandlePtr>::iterator it = mHandles.begin();
-		for (; it != mHandles.end(); ++it) {
-			HandlePtr& handle = it->second;
+		for (auto it : mHandles) {
+			HandlePtr& handle = it.second;
 			handle->runStop();
 		}
 	}

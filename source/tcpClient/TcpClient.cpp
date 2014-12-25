@@ -4,26 +4,25 @@
 namespace std {
 
 #ifdef __CONSOLE__
-	StringWriterPtr TcpClient::commandInfo(const CommandArgs& nCommand)
+	const StringWriterPtr TcpClient::commandInfo(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
 		string className_(""); 
-		__i32 classid_ = __classinfo<TcpClient>(className_);	
-		stringWriter_.runString(className_, "className");
-		stringWriter_.runInt32(classid_, "classId");
-		stringWriter_.runString(mAddress, "address");
-		stringWriter_.runString(mPort, "port");
+		__i32 classid_ = __classinfo<TcpClient>(className_);
+		stringWriter_->runString(className_, "className");
+		stringWriter_->runString(mAddress, "address");
+		stringWriter_->runString(mPort, "port");
 		return stringWriter_;
 	}
 	
-	StringWriterPtr TcpClient::commandReload(const CommandArgs& nCommand)
+	const StringWriterPtr TcpClient::commandReload(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
 		this->runLoad();
-		stringWriter_.runString(mAddress, "address");
-		stringWriter_.runString(mPort, "port");
+		stringWriter_->runString(mAddress, "address");
+		stringWriter_->runString(mPort, "port");
 		return stringWriter_;
 	}
 #endif
@@ -90,8 +89,8 @@ namespace std {
 		initService_.m_tRunLoad0.connect(boost::bind(&TcpClient::runLoad, this));
 		initService_.m_tRunStart0.connect(boost::bind(&TcpClient::runStart, this));
 	#ifdef __CONSOLE__
-		this->registerCommand("info", std::bind(&TcpClient::commandInfo, this, _1));
-		this->registerCommand("reload", std::bind(&TcpClient::commandReload, this, _1));
+		this->registerCommand("info", std::bind(&TcpClient::commandInfo, this, placeholders::_1));
+		this->registerCommand("reload", std::bind(&TcpClient::commandReload, this, placeholders::_1));
 	#endif
 		return true;
 	}

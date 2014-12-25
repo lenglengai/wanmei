@@ -392,12 +392,12 @@ namespace std {
 	{
 	}
 
-	void BinWriter::runWrite(char * nValue, __i32 nLength)
+	void BinWriter::runWrite(char * nValue, const __i32 nLength)
 	{
 		mStream.write(nValue, nLength);
 	}
 
-	void BinWriter::runSeek(__i32 nPos)
+	void BinWriter::runSeek(const __i32 nPos)
 	{
 		mStream.seekp(nPos, ios::beg);
 	}

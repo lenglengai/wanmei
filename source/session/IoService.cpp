@@ -9,9 +9,9 @@ namespace std {
 		nCommandArgs.runStringWriter(stringWriter_);
 		string className_(""); 
 		__i32 classid_ = __classinfo<IoService>(className_);
-		stringWriter_.runString(className_, "className");
-		stringWriter_.runInt32(classid_, "classId");
-		stringWriter_.runInt32(mIoServiceCount, "ioServiceCount");
+		stringWriter_->runString(className_, "className");
+		stringWriter_->runInt32(classid_, "classId");
+		stringWriter_->runInt32(mIoServiceCount, "ioServiceCount");
 		return stringWriter_;
 	}
 	
@@ -49,8 +49,8 @@ namespace std {
 		initService_.m_tRunRun.connect(boost::bind(&IoService::runRun, this));
 		initService_.m_tRunStop.connect(boost::bind(&IoService::runStop, this));
 	#ifdef __CONSOLE__
-		this->registerCommand("info", std::bind(&IoService::commandInfo, this, _1));
-		this->registerCommand("reload", std::bind(&IoService::commandReload, this, _1));
+		this->registerCommand("info", std::bind(&IoService::commandInfo, this, placeholders::_1));
+		this->registerCommand("reload", std::bind(&IoService::commandReload, this, placeholders::_1));
 	#endif
 		return true;
 	}
@@ -83,7 +83,7 @@ namespace std {
 	{
 		vector<shared_ptr<thread>> threads;
 		for (size_t i = 0; i < mIoServices.size(); ++i) {
-			shared_ptr<std::thread> thread_(new thread(boost::bind(&asio::io_service::run, mIoServices[i])));
+			shared_ptr<thread> thread_(new thread(boost::bind(&asio::io_service::run, mIoServices[i])));
 			threads.push_back(thread_);
 		}
 	#ifdef __RUNING__

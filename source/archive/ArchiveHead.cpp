@@ -2,12 +2,12 @@
 
 namespace std {
 
-	const __i32 ArchiveHead::hashSize()
+	__i32 ArchiveHead::hashSize()
 	{
 		return 1;
 	}
 
-	const bool ArchiveHead::getCompress() const
+	bool ArchiveHead::getCompress() const
 	{
 		return mCompress;
 	}

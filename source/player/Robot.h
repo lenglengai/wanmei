@@ -14,17 +14,17 @@ namespace std {
 	class Robot : public PropertyMgr
 	{
 	public:
-		void setWireId(__i16 nWireId);
-		__i16 getWireId();
+		void setWireId(const __i16 nWireId);
+		__i16 getWireId() const;
 		void runSwitch();
 		void runUnSwitch();
-		bool inSwitch();
+		bool inSwitch() const;
 		void runLock();
 		void runUnLock();
-		bool inLock();
+		bool inLock() const;
 		
 		Robot();
-		Robot(RobotType_ nRobotType);
+		Robot(const RobotType_ nRobotType);
 		virtual ~Robot();
 		
 	private:

@@ -24,7 +24,7 @@ namespace std {
 	}
 #endif
 
-	const __i64 TimeService::getServerTime() const
+	__i64 TimeService::getServerTime() const
 	{
 	#ifdef __CLIENT__
 		return (this->getLocalTime() + mCurrent);
@@ -34,7 +34,7 @@ namespace std {
 	#endif
 	}
 	
-	const __i64 TimeService::getLocalTime() const
+	__i64 TimeService::getLocalTime() const
 	{
 		chrono::system_clock::time_point time_ = chrono::system_clock::now();
 		chrono::duration<__i64> timePeriod = chrono::duration_cast<chrono::duration<__i64>>(time_ - mBegin);

@@ -1,10 +1,5 @@
 #pragma once
 
-#include <boost/array.hpp>
-#include <boost/asio.hpp>
-
-using namespace boost;
-
 namespace std {
 
 	struct SessionState_ 
@@ -23,18 +18,19 @@ namespace std {
 		void runStart();
 		void runClose();
 		
-		asio::ip::tcp::socket& getSocket();
-		__i32 getSessionState();
+		const asio::ip::tcp::socket& getSocket() const;
+		__i32 getSessionState() const;
 		void openSession();
 		
-		__i32 getSessionId();
+		__i32 getSessionId() const;
 		
 		void setPlayer(PlayerPtr& nPlayer);
-		PlayerPtr * getPlayer();
-
-		explicit Session(asio::io_service& nIoService);
+		PlayerPtr * getPlayer() const;
+		bool isInLook() const;
+		
+		explicit Session(__i32 nSessionId, asio::io_service& nIoService);
 		~Session();
-
+		
 	private:
 		void handleRead(const boost::system::error_code& nError, size_t nBytes);
 		void handleReadTimeout(const boost::system::error_code& nError);
@@ -48,15 +44,15 @@ namespace std {
 		atomic<__i32> mSessionState;
 		asio::ip::tcp::socket mSocket;
 		
-		std::mutex mMutex;
-		std::deque<PacketPtr> mPackets;
-		std::atomic<bool> mSending;
+		mutex mMutex;
+		deque<PacketPtr> mPackets;
+		atomic<bool> mSending;
 		
-		boost::asio::deadline_timer mReadTimer;
+		asio::deadline_timer mReadTimer;
 		boost::array<__i8, PACKETMAX> mReadBuffer;
 		ReadBlockPtr mReadBlock;
 		
-		boost::asio::deadline_timer mWriteTimer;
+		asio::deadline_timer mWriteTimer;
 		WriteBlockPtr mWriteBlock;
 		
 		PlayerPtr * mMainPlayer;
@@ -64,8 +60,6 @@ namespace std {
 		
 		__i32 mSessionId;
 	};
-	typedef std::weak_ptr<Session> SessionWtr;
-	typedef std::shared_ptr<Session> SessionPtr;
 	
 }
 

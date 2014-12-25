@@ -108,6 +108,7 @@ SET( CORE_H
 	${cores}/PropertyId.h 
 	${cores}/PropertyMgr.h 
 	${cores}/PropertySink.h )
+file(COPY ${cores}/handleService.xml DESTINATION ${BIN_PATH})
 ##############################################################
 set(archives ${SRC_PATH}/archive )
 
@@ -137,6 +138,48 @@ SET( ARCHIVE_H
 	${archives}/rapidxml_utils.hpp
 	${archives}/XmlReader.h)
 ##############################################################
+set(sessions ${SRC_PATH}/session )
+
+set( SESSION_SRC
+	${sessions}/IoService.cpp
+	${sessions}/IPacket.cpp
+	${sessions}/IProtocol.cpp
+	${sessions}/ProtocolService.cpp
+	${sessions}/ReadBlock.cpp
+	${sessions}/WriteBlock.cpp
+	${sessions}/Session.cpp
+	${sessions}/SessionService.cpp )
+
+SET( SESSION_H
+	${sessions}/IBlock.h
+	${sessions}/WriteBlock.h
+	${sessions}/ReadBlock.h
+	${sessions}/IPacket.h
+	${sessions}/Session.h
+	${sessions}/SessionService.h
+	${sessions}/IProtocol.h
+	${sessions}/ProtocolService.h
+	${sessions}/IoService.h )
+file(COPY ${sessions}/ioClient.xml DESTINATION ${BIN_PATH})
+file(COPY ${sessions}/ioServer.xml DESTINATION ${BIN_PATH})
+##############################################################
+set(tcpServers ${SRC_PATH}/tcpServer )
+
+set( TCPSERVER_SRC
+	${tcpServers}/TcpServer.cpp )
+
+SET( TCPSERVER_H
+	${tcpServers}/TcpServer.h )
+file(COPY ${tcpServers}/tcpAddress.xml DESTINATION ${BIN_PATH})
+##############################################################
+set(tcpClients ${SRC_PATH}/tcpClient )
+
+set( TCPCLIENT_SRC
+	${tcpClients}/TcpClient.cpp )
+
+SET( TCPCLIENT_H
+	${tcpClients}/TcpClient.h )
+##############################################################
 add_subdirectory(libbzlib)
 add_subdirectory(liblua)
 
@@ -144,6 +187,9 @@ add_executable(${PROJECT_NAME}
 	${MAIN_SRC} ${MAIN_H}
 	${COMMON_SRC} ${COMMON_H} 
 	${CORE_SRC} ${CORE_H}
-	${ARCHIVE_SRC} ${ARCHIVE_H} )
+	${ARCHIVE_SRC} ${ARCHIVE_H}
+	${SESSION_SRC} ${SESSION_H}	
+	${TCPSERVER_SRC} ${TCPSERVER_H} 
+	${TCPCLIENT_SRC} ${TCPCLIENT_H} )
 	
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} libbzlib liblua libmysql)

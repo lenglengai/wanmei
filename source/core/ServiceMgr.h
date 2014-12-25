@@ -18,8 +18,8 @@ namespace std {
 			}
 			mServices[classId_] = nService;
 		}
-	#ifdef __CONSOLE__
 		void runCommand(const CommandArgs& nCommandArgs) const;
+	#if defined(__CONSOLE__) ||  defined(__CLIENT__)
 		void setClientConsole(const bool nClientConsole);
 	#endif
 	
@@ -40,7 +40,7 @@ namespace std {
 		~ServiceMgr();
 		
 	private:
-		std::map<__i32, IService *> mServices;
+		map<__i32, IService *> mServices;
 	#ifdef __CONSOLE__
 		HandlePtr mConsoleHandle;
 		bool mClientConsole;

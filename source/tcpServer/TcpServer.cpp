@@ -2,6 +2,29 @@
 
 #ifdef __TCPSERVER__
 namespace std {
+#ifdef __CONSOLE__
+	const StringWriterPtr TcpServer::commandInfo(const CommandArgs& nCommandArgs)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
+		string className_(""); 
+		__i32 classid_ = __classinfo<TcpServer>(className_);
+		stringWriter_->runString(className_, "className");
+		stringWriter_->runString(mAddress, "address");
+		stringWriter_->runString(mPort, "port");
+		return stringWriter_;
+	}
+	
+	const StringWriterPtr TcpServer::commandReload(const CommandArgs& nCommandArgs)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
+		this->runLoad();
+		stringWriter_->runString(mAddress, "address");
+		stringWriter_->runString(mPort, "port");
+		return stringWriter_;
+	}
+#endif
 
 	void TcpServer::handleAccept(const boost::system::error_code& nError)
 	{
@@ -45,6 +68,10 @@ namespace std {
 		initService_.m_tRunLoad0.connect(boost::bind(&TcpServer::runLoad, this));
 		initService_.m_tRunStart0.connect(boost::bind(&TcpServer::runStart, this));
 		initService_.m_tRunStop.connect(boost::bind(&TcpServer::runStop, this));
+	#ifdef __CONSOLE__
+		this->registerCommand("info", std::bind(&TcpServer::commandInfo, this, placeholders::_1));
+		this->registerCommand("reload", std::bind(&TcpServer::commandReload, this, placeholders::_1));
+	#endif
 		return true;
 	}
 

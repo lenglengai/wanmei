@@ -2,21 +2,21 @@
 
 namespace std {
 
-	PacketIdPtr& IProtocol::getPacketId(__i32 nPacketType)
+	const PacketIdPtr& IProtocol::getPacketId(const __i32 nPacketType) const
 	{
-		map<__i32, PacketIdPtr>::iterator it = mPacketIds.find(nPacketType);
+		auto it = mPacketIds.find(nPacketType);
 		if (it == mPacketIds.end()) {
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1(nPacketType));
 			return __defaultptr<IPacketId>();
 		}
-		return packetId_ = mPacketIds[nPacketType];
+		return it->second;
 	}
 
 	void IProtocol::addPacketId(PacketIdPtr& nPacketId)
 	{
 		__i32 packetId_ = nPacketId->getPacketId();
-		map<__i32, PacketIdPtr>::iterator it = mPacketIds.find(packetId_);
+		auto it = mPacketIds.find(packetId_);
 		if (it != mPacketIds.end()) {
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1(packetId_));

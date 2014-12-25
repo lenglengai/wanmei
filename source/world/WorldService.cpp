@@ -85,7 +85,7 @@ namespace std{
 	{
 		HandleService& handleService_ = Singleton<HandleService>::instance();
 	#ifdef __CLIENT__
-		ContextPtr context_ = std::dynamic_pointer_cast<Context, World>(mWorld);
+		ContextPtr context_ = dynamic_pointer_cast<Context, World>(mWorld);
 		handleService_.addContext(context_, mWorldConfig.getHandleId());
 	#endif
 	#ifdef __SERVER__

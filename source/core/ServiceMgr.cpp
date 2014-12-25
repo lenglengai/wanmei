@@ -68,7 +68,9 @@ namespace std {
 		stringWriter_->runBool(isFind_, "isFind");
 		return stringWriter_;
 	}
-	
+#endif
+
+#if defined(__CONSOLE__) ||  defined(__CLIENT__)
 	void ServiceMgr::setClientConsole(const bool nClientConsole)
 	{
 		mClientConsole = nClientConsole;

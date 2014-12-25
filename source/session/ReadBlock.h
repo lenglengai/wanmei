@@ -25,8 +25,8 @@ namespace std{
 		bool runInt64(__i64& nValue);
 		bool runInt64s(list<__i64>& nValue);
 
-		bool runString(std::string& nValue);
-		bool runStrings(list<std::string>& nValue);
+		bool runString(string& nValue);
+		bool runStrings(list<string>& nValue);
 
 		bool runFloat(float& nValue);
 		bool runFloats(list<float>& nValue);
@@ -34,9 +34,9 @@ namespace std{
 		bool runDouble(double& nValue);
 		bool runDoubles(list<double>& nValue);
 		
-		bool isReader();
+		bool isReader() const;
 
-		BlockPushType_ runPush(char * nBuffer, __i16 nSize);
+		BlockPushType_ runPush(char * nBuffer, const __i16 nSize);
 		void endPush();
 		void runClear();
 
@@ -44,7 +44,7 @@ namespace std{
 		~ReadBlock();
 
 	private:
-		char * getBuffer(__i16 nSize);
+		const char * getBuffer(const __i16 nSize);
 		
 	private:
 		char mValue[PACKETMAX];

@@ -2,12 +2,12 @@
 
 namespace std {
 	
-	const __i16 __versionid()
+	__i16 __versionid()
 	{
 		return ((VERHIGH << 10) + VERLOW);
 	}
 	
-	const Error_ __vercheck(const __i16 nVersion)
+	Error_ __vercheck(const __i16 nVersion)
 	{
 		__i32 high = nVersion >> 10;
 		__i32 lower = nVersion & 0x3FF;

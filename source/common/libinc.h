@@ -9,6 +9,8 @@
 #include <boost/signals2.hpp>
 #include <boost/format.hpp>
 #include <boost/bind.hpp>
+#include <boost/array.hpp>
+#include <boost/asio.hpp>
 
 using namespace boost;
 

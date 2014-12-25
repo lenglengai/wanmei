@@ -8,13 +8,13 @@ namespace std {
 		if (!this->runInt8(value_)) {
 			return false;
 		}
-		nValue = __convert<bool, __i8>(value_);
+		nValue = __convert<__i8, bool>(value_);
 		return true;
 	}
 
 	bool ReadBlock::runInt8(__i8& nValue)
 	{
-		char * buffer = this->getBuffer(sizeof(__i8));
+		const char * buffer = this->getBuffer(sizeof(__i8));
 		if (nullptr == buffer) {
 			return false;
 		}
@@ -40,7 +40,7 @@ namespace std {
 
 	bool ReadBlock::runInt16(__i16& nValue)
 	{
-		char * buffer = this->getBuffer(sizeof(__i16));
+		const char * buffer = this->getBuffer(sizeof(__i16));
 		if (nullptr == buffer) {
 			return false;
 		}
@@ -66,7 +66,7 @@ namespace std {
 
 	bool ReadBlock::runInt32(__i32& nValue)
 	{
-		char * buffer = this->getBuffer(sizeof(__i32));
+		const char * buffer = this->getBuffer(sizeof(__i32));
 		if (nullptr == buffer) {
 			return false;
 		}
@@ -92,7 +92,7 @@ namespace std {
 
 	bool ReadBlock::runInt64(__i64& nValue)
 	{
-		char * buffer = this->getBuffer(sizeof(__i64));
+		const char * buffer = this->getBuffer(sizeof(__i64));
 		if (nullptr == buffer) {
 			return false;
 		}
@@ -116,13 +116,13 @@ namespace std {
 		return true;
 	}
 
-	bool ReadBlock::runString(std::string& nValue)
+	bool ReadBlock::runString(string& nValue)
 	{
 		__i16 count_ = 0;
 		if (!this->runInt16(count_)) {
 			return false;
 		}
-		char * buffer = this->getBuffer(count_);
+		const char * buffer = this->getBuffer(count_);
 		if (nullptr == buffer) {
 			return false;
 		}
@@ -130,14 +130,14 @@ namespace std {
 		return true;
 	}
 
-	bool ReadBlock::runStrings(list<std::string>& nValue)
+	bool ReadBlock::runStrings(list<string>& nValue)
 	{
 		__i16 count_ = 0;
 		if (!this->runInt16(count_)) {
 			return false;
 		}
 		for (__i16 i = 0; i < count_; ++i) {
-			std::string value_ = 0;
+			string value_ = 0;
 			if (!this->runString(value_)) {
 				return false;
 			}
@@ -148,7 +148,7 @@ namespace std {
 
 	bool ReadBlock::runFloat(float& nValue)
 	{
-		char * buffer = this->getBuffer(sizeof(float));
+		const char * buffer = this->getBuffer(sizeof(float));
 		if (nullptr == buffer) {
 			return false;
 		}
@@ -174,7 +174,7 @@ namespace std {
 
 	bool ReadBlock::runDouble(double& nValue)
 	{
-		char * buffer = this->getBuffer(sizeof(double));
+		const char * buffer = this->getBuffer(sizeof(double));
 		if (nullptr == buffer) {
 			return false;
 		}
@@ -198,12 +198,12 @@ namespace std {
 		return true;
 	}
 	
-	bool ReadBlock::isReader()
+	bool ReadBlock::isReader() const
 	{
 		return true;
 	}
 
-	BlockPushType_ ReadBlock::runPush(char * nBuffer, __i16 nSize)
+	BlockPushType_ ReadBlock::runPush(char * nBuffer, const __i16 nSize)
 	{
 		if (nSize <= 0) {
 			return BlockPushType_::mError_;
@@ -244,7 +244,7 @@ namespace std {
 		mPos = 0; mSize = 0; mLength = 0; 
 	}
 
-	char * ReadBlock::getBuffer(__i16 nSize)
+	const char * ReadBlock::getBuffer(const __i16 nSize)
 	{
 		if ( (mPos + nSize) > (mLeft + mSize) ) {
 			return nullptr;

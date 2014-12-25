@@ -135,7 +135,7 @@ namespace std {
 	}
 #endif
 
-	const __i64 CrcService::runId(const char * nName) const
+	__i64 CrcService::runId(const char * nName) const
 	{
 		TimeService& timeService_ = Singleton<TimeService>::instance();
 		__i64 seconds_ = timeService_.getLocalTime();
@@ -144,7 +144,7 @@ namespace std {
 		return result_;
 	}
 
-	const __i64 CrcService::runId(const __i32 nId) const
+	__i64 CrcService::runId(const __i32 nId) const
 	{
 		TimeService& timeService_ = Singleton<TimeService>::instance();
 		__i64 seconds_ = timeService_.getLocalTime();
@@ -153,54 +153,54 @@ namespace std {
 		return result_;
 	}
 
-	const __i32 CrcService::runCommon(const char * nName) const
+	__i32 CrcService::runCommon(const char * nName) const
 	{
 		return this->hashString(nName, 0x100);
 	}
 
-	const __i32 CrcService::runComputer() const
+	__i32 CrcService::runComputer() const
 	{
 		//1282682146
 		return this->hashString("computer", 0x100);
 	}
 
-	const __i32 CrcService::runCellphone() const
+	__i32 CrcService::runCellphone() const
 	{
 		//318023319
 		return this->hashString("cellphone", 0x150);
 	}
 
-	const __i32 CrcService::runName(const char * nName) const
+	__i32 CrcService::runName(const char * nName) const
 	{
 		return this->hashString(nName, 0x50);
 	}
 	
-	const __i32 CrcService::runPassward(const char * nName) const
+	__i32 CrcService::runPassward(const char * nName) const
 	{
 		return this->hashString(nName, 0x300);
 	}
 
-	const __i32 CrcService::runCluster(const char * nName) const
+	__i32 CrcService::runCluster(const char * nName) const
 	{
 		return this->hashString(nName, 0x100);
 	}
 
-	const __i32 CrcService::runServer(const char * nName) const
+	__i32 CrcService::runServer(const char * nName) const
 	{
 		return this->hashString(nName, 0x150);
 	}
 
-	const __i32 CrcService::runDatabase(const char * nName) const
+	__i32 CrcService::runDatabase(const char * nName) const
 	{
 		return this->hashString(nName, 0x200);
 	}
 
-	const __i32 CrcService::runTable(const char * nName) const
+	__i32 CrcService::runTable(const char * nName) const
 	{
 		return this->hashString(nName, 0x250);
 	}
 
-	const  __i32 CrcService::hashString(const char * nKey, __i16 nOffset) const
+	__i32 CrcService::hashString(const char * nKey, __i16 nOffset) const
 	{
 		__i32 seed1 = 0x7FED7FED;
 		__i32 seed2 = 0xEEEEEEEE;

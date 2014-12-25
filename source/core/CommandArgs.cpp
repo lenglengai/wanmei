@@ -18,7 +18,7 @@ namespace std {
 		return __default<string>();
 	}
 	
-	const __i32 CommandArgs::getCommandCount() const
+	__i32 CommandArgs::getCommandCount() const
 	{
 		return mCommandArgs.size();
 	}

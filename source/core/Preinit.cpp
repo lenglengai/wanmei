@@ -12,7 +12,7 @@ namespace std {
 		mPreinit1s.push_back(nPreinit);
 	}
 	
-	const bool PreinitSlot::runPreinit0() const
+	bool PreinitSlot::runPreinit0() const
 	{
 		for ( auto& it : mPreinit0s) {
 			if (!it()) {
@@ -22,7 +22,7 @@ namespace std {
 		return true;
 	}
 	
-	const bool PreinitSlot::runPreinit1() const
+	bool PreinitSlot::runPreinit1() const
 	{
 		for ( auto& it : mPreinit1s) {
 			if (!it()) {

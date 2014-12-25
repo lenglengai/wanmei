@@ -5,7 +5,7 @@ namespace std {
 	class IProtocol : noncopyable
 	{
 	public:
-		PacketIdPtr& getPacketId(__i32 nPacketType);
+		const PacketIdPtr& getPacketId(const __i32 nPacketType) const;
 		void addPacketId(PacketIdPtr& nPacketId);
 		
 		IProtocol();

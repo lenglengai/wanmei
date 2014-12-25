@@ -152,12 +152,12 @@ namespace std {
 		return true;
 	}
 
-	bool WriteBlock::isReader()
+	bool WriteBlock::isReader() const
 	{
 		return false;
 	}
 	
-	bool WriteBlock::runCopy(const char * nValue, __i16 nLength)
+	bool WriteBlock::runCopy(const char * nValue, const __i16 nLength)
 	{
 		if ((mLength + nLength + sizeof(__i16)) > PACKETMAX) {
 			return false;
@@ -178,17 +178,17 @@ namespace std {
 		memcpy(mBuffer, &mLength, sizeof(__i16));
 	}
 
-	char * WriteBlock::getBuffer()
+	const char * WriteBlock::getBuffer() const
 	{
 		return mBuffer;
 	}
 
-	__i16 WriteBlock::getLength()
+	__i16 WriteBlock::getLength() const
 	{
 		return mLength;
 	}
 
-	__i16 WriteBlock::getTotal()
+	__i16 WriteBlock::getTotal() const
 	{
 		return (mLength + 2);
 	}

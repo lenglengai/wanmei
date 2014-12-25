@@ -11,7 +11,7 @@ namespace std {
 			return PropertyPtr(new T());
 		}
 
-		const __i32 getPropertyId() const
+		__i32 getPropertyId() const
 		{
 			return T::sPropertyId;
 		}

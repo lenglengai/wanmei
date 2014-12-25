@@ -41,6 +41,7 @@ namespace std {
 
 	ArchiveReader::ArchiveReader()
 	{
+		mCommon = new char[ARCHIVESIZE];
 		this->runClear();
 	}
 

@@ -2,12 +2,12 @@
 
 namespace std {
 
-	void Tourist::setPlayerId(__i64 nPlayerId)
+	void Tourist::setPlayerId(const __i64 nPlayerId)
 	{
 		mPlayerId = nPlayerId;
 	}
 	
-	__i64 Tourist::getPlayerId()
+	__i64 Tourist::getPlayerId() const
 	{
 		return mPlayerId;
 	}
@@ -18,7 +18,7 @@ namespace std {
 	{
 	}
 	
-	Tourist::Tourist(RobotType_ nRobotType)
+	Tourist::Tourist(const RobotType_ nRobotType)
 		: Robot (nRobotType)
 		, mPlayerId (0)
 	{

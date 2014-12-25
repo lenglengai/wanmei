@@ -23,7 +23,7 @@ namespace std {
 		lua_State * mLuaState;
 		int mLuaRef;
 	};
-	typedef std::shared_ptr<LuaEngine> LuaEnginePtr;
-	typedef std::weak_ptr<LuaEngine> LuaEngineWtr;
+	typedef shared_ptr<LuaEngine> LuaEnginePtr;
+	typedef weak_ptr<LuaEngine> LuaEngineWtr;
 
 }

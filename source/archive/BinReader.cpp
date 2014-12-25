@@ -396,12 +396,12 @@ namespace std {
 	{
 	}
 
-	void BinReader::runRead(char * nValue, __i32 nLength)
+	void BinReader::runRead(char * nValue, const __i32 nLength)
 	{
 		mStream.read(nValue, nLength);
 	}
 
-	void BinReader::runSeek(__i32 nPos)
+	void BinReader::runSeek(const __i32 nPos)
 	{
 		mStream.seekg(nPos, ios::beg);
 	}

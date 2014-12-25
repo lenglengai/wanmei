@@ -7,7 +7,7 @@ namespace std {
 	public:
 		void runStringWriter(StringWriterPtr& nStringWriter) const;
 		const string& getCommandArg(const __i32 nIndex) const;
-		const __i32 getCommandCount() const;
+		__i32 getCommandCount() const;
 		const string& getService() const;
 		const string& getFlags() const;
 		

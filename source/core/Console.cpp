@@ -10,12 +10,14 @@ namespace std {
 		
 		if ("-cls" == strCommand_) {
 			std::system("cls");
+	#if defined(__CONSOLE__) ||  defined(__CLIENT__)
 		} else if ("-server" == strCommand_) {
 			ServiceMgr& serviceMgr_ = Singleton<ServiceMgr>::instance();
 			serviceMgr_.setClientConsole(false);
 		} else if ("-client" == strCommand_) {
 			ServiceMgr& serviceMgr_ = Singleton<ServiceMgr>::instance();
 			serviceMgr_.setClientConsole(true);
+	#endif
 		} else {
 			mCommandArgs.runParse(strCommand_);
 			ServiceMgr& serviceMgr_ = Singleton<ServiceMgr>::instance();

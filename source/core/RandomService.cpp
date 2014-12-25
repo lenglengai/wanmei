@@ -30,23 +30,23 @@ namespace std {
 	}
 #endif
 
-	const __i32 RandomService::luaRandom(const __i32 nMin, const __i32 nMax)
+	__i32 RandomService::luaRandom(const __i32 nMin, const __i32 nMax)
 	{
 		return this->runRandom(nMin, nMax);
 	}
 
-	const __i32 RandomService::runRandom(const __i32 nMin, const __i32 nMax)
+	__i32 RandomService::runRandom(const __i32 nMin, const __i32 nMax)
 	{
-		std::uniform_int_distribution<> distribution_(nMin, nMax);
+		uniform_int_distribution<> distribution_(nMin, nMax);
 		return distribution_(mEngine);
 	}
 
-	const __i32 RandomService::runRandom(const __i32 nMax)
+	__i32 RandomService::runRandom(const __i32 nMax)
 	{
 		return this->runRandom(0, nMax);
 	}
 
-	const __i32 RandomService::runRandom()
+	__i32 RandomService::runRandom()
 	{
 		return this->runRandom(65535);
 	}

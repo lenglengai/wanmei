@@ -5,11 +5,11 @@ namespace std {
 	class Tourist : public Robot
 	{
 	public:
-		void setPlayerId(__i64 nPlayerId);
-		__i64 getPlayerId();
+		void setPlayerId(const __i64 nPlayerId);
+		__i64 getPlayerId() const;
 		
 		Tourist();
-		Tourist(RobotType_ nRobotType);
+		Tourist(const RobotType_ nRobotType);
 		virtual ~Tourist();
 		
 	private:

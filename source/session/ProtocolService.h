@@ -22,9 +22,9 @@ namespace std {
 		
 	private:
 	#ifdef __CONSOLE__
-		StringWriterPtr commandInfo(const CommandArgs& nCommand);
-		StringWriterPtr commandFindId(const CommandArgs& nCommand);
-		StringWriterPtr commandFindName(const CommandArgs& nCommand);
+		const StringWriterPtr commandInfo(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandFindId(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandFindName(const CommandArgs& nCommandArgs);
 	#endif
 	
 	public:

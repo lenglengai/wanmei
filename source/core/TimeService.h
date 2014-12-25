@@ -8,8 +8,8 @@ namespace std {
 	#ifdef __CLIENT__
 		void setServerTime(const __i64 nServerTime);
 	#endif
-		const __i64 getServerTime() const;
-		const __i64 getLocalTime() const;
+		__i64 getServerTime() const;
+		__i64 getLocalTime() const;
 		
 		static TimeService * getTimeService();
 		

@@ -6,11 +6,17 @@ namespace std {
 	class TcpClient : public IService
 	{
 	private:
+		void handleConnect(const boost::system::error_code& nError);
+		void handleConnectTimeout(const boost::system::error_code& nError);
+		void startConnect();
+		void runStop();
+		
+	private:
 	#ifdef __CONSOLE__
-		StringWriterPtr commandInfo(const CommandArgs& nCommand);
-		StringWriterPtr commandReload(const CommandArgs& nCommand);
+		const StringWriterPtr commandInfo(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandReload(const CommandArgs& nCommandArgs);
 	#endif
-	
+		
 	public:
 		enum { connect_timeout = 90 };
 		template<class T>
@@ -29,18 +35,12 @@ namespace std {
 		~TcpClient();
 
 	private:
-		void handleConnect(const boost::system::error_code& nError);
-		void handleConnectTimeout(const boost::system::error_code& nError);
-		void startConnect();
-		void runStop();
-
-	private:
-		std::shared_ptr<asio::deadline_timer> mConnectTimer;
+		shared_ptr<asio::deadline_timer> mConnectTimer;
 		SessionPtr * mSession;
-		std::string mAddress;
-		std::string mPort;
+		string mAddress;
+		string mPort;
 	};
-	typedef std::shared_ptr<TcpClient> ClientPtr;
+	typedef shared_ptr<TcpClient> ClientPtr;
 
 }
 #endif

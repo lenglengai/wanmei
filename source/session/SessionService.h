@@ -10,7 +10,8 @@ namespace std {
 		void runClear();
 	private:
 	#ifdef __CONSOLE__
-		StringWriterPtr commandInfo(const CommandArgs& nCommand);
+		const StringWriterPtr commandInfo(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandFindId(const CommandArgs& nCommandArgs);
 	#endif
 	
 	public:
@@ -22,7 +23,7 @@ namespace std {
 	private:
 	#ifdef __SERVER__
 		map<__i32, SessionPtr> mSessions;
-		std::mutex mMutex;
+		mutex mMutex;
 	#endif
 	#ifdef __CLIENT__
 		SessionPtr mSession;

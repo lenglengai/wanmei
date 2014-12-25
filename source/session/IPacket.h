@@ -3,23 +3,26 @@
 namespace std {
 
 	class Player;
-	typedef std::weak_ptr<Player> PlayerWtr;
-    typedef std::shared_ptr<Player> PlayerPtr;
+	typedef weak_ptr<Player> PlayerWtr;
+    typedef shared_ptr<Player> PlayerPtr;
+	class Session;
+	typedef weak_ptr<Session> SessionWtr;
+	typedef shared_ptr<Session> SessionPtr;
 	class IPacket : noncopyable
 	{
 	public:
 		virtual bool handleRun(SessionPtr& nSession);
 		virtual bool handleRun(PlayerPtr& nPlayer);
 		virtual bool runBlock(BlockPtr& nBlock) = 0;
-		void setHeader(__i32 nProtocol, __i32 nPacketId);
+		void setHeader(const __i32 nProtocol, const __i32 nPacketId);
 		bool runHeader(BlockPtr& nBlock);
-		__i32 getProtocolId();
-		__i32 getPacketId();
+		__i32 getProtocolId() const;
+		__i32 getPacketId() const;
 	#ifdef __SERVER__
 		void setPlayer(PlayerPtr& nPlayer);
-		PlayerPtr * getPlayer();
+		PlayerPtr * getPlayer() const;
 	#endif
-		virtual bool isError();
+		virtual bool isError() const;
 		virtual void runInit() = 0;
 		
 		IPacket();
@@ -49,17 +52,17 @@ namespace std {
 	class IPacketId
 	{
 	public:
-		virtual __i32 getPacketId() = 0;
-		virtual PacketPtr createPacket() = 0;
+		virtual __i32 getPacketId() const = 0;
+		virtual PacketPtr createPacket() const = 0;
 	};
-	typedef std::weak_ptr<IPacketId> PacketIdWtr;
-	typedef std::shared_ptr<IPacketId> PacketIdPtr;
+	typedef weak_ptr<IPacketId> PacketIdWtr;
+	typedef shared_ptr<IPacketId> PacketIdPtr;
 
 	template<class T>
 	class PacketId : public IPacketId
 	{
 	public:
-		__i32 getPacketId()
+		__i32 getPacketId() const
 		{
 			return this->getClassId();
 		}
@@ -72,7 +75,7 @@ namespace std {
 			return mPacketId;
 		}
 
-		PacketPtr createPacket()
+		PacketPtr createPacket() const
 		{
 			return PacketPtr(new T());
 		}

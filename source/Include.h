@@ -66,3 +66,16 @@
 #include "archive/ArchiveReader.h"
 #include "archive/ArchiveWriter.h"
 #include "archive/ArchiveService.h"
+
+#include "session/IBlock.h"
+#include "session/WriteBlock.h"
+#include "session/ReadBlock.h"
+#include "session/IPacket.h"
+#include "session/Session.h"
+#include "session/SessionService.h"
+#include "session/IProtocol.h"
+#include "session/ProtocolService.h"
+#include "session/IoService.h"
+
+#include "tcpClient/TcpClient.h"
+#include "tcpServer/TcpServer.h"
