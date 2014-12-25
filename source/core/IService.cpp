@@ -20,7 +20,7 @@ namespace std {
 	{
 		string flags_(nFlags);
 		auto it = mCommandRuns.find(flags_);
-		if ( it == mCommandRuns.end() ) {
+		if ( it != mCommandRuns.end() ) {
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_0());
 			return;
