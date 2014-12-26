@@ -4,10 +4,13 @@ namespace std {
 	
 	class WorldService : public IService
 	{
+	public:
+	#ifdef __CLIENT__
+		
+	#endif
 	private:
 	#ifdef __CONSOLE__
-		StringWriterPtr commandInfo(const CommandArgs& nCommand);
-		StringWriterPtr commandReload(const CommandArgs& nCommand);
+		const StringWriterPtr commandInfo(const CommandArgs& nCommandArgs);
 	#endif
 	
 	public:

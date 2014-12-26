@@ -7,6 +7,7 @@ namespace std{
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		string className_(""); __i32 sessionCount_ = 0;
 		__i32 classid_ = __classinfo<SessionService>(className_);
 		stringWriter_->runString(className_, "className");
@@ -19,6 +20,8 @@ namespace std{
 		}
 		stringWriter_->runInt32(sessionCount_, "sessionCount");
 	#endif
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -26,6 +29,7 @@ namespace std{
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 	#ifdef __SERVER__
 		const string& strSession_ = nCommandArgs.getCommandArg(1);
 		__i32 sessionId_ = __convert<string, __i32>(strSession_);
@@ -38,6 +42,8 @@ namespace std{
 		stringWriter_->runInt32(sessionId_, "sessionId");
 		stringWriter_->runBool(isFind_, "isFind");
 	#endif
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 #endif

@@ -4,9 +4,11 @@ namespace std {
 
 	void CommandArgs::runStringWriter(StringWriterPtr& nStringWriter) const
 	{
+		nStringWriter->startClass("command");
 		nStringWriter->runString(mService, "service");
 		nStringWriter->runString(mFlags, "flags");
 		nStringWriter->runStrings(mCommandArgs, "commandArgs");
+		nStringWriter->finishClass();
 	}
 	
 	const string& CommandArgs::getCommandArg(const __i32 nIndex) const
@@ -37,30 +39,27 @@ namespace std {
 	{
 		this->runClear();
 		string command_("");
-		bool space_ = true;
+		bool space_ = true; __i32 commandType_ = 0;
 		__i32 commandLength_ = static_cast<__i32>(nCommand.length());
-		for (__i32 i = 0, j = 0; i < commandLength_; ++i) {
+		for (__i32 i = 0; i < commandLength_; ++i) {
 			if (' ' == nCommand[i]) {
 				if (space_) {
 					continue;
 				}
-				++j;
 				space_ = true;
-				if (j > 1) {
+				if (commandType_ > 2) {
 					mCommandArgs.push_back(command_);
 					command_ = "";
 				}
 				continue;
 			}
 			if (space_) {
+				commandType_++;
 				space_ = false;
 			}
-			if ('-' == nCommand[i]) {
-				continue;
-			}
-			if (0 == j) {
+			if (1 == commandType_) {
 				mService.push_back(nCommand[i]);
-			} else if (1 == j) {
+			} else if (2 == commandType_) {
 				mFlags.push_back(nCommand[i]);
 			} else {
 				command_.push_back(nCommand[i]);

@@ -96,12 +96,15 @@ namespace std {
 		void finishClass();
 		
 		const char * getValue() const;
+		void runClose();
+		void runClear();
 		
 		StringWriter();
 		~StringWriter();
 		
 	private:
 		string mValue;
+		string mSpace;
 		bool mFirst;
 	};
 	typedef shared_ptr<StringWriter> StringWriterPtr;

@@ -3,7 +3,7 @@
 namespace std{
 
 #ifdef __CONSOLE__
-	StringWriterPtr WorldService::commandInfo(const CommandArgs& nCommand)
+	const StringWriterPtr WorldService::commandInfo(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
@@ -11,21 +11,6 @@ namespace std{
 		__i32 classid_ = __classid<WorldService>(className_);
 		stringWriter_->runString(className_, "className");
 		stringWriter_->runInt32(classid_, "classId");
-	#ifdef __SERVER__
-		stringWriter_->runKeyStream(mWorlds, "worlds");
-	#endif
-	#ifdef __CLIENT__
-		stringWriter_->runStream(mWorld, "world");
-	#endif
-		return stringWriter_;
-	}
-	
-	StringWriterPtr WorldService::commandReload(const CommandArgs& nCommand)
-	{
-		StringWriterPtr stringWriter_(new StringWriter());
-		nCommandArgs.runStringWriter(stringWriter_);
-		mWorlds.clear();
-		this->runLoad();
 	#ifdef __SERVER__
 		stringWriter_->runKeyStream(mWorlds, "worlds");
 	#endif
@@ -70,7 +55,6 @@ namespace std{
 	void WorldService::runInit()
 	{
 	#ifdef __CLIENT__
-		mWorld.reset(new World());
 		mWorld.runInit();
 	#endif
 	#ifdef __SERVER__

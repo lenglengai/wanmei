@@ -9,10 +9,13 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		string className_("");
 		__i32 classid_ = __classinfo<CrcService>(className_);
 		stringWriter_->runString(className_, "className");
 		stringWriter_->runInt32(classid_, "classId");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -20,10 +23,13 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		const string& strValue_ = nCommandArgs.getCommandArg(1);
 		const __i64 valueId_ = this->runId(strValue_.c_str());
 		stringWriter_->runString(strValue_, "strValue");
 		stringWriter_->runInt64(valueId_, "valueId");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -31,11 +37,14 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		const string& strValue_ = nCommandArgs.getCommandArg(1);
 		const __i32 value_ = __convert<string, __i32>(strValue_);
 		const __i64 valueId_ = this->runId(value_);
 		stringWriter_->runString(strValue_, "strValue");
 		stringWriter_->runInt64(valueId_, "valueId");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -43,10 +52,13 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		const string& strValue_ = nCommandArgs.getCommandArg(1);
 		const __i32 valueId_ = this->runCommon(strValue_.c_str());
 		stringWriter_->runString(strValue_, "strValue");
 		stringWriter_->runInt32(valueId_, "valueId");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -54,8 +66,11 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		const __i32 computerId_ = this->runComputer();
 		stringWriter_->runInt32(computerId_, "computerId");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -63,8 +78,11 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		const __i32 cellphoneId_ = this->runCellphone();
 		stringWriter_->runInt32(cellphoneId_, "cellphoneId");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -72,10 +90,13 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		const string& strValue_ = nCommandArgs.getCommandArg(1);
 		const __i32 valueId_ = this->runName(strValue_.c_str());
 		stringWriter_->runString(strValue_, "strValue");
 		stringWriter_->runInt32(valueId_, "valueId");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -83,10 +104,13 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		const string& strValue_ = nCommandArgs.getCommandArg(1);
 		const __i32 valueId_ = this->runPassward(strValue_.c_str());
 		stringWriter_->runString(strValue_, "strValue");
 		stringWriter_->runInt32(valueId_, "valueId");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -94,10 +118,13 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		const string& strValue_ = nCommandArgs.getCommandArg(1);
 		const __i32 valueId_ = this->runCluster(strValue_.c_str());
 		stringWriter_->runString(strValue_, "strValue");
 		stringWriter_->runInt32(valueId_, "valueId");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -105,10 +132,13 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		const string& strValue_ = nCommandArgs.getCommandArg(1);
 		const __i32 valueId_ = this->runServer(strValue_.c_str());
 		stringWriter_->runString(strValue_, "strValue");
 		stringWriter_->runInt32(valueId_, "valueId");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -116,10 +146,13 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		const string& strValue_ = nCommandArgs.getCommandArg(1);
 		const __i32 valueId_ = this->runDatabase(strValue_.c_str());
 		stringWriter_->runString(strValue_, "strValue");
 		stringWriter_->runInt32(valueId_, "valueId");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -127,10 +160,13 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		const string& strValue_ = nCommandArgs.getCommandArg(1);
 		const __i32 valueId_ = this->runTable(strValue_.c_str());
 		stringWriter_->runString(strValue_, "strValue");
 		stringWriter_->runInt32(valueId_, "valueId");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 #endif

@@ -7,12 +7,15 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		string className_(""); __i64 serverTime_ = 0;
 		__i32 classid_ = __classinfo<TimeService>(className_);
 		stringWriter_->runString(className_, "className");
 		stringWriter_->runInt32(classid_, "classId");
 		serverTime_ = this->getServerTime();
 		stringWriter_->runInt64(serverTime_, "serverTime");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 #endif

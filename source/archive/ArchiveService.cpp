@@ -7,10 +7,13 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		string className_("");
 		__i32 classid_ = __classinfo<ArchiveService>(className_);
 		stringWriter_->runString(className_, "className");
 		stringWriter_->runInt32(classid_, "classId");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -18,6 +21,7 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		this->runClear();
 		bool isOpen_ = mArchiveReader.runOpen(CONFIGUREFILE);
 		if( isOpen_ ) {
@@ -26,6 +30,8 @@ namespace std {
 			mIsArchive = false;
 		}
 		stringWriter_->runBool(isOpen_, "isOpen");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -33,6 +39,7 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		mArchiveWriter.runClear(); mArchives.clear(); mIsWriter = true;
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.runLoad0(); initService_.runLoad1();
@@ -40,6 +47,8 @@ namespace std {
         mArchiveWriter.runArchives(mArchives);
         mArchiveWriter.runClose();
 		stringWriter_->runString("configure", "archive");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	

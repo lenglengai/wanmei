@@ -7,10 +7,13 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		string className_("");
 		__i32 classid_ = __classinfo<RandomService>(className_);
 		stringWriter_->runString(className_, "className");
 		stringWriter_->runInt32(classid_, "classId");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -18,6 +21,7 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		const string& strMin_ = nCommandArgs.getCommandArg(1);
 		const string& strMax_ = nCommandArgs.getCommandArg(2);
 		const __i32 minValue_ = __convert<string, __i32>(strMin_);
@@ -26,6 +30,8 @@ namespace std {
 		stringWriter_->runInt32(minValue_, "minValue");
 		stringWriter_->runString(strMax_, "strMax");
 		stringWriter_->runInt32(maxValue_, "maxValue");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 #endif

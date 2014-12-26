@@ -8,10 +8,13 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		string className_(""); 
 		__i32 classid_ = __classinfo<CompressService>(className_);
 		stringWriter_->runString(className_, "className");
 		stringWriter_->runInt32(classid_, "classId");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -19,6 +22,7 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		const string& strValue_ = nCommandArgs.getCommandArg(1);
 		char buf[1024]; memset(buf, 0, sizeof(buf)); __i32 size_ = 0;
 		char buf0[1024]; memset(buf0, 0, sizeof(buf0)); __i32 size0_ = 0;
@@ -32,7 +36,10 @@ namespace std {
 		stringWriter_->runString(strValue_, "strValue");
 		stringWriter_->runString(buf0, "result");
 		stringWriter_->runBool(suecess_, "buf0");
-
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 #endif

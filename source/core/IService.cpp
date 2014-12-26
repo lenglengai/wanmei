@@ -9,7 +9,7 @@ namespace std {
 		auto it = mCommandRuns.find(flags_);
 		if ( it == mCommandRuns.end() ) {
 			LogService& logService_ = Singleton<LogService>::instance();
-			logService_.logError(log_0());
+			logService_.logError(log_2("not find flags", flags_));
 			return __defaultptr<StringWriter>();
 		}
 		CommandRunPtr& commandRun_ = mCommandRuns[flags_];

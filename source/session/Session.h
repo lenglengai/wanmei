@@ -23,6 +23,8 @@ namespace std {
 		void openSession();
 		
 		__i32 getSessionId() const;
+		void setSecond(const __i32 nSecond);
+		__i32 getSecond() const;
 		
 		void setPlayer(PlayerPtr& nPlayer);
 		PlayerPtr * getPlayer() const;
@@ -59,6 +61,8 @@ namespace std {
 		PlayerPtr * mSecondPlayer;
 		
 		__i32 mSessionId;
+		
+		atomic<__i32> mSecond;
 	};
 	
 }

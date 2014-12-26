@@ -25,10 +25,13 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		string className_(""); 
 		__i32 classid_ = __classinfo<LogService>(className_);
 		stringWriter_->runString(className_, "className");
 		stringWriter_->runInt32(classid_, "classId");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -36,6 +39,7 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		bool first_ = true; string strCommands_("");
 		for (__i32 i = 1; i <= nCommandArgs.getCommandCount(); ++i) {
 			if (!first_) {
@@ -47,6 +51,8 @@ namespace std {
 		}
 		this->logError(log_1(strCommands_));
 		stringWriter_->runString(strCommands_, "strCommands");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -54,6 +60,7 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		bool first_ = true; string strCommands_("");
 		for (__i32 i = 1; i <= nCommandArgs.getCommandCount(); ++i) {
 			if (!first_) {
@@ -65,6 +72,8 @@ namespace std {
 		}
 		this->logInfo(log_1(strCommands_));
 		stringWriter_->runString(strCommands_, "strCommands");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 #endif

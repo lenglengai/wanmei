@@ -7,12 +7,15 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		string className_(""); __i32 protocolCount_ = 0;
 		__i32 classid_ = __classinfo<IoService>(className_);
 		protocolCount_ = static_cast<__i32>(mProtocols.size());
 		stringWriter_->runString(className_, "className");
 		stringWriter_->runInt32(classid_, "classId");
 		stringWriter_->runInt32(protocolCount_, "protocolCount");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -20,6 +23,7 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		const string& strProtocol_ = nCommandArgs.getCommandArg(1);
 		__i32 protocolId_ = __convert<string, __i32>(strProtocol_);
 		bool isFind_ = false;
@@ -30,6 +34,8 @@ namespace std {
 		stringWriter_->runString(strProtocol_, "strProtocol_");
 		stringWriter_->runInt32(protocolId_, "protocolId");
 		stringWriter_->runBool(isFind_, "isFind");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -37,6 +43,7 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		const string& strProtocol_ = nCommandArgs.getCommandArg(1);
 		__i32 protocolId_ = __stringid(strProtocol_.c_str());
 		bool isFind_ = false;
@@ -47,6 +54,8 @@ namespace std {
 		stringWriter_->runString(strProtocol_, "strProtocol");
 		stringWriter_->runInt32(protocolId_, "protocolId");
 		stringWriter_->runBool(isFind_, "isFind");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 #endif

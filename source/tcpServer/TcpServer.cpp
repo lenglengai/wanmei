@@ -7,11 +7,14 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		string className_(""); 
 		__i32 classid_ = __classinfo<TcpServer>(className_);
 		stringWriter_->runString(className_, "className");
 		stringWriter_->runString(mAddress, "address");
 		stringWriter_->runString(mPort, "port");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -19,9 +22,12 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		this->runLoad();
 		stringWriter_->runString(mAddress, "address");
 		stringWriter_->runString(mPort, "port");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 #endif

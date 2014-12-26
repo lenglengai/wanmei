@@ -99,6 +99,16 @@ namespace std {
 	{
 		return mSessionState;
 	}
+	
+	void Session::setSecond(const __i32 nSecond)
+	{
+		mSecond = nSecond;
+	}
+	
+	__i32 Session::getSecond() const
+	{
+		return mSecond;
+	}
 
 	void Session::openSession()
 	{
@@ -215,6 +225,7 @@ namespace std {
 		, mMainPlayer(nullptr)
 		, mSecondPlayer(nullptr)
 		, mSessionId(nSessionId)
+		, mSecond(0)
 	{
 		mReadBuffer.fill(0);
 		mPackets.clear();
@@ -231,6 +242,7 @@ namespace std {
 		mMainPlayer = nullptr;
 		mSecondPlayer = nullptr;
 		mSessionId = 0;
+		mSecond = 0;
 	}
 
 }

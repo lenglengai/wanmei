@@ -7,6 +7,7 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		string className_(""); 
 		__i32 classid_ = __classinfo<InitService>(className_);
 		stringWriter_->runString(className_, "className");
@@ -29,6 +30,8 @@ namespace std {
 		stringWriter_->runString(CONFIGUREFILE, "configureFile");
 		stringWriter_->runInt32(PACKETMAX, "maxPacketSize");
 		stringWriter_->runString(VERNAME, "versionName");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -37,7 +40,10 @@ namespace std {
 		this->runResume();
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		stringWriter_->runString("sucess", "runResume");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -46,7 +52,10 @@ namespace std {
 		this->runPause();
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		stringWriter_->runString("sucess", "runResume");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 #endif

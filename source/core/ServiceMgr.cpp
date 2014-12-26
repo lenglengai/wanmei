@@ -11,13 +11,14 @@ namespace std {
 			auto it = mServices.find(serviceId_);
 			if (it == mServices.end()) {
 				LogService& logService_ = Singleton<LogService>::instance();
-				logService_.logInfo(log_2(strService_, serviceId_));
+				logService_.logInfo(log_3("not find service", strService_, serviceId_));
 				return;
 			}
 			IService * service_ = it->second;
 			const StringWriterPtr stringWriter_ = service_->runCommand(nCommandArgs);
-			LogService& logService_ = Singleton<LogService>::instance();
-			logService_.logInfo(log_1(stringWriter_->getValue()));
+			if (stringWriter_) {
+				std::cout << stringWriter_->getValue() << std::endl;
+			}
 		} else {
 		}
 	}
@@ -26,12 +27,15 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		string className_(""); 
 		__i32 serviceCount_ = mServices.size();
 		__i32 classid_ = __classinfo<ServiceMgr>(className_);
 		stringWriter_->runString(className_, "className");
 		stringWriter_->runInt32(classid_, "classId");
 		stringWriter_->runInt32(serviceCount_, "serviceCount");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -39,6 +43,7 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		const string& strService_ = nCommandArgs.getCommandArg(1);
 		__i32 serviceId_ = __stringid(strService_.c_str());
 		bool isFind_ = false;
@@ -49,6 +54,8 @@ namespace std {
 		stringWriter_->runString(strService_, "strService");
 		stringWriter_->runInt32(serviceId_, "serviceId");
 		stringWriter_->runBool(isFind_, "isFind");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 	
@@ -56,6 +63,7 @@ namespace std {
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
 		const string& strService_ = nCommandArgs.getCommandArg(1);
 		__i32 serviceId_ = __convert<string, __i32>(strService_);
 		bool isFind_ = false;
@@ -66,6 +74,8 @@ namespace std {
 		stringWriter_->runString(strService_, "strService");
 		stringWriter_->runInt32(serviceId_, "serviceId");
 		stringWriter_->runBool(isFind_, "isFind");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
 		return stringWriter_;
 	}
 #endif

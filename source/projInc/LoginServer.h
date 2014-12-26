@@ -6,3 +6,4 @@
 #define __BOOSTLOG__
 #define __CONSOLE__
 #define __WITHDEBUG__
+#define __RUNING__

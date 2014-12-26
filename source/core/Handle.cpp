@@ -22,7 +22,6 @@ namespace std {
 	void Handle::runStop()
 	{
 		mStop = true;
-		mThread->join();
 	}
 
 	void Handle::runClear()
