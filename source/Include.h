@@ -79,3 +79,6 @@
 
 #include "tcpClient/TcpClient.h"
 #include "tcpServer/TcpServer.h"
+
+#include "world/World.h"
+#include "world/WorldService.h"

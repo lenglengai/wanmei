@@ -82,8 +82,21 @@ namespace std {
 			this->runClose();
 			return;
 		}
+	#ifdef __CLIENT__
+		TimeService& timeService_ = Singleton<TimeService>::instance();
+		mSendTick = timeService_.getLocalTime();
+	#endif
 		this->internalSend();
 	}
+
+#ifdef __CLIENT__
+	bool Session::isSendTick()
+	{
+		TimeService& timeService_ = Singleton<TimeService>::instance();
+		__i64 second_ = timeService_.getLocalTime();
+		return ( (second_ - mSendTick) > 280 );
+	}
+#endif
 
 	void Session::handleWriteTimeout(const boost::system::error_code& nError)
 	{
@@ -226,6 +239,9 @@ namespace std {
 		, mSecondPlayer(nullptr)
 		, mSessionId(nSessionId)
 		, mSecond(0)
+	#ifdef __CLIENT__
+		, mSendTick (0)
+	#endif
 	{
 		mReadBuffer.fill(0);
 		mPackets.clear();
@@ -243,6 +259,9 @@ namespace std {
 		mSecondPlayer = nullptr;
 		mSessionId = 0;
 		mSecond = 0;
+	#ifdef __CLIENT__
+		mSendTick = 0;
+	#endif
 	}
 
 }

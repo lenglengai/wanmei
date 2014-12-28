@@ -180,6 +180,16 @@ set( TCPCLIENT_SRC
 SET( TCPCLIENT_H
 	${tcpClients}/TcpClient.h )
 ##############################################################
+set(worlds ${SRC_PATH}/world )
+
+set( WORLD_SRC
+	${worlds}/WorldService.cpp 
+	${worlds}/World.cpp )
+
+SET( WORLD_H
+	${worlds}/WorldService.h 
+	${worlds}/World.h )
+##############################################################
 add_subdirectory(libbzlib)
 add_subdirectory(liblua)
 

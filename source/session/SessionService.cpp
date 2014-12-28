@@ -88,6 +88,13 @@ namespace std{
 	#endif
 	}
 	
+#ifdef __CLIENT__
+	SessionPtr& SessionService::getSession() const
+	{
+		return mSession;
+	}
+#endif
+	
 	void SessionService::runClear()
 	{
 	#ifdef __SERVER__

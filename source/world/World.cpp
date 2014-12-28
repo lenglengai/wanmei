@@ -16,6 +16,13 @@ namespace std {
 	}
 #endif
 	
+#ifdef __CLIENT__
+	PlayerPtr& World::getPlayer()
+	{
+		return mWorld->getPlayer();
+	}
+#endif
+
 	const __i32 World::getPlayerCount() const
 	{
 		return mPlayerCount;

@@ -8,6 +8,11 @@ namespace std {
 		void removeSession(SessionPtr& nSession);
 		SessionPtr& createSession();
 		void runClear();
+		
+	#ifdef __CLIENT__
+		SessionPtr& getSession() const;
+	#endif
+		
 	private:
 	#ifdef __CONSOLE__
 		const StringWriterPtr commandInfo(const CommandArgs& nCommandArgs);

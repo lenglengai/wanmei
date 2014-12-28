@@ -7,6 +7,10 @@ namespace std {
 	public:
 		void runContext();
 		
+	#ifdef __CLIENT__
+		PlayerPtr& getPlayer();
+	#endif
+		
 	#ifdef __CONSOLE__
 		void runStringWriter(StringWriter * nStringWriter);
 	#endif

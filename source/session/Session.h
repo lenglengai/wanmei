@@ -12,6 +12,10 @@ namespace std {
 	public:
 		enum { write_timeout = 150 };
 		enum { read_timeout = 300 };
+		
+	#ifdef __CLIENT__
+		bool isSendTick();
+	#endif
 
 		bool runSend(PacketPtr& nPacket);
 		
@@ -63,6 +67,9 @@ namespace std {
 		__i32 mSessionId;
 		
 		atomic<__i32> mSecond;
+	#ifdef __CLIENT__
+		atomic<__i64> mSendTick;
+	#endif
 	};
 	
 }

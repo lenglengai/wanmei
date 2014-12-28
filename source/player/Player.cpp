@@ -4,10 +4,6 @@ namespace std {
 
 	bool Player::runSend(PacketPtr& nPacket)
 	{
-#ifdef __CLIENT__
-		TimeService& timeService_ = Singleton<TimeService>::instance();
-		mSendTick = timeService_.getLocalTime();
-#endif
 #ifdef __SERVER__
 		for (auto& i : mSessions) {
 			SessionPtr * session_ = i.second;
@@ -63,31 +59,16 @@ namespace std {
 		}
 		nSession.erase(it);
 	}
-	
-#ifdef __CLIENT__
-	bool Player::isSendTick()
-	{
-		TimeService& timeService_ = Singleton<TimeService>::instance();
-		__i64 second_ = timeService_.getLocalTime();
-		return ( (second_ - mSendTick) > 280 );
-	}
-#endif
 
 	Player::Player()
 		: Tourist (RobotType_::mPlayer_)
 		, mSession (nullptr)
-#ifdef __CLIENT__
-		, mSendTick (0)
-#endif
 	{
 	}
 
 	Player::~Player()
 	{
 		mSession = nullptr;
-#ifdef __CLIENT__
-		mSendTick = 0;
-#endif
 	}
 
 }

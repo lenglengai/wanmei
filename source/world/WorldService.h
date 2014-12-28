@@ -6,7 +6,7 @@ namespace std {
 	{
 	public:
 	#ifdef __CLIENT__
-		
+		PlayerPtr& getPlayer();
 	#endif
 	private:
 	#ifdef __CONSOLE__
