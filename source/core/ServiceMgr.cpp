@@ -92,7 +92,7 @@ namespace std {
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunInit0.connect(boost::bind(&ServiceMgr::runInit, this));
 		initService_.m_tRunStart0.connect(boost::bind(&ServiceMgr::runStart, this));
-		initService_.m_tRunStop.connect(boost::bind(&ServiceMgr::runStop, this));
+		initService_.m_tRunStop1.connect(boost::bind(&ServiceMgr::runStop, this));
 	#ifdef __CONSOLE__
 		this->registerCommand("info", std::bind(&ServiceMgr::commandInfo, this, placeholders::_1));
 		this->registerCommand("findName", std::bind(&ServiceMgr::commandFindName, this, placeholders::_1));
@@ -105,8 +105,8 @@ namespace std {
 	{
 #ifdef __CONSOLE__
 		mConsoleHandle.reset(new Handle());
-		ContextPtr consoleConText(new Console());
-		mConsoleHandle->addContext(consoleConText);
+		ContextPtr consoleContext(new Console());
+		mConsoleHandle->addContext(consoleContext);
 #endif
 	}
 
@@ -121,6 +121,7 @@ namespace std {
 	{
 #ifdef __CONSOLE__
 		mConsoleHandle->runStop();
+		mConsoleHandle->runJoin();
 #endif
 	}
 	

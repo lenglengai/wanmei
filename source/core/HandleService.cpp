@@ -33,12 +33,12 @@ namespace std {
 	
 	void HandleService::addContext(ContextPtr& nContext, const __i32 nIndex)
 	{
-		if (nIndex >= mHandleCount) {
+		if (nIndex > mHandleCount) {
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1(nIndex));
 			return;
 		}
-		HandlePtr& handle = mHandles[nIndex];
+		HandlePtr& handle = mHandles[nIndex - 1];
 		handle->addContext(nContext);
 	}
 
@@ -49,7 +49,12 @@ namespace std {
 
 	const char * HandleService::streamUrl() const
 	{
-		return "handleService.xml";
+	#ifdef __CLIENT__
+		return "handleClient.xml";
+	#endif
+	#ifdef __SERVER__
+		return "handleServer.xml";
+	#endif
 	}
 	
 	bool HandleService::runPreinit()
@@ -58,7 +63,7 @@ namespace std {
 		initService_.m_tRunLoad0.connect(boost::bind(&HandleService::runLoad, this));
 		initService_.m_tRunInit0.connect(boost::bind(&HandleService::runInit, this));
 		initService_.m_tRunStart0.connect(boost::bind(&HandleService::runStart, this));
-		initService_.m_tRunStop.connect(boost::bind(&HandleService::runStop, this));
+		initService_.m_tRunStop1.connect(boost::bind(&HandleService::runStop, this));
 	#ifdef __CONSOLE__
 		this->registerCommand("info", std::bind(&HandleService::commandInfo, this, placeholders::_1));
 	#endif
@@ -93,6 +98,10 @@ namespace std {
 		for (auto it : mHandles) {
 			HandlePtr& handle = it.second;
 			handle->runStop();
+		}
+		for (auto it : mHandles) {
+			HandlePtr& handle = it.second;
+			handle->runJoin();
 		}
 	}
 

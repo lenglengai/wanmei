@@ -36,8 +36,10 @@ namespace std {
 		signals2::signal<void()> m_tRunRun;
 		void runRun();
 		
-		signals2::signal<void()> m_tRunStop;
-		void runStop();
+		signals2::signal<void()> m_tRunStop0;
+		void runStop0();
+		signals2::signal<void()> m_tRunStop1;
+		void runStop1();
 		signals2::signal<void()> m_tRunSave;
 		void runSave();
 		signals2::signal<void()> m_tRunExit;

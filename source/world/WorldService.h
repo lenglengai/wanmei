@@ -18,7 +18,7 @@ namespace std {
 		void headSerialize(__t& nT)
 		{
 		#ifdef __SERVER__
-			nT.runKeyStreamsCount(mWorlds, "ｗorlds", "ｗorld");
+			nT.runKeyStreamsCount(mWorlds, "worlds", "world");
 		#endif
 		#ifdef __CLIENT__
 			nT.runStream(mWorld, "world");

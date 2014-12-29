@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<worldService>
+	<world id="1" name="xiaoai" handleId="1" playerCount="4000" />
+</worldService>

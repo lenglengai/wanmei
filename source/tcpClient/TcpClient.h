@@ -20,10 +20,10 @@ namespace std {
 	public:
 		enum { connect_timeout = 90 };
 		template<class T>
-		void headSerialize(T& nSerialize)
+		void headSerialize(T& nT)
 		{
-			nSerialize.runString(mAddress, "address");
-			nSerialize.runString(mPort, "port");
+			nT.runString(mAddress, "address");
+			nT.runString(mPort, "port");
 		}
 		const char * streamName() const;
 		const char * streamUrl() const;

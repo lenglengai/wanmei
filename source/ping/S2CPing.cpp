@@ -1,4 +1,4 @@
-#include "../LogicInc.h"
+#include "../Logic.h"
 
 #ifdef __PING__
 namespace std {
@@ -19,11 +19,6 @@ namespace std {
 		return true;
 	}
 
-	bool S2CPing::isDefault() const
-	{
-		return IPacket::isDefault();
-	}
-
 	void S2CPing::setSecond(const __i32 nSecond)
 	{
 		mSecond = nSecond;
@@ -38,9 +33,9 @@ namespace std {
 		: mSecond(0)
 	{
 	}
-
+	
 	S2CPing::S2CPing(const __i32 nSecond)
-		, mSecond(nSecond)
+		: mSecond (nSecond)
 	{
 	}
 

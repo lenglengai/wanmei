@@ -13,7 +13,7 @@ int main( int argc, char * argv[] )
 	initService.runStart0();
 	initService.runStart1();
 	initService.runRun();
-	initService.runStop();
+	initService.runStop1();
 	initService.runSave();
 	initService.runExit();
 	return 0;

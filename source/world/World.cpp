@@ -19,16 +19,16 @@ namespace std {
 #ifdef __CLIENT__
 	PlayerPtr& World::getPlayer()
 	{
-		return mWorld->getPlayer();
+		return mPlayer;
 	}
 #endif
 
-	const __i32 World::getPlayerCount() const
+	__i32 World::getPlayerCount() const
 	{
 		return mPlayerCount;
 	}
 	
-	const __i32 World::getHandleId() const
+	__i32 World::getHandleId() const
 	{
 		return mHandleId;
 	}
@@ -38,14 +38,20 @@ namespace std {
 		return mName;
 	}
 	
-	const __i16 World::getId() const
+	__i16 World::getId() const
 	{
 		return mId;
 	}
 	
-	const __i16 World::getKey() const
+	__i16 World::getKey() const
 	{
 		return mId;
+	}
+	
+	bool World::isDefault() const
+	{
+		return ( (0 == mId) || ("" == mName)
+		|| (0 == mHandleId) || (0 == mPlayerCount) );
 	}
 	
 	void World::runInit()

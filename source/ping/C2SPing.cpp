@@ -1,4 +1,4 @@
-#include "../LogicInc.h"
+#include "../Logic.h"
 
 #ifdef __PING__
 namespace std {

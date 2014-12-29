@@ -10,7 +10,7 @@ namespace std {
 		void runClear();
 		
 	#ifdef __CLIENT__
-		SessionPtr& getSession() const;
+		SessionPtr& getSession();
 	#endif
 		
 	private:

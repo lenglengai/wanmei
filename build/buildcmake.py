@@ -64,10 +64,10 @@ class BuildCMake(buildbase.BuildBase):
         if 'm' == nBuildParameter:
             self.mMake = True
         if 'd' == nBuildParameter:
-            self.mDebug = 'DEBUG'
+            self.mDebug = True
             self.mBuild = True
         if 'r' == nBuildParameter:
-            self.mDebug = 'RELEASE'
+            self.mDebug = False
             self.mBuild = True
             
     def runBuild(self):
@@ -79,12 +79,21 @@ class BuildCMake(buildbase.BuildBase):
             sysName = platform.system()
             if 'Windows' == sysName:
                 if False == self.mMake:
-                    makeCmd = 'msbuild %s.sln  /p:Configuration=%s' % (self.mProject, self.mDebug)
+                    if True == self.mDebug:
+                        makeCmd = 'msbuild %s.sln  /p:Configuration=DEBUG' % self.mProject
+                    else:
+                        makeCmd = 'msbuild %s.sln  /p:Configuration=RELEASE' % self.mProject
                 else:
-                    makeCmd = 'nmake'
+                    if True == self.mDebug:
+                        makeCmd = 'nmake DEBUG=1'
+                    else:
+                        makeCmd = 'nmake'
             elif 'Darwin' == sysName:
                 if False == self.mMake:
-                    makeCmd = 'xcodebuild -project %s.xcodeproj -configuration %s' % (self.mProject, self.mDebug)
+                    if True == self.mDebug:
+                        makeCmd = 'xcodebuild -project %s.xcodeproj -configuration DEBUG' % self.mProject
+                    else:
+                        makeCmd = 'xcodebuild -project %s.xcodeproj -configuration RELEASE' % self.mProject
             else:
                 makeCmd = 'make'
             buildbase.BuildBase.interBuild(self, makeCmd)

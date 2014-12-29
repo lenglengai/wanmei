@@ -8,6 +8,7 @@ namespace std {
 		void addContext(ContextPtr& nContext);
 		void runStart();
 		void runStop();
+		void runJoin();
 
 	private:
 		bool runInternal();

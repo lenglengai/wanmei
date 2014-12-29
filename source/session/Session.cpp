@@ -9,8 +9,8 @@ namespace std {
 			logService_.logError(log_1(mSessionState));
 			return false;
 		}
-		this->pushPacket(nPacket);
 		nPacket->runInit();
+		this->pushPacket(nPacket);
 		if (false == mSending) {
 			this->internalSend();
 		}

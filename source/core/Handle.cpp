@@ -23,6 +23,11 @@ namespace std {
 	{
 		mStop = true;
 	}
+	
+	void Handle::runJoin()
+	{
+		mThread->join();
+	}
 
 	void Handle::runClear()
 	{
@@ -52,7 +57,7 @@ namespace std {
 
 	Handle::~Handle()
 	{
-		this->runClear();
+		//this->runClear();
 	}
 
 }

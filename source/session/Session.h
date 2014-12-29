@@ -68,7 +68,7 @@ namespace std {
 		
 		atomic<__i32> mSecond;
 	#ifdef __CLIENT__
-		atomic<__i64> mSendTick;
+		__i64 mSendTick;
 	#endif
 	};
 	

@@ -83,13 +83,15 @@ namespace std{
 		return mSessions[mSessionId];
 	#endif
 	#ifdef __CLIENT__
+		IoService& ioService_ = Singleton<IoService>::instance();
+		asio::io_service& ioservice = ioService_.getIoService();
 		mSession.reset(new Session(++mSessionId, ioservice));
 		return mSession;
 	#endif
 	}
 	
 #ifdef __CLIENT__
-	SessionPtr& SessionService::getSession() const
+	SessionPtr& SessionService::getSession()
 	{
 		return mSession;
 	}

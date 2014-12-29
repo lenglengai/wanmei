@@ -73,6 +73,17 @@ namespace std {
 			mXmlNodes.pop();
 		}
 		template<class __t>
+		void runStream(shared_ptr<__t>& nValue, const char * nName)
+		{
+			mXmlNodes.push(mXmlNode);
+			mXmlNode = mXmlNode->first_node(nName);
+			if (nullptr != mXmlNode) {
+				nValue->serialize(this, 0);
+			}
+			mXmlNode = mXmlNodes.top();
+			mXmlNodes.pop();
+		}
+		template<class __t>
 		void runStreamCount(__t& nValue, const char * nName, const __i32 nCount = 0)
 		{
 			mXmlNodes.push(mXmlNode);

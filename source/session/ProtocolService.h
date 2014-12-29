@@ -10,7 +10,7 @@ namespace std {
 		template <class __t>
 		void runRegister(__t * nProtocol)
 		{
-			__i32 protocolId = __classid<T>();
+			__i32 protocolId = __classid<__t>();
 			auto it = mProtocols.find(protocolId);
 			if (it != mProtocols.end()) {
 				LogService& logService_ = Singleton<LogService>::instance();

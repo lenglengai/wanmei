@@ -7,3 +7,4 @@
 #define __CONSOLE__
 #define __WITHDEBUG__
 #define __RUNING__
+#define __PING__

@@ -53,7 +53,7 @@ namespace std {
 		initService_.m_tRunInit0.connect(boost::bind(&IoService::runInit, this));
 		initService_.m_tRunStart0.connect(boost::bind(&IoService::runStart, this));
 		initService_.m_tRunRun.connect(boost::bind(&IoService::runRun, this));
-		initService_.m_tRunStop.connect(boost::bind(&IoService::runStop, this));
+		initService_.m_tRunStop0.connect(boost::bind(&IoService::runStop, this));
 	#ifdef __CONSOLE__
 		this->registerCommand("info", std::bind(&IoService::commandInfo, this, placeholders::_1));
 		this->registerCommand("reload", std::bind(&IoService::commandReload, this, placeholders::_1));
@@ -82,7 +82,7 @@ namespace std {
 		InitService& initService_ = Singleton<InitService>::instance();
 		mSignals.reset(new asio::signal_set(this->getIoService()));
 		mSignals->add(SIGINT); mSignals->add(SIGTERM);
-		mSignals->async_wait(boost::bind(&InitService::runStop, &initService_));
+		mSignals->async_wait(boost::bind(&InitService::runStop0, &initService_));
 	}
 
 	void IoService::runRun()

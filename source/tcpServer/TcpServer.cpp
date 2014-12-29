@@ -73,7 +73,7 @@ namespace std {
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunLoad0.connect(boost::bind(&TcpServer::runLoad, this));
 		initService_.m_tRunStart0.connect(boost::bind(&TcpServer::runStart, this));
-		initService_.m_tRunStop.connect(boost::bind(&TcpServer::runStop, this));
+		initService_.m_tRunStop0.connect(boost::bind(&TcpServer::runStop, this));
 	#ifdef __CONSOLE__
 		this->registerCommand("info", std::bind(&TcpServer::commandInfo, this, placeholders::_1));
 		this->registerCommand("reload", std::bind(&TcpServer::commandReload, this, placeholders::_1));

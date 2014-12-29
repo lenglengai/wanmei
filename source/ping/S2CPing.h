@@ -11,7 +11,6 @@ namespace std {
 		bool handleRun(SessionPtr& nSession);
 	#endif
 		bool runBlock(BlockPtr& nBlock);
-		bool isDefault() const;
 		void setSecond(const __i32 nSecond);
 		__i32 getSecond() const;
 

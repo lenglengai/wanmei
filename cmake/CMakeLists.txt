@@ -108,7 +108,8 @@ SET( CORE_H
 	${cores}/PropertyId.h 
 	${cores}/PropertyMgr.h 
 	${cores}/PropertySink.h )
-file(COPY ${cores}/handleService.xml DESTINATION ${BIN_PATH})
+file(COPY ${cores}/handleServer.xml DESTINATION ${BIN_PATH})
+file(COPY ${cores}/handleClient.xml DESTINATION ${BIN_PATH})
 ##############################################################
 set(archives ${SRC_PATH}/archive )
 
@@ -163,6 +164,18 @@ SET( SESSION_H
 file(COPY ${sessions}/ioClient.xml DESTINATION ${BIN_PATH})
 file(COPY ${sessions}/ioServer.xml DESTINATION ${BIN_PATH})
 ##############################################################
+set(players ${SRC_PATH}/player )
+
+set( PLAYER_SRC
+	${tcpClients}/Robot.cpp 
+	${tcpClients}/Tourist.cpp 
+	${tcpClients}/Player.cpp )
+
+SET( PLAYER_H
+	${tcpClients}/Robot.h 
+	${tcpClients}/Tourist.h 
+	${tcpClients}/Player.h )
+##############################################################
 set(tcpServers ${SRC_PATH}/tcpServer )
 
 set( TCPSERVER_SRC
@@ -189,6 +202,22 @@ set( WORLD_SRC
 SET( WORLD_H
 	${worlds}/WorldService.h 
 	${worlds}/World.h )
+file(COPY ${worlds}/worldClient.xml DESTINATION ${BIN_PATH})
+file(COPY ${worlds}/worldServer.xml DESTINATION ${BIN_PATH})
+##############################################################
+set(pings ${SRC_PATH}/ping )
+
+set( PING_SRC
+	${pings}/S2CPing.cpp 
+	${pings}/PingTick.cpp 
+	${pings}/PingProtocol.cpp 
+	${pings}/C2SPing.cpp )
+
+SET( PING_H
+	${pings}/S2CPing.h 
+	${pings}/PingTick.h 
+	${pings}/PingProtocol.h 
+	${pings}/C2SPing.h )
 ##############################################################
 add_subdirectory(libbzlib)
 add_subdirectory(liblua)
@@ -200,6 +229,8 @@ add_executable(${PROJECT_NAME}
 	${ARCHIVE_SRC} ${ARCHIVE_H}
 	${SESSION_SRC} ${SESSION_H}	
 	${TCPSERVER_SRC} ${TCPSERVER_H} 
-	${TCPCLIENT_SRC} ${TCPCLIENT_H} )
+	${TCPCLIENT_SRC} ${TCPCLIENT_H} 
+	${WORLD_SRC} ${WORLD_H} 
+	${PING_SRC} ${PING_H} )
 	
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} libbzlib liblua libmysql)

@@ -18,10 +18,10 @@ namespace std {
 	
 	public:
 		template<class T>
-		void headSerialize(T& nSerialize)
+		void headSerialize(T& nT)
 		{
-			nSerialize.runString(mAddress, "address", "127.0.0.1");
-			nSerialize.runString(mPort, "port", "8080");
+			nT.runString(mAddress, "address", "127.0.0.1");
+			nT.runString(mPort, "port", "8080");
 		}
 		const char * streamName() const;
 		const char * streamUrl() const;

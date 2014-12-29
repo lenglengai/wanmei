@@ -2,7 +2,7 @@
 
 namespace std {
 
-	class IProtocol : noncopyable
+	class IProtocol : public IService
 	{
 	public:
 		const PacketIdPtr& getPacketId(const __i32 nPacketType) const;

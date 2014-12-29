@@ -48,6 +48,9 @@ namespace std{
 	
 	bool WorldService::runPreinit()
 	{
+	#ifdef __CLIENT__
+		mWorld.reset(new World());
+	#endif
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunLoad0.connect(boost::bind(&WorldService::runLoad, this));
 		initService_.m_tRunInit0.connect(boost::bind(&WorldService::runInit, this));
@@ -65,7 +68,7 @@ namespace std{
 	void WorldService::runInit()
 	{
 	#ifdef __CLIENT__
-		mWorld.runInit();
+		mWorld->runInit();
 	#endif
 	#ifdef __SERVER__
 		for (auto& i : mWorlds) {
@@ -80,13 +83,13 @@ namespace std{
 		HandleService& handleService_ = Singleton<HandleService>::instance();
 	#ifdef __CLIENT__
 		ContextPtr context_ = dynamic_pointer_cast<Context, World>(mWorld);
-		handleService_.addContext(context_, mWorldConfig.getHandleId());
+		handleService_.addContext(context_, mWorld->getHandleId());
 	#endif
 	#ifdef __SERVER__
 		for (auto& i : mWorlds) {
 			WorldPtr& world_ = i.second;
 			ContextPtr context_ = dynamic_pointer_cast<Context, World>(world_);
-			handleService_.addContext(context_, world_->getId());
+			handleService_.addContext(context_, world_->getHandleId());
 		}
 	#endif
 	}

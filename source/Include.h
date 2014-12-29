@@ -77,6 +77,10 @@
 #include "session/ProtocolService.h"
 #include "session/IoService.h"
 
+#include "player/Robot.h"
+#include "player/Tourist.h"
+#include "player/Player.h"
+
 #include "tcpClient/TcpClient.h"
 #include "tcpServer/TcpServer.h"
 

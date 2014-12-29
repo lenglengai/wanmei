@@ -17,17 +17,18 @@ namespace std {
 		template<class __t>
 		void serialize(__t * nT, __i32 nCount)
 		{
-			nT.runInt32(mPlayerCount, "playerCount");
-			nT.runInt32(mHandleId, "handleId");
-			nT.runString(mName, "name");
-			nT.runInt16(mId, "id");
+			nT->runInt32(mPlayerCount, "playerCount");
+			nT->runInt32(mHandleId, "handleId");
+			nT->runString(mName, "name");
+			nT->runInt16(mId, "id");
 		}
 		
-		const __i32 getPlayerCount() const;
-		const __i32 getHandleId() const;
+		__i32 getPlayerCount() const;
+		__i32 getHandleId() const;
 		const string& getName() const;
-		const __i16 getId() const;
-		const __i16 getKey() const;
+		__i16 getId() const;
+		__i16 getKey() const;
+		bool isDefault() const;
 		
 		void runInit();
 		
@@ -43,7 +44,7 @@ namespace std {
 		map<__i64, TouristPtr> mTourists;
 		PlayerPtr mPlayer;
 	#endif
-		LuaEngine mLuaEngine;
+		LuaEnginePtr mLuaEngine;
 		__i32 mPlayerCount;
 		__i32 mHandleId;
 		string mName;

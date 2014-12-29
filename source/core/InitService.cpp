@@ -65,7 +65,7 @@ namespace std {
 		ServiceMgr& serviceMgr_ = Singleton<ServiceMgr>::instance();
 		serviceMgr_.runPreinit();
 		serviceMgr_.registerService(this);
-				
+		
 		PreinitSlot& preinitSlot_ = Singleton<PreinitSlot>::instance();
 		if ( !preinitSlot_.runPreinit0() ) {
 			return false;
@@ -136,11 +136,16 @@ namespace std {
 		this->m_tRunRun();
 	}
 
-	void InitService::runStop()
+	void InitService::runStop0()
 	{
-		this->m_tRunStop();
+		this->m_tRunStop0();
 	}
 
+	void InitService::runStop1()
+	{
+		this->m_tRunStop1();
+	}
+	
 	void InitService::runSave()
 	{
 		this->m_tRunSave();
@@ -181,7 +186,8 @@ namespace std {
 		m_tRunStart0.disconnect_all_slots();
 		m_tRunStart1.disconnect_all_slots();
 		m_tRunRun.disconnect_all_slots();
-		m_tRunStop.disconnect_all_slots();
+		m_tRunStop0.disconnect_all_slots();
+		m_tRunStop1.disconnect_all_slots();
 		m_tRunSave.disconnect_all_slots();
 		m_tRunExit.disconnect_all_slots();
 		
