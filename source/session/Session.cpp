@@ -92,6 +92,7 @@ namespace std {
 #ifdef __CLIENT__
 	bool Session::isSendTick()
 	{
+		if (SessionState_::mClosed_ == mSessionState)  return false;
 		TimeService& timeService_ = Singleton<TimeService>::instance();
 		__i64 second_ = timeService_.getLocalTime();
 		return ( (second_ - mSendTick) > 280 );
@@ -200,7 +201,7 @@ namespace std {
 		}
 	}
 
-	const asio::ip::tcp::socket& Session::getSocket() const
+	asio::ip::tcp::socket& Session::getSocket()
 	{
 		return mSocket;
 	}

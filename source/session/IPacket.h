@@ -44,8 +44,8 @@ namespace std {
 	public:
 		void runInit()
 		{
-			mProtocol = __classid<__t0>();
-			mPacketId = __classid<__t1>();
+			mProtocol = __classid<__t1>();
+			mPacketId = __classid<__t0>();
 		}
 	};
 	

@@ -8,3 +8,5 @@
 #define __WITHDEBUG__
 #define __RUNING__
 #define __PING__
+#define __TCPCLIENT__
+

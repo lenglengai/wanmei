@@ -22,7 +22,7 @@ namespace std {
 		void runStart();
 		void runClose();
 		
-		const asio::ip::tcp::socket& getSocket() const;
+		asio::ip::tcp::socket& getSocket();
 		__i32 getSessionState() const;
 		void openSession();
 		

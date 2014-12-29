@@ -113,8 +113,8 @@ namespace std {
 		asio::io_service& ioservice = ioService_.getIoService();
 		mConnectTimer.reset(new asio::deadline_timer(ioservice));
 		
-		SessionService sessionService_ = Singleton<SessionService>::instance();
-		SessionPtr& session_ = sessionService_->getSession();
+		SessionService& sessionService_ = Singleton<SessionService>::instance();
+		mSession = &(sessionService_.createSession());
 		
 		this->startConnect();
 	}

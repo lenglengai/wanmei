@@ -9,6 +9,7 @@ namespace std {
 		void handleConnect(const boost::system::error_code& nError);
 		void handleConnectTimeout(const boost::system::error_code& nError);
 		void startConnect();
+		void reConnect();
 		void runStop();
 		
 	private:

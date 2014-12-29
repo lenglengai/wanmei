@@ -8,6 +8,7 @@ namespace std {
 	{
 		SessionService& sessionService_ = Singleton<SessionService>::instance();
 		SessionPtr& session_ = sessionService_.getSession();
+		if (!session_) return;
 		if (!session_->isSendTick()) return;
 		__i32 second_ = session_->getSecond();
 		PacketPtr packet_(new C2SPing(second_));
