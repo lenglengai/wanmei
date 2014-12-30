@@ -39,6 +39,7 @@
 #include "core/HandleService.h"
 #include "core/LogService.h"
 #include "core/ServiceMgr.h"
+#include "core/CommandBat.h"
 #include "core/Console.h"
 #include "core/Preinit.h"
 #include "core/LuaEngine.h"

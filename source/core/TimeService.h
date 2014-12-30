@@ -10,6 +10,7 @@ namespace std {
 	#endif
 		__i64 getServerTime() const;
 		__i64 getLocalTime() const;
+		__i64 getStartTime() const;
 		
 		static TimeService * getTimeService();
 		
@@ -26,12 +27,14 @@ namespace std {
 	public:
 		bool runPreinit();
 		void runLuaApi();
+		void runStart();
 		
 		TimeService();
 		~TimeService();
 		
 	private:
 		chrono::system_clock::time_point mBegin;
+		__i64 mStartTime;
 		__i64 mCurrent;
 	};
 

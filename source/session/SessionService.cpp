@@ -57,15 +57,14 @@ namespace std{
 		return true;
 	}
 	
-	void SessionService::removeSession(SessionPtr& nSession)
+	void SessionService::removeSession(__i32 nSessionId)
 	{
 	#ifdef __SERVER__
-		__i32 sessionId_ = nSession->getSessionId();
 		lock_guard<mutex> lock_(mMutex);
-		auto it = mSessions.find(sessionId_);
-		if (it != mSessions.end()) {
+		auto it = mSessions.find(nSessionId);
+		if (it == mSessions.end()) {
 			LogService& logService_ = Singleton<LogService>::instance();
-			logService_.logError(log_1(sessionId_));
+			logService_.logError(log_1(nSessionId));
 			return;
 		}
 		mSessions.erase(it);

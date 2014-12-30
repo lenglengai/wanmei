@@ -81,7 +81,8 @@ set( CORE_SRC
 	${cores}/Console.cpp 
 	${cores}/Property.cpp 
 	${cores}/PropertyMgr.cpp 
-	${cores}/PropertySink.cpp )
+	${cores}/PropertySink.cpp 
+	${cores}/Console.cpp )
 
 SET( CORE_H
 	${cores}/StringWriter.h
@@ -107,7 +108,8 @@ SET( CORE_H
 	${cores}/Property.h
 	${cores}/PropertyId.h 
 	${cores}/PropertyMgr.h 
-	${cores}/PropertySink.h )
+	${cores}/PropertySink.h 
+	${cores}/Console.h )
 file(COPY ${cores}/handleServer.xml DESTINATION ${BIN_PATH})
 file(COPY ${cores}/handleClient.xml DESTINATION ${BIN_PATH})
 ##############################################################

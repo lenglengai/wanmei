@@ -21,6 +21,7 @@ namespace std {
 		
 		void runStart();
 		void runClose();
+		bool isClosed();
 		
 		asio::ip::tcp::socket& getSocket();
 		__i32 getSessionState() const;

@@ -111,6 +111,12 @@ namespace std {
 		this->m_tRunLoad1();
 	}
 
+	void InitService::runCommand(const char * nIsBool)
+	{
+		bool isBool_ = __convert<const char *, bool>(nIsBool, ConvertType_::mText_);
+		this->m_tRunCommand(isBool_);
+	}
+	
 	void InitService::runInit0()
 	{
 		this->m_tRunInit0();
@@ -181,6 +187,7 @@ namespace std {
 		m_tRunLuaApi.disconnect_all_slots();
 		m_tRunLoad0.disconnect_all_slots();
 		m_tRunLoad1.disconnect_all_slots();
+		m_tRunCommand.disconnect_all_slots();
 		m_tRunInit0.disconnect_all_slots();
 		m_tRunInit1.disconnect_all_slots();
 		m_tRunStart0.disconnect_all_slots();

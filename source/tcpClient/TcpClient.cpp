@@ -31,6 +31,20 @@ namespace std {
 		stringWriter_->runClose();
 		return stringWriter_;
 	}
+
+	const StringWriterPtr TcpClient::commandReconnect(const CommandArgs& nCommandArgs)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
+		(*mSession)->runClose();
+		chrono::milliseconds dura(200);
+		this_thread::sleep_for(dura);
+		this->reconnect();
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
+		return stringWriter_;
+	}
 #endif
 
 	void TcpClient::handleConnect(const boost::system::error_code& nError)
@@ -78,6 +92,13 @@ namespace std {
 			logService_.logError(log_1(e.what()));
 		}
 	}
+	
+	void TcpClient::reconnect()
+	{
+		if ( (*mSession)->isClosed() ) {
+			this->startConnect();
+		}
+	}
 
 	const char * TcpClient::streamName() const
 	{
@@ -97,6 +118,7 @@ namespace std {
 	#ifdef __CONSOLE__
 		this->registerCommand("info", std::bind(&TcpClient::commandInfo, this, placeholders::_1));
 		this->registerCommand("reload", std::bind(&TcpClient::commandReload, this, placeholders::_1));
+		this->registerCommand("reconnect", std::bind(&TcpClient::commandReconnect, this, placeholders::_1));
 	#endif
 		return true;
 	}

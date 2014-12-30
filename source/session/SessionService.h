@@ -5,7 +5,7 @@ namespace std {
 	class SessionService : public IService
 	{
 	public:
-		void removeSession(SessionPtr& nSession);
+		void removeSession(__i32 nSessionId);
 		SessionPtr& createSession();
 		void runClear();
 		

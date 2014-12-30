@@ -105,6 +105,25 @@ namespace std {
 				return false;
 			}
 		};
+		
+		template<>
+		struct Convert<const char *, bool>
+		{
+			bool operator () (const char * nValue, const ConvertType_ nConvertType) const
+			{
+				if (ConvertType_::mBinary_ == nConvertType) {
+					__i8 value_ = *((__i8 *)nValue);
+					return ((1 == value_) ? true : false);
+				} else if (ConvertType_::mText_ == nConvertType) {
+					string value_(nValue);
+					return (("true" == value_) ? true : false);
+				} else {
+					string value_(nValue);
+					return (("1" == value_) ? true : false);
+				}
+				return false;
+			}
+		};
 
 		template<>
 		struct Convert<string, bool>

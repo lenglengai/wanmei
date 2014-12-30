@@ -9,13 +9,14 @@ namespace std {
 		void handleConnect(const boost::system::error_code& nError);
 		void handleConnectTimeout(const boost::system::error_code& nError);
 		void startConnect();
-		void reConnect();
+		void reconnect();
 		void runStop();
 		
 	private:
 	#ifdef __CONSOLE__
 		const StringWriterPtr commandInfo(const CommandArgs& nCommandArgs);
 		const StringWriterPtr commandReload(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandReconnect(const CommandArgs& nCommandArgs);
 	#endif
 		
 	public:

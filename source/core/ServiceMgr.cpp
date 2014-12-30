@@ -78,10 +78,15 @@ namespace std {
 		stringWriter_->runClose();
 		return stringWriter_;
 	}
+	
+	void ServiceMgr::runConsoleCommand(const bool nCommand)
+	{
+		mCommand = nCommand;
+	}
 #endif
 
 #if defined(__CONSOLE__) ||  defined(__CLIENT__)
-	void ServiceMgr::setClientConsole(const bool nClientConsole)
+	void ServiceMgr::setClientConsole(bool nClientConsole)
 	{
 		mClientConsole = nClientConsole;
 	}
@@ -93,10 +98,12 @@ namespace std {
 		initService_.m_tRunInit0.connect(boost::bind(&ServiceMgr::runInit, this));
 		initService_.m_tRunStart0.connect(boost::bind(&ServiceMgr::runStart, this));
 		initService_.m_tRunStop1.connect(boost::bind(&ServiceMgr::runStop, this));
+		
 	#ifdef __CONSOLE__
 		this->registerCommand("info", std::bind(&ServiceMgr::commandInfo, this, placeholders::_1));
 		this->registerCommand("findName", std::bind(&ServiceMgr::commandFindName, this, placeholders::_1));
 		this->registerCommand("findId", std::bind(&ServiceMgr::commandFindId, this, placeholders::_1));
+		initService_.m_tRunCommand.connect(boost::bind(&ServiceMgr::runConsoleCommand, this));
 	#endif
 		return true;
 	}
@@ -105,7 +112,7 @@ namespace std {
 	{
 #ifdef __CONSOLE__
 		mConsoleHandle.reset(new Handle());
-		ContextPtr consoleContext(new Console());
+		ContextPtr consoleContext(new Console(mCommand));
 		mConsoleHandle->addContext(consoleContext);
 #endif
 	}
@@ -130,6 +137,7 @@ namespace std {
 		mServices.clear();
 #ifdef __CONSOLE__
 		mClientConsole = true;
+		mCommand = false;
 #endif
 	}
 
@@ -138,6 +146,7 @@ namespace std {
 		mServices.clear();
 #ifdef __CONSOLE__
 		mClientConsole = true;
+		mCommand = false;
 #endif
 	}
 	

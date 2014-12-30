@@ -143,11 +143,28 @@ namespace std {
 				boost::system::error_code error_;
 				mSocket.shutdown(asio::socket_base::shutdown_both, error_);
 				mSocket.close(error_);
+				mSecond = 0;
+				SessionService& sessionService_ = Singleton<SessionService>::instance();
+				sessionService_.removeSession(mSessionId);
+			#ifdef __CLIENT__
+				mSendTick = 0;
+			#endif
 			} catch (boost::system::system_error& e) {
 				LogService& logService_ = Singleton<LogService>::instance();
 				logService_.logError(log_1(e.what()));
 			}
 		}
+	}
+	
+	bool Session::isClosed()
+	{
+		if ( SessionState_::mClosed_ == mSessionState ) {
+			return true;
+		}
+		if (!mSocket.is_open()) {
+			return true;
+		}
+		return false;
 	}
 
 	void Session::pushPacket(PacketPtr& nPacket)

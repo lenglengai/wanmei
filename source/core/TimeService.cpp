@@ -58,6 +58,17 @@ namespace std {
 		luaService_.runMethod<TimeService>(&TimeService::getServerTime, "getServerTime");
 		luaService_.runMethod<TimeService>(&TimeService::getLocalTime, "getLocalTime");
 	}
+	
+	void TimeService::runStart()
+	{
+		mStartTime = this->getLocalTime();
+	}
+	
+	__i64 TimeService::getStartTime() const
+	{
+		if (0 == mStartTime) return 0;
+		return (this->getLocalTime() - mStartTime);
+	}
 
 	bool TimeService::runPreinit()
 	{
@@ -84,6 +95,7 @@ namespace std {
 		
 		InitService& initService_ = Singleton<InitService>::instance();
 		initService_.m_tRunLuaApi.connect(boost::bind(&TimeService::runLuaApi, this));
+		initService_.m_tRunStart1.connect(boost::bind(&TimeService::runStart, this));
 	#ifdef __CONSOLE__
 		this->registerCommand("info", std::bind(&TimeService::commandInfo, this, placeholders::_1));
 	#endif
@@ -115,12 +127,14 @@ namespace std {
 	}
 
 	TimeService::TimeService()
-		: mCurrent(0)
+		: mStartTime(0)
+		, mCurrent(0)
 	{
 	}
 
 	TimeService::~TimeService()
 	{
+		mStartTime = 0;
 		mCurrent = 0;
 	}
 	

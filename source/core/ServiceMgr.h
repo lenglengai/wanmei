@@ -33,6 +33,9 @@ namespace std {
 	public:
 		bool runPreinit();
 		void runInit();
+	#ifdef __CONSOLE__
+		void runConsoleCommand(bool nCommand);
+	#endif
 		void runStart();
 		void runStop();
 		
@@ -44,6 +47,7 @@ namespace std {
 	#ifdef __CONSOLE__
 		HandlePtr mConsoleHandle;
 		bool mClientConsole;
+		bool mCommand;
 	#endif
 	};
 	

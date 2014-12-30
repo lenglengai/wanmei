@@ -9,14 +9,18 @@ namespace std {
 		void runContext();
 		
 	private:
+		void runCommandBat(const string& nStreamName);
+		void runConsole();
+		void runCommand(const string& nCommand);
 		void runClear();
 		
 	public:
-		Console();
+		Console(const bool nCommand);
 		~Console();
 		
 	private:
 		CommandArgs mCommandArgs;
+		bool mCommand;
 	};
 	
 }

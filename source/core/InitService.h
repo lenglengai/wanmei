@@ -23,6 +23,9 @@ namespace std {
 		signals2::signal<void()> m_tRunLoad1;
 		void runLoad1();
 		
+		signals2::signal<void(bool)> m_tRunCommand;
+		void runCommand(const char * nIsBool);
+		
 		signals2::signal<void()> m_tRunInit0;
 		void runInit0();
 		signals2::signal<void()> m_tRunInit1;
