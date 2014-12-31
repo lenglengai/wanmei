@@ -9,7 +9,7 @@ namespace std {
 		void runContext();
 		
 	private:
-		void runCommandBat(const string& nStreamName);
+		void runCommandBat(const string& nStreamUrl);
 		void runConsole();
 		void runCommand(const string& nCommand);
 		void runClear();

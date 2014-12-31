@@ -79,7 +79,7 @@ namespace std {
 		return stringWriter_;
 	}
 	
-	void ServiceMgr::runConsoleCommand(const bool nCommand)
+	void ServiceMgr::runConsoleCommand(bool nCommand)
 	{
 		mCommand = nCommand;
 	}
@@ -103,7 +103,7 @@ namespace std {
 		this->registerCommand("info", std::bind(&ServiceMgr::commandInfo, this, placeholders::_1));
 		this->registerCommand("findName", std::bind(&ServiceMgr::commandFindName, this, placeholders::_1));
 		this->registerCommand("findId", std::bind(&ServiceMgr::commandFindId, this, placeholders::_1));
-		initService_.m_tRunCommand.connect(boost::bind(&ServiceMgr::runConsoleCommand, this));
+		initService_.m_tRunCommand.connect(boost::bind(&ServiceMgr::runConsoleCommand, this, _1));
 	#endif
 		return true;
 	}

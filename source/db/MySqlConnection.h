@@ -3,10 +3,11 @@
 #ifdef __WITHMYSQL__
 namespace std {
 	
-	class MySqlConnection : boost::noncopyable
+	class MySqlConnection : noncopyable
 	{
 	public:
 		__i16 runSql(ISqlHeadstream * nSqlHeadstream);
+		__i16 runSql(const char * nSql);
 		void runRecycle();
 		bool runGet();
 		void runDisconnect();
@@ -30,7 +31,7 @@ namespace std {
 		
 		MYSQL mMYSQL;
 	};
-	typedef std::shared_ptr<MySqlConnection> MySqlConnectionPtr;
+	typedef shared_ptr<MySqlConnection> MySqlConnectionPtr;
 	
 }
 #endif

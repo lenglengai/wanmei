@@ -1,4 +1,4 @@
-#include "../../include/Include.h"
+#include "../Include.h"
 
 #ifdef __WITHMYSQL__
 namespace std {
@@ -6,38 +6,40 @@ namespace std {
 	void IDataBase::runLoad()
 	{
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
-		archiveService_.xmlUrlStream(this);
-
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("finish!"));
+		archiveService_.xmlStream(this);
 	}
 	
-	__i32 IDataBase::getMaxUsedSeconds()
+	__i32 IDataBase::getMaxUsedSeconds() const
 	{
 		return mMaxUsedSeconds;
 	}
 	
-	const char * IDataBase::streamName()
+	const char * IDataBase::streamName() const
 	{
 		return "dataBase";
 	}
 	
-	const char * IDataBase::streamUrl()
+	void IDataBase::setStreamUrl(const char * nStreamUrl)
 	{
-		return "dataBase.xml";
+		mStreamUrl = nStreamUrl;
 	}
 	
-	std::string& IDataBase::getHostName()
+	const char * IDataBase::streamUrl() const
+	{
+		return mStreamUrl.c_str();
+	}
+	
+	const std::string& IDataBase::getHostName() const
 	{
 		return mHostName;
 	}
 	
-	std::string& IDataBase::getUserName()
+	const std::string& IDataBase::getUserName() const
 	{
 		return mUserName;
 	}
 	
-	std::string& IDataBase::getPassword()
+	const std::string& IDataBase::getPassword() const
 	{
 		return mPassword;
 	}
@@ -47,12 +49,12 @@ namespace std {
 		mDbName = nDbName;
 	}
 	
-	std::string& IDataBase::getDbName()
+	const std::string& IDataBase::getDbName() const
 	{
 		return mDbName;
 	}
 	
-	__i32 IDataBase::getPort()
+	__i32 IDataBase::getPort() const
 	{
 		return mPort;
 	}
@@ -67,6 +69,8 @@ namespace std {
 		mPassword = "";
 		mDbName = "wanmei";
 		mPort = 3306;
+		
+		mStreamUrl = "";
 	}
 	
 	IDataBase::IDataBase()

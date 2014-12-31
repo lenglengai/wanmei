@@ -7,6 +7,7 @@ namespace std {
 	{
 	public:
 		virtual __i16 runSql(ISqlHeadstream * nSqlHeadstream) = 0;
+		virtual __i16 runSql(const char * nSql) = 0;
 		
 		template<class T>
 		void headSerialize(T& nSerialize)
@@ -19,19 +20,20 @@ namespace std {
 			nSerialize.runInt32(mMaxConnections, "maxConnections");
 			nSerialize.runInt32(mMaxUsedSeconds, "maxUsedSeconds");
 		}
-				
-		const char * streamName();
-		const char * streamUrl();
+		
+		const char * streamName() const;
+		void setStreamUrl(const char * nStreamUrl);
+		const char * streamUrl() const;
 		void runLoad();
 		
 		void setDbName(const char * nDbName);
-		std::string& getHostName();
-		std::string& getUserName();
-		std::string& getPassword();
-		std::string& getDbName();
-		__i32 getPort();
+		const string& getHostName() const;
+		const string& getUserName() const;
+		const string& getPassword() const;
+		const string& getDbName() const;
+		__i32 getPort() const;
 		
-		__i32 getMaxUsedSeconds();
+		__i32 getMaxUsedSeconds() const;
 		
 	private:
 		void runClear();
@@ -41,15 +43,16 @@ namespace std {
 		virtual ~IDataBase();
 		
 	protected:
-		std::string mHostName;
-		std::string mUserName;
-		std::string mPassword;
-		std::string mDbName;
+		string mHostName;
+		string mUserName;
+		string mPassword;
+		string mDbName;
+		string mStreamUrl;
 		__i32 mPort;
 		__i32 mMaxConnections;
 		__i32 mMaxUsedSeconds;
 	};
-	typedef std::shared_ptr<IDataBase> DataBasePtr;
+	typedef shared_ptr<IDataBase> DataBasePtr;
 	
 }
 #endif

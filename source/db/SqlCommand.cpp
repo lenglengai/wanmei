@@ -1,4 +1,4 @@
-#include "../../include/Include.h"
+#include "../Include.h"
 
 #ifdef __WITHMYSQL__
 namespace std {
@@ -31,6 +31,11 @@ namespace std {
     void SqlCommand::serialize(__i32& nValue, const char * nName, __i8 nSqlFieldId)
 	{
 		this->runType(nValue, "INT(10)", nName, nSqlFieldId);
+	}
+	
+    void SqlCommand::serialize(__u32& nValue, const char * nName, __i8 nSqlFieldId)
+	{
+		this->runType(nValue, "TIMESTAMP", nName, nSqlFieldId);
 	}
 	
     void SqlCommand::serialize(__i64& nValue, const char * nName, __i8 nSqlFieldId)
@@ -82,7 +87,7 @@ namespace std {
         }
     }
 	
-	std::string& SqlCommand::getValue()
+	const std::string& SqlCommand::getValue() const
 	{
 		return mValue;
 	}

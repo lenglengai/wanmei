@@ -2,7 +2,7 @@
 <dataBase hostName="127.0.0.1"
 	userName="root"
 	password="zyouhua"
-	dbName="wanmei"
+	dbName="loginDb"
 	port="3307"
 	maxConnections="100"
 	maxUsedSeconds="36000" />

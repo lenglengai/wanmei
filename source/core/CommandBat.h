@@ -12,9 +12,10 @@ namespace std {
 		{
 			nT.runStrings(mCommands, "commands", "command");
 		}
-		void setStreamName(const char * nStreamName);
+		
 		const char * streamName() const;
 		
+		void setStreamUrl(const char * nStreamUrl);
 		const char * streamUrl() const;
 		
 		CommandBat();
@@ -22,7 +23,7 @@ namespace std {
 		
 	private:
 		list<string> mCommands;
-		string mStreamName;
+		string mStreamUrl;
 	};
 	
 }

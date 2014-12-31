@@ -7,7 +7,9 @@ namespace std {
 	{
 	public:
 		__i16 runSql(ISqlHeadstream * nSqlHeadstream);
+		__i16 runSql(const char * nSql);
 		void runLoad();
+		
 	private:
 		void recycleConnection(MySqlConnectionPtr& nMySqlConnection);
 		MySqlConnectionPtr& getConnection();
@@ -17,8 +19,8 @@ namespace std {
 		~MySqlDataBase();
 	
 	private:
-		std::list<MySqlConnectionPtr> mMySqlConnections;
-		std::mutex mMutex;
+		list<MySqlConnectionPtr> mMySqlConnections;
+		mutex mMutex;
 	};
 	
 }

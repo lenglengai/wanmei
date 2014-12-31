@@ -9,3 +9,4 @@
 #define __RUNING__
 #define __PING__
 #define __TCPSERVER__
+#define __WITHMYSQL__

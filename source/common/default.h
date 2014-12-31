@@ -73,7 +73,7 @@ namespace std {
 	}
 	
 	template<typename __t>
-	const shared_ptr<__t>& __defaultptr()
+	shared_ptr<__t>& __defaultptr()
 	{
 		static shared_ptr<__t> result_;
 		return result_;

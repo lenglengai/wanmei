@@ -1,4 +1,4 @@
-#include "../../include/Include.h"
+#include "../Include.h"
 
 #ifdef __WITHMYSQL__
 namespace std {
@@ -7,14 +7,14 @@ namespace std {
 	{
 		SqlCommand sqlCommand;
 		sqlCommand.runHeadstream(nSqlHeadstream);
-		std::string& strSql = sqlCommand.getValue();
+		const std::string& strSql = sqlCommand.getValue();
 		for (int i = 0; i < 2; ++i) {
 			int r = mysql_real_query(&mMYSQL, strSql.c_str(), strSql.length());
 			if (0 == r) break;
 			if (i > 0) {
 				LogService& logService_ = Singleton<LogService>::instance();
 				logService_.logError(log_1(mysql_error(&mMYSQL)));
-				return ERRORINT::DBERROR;
+				return Error_::mDbError_;
 			}
 			int errorNo = mysql_errno(&mMYSQL);
 			if (errorNo == CR_SERVER_GONE_ERROR || errorNo == CR_SERVER_LOST) {
@@ -24,14 +24,33 @@ namespace std {
 		}
 		if ( SqlType_::mSelect_ == nSqlHeadstream->getSqlType() ) {
 			MySqlQuery mySqlQuery(mMYSQL);
-			__i16 errorCode = mySqlQuery.runQuery();
-			if ( ERRORINT::SUCESS != errorCode) {
-				return errorCode;
+			__i16 errorCode_ = mySqlQuery.runQuery();
+			if (Error_::mSucess_ != errorCode_) {
+				return errorCode_;
 			}
 			sqlCommand.setDbQuery(&mySqlQuery);
 			sqlCommand.runHeadstream(nSqlHeadstream, true);
 		}
-		return ERRORINT::SUCESS;
+		return Error_::mSucess_;
+	}
+	
+	__i16 MySqlConnection::runSql(const char * nSql)
+	{
+		for (int i = 0; i < 2; ++i) {
+			int r = mysql_real_query(&mMYSQL, nSql, strlen(nSql));
+			if (0 == r) break;
+			if (i > 0) {
+				LogService& logService_ = Singleton<LogService>::instance();
+				logService_.logError(log_1(mysql_error(&mMYSQL)));
+				return Error_::mDbError_;
+			}
+			int errorNo = mysql_errno(&mMYSQL);
+			if (errorNo == CR_SERVER_GONE_ERROR || errorNo == CR_SERVER_LOST) {
+				this->runActivate(true);
+				continue;
+			}
+		}
+		return Error_::mSucess_;
 	}
 	
 	void MySqlConnection::runRecycle()

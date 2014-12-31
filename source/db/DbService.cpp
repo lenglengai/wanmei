@@ -3,49 +3,112 @@
 #ifdef __WITHMYSQL__
 namespace std {
 	
+#ifdef __CONSOLE__
+	const StringWriterPtr DbService::commandInfo(const CommandArgs& nCommandArgs)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
+		string className_(""); 
+		__i32 classid_ = __classinfo<DbService>(className_);
+		stringWriter_->runString(className_, "className");
+		stringWriter_->runInt32(classid_, "classId");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
+		return stringWriter_;
+	}
+	
+	const StringWriterPtr DbService::commandRunSql(const CommandArgs& nCommandArgs)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
+		const string& strValue_ = nCommandArgs.getCommandArg(1);
+		__i16 result_ = this->runSql(strValue_.c_str());
+		stringWriter_->runInt16(result_, "result");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
+		return stringWriter_;
+	}
+
+	const StringWriterPtr DbService::commandCreateDb(const CommandArgs& nCommandArgs)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
+		DataBasePtr database_(new MySqlDataBase());
+		const string& streamUrl_ = nCommandArgs.getCommandArg(1);
+		database_->setStreamUrl(streamUrl_.c_str());
+		database_->runLoad();
+		string dropDb_("DROP DATABASE IF NOT EXISTS ");
+		dropDb_ += database_->getDbName(); dropDb_ += ";";
+		string createDb_("CREATE DATABASE ");
+		createDb_ += database_->getDbName(); createDb_ += ";";
+		database_->setDbName("");
+		dropDb_ += createDb_;
+		__i16 result_ = database_->runSql(dropDb_.c_str());
+		stringWriter_->runInt16(result_, "result");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
+		return stringWriter_;
+	}
+#endif
+
 	__i16 DbService::runSql(ISqlHeadstream * nSqlHeadstream)
 	{
-		return mDataBase->runSql(nSqlHeadstream);
+		return mGameDb->runSql(nSqlHeadstream);
+	}
+	
+	__i16 DbService::runSql(const char * nSql)
+	{
+		return mGameDb->runSql(nSql);
+	}
+	
+	__i16 DbService::runLoginSql(ISqlHeadstream * nSqlHeadstream)
+	{
+		return mLoginDb->runSql(nSqlHeadstream);
+	}
+	
+	__i16 DbService::runLoginSql(const char * nSql)
+	{
+		return mLoginDb->runSql(nSql);
+	}
+	
+	__i16 DbService::runLogSql(ISqlHeadstream * nSqlHeadstream)
+	{
+		return mLogDb->runSql(nSqlHeadstream);
+	}
+	
+	__i16 DbService::runLogSql(const char * nSql)
+	{
+		return mLogDb->runSql(nSql);
 	}
 	
 	bool DbService::runPreinit()
 	{
 		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tInitDB.connect(boost::bind(&DbService::runInitDB, this));
-
-		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
-		archiveService_.m_tRunConfigure.connect(boost::bind(&DbService::runLoad, this));
-		
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("finish!"));
-		
+		initService_.m_tRunLoad0.connect(boost::bind(&DbService::runLoad, this));
+	#ifdef __CONSOLE__
+		this->registerCommand("info", std::bind(&DbService::commandInfo, this, placeholders::_1));
+		this->registerCommand("runSql", std::bind(&DbService::commandRunSql, this, placeholders::_1));
+		this->registerCommand("createDb", std::bind(&DbService::commandCreateDb, this, placeholders::_1));
+	#endif
 		return true;
 	}
 	
 	void DbService::runLoad()
 	{
-		mDataBase.reset(new MySqlDataBase());
-		mDataBase->runLoad();
+		mGameDb.reset(new MySqlDataBase());
+		mGameDb->setStreamUrl("gameDb.xml");
+		mGameDb->runLoad();
 		
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("finish!"));
-	}
-
-	void DbService::runInitDB()
-	{
-		mDataBase->setDbName("");
+		mLoginDb.reset(new MySqlDataBase());
+		mLoginDb->setStreamUrl("loginDb.xml");
+		mLoginDb->runLoad();
 		
-		DbDrop dbDrop;
-		mDataBase->runSql(&dbDrop);
-		
-		DbCreate dbCreate;
-		mDataBase->runSql(&dbCreate);
-		
-		DbSet dbSet;
-		mDataBase->runSql(&dbSet);
-		
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("finish!"));
+		mLogDb.reset(new MySqlDataBase());
+		mLogDb->setStreamUrl("logDb.xml");
+		mLogDb->runLoad();
 	}
 	
 	DbService::DbService()
@@ -56,7 +119,7 @@ namespace std {
 	{
 	}
 	
-	static Preinit<DbService> sDbServicePreinit;
+	static Preinit0<DbService> sDbServicePreinit;
 	
 }
 #endif

@@ -3,7 +3,7 @@
 #ifdef __WITHMYSQL__
 namespace std {
 	
-	class SqlCommand : boost::noncopyable
+	class SqlCommand : noncopyable
 	{
 	public:
 		void serialize(const char * nName, __i8 nSqlFieldId = SqlFieldId_::mNone_);
@@ -15,6 +15,8 @@ namespace std {
         void serialize(__i16& nValue, const char * nName, __i8 nSqlFieldId = SqlFieldId_::mNone_);
 
         void serialize(__i32& nValue, const char * nName, __i8 nSqlFieldId = SqlFieldId_::mNone_);
+
+        void serialize(__u32& nValue, const char * nName, __i8 nSqlFieldId = SqlFieldId_::mNone_);
 
         void serialize(__i64& nValue, const char * nName, __i8 nSqlFieldId = SqlFieldId_::mNone_);
 
@@ -33,7 +35,7 @@ namespace std {
 		}
 		
 		template <class __t>
-		void serialize(std::list<std::shared_ptr<__t> >& nValues)
+		void serialize(list<shared_ptr<__t> >& nValues)
 		{
 			if (SqlDeal_::mInsert_ == mSqlDeal) {
 				bool first_ = true;
@@ -50,7 +52,7 @@ namespace std {
 	public:
 		void runHeadstream(ISqlHeadstream * nSqlStream, bool nDbQuery = false);
 		void setDbQuery(IDbQuery * nDbQuery);
-		std::string& getValue();
+		const std::string& getValue() const;
 		
 	private:
 		template <typename T>
@@ -92,7 +94,7 @@ namespace std {
 			mValue += mFieldCharacter;
 			mValue += "=";
             mValue += mValueCharacter;
-            mValue += __convert<string, __t>(nValue);
+            mValue += __convert<__t, string>(nValue, ConvertType_::mSql_);
             mValue += mValueCharacter;
             mValue += " ";
         }
@@ -112,7 +114,7 @@ namespace std {
             mValue += mFieldCharacter;
             mValue += "=";
             mValue += mValueCharacter;
-            mValue += __convert<string, __t>(nValue);
+            mValue += __convert<__t, string>(nValue, ConvertType_::mSql_);
             mValue += mValueCharacter;
             if (mBeg) {
                 mBeg = false;
@@ -128,7 +130,7 @@ namespace std {
                 mValue += ",";
             }
             mValue += mValueCharacter;
-			mValue += __convert<string, __t>(nValue);
+			mValue += __convert<__t, string>(nValue, ConvertType_::mSql_);
             mValue += mValueCharacter;
             if (mBeg) {
                 mBeg = false;
@@ -174,8 +176,8 @@ namespace std {
         static const char * mFieldCharacter;
 		
         SqlDeal_ mSqlDeal;
-        std::string mValue;
-        std::string mName;
+        string mValue;
+        string mName;
         bool mBeg;
         bool mEnd;
 		

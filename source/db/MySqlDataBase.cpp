@@ -1,4 +1,4 @@
-#include "../../include/Include.h"
+#include "../Include.h"
 
 #ifdef __WITHMYSQL__
 namespace std {
@@ -9,9 +9,22 @@ namespace std {
 		if (!mySqlConnection_) {
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1("!mySqlConnection_"));
-			return ERRORINT::DBERROR;
+			return Error_::mDbError_;
 		}
 		__i16 result_ = mySqlConnection_->runSql(nSqlHeadstream);
+		this->recycleConnection(mySqlConnection_);
+		return result_;
+	}
+	
+	__i16 MySqlDataBase::runSql(const char * nSql)
+	{
+		MySqlConnectionPtr& mySqlConnection_ = this->getConnection();
+		if (!mySqlConnection_) {
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1("!mySqlConnection_"));
+			return Error_::mDbError_;
+		}
+		__i16 result_ = mySqlConnection_->runSql(nSql);
 		this->recycleConnection(mySqlConnection_);
 		return result_;
 	}
@@ -44,12 +57,9 @@ namespace std {
 	}
 	
 	void MySqlDataBase::runLoad()
-	{		
+	{
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
-		archiveService_.xmlUrlStream(this);
-
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_1("finish!"));
+		archiveService_.xmlStream(this);
 	}
 	
 	MySqlDataBase::MySqlDataBase()

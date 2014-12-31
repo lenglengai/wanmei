@@ -1,4 +1,4 @@
-#include "../../include/Include.h"
+#include "../Include.h"
 
 #ifdef __WITHMYSQL__
 namespace std {
@@ -20,14 +20,14 @@ namespace std {
 			if (0 != mysql_errno(&mMYSQL)) {
 				LogService& logService_ = Singleton<LogService>::instance();
 				logService_.logError(log_1(mysql_error(&mMYSQL)));
-				return ERRORINT::DBERROR;
+				return Error_::mDbError_;
 			}  else {
 				LogService& logService_ = Singleton<LogService>::instance();
 				logService_.logError(log_1("mysql_store_result"));
-				return ERRORINT::DBERROR;
+				return Error_::mDbError_;
 			}
 		}
-		return ERRORINT::SUCESS;
+		return Error_::mSucess_;
 	}
 
 	bool MySqlQuery::nextRow()

@@ -171,17 +171,7 @@ namespace std {
 	{
 		this->m_tRunPause();
 	}
-	
-	void InitService::runInitDataBase()
-	{
-		this->m_tInitDataBase();
-	}
-
-	void InitService::runInitDbTable()
-	{
-		this->m_tInitDbTable();
-	}
-	
+		
 	void InitService::runClear()
 	{
 		m_tRunLuaApi.disconnect_all_slots();
@@ -200,9 +190,6 @@ namespace std {
 		
 		m_tRunResume.disconnect_all_slots();
 		m_tRunPause.disconnect_all_slots();
-		
-		m_tInitDataBase.disconnect_all_slots();
-		m_tInitDbTable.disconnect_all_slots();
 	}
 
 	InitService::InitService()

@@ -29,11 +29,11 @@ namespace std {
 		std::cin.get();
 	}
 	
-	void Console::runCommandBat(const string& nStreamName)
+	void Console::runCommandBat(const string& nStreamUrl)
 	{
 		CommandBat commandBat;
-		if ( "" != nStreamName ) {
-			commandBat.setStreamName(nStreamName.c_str());
+		if ("" != nStreamUrl) {
+			commandBat.setStreamUrl(nStreamUrl.c_str());
 		}
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
 		archiveService_.xmlStream(&commandBat);
@@ -55,9 +55,12 @@ namespace std {
 			ServiceMgr& serviceMgr_ = Singleton<ServiceMgr>::instance();
 			serviceMgr_.setClientConsole(true);
 	#endif
+		} else if ( 0 == nCommand.compare(0, 3, "/c ") ) {
+			this->runCommandBat(nCommand.substr(3));
 		} else if ("/?" == nCommand) {
 			std::cout << "command pattern: command -flag arg ..." << std::endl;
-		} else {
+		}
+		else {
 			mCommandArgs.runParse(nCommand);
 			ServiceMgr& serviceMgr_ = Singleton<ServiceMgr>::instance();
 			serviceMgr_.runCommand(mCommandArgs);

@@ -7,7 +7,7 @@ namespace std {
 		return ((VERHIGH << 10) + VERLOW);
 	}
 	
-	Error_ __vercheck(const __i16 nVersion)
+	__i16 __vercheck(const __i16 nVersion)
 	{
 		__i32 high = nVersion >> 10;
 		__i32 lower = nVersion & 0x3FF;

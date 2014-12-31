@@ -82,7 +82,8 @@ set( CORE_SRC
 	${cores}/Property.cpp 
 	${cores}/PropertyMgr.cpp 
 	${cores}/PropertySink.cpp 
-	${cores}/Console.cpp )
+	${cores}/Console.cpp 
+	${cores}/CommandBat.cpp )
 
 SET( CORE_H
 	${cores}/StringWriter.h
@@ -109,7 +110,8 @@ SET( CORE_H
 	${cores}/PropertyId.h 
 	${cores}/PropertyMgr.h 
 	${cores}/PropertySink.h 
-	${cores}/Console.h )
+	${cores}/Console.h 
+	${cores}/CommandBat.h )
 file(COPY ${cores}/handleServer.xml DESTINATION ${BIN_PATH})
 file(COPY ${cores}/handleClient.xml DESTINATION ${BIN_PATH})
 ##############################################################
@@ -178,6 +180,31 @@ SET( PLAYER_H
 	${tcpClients}/Tourist.h 
 	${tcpClients}/Player.h )
 ##############################################################
+set(dbs ${SRC_PATH}/db )
+
+set( DBS_SRC
+	${dbs}/SqlCommand.cpp
+	${dbs}/IDbQuery.cpp
+	${dbs}/IDataBase.cpp
+	${dbs}/MySqlDbQuery.cpp
+	${dbs}/MySqlConnection.cpp
+	${dbs}/MySqlDataBase.cpp
+	${dbs}/DbService.cpp )
+
+SET( DBS_H
+	${dbs}/SqlType_.h
+	${dbs}/SqlFieldId_.h
+	${dbs}/SqlDeal_.h
+	${dbs}/ISqlStream.h
+	${dbs}/ISqlHeadstream.h
+	${dbs}/SqlCommand.h
+	${dbs}/IDbQuery.h
+	${dbs}/IDataBase.h
+	${dbs}/MySqlDbQuery.h
+	${dbs}/MySqlConnection.h
+	${dbs}/MySqlDataBase.h
+	${dbs}/DbService.h)
+##############################################################
 set(tcpServers ${SRC_PATH}/tcpServer )
 
 set( TCPSERVER_SRC
@@ -233,6 +260,7 @@ add_executable(${PROJECT_NAME}
 	${TCPSERVER_SRC} ${TCPSERVER_H} 
 	${TCPCLIENT_SRC} ${TCPCLIENT_H} 
 	${WORLD_SRC} ${WORLD_H} 
-	${PING_SRC} ${PING_H} )
+	${PING_SRC} ${PING_H} 
+	${DBS_SRC} ${DBS_H} )
 	
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} libbzlib liblua libmysql)

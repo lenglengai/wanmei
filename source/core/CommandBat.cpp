@@ -8,29 +8,30 @@ namespace std {
 		return mCommands;
 	}
 	
-	void CommandBat::setStreamName(const char * nStreamName)
+	void CommandBat::setStreamUrl(const char * nStreamUrl)
 	{
-		mStreamName = nStreamName;
+		mStreamUrl = nStreamUrl;
 	}
 	
 	const char * CommandBat::streamName() const
 	{
-		return mStreamName.c_str();
+		return "commandBat";
 	}
 	
 	const char * CommandBat::streamUrl() const
 	{
-		return "commandBat";
+		return mStreamUrl.c_str();
+		
 	}
 	
 	CommandBat::CommandBat()
-		: mStreamName ("commadBat.xml")
+		: mStreamUrl("commadBat.xml")
 	{
 	}
 	
 	CommandBat::~CommandBat()
 	{
-		mStreamName = "";
+		mStreamUrl = "";
 	}
 	
 }

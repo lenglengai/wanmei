@@ -52,12 +52,7 @@ namespace std {
 		void runResume();
 		signals2::signal<void()> m_tRunPause;
 		void runPause();
-		
-		signals2::signal<void()> m_tInitDataBase;
-		void runInitDataBase();
-		signals2::signal<void()> m_tInitDbTable;
-		void runInitDbTable();
-		
+				
 	private:
 		void runClear();
 		

@@ -9,8 +9,8 @@ namespace std {
 	public:
         virtual void runSelect(SqlCommand * nSqlCommand) = 0;
         virtual void runWhere(SqlCommand * nSqlCommand) = 0;
-        virtual const char * getTableName() = 0;
-        virtual SqlType_ getSqlType() = 0;
+        virtual const char * getTableName() const = 0;
+        virtual SqlType_ getSqlType() const = 0;
     };
 	
 }
