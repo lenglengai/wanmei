@@ -65,6 +65,9 @@ namespace std {
 				command_.push_back(nCommand[i]);
 			}
 		}
+		if ("" != command_) {
+			mCommandArgs.push_back(command_);
+		}
 	}
 	
 	void CommandArgs::runClear()

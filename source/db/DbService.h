@@ -19,6 +19,8 @@ namespace std {
 	#ifdef __CONSOLE__
 		const StringWriterPtr commandInfo(const CommandArgs& nCommandArgs);
 		const StringWriterPtr commandRunSql(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandRunLogSql(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandRunLoginSql(const CommandArgs& nCommandArgs);
 		const StringWriterPtr commandCreateDb(const CommandArgs& nCommandArgs);
 	#endif
 	public:

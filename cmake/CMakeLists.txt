@@ -204,6 +204,10 @@ SET( DBS_H
 	${dbs}/MySqlConnection.h
 	${dbs}/MySqlDataBase.h
 	${dbs}/DbService.h)
+file(COPY ${dbs}/gameDb.xml DESTINATION ${BIN_PATH})
+file(COPY ${dbs}/loginDb.xml DESTINATION ${BIN_PATH})
+file(COPY ${dbs}/logDb.xml DESTINATION ${BIN_PATH})
+file(COPY ${dbs}/libmysql.dll DESTINATION ${BIN_PATH})
 ##############################################################
 set(tcpServers ${SRC_PATH}/tcpServer )
 
