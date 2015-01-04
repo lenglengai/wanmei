@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Handle.h"
+
 namespace std {
 
 	class __funapi HandleService : public IService

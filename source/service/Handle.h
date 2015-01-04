@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Context.h"
+
 namespace std {
 
 	class __funapi Handle : noncopyable

@@ -17,18 +17,6 @@ namespace std {
 		stringWriter_->runClose();
 		return stringWriter_;
 	}
-	
-	const StringWriterPtr HandleService::commandReload(const CommandArgs& nCommandArgs)
-	{
-		StringWriterPtr stringWriter_(new StringWriter());
-		nCommandArgs.runStringWriter(stringWriter_);
-		stringWriter_->startClass("result");
-		this->runLoad();
-		stringWriter_->runInt32(mHandleCount, "handleCount");
-		stringWriter_->finishClass();
-		stringWriter_->runClose();
-		return stringWriter_;
-	}
 #endif
 	
 	void HandleService::addContext(ContextPtr& nContext, const __i32 nIndex)
@@ -59,24 +47,19 @@ namespace std {
 	
 	bool HandleService::runPreinit()
 	{
-		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunLoad0.connect(boost::bind(&HandleService::runLoad, this));
-		initService_.m_tRunInit0.connect(boost::bind(&HandleService::runInit, this));
-		initService_.m_tRunStart0.connect(boost::bind(&HandleService::runStart, this));
-		initService_.m_tRunStop1.connect(boost::bind(&HandleService::runStop, this));
 	#ifdef __CONSOLE__
 		this->registerCommand("info", std::bind(&HandleService::commandInfo, this, placeholders::_1));
 	#endif
 		return true;
 	}
 	
-	void HandleService::runLoad()
+	void HandleService::runConfig()
 	{
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
 		archiveService_.loadStream(this);
 	}
 	
-	void HandleService::runInit()
+	void HandleService::initBegin()
 	{
 		for (__i32 i = 0; i < mHandleCount; ++i) {
 			HandlePtr handle(new Handle());
@@ -84,7 +67,7 @@ namespace std {
 		}
 	}
 
-	void HandleService::runStart()
+	void HandleService::starting()
 	{
 		map<__i32, HandlePtr>::iterator it = mHandles.begin();
 		for ( ; it != mHandles.end(); ++it ) {
@@ -93,7 +76,7 @@ namespace std {
 		}
 	}
 
-	void HandleService::runStop()
+	void HandleService::stoping()
 	{
 		for (auto it : mHandles) {
 			HandlePtr& handle = it.second;
@@ -117,6 +100,6 @@ namespace std {
 		mHandleCount = 1;
 	}
 	
-	static Preinit0<HandleService> sHandleServicePreinit;
+	static Service<HandleService> sHandleService;
 
 }

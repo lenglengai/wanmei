@@ -14,6 +14,8 @@ namespace std {
 		const StringWriterPtr commandInfo(const CommandArgs& nCommandArgs);
 		const StringWriterPtr commandResume(const CommandArgs& nCommandArgs);
 		const StringWriterPtr commandPause(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandFindName(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandFindId(const CommandArgs& nCommandArgs);
 	#endif
 	
 	public:
@@ -63,6 +65,7 @@ namespace std {
 		atomic<bool> mPause;
 	#ifdef __CONSOLE__
 		bool mClientConsole;
+		HandlePtr mConsole;
 	#endif
 	};
 

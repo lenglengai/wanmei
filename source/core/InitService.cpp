@@ -86,6 +86,46 @@ namespace std {
 		stringWriter_->runClose();
 		return stringWriter_;
 	}
+	
+	const StringWriterPtr InitService::commandFindName(const CommandArgs& nCommandArgs)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
+		const string& strService_ = nCommandArgs.getCommandArg(1);
+		__i32 serviceId_ = __stringid(strService_.c_str());
+		bool isFind_ = false;
+		auto it = mServices.find(serviceId_);
+		if (it != mServices.end()) {
+			isFind_ = true;
+		}
+		stringWriter_->runString(strService_, "strService");
+		stringWriter_->runInt32(serviceId_, "serviceId");
+		stringWriter_->runBool(isFind_, "isFind");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
+		return stringWriter_;
+	}
+	
+	const StringWriterPtr InitService::commandFindId(const CommandArgs& nCommandArgs)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
+		const string& strService_ = nCommandArgs.getCommandArg(1);
+		__i32 serviceId_ = __convert<string, __i32>(strService_);
+		bool isFind_ = false;
+		auto it = mServices.find(serviceId_);
+		if (it != mServices.end()) {
+			isFind_ = true;
+		}
+		stringWriter_->runString(strService_, "strService");
+		stringWriter_->runInt32(serviceId_, "serviceId");
+		stringWriter_->runBool(isFind_, "isFind");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
+		return stringWriter_;
+	}
 #endif
 	
 	void InitService::registerService(__i32 nClassId, IService * nService)
@@ -104,6 +144,8 @@ namespace std {
 		this->registerCommand("info", std::bind(&InitService::commandInfo, this, placeholders::_1));
 		this->registerCommand("resume", std::bind(&InitService::commandResume, this, placeholders::_1));
 		this->registerCommand("pause", std::bind(&InitService::commandPause, this, placeholders::_1));
+		this->registerCommand("findName", std::bind(&InitService::commandFindName, this, placeholders::_1));
+		this->registerCommand("findId", std::bind(&InitService::commandFindId, this, placeholders::_1));
 	#endif
 		map<__i32, IService *>::iter it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
@@ -190,6 +232,11 @@ namespace std {
 			IService *& service_ = it->second;
 			service_->initBegin();
 		}
+	#ifdef __CONSOLE__
+		mConsole.reset(new Handle());
+		ContextPtr consoleContext(new Console());
+		mConsole->addContext(consoleContext);
+	#endif
 	}
 	
 	void InitService::initing()
@@ -226,6 +273,9 @@ namespace std {
 			IService *& service_ = it->second;
 			service_->starting();
 		}
+	#ifdef __CONSOLE__
+		mConsole->runStart();
+	#endif
 	}
 	
 	void InitService::startEnd()
@@ -316,6 +366,10 @@ namespace std {
 			IService *& service_ = it->second;
 			service_->pausing();
 		}
+	#ifdef __CONSOLE__
+		mConsole->runStop();
+		mConsole->runJoin();
+	#endif
 	}
 	
 	void InitService::pauseEnd()

@@ -9,7 +9,7 @@ namespace std {
 
 	void Handle::runStart()
 	{
-		mThread.reset(new thread(boost::bind(&Handle::runHandle, this)));
+		mThread.reset(new thread(std::bind(&Handle::runHandle, this)));
 	}
 
 	void Handle::runHandle()
@@ -57,7 +57,7 @@ namespace std {
 
 	Handle::~Handle()
 	{
-		//this->runClear();
+		this->runClear();
 	}
 
 }
