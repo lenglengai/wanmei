@@ -49,6 +49,22 @@ namespace std {
 		};
 		
 		template<typename __t2>
+		struct Convert<const char *, __t2>
+		{
+			__t2 operator () (const char * nValue, const ConvertType_ nConvertType) const
+			{
+				if (ConvertType_::mBinary_ == nConvertType) {
+					return ( *((__t2 *)nValue) );
+				}
+				stringstream stringStream_;
+				stringStream_ << nValue;
+				__t2 t_;
+				stringStream_ >> t_;
+				return t_;
+			}
+		};
+		
+		template<typename __t2>
 		struct Convert<string, __t2>
 		{
 			__t2 operator () (const string& nValue, const ConvertType_ nConvertType) const
@@ -160,6 +176,21 @@ namespace std {
 		};
 
 		template<>
+		struct Convert<const char *, __i8>
+		{
+			__i8 operator () (const char * nValue, const ConvertType_ nConvertType) const
+			{
+				if (ConvertType_::mBinary_ == nConvertType) {
+					return ( *((__i8 *)nValue) );
+				}
+				stringstream stringStream_;
+				stringStream_ << nValue;
+				__i16 t_; stringStream_ >> t_;
+				return static_cast<__i8>(t_);
+			}
+		};
+		
+		template<>
 		struct Convert<string, __i8>
 		{
 			__i8 operator () (const string& nValue, const ConvertType_ nConvertType) const
@@ -216,9 +247,19 @@ namespace std {
 			{
 				if (ConvertType_::mSql_ == nConvertType) {
 					stringstream stringStream_;
+				#ifdef __SERVER__
 					stringStream_ << "from_unixtime(";
+				#endif
+				#ifdef __CLIENT__
+					stringStream_ << "datetime(";
+				#endif
 					stringStream_ << nValue;
+				#ifdef __CLIENT__
+					stringStream_ << ",\'unixepoch\',\'localtime\')";
+				#endif
+				#ifdef __SERVER__
 					stringStream_ << ")";
+				#endif
 					string t_; stringStream_ >> t_;
 					return t_;
 				}

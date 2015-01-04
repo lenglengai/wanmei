@@ -4,61 +4,66 @@ namespace std {
 
 	class __funapi InitService : public IService
 	{
-	public:
-		static InitService * getInitService();
-	private:
 	#ifdef __CONSOLE__
+	public:
+		void runCommand(const CommandArgs& nCommandArgs) const;
+	#ifdef __CLIENT__
+		void setClientConsole(const bool nClientConsole);
+	#endif
+	private:
 		const StringWriterPtr commandInfo(const CommandArgs& nCommandArgs);
 		const StringWriterPtr commandResume(const CommandArgs& nCommandArgs);
 		const StringWriterPtr commandPause(const CommandArgs& nCommandArgs);
 	#endif
+	
 	public:
-		bool runPreinit();
+		void registerService(__i32 nClassId, IService * nService);
 		
-		signals2::signal<void()> m_tRunLuaApi;
-		void runLuaApi();
+		InitService * getInitService();
 		
-		signals2::signal<void()> m_tRunLoad0;
-		void runLoad0();
-		signals2::signal<void()> m_tRunLoad1;
-		void runLoad1();
+		bool runPreinit() OVERRIDE FINAL;
 		
-		signals2::signal<void(bool)> m_tRunCommand;
-		void runCommand(const char * nIsBool);
+		void runLuaApi() OVERRIDE FINAL;
+		void runConfig() OVERRIDE FINAL;
+		void runInitDb() OVERRIDE FINAL;
 		
-		signals2::signal<void()> m_tRunInit0;
-		void runInit0();
-		signals2::signal<void()> m_tRunInit1;
-		void runInit1();
+		void loadBegin() OVERRIDE FINAL;
+		void loading() OVERRIDE FINAL;
+		void loadEnd() OVERRIDE FINAL;
 		
-		signals2::signal<void()> m_tRunStart0;
-		void runStart0();
-		signals2::signal<void()> m_tRunStart1;
-		void runStart1();
+		void initBegin() OVERRIDE FINAL;
+		void initing() OVERRIDE FINAL;
+		void initEnd() OVERRIDE FINAL;
 		
-		signals2::signal<void()> m_tRunRun;
-		void runRun();
+		void startBegin() OVERRIDE FINAL;
+		void starting() OVERRIDE FINAL;
+		void startEnd() OVERRIDE FINAL;
 		
-		signals2::signal<void()> m_tRunStop0;
-		void runStop0();
-		signals2::signal<void()> m_tRunStop1;
-		void runStop1();
-		signals2::signal<void()> m_tRunSave;
-		void runSave();
-		signals2::signal<void()> m_tRunExit;
-		void runExit();
+		void runing() OVERRIDE FINAL;
 		
-		signals2::signal<void()> m_tRunResume;
-		void runResume();
-		signals2::signal<void()> m_tRunPause;
-		void runPause();
-				
-	private:
-		void runClear();
+		void stopBegin() OVERRIDE FINAL;
+		void stoping() OVERRIDE FINAL;
+		void stopEnd() OVERRIDE FINAL;
 		
-	public:
+		void resumeBegin() OVERRIDE FINAL;
+		void resuming() OVERRIDE FINAL;
+		void resumeEnd() OVERRIDE FINAL;
+		
+		void pauseBegin() OVERRIDE FINAL;
+		void pausing() OVERRIDE FINAL;
+		void pauseEnd() OVERRIDE FINAL;
+		
+		bool isPause() const;
+		
 		InitService();
 		~InitService();
+		
+	private:
+		map<__i32, IService *> mServices;
+		atomic<bool> mPause;
+	#ifdef __CONSOLE__
+		bool mClientConsole;
+	#endif
 	};
 
 }

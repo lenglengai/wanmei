@@ -1,5 +1,6 @@
 #pragma once
 
+#ifdef __CONSOLE__
 namespace std {
 	
 	class CommandArgs : noncopyable
@@ -25,3 +26,4 @@ namespace std {
 	};
 	
 }
+#endif

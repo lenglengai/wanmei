@@ -1,6 +1,6 @@
 project(bzlib)
 
-set(prefixs ${DEP_PATH}/${PROJECT_NAME} )
+set(prefixs ${DEP_PATH}/${PROJECT_NAME})
 
 set(sources 
 	${prefixs}/blocksort.c
@@ -15,8 +15,8 @@ set(headers
 	${prefixs}/bzlib.h
     ${prefixs}/bzlib_private.h )
 
-add_definitions( -D_CRT_SECURE_NO_WARNINGS)
-add_library( libbzlib STATIC ${sources} ${headers} )
+add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+add_library( libbzlib STATIC ${sources} ${headers})
 
 unset(headers)
 unset(sources)

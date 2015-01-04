@@ -1,5 +1,6 @@
 #include "../Include.h"
 
+#ifdef __CONSOLE__
 namespace std {
 
 	void CommandArgs::runStringWriter(StringWriterPtr& nStringWriter) const
@@ -88,3 +89,4 @@ namespace std {
 	}
 	
 }
+#endif

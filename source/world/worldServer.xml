@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<worldService>
-	<worlds>
-		<world id="1" name="wow" handleId="1" playerCount="4000" />
-		<world id="2" name="war3" handleId="2" playerCount="4000" />
-		<world id="3" name="china" handleId="3" playerCount="4000" />
-		<world id="4" name="korea" handleId="4" playerCount="4000" />
-	</worlds>
-</worldService>

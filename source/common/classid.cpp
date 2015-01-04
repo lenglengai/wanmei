@@ -4,7 +4,7 @@ namespace std {
 	
 	__i32 __stringid(const char * nValue)
 	{
-		CrcService& crcService_ = Singleton<CrcService>::instance();
+		CrcService& crcService_ = Service<CrcService>::instance();
 		return crcService_.runName(nValue);
 	}
 	

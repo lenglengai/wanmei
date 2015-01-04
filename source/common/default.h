@@ -7,69 +7,60 @@ namespace std {
 		template<typename __t>
 		struct Default
 		{
-			const __t& operator () () const
+			__t operator () () const
 			{
-				static __t value_ = 0;
-				return value_;
+				return 0;
 			}
 		};
 
 		template<>
 		struct Default<bool>
 		{
-			const bool& operator () ()const
+			bool operator () () const
 			{
-				static bool value_ = false;
-				return value_;
+				return false;
 			}
 		};
 
 		template<>
 		struct Default<float>
 		{
-			const float& operator () ()const
+			float operator () () const
 			{
-				static float value_ = 0.f;
-				return value_;
+				return 0.f;
 			}
 		};
 
 		template<>
 		struct Default<double>
 		{
-			const double& operator () ()const
+			double operator () () const
 			{
-				static double value_ = 0.;
-				return value_;
+				return 0.;
 			}
 		};
 
 		template<>
 		struct Default<const char *>
 		{
-			const char *& operator () ()const
+			const char * operator () ()const
 			{
-				static const char * value_ = "";
-				return value_;
-			}
-		};
-
-		template<>
-		struct Default<string>
-		{
-			const string& operator () ()const
-			{
-				static string value_("");
-				return value_;
+				return "";
 			}
 		};
 		
 	}
 
 	template<typename __t>
-	const __t& __default()
+	__t __default()
 	{
 		return default_namespace::Default<__t>()();
+	}
+	
+	const string& __defaultstr()
+	{
+		static string value_("");
+		return value_;
 	}
 	
 	template<typename __t>

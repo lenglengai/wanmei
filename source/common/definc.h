@@ -15,3 +15,15 @@
 #else
 #define __FUN__ __PRETTY_FUNCTION__
 #endif
+
+#ifdef __OVERRIDE__
+#define OVERRIDE override
+#else
+#define OVERRIDE
+#endif
+
+#ifdef __FINAL__
+#define FINAL final
+#else
+#define FINAL
+#endif

@@ -3,6 +3,32 @@
 namespace std {
 
 #ifdef __CONSOLE__
+	void InitService::runCommand(const CommandArgs& nCommandArgs) const
+	{
+		if (mClientConsole) {
+			const string& strService_ = nCommandArgs.getService();
+			__i32 serviceId_ = __stringid(strService_.c_str());
+			map<__i32, IService *>::iterator it = mServices.find(serviceId_);
+			if (it == mServices.end()) {
+				LogService& logService_ = Singleton<LogService>::instance();
+				logService_.logInfo(log_3("not find service", strService_, serviceId_));
+				return;
+			}
+			IService * service_ = it->second;
+			const StringWriterPtr stringWriter_ = service_->runCommand(nCommandArgs);
+			if (stringWriter_) {
+				std::cout << stringWriter_->getValue() << std::endl;
+			}
+		} else {
+		}
+	}
+#ifdef __CLIENT__
+	void InitService::setClientConsole(const bool nClientConsole)
+	{
+		mClientConsole = nClientConsole;
+	}
+#endif
+
 	const StringWriterPtr InitService::commandInfo(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
@@ -41,7 +67,8 @@ namespace std {
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
 		stringWriter_->startClass("result");
-		stringWriter_->runString("sucess", "runResume");
+		bool isPause_ = mPause;
+		stringWriter_->runBool(isPause_, "isPause");
 		stringWriter_->finishClass();
 		stringWriter_->runClose();
 		return stringWriter_;
@@ -53,34 +80,38 @@ namespace std {
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
 		stringWriter_->startClass("result");
-		stringWriter_->runString("sucess", "runResume");
+		bool isPause_ = mPause;
+		stringWriter_->runBool(isPause_, "isPause");
 		stringWriter_->finishClass();
 		stringWriter_->runClose();
 		return stringWriter_;
 	}
 #endif
-
+	
+	void InitService::registerService(__i32 nClassId, IService * nService)
+	{
+		map<__i32, IService *> it = mServices.find(nClassId);
+		if ( it == mServices.end() ) {
+			mServices[nClassId] = nService;
+		}
+	}
+	
 	bool InitService::runPreinit()
 	{
-		ServiceMgr& serviceMgr_ = Singleton<ServiceMgr>::instance();
-		serviceMgr_.runPreinit();
-		serviceMgr_.registerService(this);
-		
-		PreinitSlot& preinitSlot_ = Singleton<PreinitSlot>::instance();
-		if ( !preinitSlot_.runPreinit0() ) {
-			return false;
-		}
-		if ( !preinitSlot_.runPreinit1() ) {
-			return false;
-		}
-		preinitSlot_.runClear();
-		
+		__i32 classId_ = __classid<InitService>();
+		this->registerService(classId_, this);
 	#ifdef __CONSOLE__
 		this->registerCommand("info", std::bind(&InitService::commandInfo, this, placeholders::_1));
 		this->registerCommand("resume", std::bind(&InitService::commandResume, this, placeholders::_1));
 		this->registerCommand("pause", std::bind(&InitService::commandPause, this, placeholders::_1));
 	#endif
-	
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			if ( !service_->runPreinit() ) {
+				return false;
+			}
+		}
 		return true;
 	}
 	
@@ -92,114 +123,265 @@ namespace std {
 	
 	void InitService::runLuaApi()
 	{
+	#ifdef __EXPLUA__
 		LuaService& luaService_ = Singleton<LuaService>::instance();
 		luaService_.runClass<InitService>("InitService");
 		luaService_.runFun(&InitService::getInitService, "InitService");
 		luaService_.runMethod<InitService>(&InitService::runResume, "runResume");
 		luaService_.runMethod<InitService>(&InitService::runPause, "runPause");
 		
-		this->m_tRunLuaApi();
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->runLuaApi();
+		}
+	#endif
 	}
 	
-	void InitService::runLoad0()
+	void InitService::runConfig()
 	{
-		this->m_tRunLoad0();
-	}
-
-	void InitService::runLoad1()
-	{
-		this->m_tRunLoad1();
-	}
-
-	void InitService::runCommand(const char * nIsBool)
-	{
-		bool isBool_ = __convert<const char *, bool>(nIsBool, ConvertType_::mText_);
-		this->m_tRunCommand(isBool_);
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->runConfig();
+		}
 	}
 	
-	void InitService::runInit0()
+	void InitService::runInitDb()
 	{
-		this->m_tRunInit0();
-	}
-
-	void InitService::runInit1()
-	{
-		this->m_tRunInit1();
-	}
-
-	void InitService::runStart0()
-	{
-		this->m_tRunStart0();
-	}
-
-	void InitService::runStart1()
-	{
-		this->m_tRunStart1();
-	}
-
-	void InitService::runRun()
-	{
-		this->m_tRunRun();
-	}
-
-	void InitService::runStop0()
-	{
-		this->m_tRunStop0();
-	}
-
-	void InitService::runStop1()
-	{
-		this->m_tRunStop1();
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->runInitDb();
+		}
 	}
 	
-	void InitService::runSave()
+	void InitService::loadBegin()
 	{
-		this->m_tRunSave();
-	}
-
-	void InitService::runExit()
-	{
-		this->m_tRunExit();
-	}
-	
-	void InitService::runResume()
-	{
-		this->m_tRunResume();
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->loadBegin();
+		}
 	}
 	
-	void InitService::runPause()
+	void InitService::loading()
 	{
-		this->m_tRunPause();
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->loading();
+		}
 	}
-		
-	void InitService::runClear()
+	
+	void InitService::loadEnd()
 	{
-		m_tRunLuaApi.disconnect_all_slots();
-		m_tRunLoad0.disconnect_all_slots();
-		m_tRunLoad1.disconnect_all_slots();
-		m_tRunCommand.disconnect_all_slots();
-		m_tRunInit0.disconnect_all_slots();
-		m_tRunInit1.disconnect_all_slots();
-		m_tRunStart0.disconnect_all_slots();
-		m_tRunStart1.disconnect_all_slots();
-		m_tRunRun.disconnect_all_slots();
-		m_tRunStop0.disconnect_all_slots();
-		m_tRunStop1.disconnect_all_slots();
-		m_tRunSave.disconnect_all_slots();
-		m_tRunExit.disconnect_all_slots();
-		
-		m_tRunResume.disconnect_all_slots();
-		m_tRunPause.disconnect_all_slots();
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->loadEnd();
+		}
 	}
-
+	
+	void InitService::initBegin()
+	{
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->initBegin();
+		}
+	}
+	
+	void InitService::initing()
+	{
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->initing();
+		}
+	}
+	
+	void InitService::initEnd()
+	{
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->initEnd();
+		}
+	}
+	
+	void InitService::startBegin()
+	{
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->startBegin();
+		}
+	}
+	
+	void InitService::starting()
+	{
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->starting();
+		}
+	}
+	
+	void InitService::startEnd()
+	{
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->startEnd();
+		}
+	}
+	
+	void InitService::runing()
+	{
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->runing();
+		}
+	}
+	
+	void InitService::stopBegin()
+	{
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->stopBegin();
+		}
+	}
+	
+	void InitService::stoping()
+	{
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->stoping();
+		}
+	}
+	
+	void InitService::stopEnd()
+	{
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->stopEnd();
+		}
+	}
+	
+	void InitService::resumeBegin()
+	{
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->resumeBegin();
+		}
+	}
+	
+	void InitService::resuming()
+	{
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->resuming();
+		}
+	}
+	
+	void InitService::resumeEnd()
+	{
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->resumeEnd();
+		}
+	}
+	
+	void InitService::pauseBegin()
+	{
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->pauseBegin();
+		}
+	}
+	
+	void InitService::pausing()
+	{
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->pausing();
+		}
+	}
+	
+	void InitService::pauseEnd()
+	{
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->pauseEnd();
+		}
+		mPause = true;
+	}
+	
+	bool InitService::isPause() const
+	{
+		return mPause;
+	}
+	
 	InitService::InitService()
+		: mPause (false)
 	{
-		this->runClear();
+		mServices.clear();
+#ifdef __CONSOLE__
+		mClientConsole = true;
+#endif
 	}
 
 	InitService::~InitService()
 	{
-		this->runClear();
+		mServices.clear();
+#ifdef __CONSOLE__
+		mClientConsole = true;
+#endif
+		mPause = false;
 	}
 
+}
+
+int main( int argc, char * argv[] )
+{
+	std::InitService& initService = 
+		std::Singleton<InitService>::instance();
+	if (!initService.runPreinit()) {
+		return 0;
+	}
+	
+	initService.runLuaApi();
+	initService.runConfig();
+	initService.runInitDb();
+	
+	initService.loadBegin();
+	initService.loading();
+	initService.loadEnd();
+	
+	initService.initBegin();
+	initService.initing();
+	initService.initEnd();
+	
+	initService.startBegin();
+	initService.starting();
+	initService.startEnd();
+	
+	initService.runing();
+	
+	initService.stopBegin();
+	initService.stoping();
+	initService.stopEnd();
+	
+	return 0;
 }
