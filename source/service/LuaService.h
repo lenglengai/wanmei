@@ -35,7 +35,7 @@ namespace std {
 		LuaEnginePtr createLuaEngine();
 		
 		bool runPreinit() OVERRIDE FINAL;
-		void stopEnd() OVERRIDE FINAL;
+		void runClear() OVERRIDE FINAL;
 
 	public:
 		LuaService();

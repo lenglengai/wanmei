@@ -1,5 +1,7 @@
 #pragma once
 
+#include "BinWriter.h"
+
 namespace std {
 
 	class __funapi ArchiveWriter : noncopyable

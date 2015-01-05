@@ -1,5 +1,10 @@
 #pragma once
 
+#include "Archive.h"
+#include "XmlReader.h"
+#include "ArchiveWriter.h"
+#include "ArchiveReader.h"
+
 namespace std {
 
 	class __funapi ArchiveService : public IService
@@ -73,10 +78,8 @@ namespace std {
 	#endif
 	
 	public:
-		bool runPreinit();
-		
-	private:
-		void runClear();
+		bool runPreinit() OVERRIDE FINAL;
+		void runClear() OVERRIDE FINAL;
 
 	public:
 		ArchiveService();

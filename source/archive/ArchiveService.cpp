@@ -97,15 +97,13 @@ namespace std {
 
 	ArchiveService::ArchiveService()
 	{
-		this->runClear();
 	}
 
 	ArchiveService::~ArchiveService()
 	{
-		this->runClear();
 	}
 	
-	static Preinit0<ArchiveService> sArchiveServicePreinit;
+	static Service<ArchiveService> sArchiveService;
 
 }
 

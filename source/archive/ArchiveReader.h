@@ -1,5 +1,7 @@
 #pragma once
 
+#include "BinReader.h"
+
 namespace std {
 
 	class __funapi ArchiveReader : noncopyable

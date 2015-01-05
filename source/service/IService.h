@@ -1,5 +1,7 @@
 #pragma once
 
+#include "CommandArgs.h"
+
 namespace std {
 
 	class IService : noncopyable
@@ -38,6 +40,8 @@ namespace std {
 		virtual void stopBegin();
 		virtual void stoping();
 		virtual void stopEnd();
+		
+		virtual void runClear();
 		
 		virtual void resumeBegin();
 		virtual void resuming();

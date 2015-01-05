@@ -15,7 +15,7 @@ namespace std {
 		void runClear();
 		
 	public:
-		Console(const bool nCommand);
+		Console();
 		~Console();
 		
 	private:

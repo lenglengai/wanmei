@@ -47,6 +47,8 @@ namespace std {
 		void stoping() OVERRIDE FINAL;
 		void stopEnd() OVERRIDE FINAL;
 		
+		void runClear() OVERRIDE FINAL;
+		
 		void resumeBegin() OVERRIDE FINAL;
 		void resuming() OVERRIDE FINAL;
 		void resumeEnd() OVERRIDE FINAL;

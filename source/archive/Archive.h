@@ -1,5 +1,8 @@
 #pragma once
 
+#include "ArchiveHash.h"
+#include "ArchiveHead.h"
+
 namespace std {
 
 #define ARCHIVESIZE 5 * 1024 * 1024

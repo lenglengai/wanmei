@@ -98,6 +98,10 @@ namespace std {
 	{
 	}
 	
+	void IService::runClear()
+	{
+	}
+	
 	void IService::resumeBegin()
 	{
 	}

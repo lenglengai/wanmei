@@ -1,5 +1,7 @@
 #pragma once
 
+#include "StringWriter.h"
+
 #ifdef __CONSOLE__
 namespace std {
 	

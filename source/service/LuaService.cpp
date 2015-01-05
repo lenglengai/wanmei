@@ -20,7 +20,7 @@ namespace std {
 		return true;
 	}
 	
-	void LuaService::stopEnd()
+	void LuaService::runClear()
 	{
 		lua_close(mLuaState);
 	}

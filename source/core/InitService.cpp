@@ -323,6 +323,15 @@ namespace std {
 		}
 	}
 	
+	void InitService::runClear()
+	{
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->runClear();
+		}
+	}
+	
 	void InitService::resumeBegin()
 	{
 		map<__i32, IService *>::iter it = mServices.begin();
@@ -436,6 +445,8 @@ int main( int argc, char * argv[] )
 	initService.stopBegin();
 	initService.stoping();
 	initService.stopEnd();
+	
+	initService.runClear();
 	
 	return 0;
 }
