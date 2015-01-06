@@ -1,4 +1,5 @@
 #include "../Include.h"
+#include "SqliteDataBase.h"
 
 #ifdef __WITHMYSQL__
 namespace std {

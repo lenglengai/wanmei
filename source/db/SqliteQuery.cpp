@@ -1,4 +1,5 @@
 #include "../Include.h"
+#include "SqliteQuery.h"
 
 #ifdef __WITHSQLITE__
 namespace std {

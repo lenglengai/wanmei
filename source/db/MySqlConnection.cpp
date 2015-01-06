@@ -1,6 +1,5 @@
 #include "../Include.h"
 #include "MySqlConnection.h"
-#include "MySqlQuery.h"
 
 #ifdef __WITHMYSQL__
 namespace std {

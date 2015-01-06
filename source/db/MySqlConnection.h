@@ -1,6 +1,9 @@
 #pragma once
 
 #ifdef __WITHMYSQL__
+
+#include "MySqlQuery.h"
+
 namespace std {
 	
 	class MySqlConnection : noncopyable

@@ -1,6 +1,9 @@
 #pragma once
 
 #ifdef __WITHMYSQL__
+
+#include "SqliteQuery.h"
+
 namespace std {
 
 	class SqliteDataBase : public IDataBase
