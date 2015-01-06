@@ -22,6 +22,7 @@ namespace std {
 		virtual void runLuaApi();
 		virtual void runConfig();
 		virtual void runInitDb();
+		virtual void runInitTable();
 		
 		virtual void loadBegin();
 		virtual void loading();

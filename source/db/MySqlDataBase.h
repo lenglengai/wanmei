@@ -1,5 +1,7 @@
 #pragma once
 
+#include "MySqlConnection.h"
+
 #ifdef __WITHMYSQL__
 namespace std {
 

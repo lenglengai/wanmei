@@ -21,27 +21,17 @@ namespace std {
 		}
 		errorCode_ = sqlite3_step(statement_);
 		if (SQLITE_DONE == errorCode_) {
-			return CppSQLite3Query(mpDB, pVM, true/*eof*/);
+			SqliteQuery sqliteQuery_(mSqlite, statement_);
+			sqlCommand.runQuery(nSqlHeadstream, &sqliteQuery_);
 		} else if (SQLITE_ROW == errorCode_) {
-			return CppSQLite3Query(mpDB, pVM, false/*eof*/);
+			SqliteQuery sqliteQuery_(mSqlite, statement_);
+			sqlCommand.runQuery(nSqlHeadstream, &sqliteQuery_);
 		} else {
-			errorCode_ = sqlite3_finalize(pVM);
+			errorCode_ = sqlite3_finalize(statement_);
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1(sqlite3_errmsg(mSqlite)));
 			return Error_::mDbError_;
 		}
-	}
-
-		if ( SqlType_::mSelect_ == nSqlHeadstream->getSqlType() ) {
-			MySqlQuery mySqlQuery(mSqlite);
-			__i16 errorCode_ = mySqlQuery.runQuery();
-			if (Error_::mSucess_ != errorCode_) {
-				return errorCode_;
-			}
-			sqlCommand.setDbQuery(&mySqlQuery);
-			sqlCommand.runHeadstream(nSqlHeadstream, true);
-		}
-		return Error_::mSucess_;
 	}
 	
 	__i16 SqliteDataBase::runSql(const char * nSql)

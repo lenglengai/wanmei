@@ -46,6 +46,10 @@ namespace std {
 	{
 	}
 	
+	void IService::runInitTable()
+	{
+	}
+	
 	void IService::loadBegin()
 	{
 	}

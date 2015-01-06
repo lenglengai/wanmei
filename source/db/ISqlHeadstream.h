@@ -3,7 +3,6 @@
 #ifdef __WITHSQL__
 namespace std {
 
-	class SqlCommand;
     class ISqlHeadstream
     {
 	public:

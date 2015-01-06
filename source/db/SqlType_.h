@@ -5,16 +5,19 @@ namespace std {
 
     enum class SqlType_ : __i8
     {
+		mNone_,
+		mCreateDB_,
 		mDropDB_,
 		mSetDB_,
-		mDataBase_,
-        mCreate_,
+        mCreateTB_,
+		mDropTB_,
         mSelect_,
         mInsert_,
-        mInsertUpdate_,
-        mUpdate_,
-        mDelete_,
 		mReplace_,
+        mDelete_,
+        mUpdate_,
+        mInsertUpdate_,
+		mEnd_
     };
 	
 }

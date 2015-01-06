@@ -126,6 +126,17 @@ namespace std {
 		stringWriter_->runClose();
 		return stringWriter_;
 	}
+	
+	const StringWriterPtr InitService::commandInitTable(const CommandArgs& nCommandArgs)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
+		this->runInitTable();
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
+		return stringWriter_;
+	}
 #endif
 	
 	void InitService::registerService(__i32 nClassId, IService * nService)
@@ -146,6 +157,7 @@ namespace std {
 		this->registerCommand("pause", std::bind(&InitService::commandPause, this, placeholders::_1));
 		this->registerCommand("findName", std::bind(&InitService::commandFindName, this, placeholders::_1));
 		this->registerCommand("findId", std::bind(&InitService::commandFindId, this, placeholders::_1));
+		this->registerCommand("initTable", std::bind(&InitService::commandInitTable, this, placeholders::_1));
 	#endif
 		map<__i32, IService *>::iter it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
@@ -195,6 +207,15 @@ namespace std {
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->runInitDb();
+		}
+	}
+	
+	void InitService::runInitTable()
+	{
+		map<__i32, IService *>::iter it = mServices.begin();
+		for ( ; it != mServices.end(); ++it ) {
+			IService *& service_ = it->second;
+			service_->runInitTable();
 		}
 	}
 	

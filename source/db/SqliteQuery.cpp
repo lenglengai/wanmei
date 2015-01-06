@@ -3,54 +3,79 @@
 #ifdef __WITHSQLITE__
 namespace std {
 
-	void MySqlQuery::getValue(string& nValue)
+	void SqliteQuery::runBool(bool& nValue)
 	{
-		char * value_ = reinterpret_cast<char *>(mMYSQL_ROW[mIndex]);
-		__i16 size_ = static_cast<__i16>(mLengths[mIndex]);
-		if ( (nullptr != value_) && (size_ > 0) ) {
-			nValue.assign(value_, size_);
-		}
+		int value_ = sqlite3_column_int(mStatement, mIndex);
+		nValue = ( (1 == value_) ? true : false );
 		++mIndex;
 	}
-		
-	__i16 MySqlQuery::runQuery()
+	
+	void SqliteQuery::runInt8(__i8& nValue)
 	{
-		mMYSQL_RES = mysql_store_result(&mMYSQL);
-		if (!mMYSQL_RES) {
-			if (0 != mysql_errno(&mMYSQL)) {
-				LogService& logService_ = Singleton<LogService>::instance();
-				logService_.logError(log_1(mysql_error(&mMYSQL)));
-				return Error_::mDbError_;
-			}  else {
-				LogService& logService_ = Singleton<LogService>::instance();
-				logService_.logError(log_1("mysql_store_result"));
-				return Error_::mDbError_;
-			}
-		}
-		return Error_::mSucess_;
+		nValue = sqlite3_column_int(mStatement, mIndex);
+		++mIndex;
+	}
+	
+	void SqliteQuery::runInt16(__i16& nValue)
+	{
+		nValue = sqlite3_column_int(mStatement, mIndex);
+		++mIndex;
+	}
+	
+	void SqliteQuery::runInt32(__i32& nValue)
+	{
+		nValue = sqlite3_column_int(mStatement, mIndex);
+		++mIndex;
+	}
+	
+	void SqliteQuery::runInt64(__i64& nValue)
+	{
+		nValue = sqlite3_column_int64(mStatement, mIndex);
+		++mIndex;
+	}
+	
+	void SqliteQuery::runFloat(float& nValue)
+	{
+		nValue = sqlite3_column_double(mStatement, mIndex);
+		++mIndex;
+	}
+	
+	void SqliteQuery::runDouble(double& nValue)
+	{
+		nValue = sqlite3_column_double(mStatement, mIndex);
+		++mIndex;
+	}
+	
+	void SqliteQuery::runString(string& nValue)
+	{
+		nValue = static_cast<const char *>(sqlite3_column_text(mStatement, mIndex));
+		++mIndex;
+	}
+	
+	void SqliteQuery::runData(char *& nValue, __i16& nSize)
+	{
+		nSize = sqlite3_column_bytes(mStatement, mIndex);
+		const void * value_ = sqlite3_column_blob(mStatement, mIndex);
+		nValue = new char[nSize];
+		memcpy(nValue, value_, nSize);
+		++mIndex;
 	}
 
-	bool MySqlQuery::nextRow()
+	bool SqliteQuery::nextRow()
 	{
-	    mMYSQL_ROW = mysql_fetch_row(mMYSQL_RES);
-		mLengths = reinterpret_cast<__i32 *>(mysql_fetch_lengths(mMYSQL_RES));
-		mIndex = 0;
-		return (nullptr != mMYSQL_ROW);
+		return true;
 	}
 		
-	MySqlQuery::MySqlQuery(MYSQL& nMYSQL)
-		: mMYSQL (nMYSQL)
-		, mMYSQL_RES(nullptr)
-		, mMYSQL_ROW(nullptr)
+	SqliteQuery::SqliteQuery(sqlite3 * nSqlite, sqlite3_stmt * nStatement)
+		: mStatement (nStatement)
+		, mSqlite(nSqlite)
 		, mIndex(0)
 	{
 	}
 	
-	MySqlQuery::~MySqlQuery()
+	SqliteQuery::~SqliteQuery()
 	{
-		if (mMYSQL_RES) {
-			mysql_free_result(mMYSQL_RES);
-		}
+		sqlite3_finalize(mStatement);
 	}
 	
 }

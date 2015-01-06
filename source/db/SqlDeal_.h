@@ -6,14 +6,15 @@ namespace std {
 	enum class SqlDeal_ : __i8
     {
         mNone_,
-        mCreate_,
-        mPrimary_,
-        mSelect_,
+        mCreateFD_,
+        mCreatePy_,
+        mSelectFD_,
         mWhere_,
-        mInsert_,
+        mInsertFD_,
+        mUpdateFD_,
         mInsertUpdate_,
-        mUpdate_,
 		mQuery_,
+		mEnd_
     };
 	
 }

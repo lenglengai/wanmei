@@ -16,6 +16,7 @@ namespace std {
 		const StringWriterPtr commandPause(const CommandArgs& nCommandArgs);
 		const StringWriterPtr commandFindName(const CommandArgs& nCommandArgs);
 		const StringWriterPtr commandFindId(const CommandArgs& nCommandArgs);
+		const StringWriterPtr commandInitTable(const CommandArgs& nCommandArgs);
 	#endif
 	
 	public:
@@ -28,6 +29,7 @@ namespace std {
 		void runLuaApi() OVERRIDE FINAL;
 		void runConfig() OVERRIDE FINAL;
 		void runInitDb() OVERRIDE FINAL;
+		void runInitTable() OVERRIDE FINAL;
 		
 		void loadBegin() OVERRIDE FINAL;
 		void loading() OVERRIDE FINAL;

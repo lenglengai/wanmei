@@ -1,5 +1,8 @@
 #include "../Include.h"
 
+#include "MySqlDataBase.h"
+#include "SqliteDataBase.h"
+
 #ifdef __WITHSQL__
 namespace std {
 	

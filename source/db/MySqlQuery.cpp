@@ -1,14 +1,68 @@
 #include "../Include.h"
+#include "MySqlQuery.h"
 
 #ifdef __WITHMYSQL__
 namespace std {
 
-	void MySqlQuery::getValue(string& nValue)
+	void MySqlQuery::runBool(bool& nValue)
+	{
+		string value_(""); this->runString(value_);
+		nValue = __convert<string, bool>(value_);
+	}
+	
+	void MySqlQuery::runInt8(__i8& nValue)
+	{
+		string value_(""); this->runString(value_);
+		nValue = __convert<string, __i8>(value_);
+	}
+	
+	void MySqlQuery::runInt16(__i16& nValue)
+	{
+		string value_(""); this->runString(value_);
+		nValue = __convert<string, __i16>(value_);
+	}
+	
+	void MySqlQuery::runInt32(__i32& nValue)
+	{
+		string value_(""); this->runString(value_);
+		nValue = __convert<string, __i32>(value_);
+	}
+	
+	void MySqlQuery::runInt64(__i64& nValue)
+	{
+		string value_(""); this->runString(value_);
+		nValue = __convert<string, __i64>(value_);
+	}
+	
+	void MySqlQuery::runFloat(float& nValue)
+	{
+		string value_(""); this->runString(value_);
+		nValue = __convert<string, float>(value_);
+	}
+	
+	void MySqlQuery::runDouble(double& nValue)
+	{
+		string value_(""); this->runString(value_);
+		nValue = __convert<string, double>(value_);
+	}
+	
+	void MySqlQuery::runString(string& nValue)
 	{
 		char * value_ = reinterpret_cast<char *>(mMYSQL_ROW[mIndex]);
 		__i16 size_ = static_cast<__i16>(mLengths[mIndex]);
 		if ( (nullptr != value_) && (size_ > 0) ) {
 			nValue.assign(value_, size_);
+		}
+		++mIndex;
+	}
+	
+	void MySqlQuery::runData(char *& nValue, __i16& nSize)
+	{
+		char * value_ = reinterpret_cast<char *>(mMYSQL_ROW[mIndex]);
+		nSize = static_cast<__i16>(mLengths[mIndex]);
+		if ( (nullptr != value_) && (nSize > 0) ) {
+			nValue = new char[nSize];
+			memcpy( nValue, value_, nSize);
 		}
 		++mIndex;
 	}

@@ -8,8 +8,7 @@ namespace std {
 		mBinary_ = 2,
 		mText_ = 3,
 		mToUtf8_ = 4,
-		mFromUtf8_ = 5,
-		mSql_ = 6
+		mFromUtf8_ = 5
 	};
 
 	namespace convert_namespace {
@@ -235,36 +234,6 @@ namespace std {
 				__i16 value_ = static_cast<__i16>(nValue);
 				stringstream stringStream_;
 				stringStream_ << value_;
-				string t_; stringStream_ >> t_;
-				return t_;
-			}
-		};
-		
-		template<>
-		struct Convert<__u32, string>
-		{
-			string operator () (const __u32 nValue, const ConvertType_ nConvertType) const
-			{
-				if (ConvertType_::mSql_ == nConvertType) {
-					stringstream stringStream_;
-				#ifdef __SERVER__
-					stringStream_ << "from_unixtime(";
-				#endif
-				#ifdef __CLIENT__
-					stringStream_ << "datetime(";
-				#endif
-					stringStream_ << nValue;
-				#ifdef __CLIENT__
-					stringStream_ << ",\'unixepoch\',\'localtime\')";
-				#endif
-				#ifdef __SERVER__
-					stringStream_ << ")";
-				#endif
-					string t_; stringStream_ >> t_;
-					return t_;
-				}
-				stringstream stringStream_;
-				stringStream_ << nValue;
 				string t_; stringStream_ >> t_;
 				return t_;
 			}

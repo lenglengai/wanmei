@@ -9,9 +9,17 @@ namespace std {
 	class SqliteQuery : public IDbQuery
 	{
 	public:
-		void getValue(string& nValue);
-		__i16 runQuery();
-		bool nextRow();
+		void runBool(bool& nValue) OVERRIDE FINAL;
+		void runInt8(__i8& nValue) OVERRIDE FINAL;
+		void runInt16(__i16& nValue) OVERRIDE FINAL;
+		void runInt32(__i32& nValue) OVERRIDE FINAL;
+		void runInt64(__i64& nValue) OVERRIDE FINAL;
+		void runFloat(float& nValue) OVERRIDE FINAL;
+		void runDouble(double& nValue) OVERRIDE FINAL;
+		void runString(string& nValue) OVERRIDE FINAL;
+		void runData(char *& nValue, __i16& nSize) OVERRIDE FINAL;
+		
+		bool nextRow() OVERRIDE FINAL;
 		
 		SqliteQuery(sqlite3 * nSqlite, sqlite3_stmt * nStatement);
 		~SqliteQuery();
