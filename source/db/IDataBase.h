@@ -26,7 +26,7 @@ namespace std {
 		void setStreamUrl(const char * nStreamUrl);
 		const char * streamUrl() const;
 		void runLoad();
-				
+		
 		const string& getHostName() const;
 		const string& getUserName() const;
 		const string& getPassword() const;

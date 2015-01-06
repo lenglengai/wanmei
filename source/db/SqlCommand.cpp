@@ -403,7 +403,7 @@ namespace std {
         }
 	}
 	
-	const std::string& SqlCommand::getValue() const
+	const string& SqlCommand::getValue() const
 	{
 		return mValue;
 	}

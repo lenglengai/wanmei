@@ -17,7 +17,7 @@ namespace std {
 		void runData(char *& nValue, __i16& nSize, const char * nName, __i8 nSqlFieldId = SqlFieldId_::mNone_);
 		
 		void runHeadstream(ISqlHeadstream * nSqlStream);
-		const std::string& getValue() const;
+		const string& getValue() const;
 		void runClear();
 		
 	private:
