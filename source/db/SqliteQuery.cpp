@@ -64,19 +64,39 @@ namespace std {
 
 	bool SqliteQuery::nextRow()
 	{
-		return true;
+		int errorCode_ = sqlite3_step(nStatement);
+		if (SQLITE_DONE == errorCode_) {
+			return false;
+		}
+		if (SQLITE_ROW == errorCode_) {
+			return true;
+		}
+		errorCode_ = sqlite3_finalize(nStatement);
+		if (SQLITE_OK != errorCode_) {
+			LogService& logService_ = Singleton<LogService>::instance();
+			logService_.logError(log_1(sqlite3_errmsg(mSqlite)));
+		}
+		nStatement = nullptr;
+		return false;
 	}
-		
-	SqliteQuery::SqliteQuery(sqlite3 * nSqlite, sqlite3_stmt * nStatement)
+	
+	SqliteQuery::SqliteQuery(ssqlite3_stmt * nStatement, sqlite3 * nSqlite)
 		: mStatement (nStatement)
-		, mSqlite(nSqlite)
-		, mIndex(0)
+		, mSqlite (nSqlite)
+		, mIndex (0)
 	{
 	}
 	
 	SqliteQuery::~SqliteQuery()
 	{
-		sqlite3_finalize(mStatement);
+		if (nullptr != mStatement) {
+			int errorCode_ = sqlite3_finalize(nStatement);
+			if (SQLITE_OK != errorCode_) {
+				LogService& logService_ = Singleton<LogService>::instance();
+				logService_.logError(log_1(sqlite3_errmsg(mSqlite)));
+			}
+			nStatement = nullptr;
+		}
 	}
 	
 }

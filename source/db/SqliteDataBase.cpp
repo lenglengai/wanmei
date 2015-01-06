@@ -22,11 +22,11 @@ namespace std {
 		}
 		errorCode_ = sqlite3_step(statement_);
 		if (SQLITE_DONE == errorCode_) {
-			SqliteQuery sqliteQuery_(mSqlite, statement_);
-			sqlCommand.runQuery(nSqlHeadstream, &sqliteQuery_);
+			return Error_::mSucess_;
 		} else if (SQLITE_ROW == errorCode_) {
 			SqliteQuery sqliteQuery_(mSqlite, statement_);
 			sqlCommand.runQuery(nSqlHeadstream, &sqliteQuery_);
+			return Error_::mSucess_;
 		} else {
 			errorCode_ = sqlite3_finalize(statement_);
 			LogService& logService_ = Singleton<LogService>::instance();
