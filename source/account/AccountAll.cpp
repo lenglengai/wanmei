@@ -3,6 +3,13 @@
 
 namespace std {
 
+	void AccountAll::runSelect(SqlCommand * nSqlCommand)
+	{
+	#ifdef __SERVER__
+		nSqlCommand->run
+	#endif
+	}
+
 #ifdef __CONSOLE__
 	void AccountAll::runStringWriter(StringWriterPtr& nStringWriter) const
 	{

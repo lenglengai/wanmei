@@ -4,9 +4,11 @@
 
 namespace std {
 	
-	class AccountAll : public Account
+	class AccountAll : public Account, public ISqlStream
 	{
 	public:
+		void runSelect(SqlCommand * nSqlCommand) OVERRIDE FINAL;
+		
 	#ifdef __CONSOLE__
 		void runStringWriter(StringWriterPtr& nStringWriter) const;
 	#endif
