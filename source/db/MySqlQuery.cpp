@@ -1,7 +1,7 @@
 #include "../Include.h"
 #include "MySqlQuery.h"
 
-#ifdef __WITHMYSQL__
+#ifdef __CLIENT__
 namespace std {
 
 	void MySqlQuery::runBool(bool& nValue)

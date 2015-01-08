@@ -6,11 +6,12 @@ namespace std {
 	{
 	public:
 	#ifdef __CLIENT__
-		void setServerTime(const __i64 nServerTime);
+		void setServerTime(const __i32 nServerTime);
 	#endif
-		__i64 getServerTime() const;
-		__i64 getLocalTime() const;
-		__i64 getStartTime() const;
+		__i32 getBeforeDay(__i32 nDays) const;
+		__i32 getServerTime() const;
+		__i32 getLocalTime() const;
+		__i32 getStartTime() const;
 		
 		static TimeService * getTimeService();
 		
@@ -34,8 +35,8 @@ namespace std {
 		
 	private:
 		chrono::system_clock::time_point mBegin;
-		__i64 mStartTime;
-		__i64 mCurrent;
+		__i32 mStartTime;
+		__i32 mCurrent;
 	};
 
 }

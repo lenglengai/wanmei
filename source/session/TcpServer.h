@@ -8,7 +8,6 @@ namespace std {
 	private:
 		void handleAccept(const boost::system::error_code& nError);
 		void startAccept();
-		void runStop();
 		
 	private:
 	#ifdef __CONSOLE__
@@ -25,16 +24,16 @@ namespace std {
 		}
 		const char * streamName() const;
 		const char * streamUrl() const;
-		bool runPreinit();
-		void runLoad();
-		void runStart();
+		bool runPreinit() OVERRIDE FINAL;
+		void runConfig() OVERRIDE FINAL;
+		void startBegin() OVERRIDE FINAL;
+		void stopEnd() OVERRIDE FINAL;
 
 		TcpServer();
 		~TcpServer();
 
 	private:
 		shared_ptr<asio::ip::tcp::acceptor> mAcceptor;
-		chrono::milliseconds mDura;
 		SessionPtr * mNewSession;
 		string mAddress;
 		string mPort;

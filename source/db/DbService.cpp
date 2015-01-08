@@ -154,7 +154,16 @@ namespace std {
 	{
 	#ifdef __WITHSQLITE__
 		mGameDb.reset(new SqliteDataBase());
-		mGameDb->runOpen();
+		fstream fileHandle; bool initTable_ = true;
+		fileHandle.open(mGameDb->getDbName().c_str(), ios::in);
+		if (fileHandle.is_open()) {
+			fileHandle.close();
+			initTable_ = false;
+		}
+		if ( initTable_ && mGameDb->runOpen() ) {
+			InitService initService_ = Service<InitService>::instance();
+			initService_.runInitTable();
+		}
 	#endif
 	]
 	

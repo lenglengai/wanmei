@@ -1,9 +1,8 @@
 #pragma once
 
-#ifdef __WITHMYSQL__
-
 #include "SqliteQuery.h"
 
+#ifdef __WITHSQLITE__
 namespace std {
 
 	class SqliteDataBase : public IDataBase
@@ -11,7 +10,7 @@ namespace std {
 	public:
 		__i16 runSql(ISqlHeadstream * nSqlHeadstream);
 		__i16 runSql(const char * nSql);
-		void runOpen();
+		bool runOpen();
 		void runClose();
 		
 	public:

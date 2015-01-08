@@ -5,8 +5,15 @@ namespace std {
 
 	void AccountAll::runSelect(SqlCommand * nSqlCommand)
 	{
+		Account::runSelect(nSqlCommand);
 	#ifdef __SERVER__
-		nSqlCommand->run
+		nSqlCommand->runInt32(mPassward, "passward");
+		nSqlCommand->runInt32(mRenminbi, "renminbi");
+		nSqlCommand->runInt32(mMoneyCount, "moneyCount");
+		nSqlCommand->runInt32(mMoneyTime, "moneyTime");
+	#endif
+	#ifdef __CLIENT__
+		nSqlCommand->runString(mPassward, "passward");
 	#endif
 	}
 

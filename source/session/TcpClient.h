@@ -10,7 +10,6 @@ namespace std {
 		void handleConnectTimeout(const boost::system::error_code& nError);
 		void startConnect();
 		void reconnect();
-		void runStop();
 		
 	private:
 	#ifdef __CONSOLE__
@@ -29,9 +28,10 @@ namespace std {
 		}
 		const char * streamName() const;
 		const char * streamUrl() const;
-		bool runPreinit();
-		void runLoad();
-		void runStart();
+		
+		bool runPreinit() OVERRIDE FINAL;
+		void runConfig() OVERRIDE FINAL;
+		void startBegin() OVERRIDE FINAL;
 
 		TcpClient();
 		~TcpClient();

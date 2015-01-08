@@ -70,10 +70,6 @@ namespace std {
 
 	bool TcpServer::runPreinit()
 	{
-		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunLoad0.connect(boost::bind(&TcpServer::runLoad, this));
-		initService_.m_tRunStart0.connect(boost::bind(&TcpServer::runStart, this));
-		initService_.m_tRunStop0.connect(boost::bind(&TcpServer::runStop, this));
 	#ifdef __CONSOLE__
 		this->registerCommand("info", std::bind(&TcpServer::commandInfo, this, placeholders::_1));
 		this->registerCommand("reload", std::bind(&TcpServer::commandReload, this, placeholders::_1));
@@ -81,13 +77,13 @@ namespace std {
 		return true;
 	}
 
-	void TcpServer::runLoad()
+	void TcpServer::runConfig()
 	{
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
 		archiveService_.loadStream(this);
 	}
 
-	void TcpServer::runStart()
+	void TcpServer::startBegin()
 	{
 		IoService& ioService_ = Singleton<IoService>::instance();
 		mAcceptor.reset(new asio::ip::tcp::acceptor(ioService_.getIoService()));
@@ -102,7 +98,7 @@ namespace std {
 		startAccept();
 	}
 
-	void TcpServer::runStop()
+	void TcpServer::stopEnd()
 	{
  		mAcceptor->close();
 	}
@@ -111,7 +107,6 @@ namespace std {
 		: mAddress("127.0.0.1")
 		, mNewSession(nullptr)
 		, mPort("8080")
-		, mDura(60000)
 	{
 	}
 
@@ -122,7 +117,7 @@ namespace std {
 		mPort = "8080";
 	}
 	
-	static Preinit0<TcpServer> sTcpServerPreinit;
+	static Service<TcpServer> sTcpServer;
 
 }
 #endif

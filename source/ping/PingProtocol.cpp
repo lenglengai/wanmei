@@ -3,15 +3,32 @@
 #ifdef __PING__
 namespace std {
 
+#ifdef __CONSOLE__
+	const StringWriterPtr PingProtocol::commandInfo(const CommandArgs& nCommandArgs)
+	{
+		StringWriterPtr stringWriter_(new StringWriter());
+		nCommandArgs.runStringWriter(stringWriter_);
+		stringWriter_->startClass("result");
+		string className_(""); 
+		__i32 classid_ = __classinfo<PingProtocol>(className_);
+		stringWriter_->runString(className_, "className");
+		stringWriter_->runInt32(classid_, "classId");
+		stringWriter_->runInt32(mPing, "ping");
+		stringWriter_->finishClass();
+		stringWriter_->runClose();
+		return stringWriter_;
+	}
+#endif
+	
 	bool PingProtocol::runPreinit()
 	{
-		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunInit0.connect(boost::bind(&PingProtocol::runInit, this));
-		initService_.m_tRunStart0.connect(boost::bind(&PingProtocol::runStart, this));
+	#ifdef __CONSOLE__
+		this->registerCommand("info", std::bind(&PingProtocol::commandInfo, this, placeholders::_1));
+	#endif
 		return true;
 	}
-
-	void PingProtocol::runInit()
+	
+	void PingProtocol::initBegin()
 	{
 		ProtocolService& protocolService_ =  Singleton<ProtocolService>::instance();
 		protocolService_.runRegister(this);
@@ -26,12 +43,11 @@ namespace std {
 	#endif
 	}
 
-	void PingProtocol::runStart()
+	void PingProtocol::startBegin()
 	{
 	#ifdef __CLIENT__
 		HandleService& handleService_ = Singleton<HandleService>::instance();
-		ContextPtr context_ = dynamic_pointer_cast<Context, PingTick>(mPingTick);
-		handleService_.addContext(context_, 1);
+		handleService_.addContext(mPingTick, 1);
 	#endif
 	}
 
@@ -47,9 +63,6 @@ namespace std {
 		TimeService& timeService_ = Singleton<TimeService>::instance();
 		__i64 second_ = timeService_.getLocalTime();
 		mPing = second_ - mClock;
-
-		LogService& logService_ = Singleton<LogService>::instance();
-		logService_.logInfo(log_2("current ping is", mPing));
 	}
 #endif
 

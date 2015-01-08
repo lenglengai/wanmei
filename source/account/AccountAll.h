@@ -4,7 +4,7 @@
 
 namespace std {
 	
-	class AccountAll : public Account, public ISqlStream
+	class AccountAll : public Account
 	{
 	public:
 		void runSelect(SqlCommand * nSqlCommand) OVERRIDE FINAL;
@@ -38,7 +38,7 @@ namespace std {
 		string mPassward;
 	#endif
 	#ifdef __SERVER__
-		__i64 mPassward;
+		__i32 mPassward;
 	#endif
 	};
 	typedef shared_ptr<AccountAll> AccountAllPtr;

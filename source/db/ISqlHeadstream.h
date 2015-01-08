@@ -3,7 +3,7 @@
 #ifdef __WITHSQL__
 namespace std {
 
-    class ISqlHeadstream
+    class ISqlHeadstream : noncopyable
     {
 	public:
         virtual void runSelect(SqlCommand * nSqlCommand) = 0;

@@ -4,7 +4,7 @@
 namespace std {
 
 	class SqlCommand;
-    class ISqlStream
+    class ISqlStream : noncopyable
     {
 	public:
         virtual void runSelect(SqlCommand * nSqlCommand) = 0;

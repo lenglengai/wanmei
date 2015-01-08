@@ -3,6 +3,15 @@
 
 namespace std {
 
+	void Account::runSelect(SqlCommand * nSqlCommand)
+	{
+		nSqlCommand->runInt64(mAccountId, "accountId");
+		nSqlCommand->runString(mAccountName, "accountName");
+	#ifdef __SERVER__
+		nSqlCommand->runInt32(mAllRenminbi, "allRenminbi");
+	#endif
+	}
+	
 #ifdef __CONSOLE__
 	void Account::runStringWriter(StringWriterPtr& nStringWriter) const
 	{

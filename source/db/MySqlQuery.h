@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef __WITHMYSQL__
+#ifdef __CLIENT__
 #include <errno.h>
 #include <errmsg.h>
 #include <mysql.h>

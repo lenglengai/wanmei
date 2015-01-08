@@ -10,19 +10,25 @@ namespace std {
 		void startPing();
 		void finishPing();
 	#endif
-
-		bool runPreinit();
-		void runInit();
-		void runStart();
+	
+	private:
+	#ifdef __CONSOLE__
+		const StringWriterPtr commandInfo(const CommandArgs& nCommandArgs);
+	#endif
+	
+	public:
+		bool runPreinit() OVERRIDE FINAL;
+		void initBegin() OVERRIDE FINAL;
+		void startBegin() OVERRIDE FINAL;
 
 		PingProtocol();
 		~PingProtocol();
 
 	private:
 	#ifdef __CLIENT__
-		PingTickPtr mPingTick;
-		__i64 mClock;
-		__i64 mPing;
+		ContextPtr mPingTick;
+		__i32 mClock;
+		__i32 mPing;
 	#endif
 	};
 

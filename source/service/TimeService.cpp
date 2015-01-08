@@ -8,12 +8,12 @@ namespace std {
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
 		stringWriter_->startClass("result");
-		string className_(""); __i64 serverTime_ = 0;
+		string className_(""); __i32 serverTime_ = 0;
 		__i32 classid_ = __classinfo<TimeService>(className_);
 		stringWriter_->runString(className_, "className");
 		stringWriter_->runInt32(classid_, "classId");
 		serverTime_ = this->getServerTime();
-		stringWriter_->runInt64(serverTime_, "serverTime");
+		stringWriter_->runInt32(serverTime_, "serverTime");
 		stringWriter_->finishClass();
 		stringWriter_->runClose();
 		return stringWriter_;
@@ -21,13 +21,13 @@ namespace std {
 #endif
 
 #ifdef __CLIENT__
-	void TimeService::setServerTime(const __i64 nServerTime)
+	void TimeService::setServerTime(const __i32 nServerTime)
 	{
 		mCurrent = nServerTime - this->getLocalTime();
 	}
 #endif
 
-	__i64 TimeService::getServerTime() const
+	__i32 TimeService::getServerTime() const
 	{
 	#ifdef __CLIENT__
 		return (this->getLocalTime() + mCurrent);
@@ -37,11 +37,17 @@ namespace std {
 	#endif
 	}
 	
-	__i64 TimeService::getLocalTime() const
+	__i32 TimeService::getBeforeDay(__i32 nDays) const
 	{
-		chrono::system_clock::time_point time_ = chrono::system_clock::now();
-		chrono::duration<__i64> timePeriod = chrono::duration_cast<chrono::duration<__i64>>(time_ - mBegin);
-		return timePeriod.count();
+		__i32 nowTime_ = this->getLocalTime();
+		return (nowTime_ - (nDays * 86400));
+	}
+	
+	__i32 TimeService::getLocalTime() const
+	{
+		chrono::system_clock::time_point timePoint_ = chrono::system_clock::now();
+		chrono::seconds timePeriod_ = chrono::duration_cast<chrono::seconds>(timePoint_ - mBegin);
+		return timePeriod_.count();
 	}
 	
 	TimeService * TimeService::getTimeService()
@@ -66,7 +72,7 @@ namespace std {
 		mStartTime = this->getLocalTime();
 	}
 	
-	__i64 TimeService::getStartTime() const
+	__i32 TimeService::getStartTime() const
 	{
 		if (0 == mStartTime) return 0;
 		return (this->getLocalTime() - mStartTime);

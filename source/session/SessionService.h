@@ -7,8 +7,7 @@ namespace std {
 	public:
 		void removeSession(__i32 nSessionId);
 		SessionPtr& createSession();
-		void runClear();
-		
+				
 	#ifdef __CLIENT__
 		SessionPtr& getSession();
 	#endif
@@ -20,7 +19,8 @@ namespace std {
 	#endif
 	
 	public:
-		bool runPreinit();
+		bool runPreinit() OVERRIDE FINAL;
+		void runClear() OVERRIDE FINAL;
 		
 		SessionService();
 		~SessionService();

@@ -46,7 +46,7 @@ namespace std {
 		void pushPacket(PacketPtr& nPacket);
 		PacketPtr popPacket();
 		void internalSend();
-
+		
 	private:
 		atomic<__i32> mSessionState;
 		asio::ip::tcp::socket mSocket;
@@ -74,4 +74,3 @@ namespace std {
 	};
 	
 }
-

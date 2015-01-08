@@ -76,7 +76,7 @@ namespace std {
 		InitService& initService_ = Singleton<InitService>::instance();
 		mSignals.reset(new asio::signal_set(this->getIoService()));
 		mSignals->add(SIGINT); mSignals->add(SIGTERM);
-		mSignals->async_wait(boost::bind(&InitService::runStop0, &initService_));
+		mSignals->async_wait(boost::bind(&InitService::stopBegin, &initService_));
 	}
 
 	void IoService::runing()

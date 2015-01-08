@@ -363,14 +363,9 @@ namespace std {
 	void SqlCommand::runWhere(string& nValue, const char * nName)
 	{
 		mValue += "WHERE ";
-		mValue += mFieldBegin;
 		mValue += nName;
-		mValue += mFieldEnd;
-		mValue += "=";
-		mValue += mValueBegin;
 		mValue += nValue;
-		mValue += mValueEnd;
-		mValue += " ";
+		mValue += ";";
 	}
 	
     void SqlCommand::runInsertFD(string& nValue)

@@ -2,9 +2,11 @@
 
 namespace std {
 	
-	class Account : noncopyable
+	class Account : public ISqlStream
 	{
 	public:
+		virtual void runSelect(SqlCommand * nSqlCommand);
+		
 	#ifdef __CONSOLE__
 		void runStringWriter(StringWriterPtr& nStringWriter) const;
 	#endif
@@ -19,9 +21,9 @@ namespace std {
 		virtual ~Account();
 		
 	private:
-		__i32 mAllRenminbi;
-		string mAccountName;
 		__i64 mAccountId;
+		string mAccountName;
+		__i32 mAllRenminbi;
 	};
 	typedef shared_ptr<Account> AccountPtr;
 	typedef weak_ptr<Account> AccountWtr;

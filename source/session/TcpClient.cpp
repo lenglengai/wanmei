@@ -38,7 +38,7 @@ namespace std {
 		nCommandArgs.runStringWriter(stringWriter_);
 		stringWriter_->startClass("result");
 		(*mSession)->runClose();
-		chrono::milliseconds dura(200);
+		chrono::seconds dura(5);
 		this_thread::sleep_for(dura);
 		this->reconnect();
 		stringWriter_->finishClass();
@@ -51,7 +51,6 @@ namespace std {
 	{
 		mConnectTimer->cancel();
 		if (nError) {
-			this->runStop();
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1(nError.message()));
 			return;
@@ -66,7 +65,6 @@ namespace std {
 			logService_.logError(log_1(nError.message()));
 		}
 		if (mConnectTimer->expires_at() <= asio::deadline_timer::traits_type::now()) {
-			this->runStop();
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1(nError.message()));
 			mConnectTimer->expires_at(boost::posix_time::pos_infin);
@@ -112,9 +110,6 @@ namespace std {
 
 	bool TcpClient::runPreinit()
 	{
-		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunLoad0.connect(boost::bind(&TcpClient::runLoad, this));
-		initService_.m_tRunStart0.connect(boost::bind(&TcpClient::runStart, this));
 	#ifdef __CONSOLE__
 		this->registerCommand("info", std::bind(&TcpClient::commandInfo, this, placeholders::_1));
 		this->registerCommand("reload", std::bind(&TcpClient::commandReload, this, placeholders::_1));
@@ -123,13 +118,13 @@ namespace std {
 		return true;
 	}
 
-	void TcpClient::runLoad()
+	void TcpClient::runConfig()
 	{
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
 		archiveService_.loadStream(this);
 	}
 
-	void TcpClient::runStart()
+	void TcpClient::startBegin()
 	{
 		IoService& ioService_ = Singleton<IoService>::instance();
 		asio::io_service& ioservice = ioService_.getIoService();
@@ -139,12 +134,6 @@ namespace std {
 		mSession = &(sessionService_.createSession());
 		
 		this->startConnect();
-	}
-
-	void TcpClient::runStop()
-	{
-		IoService& ioService = Singleton<IoService>::instance();
-		ioService.runStop();
 	}
 
 	TcpClient::TcpClient()
@@ -161,6 +150,6 @@ namespace std {
 		mPort = "8080";
 	}
 	
-	static Preinit0<TcpClient> sTcpClientPreinit;
+	static Service<TcpClient> sTcpClient;
 }
 #endif

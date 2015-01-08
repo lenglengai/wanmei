@@ -8,6 +8,7 @@ namespace std {
 	#ifdef __CLIENT__
 		PlayerPtr& getPlayer();
 	#endif
+	
 	private:
 	#ifdef __CONSOLE__
 		const StringWriterPtr commandInfo(const CommandArgs& nCommandArgs);
@@ -27,17 +28,13 @@ namespace std {
 		const char * streamName() const;
 		const char * streamUrl() const;
 		
-		bool runPreinit();
-		void runLoad();
-		void runInit();
-		void runStart();
-		void runExit();
+		void runConfig() OVERRIDE FINAL;
+		void initBegin() OVERRIDE FINAL;
+		void startBegin() OVERRIDE FINAL;
+		void runClear() OVERRIDE FINAL;
 		
 		WorldService();
 		~WorldService();
-		
-	private:
-		void runClear();
 		
 	private:
 	#ifdef __SERVER__

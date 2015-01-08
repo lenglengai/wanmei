@@ -1,7 +1,7 @@
 #include "../Include.h"
 #include "SqliteDataBase.h"
 
-#ifdef __WITHMYSQL__
+#ifdef __WITHSQLITE__
 namespace std {
 
 	__i16 SqliteDataBase::runSql(ISqlHeadstream * nSqlHeadstream)
@@ -47,16 +47,17 @@ namespace std {
 		return Error_::mSucess_;
 	}
 
-	void SqliteDataBase::runOpen()
+	bool SqliteDataBase::runOpen()
 	{
 		int errorCode_ = sqlite3_open(mDbName.c_str(), &mSqlite);
 		if(SQLITE_OK != errorCode_) {
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1(sqlite3_errmsg(mSqlite)));
 			sqlite3_close(mSqlite);
-			return;
+			return false;
 		}
 		mIsClosed = false;
+		return true;
 	}
 	
 	void SqliteDataBase::runClose()

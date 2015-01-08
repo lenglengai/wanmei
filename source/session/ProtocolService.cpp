@@ -96,7 +96,6 @@ namespace std {
 		this->registerCommand("findId", std::bind(&ProtocolService::commandFindId, this, placeholders::_1));
 		this->registerCommand("findName", std::bind(&ProtocolService::commandFindName, this, placeholders::_1));
 	#endif
-		this->runClear();
 		return true;
 	}
 

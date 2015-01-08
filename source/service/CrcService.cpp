@@ -173,7 +173,7 @@ namespace std {
 	__i64 CrcService::runId(const char * nName) const
 	{
 		TimeService& timeService_ = Singleton<TimeService>::instance();
-		__i64 seconds_ = timeService_.getLocalTime();
+		__i32 seconds_ = timeService_.getLocalTime();
 		seconds_ /= 10; __i64 result_ = this->runCommon(nName);
 		result_ <<= 32; result_ += seconds_;
 		return result_;
@@ -182,7 +182,7 @@ namespace std {
 	__i64 CrcService::runId(const __i32 nId) const
 	{
 		TimeService& timeService_ = Singleton<TimeService>::instance();
-		__i64 seconds_ = timeService_.getLocalTime();
+		__i32 seconds_ = timeService_.getLocalTime();
 		seconds_ /= 10; __i64 result_ = nId;
 		result_ <<= 32; result_ += seconds_;
 		return result_;

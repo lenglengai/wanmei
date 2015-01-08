@@ -106,13 +106,11 @@ namespace std{
 	
 	SessionService::SessionService()
 	{
-		this->runClear();
 	}
 	
 	SessionService::~SessionService()
 	{
-		this->runClear();
 	}
 	
-	static Preinit0<SessionService> sSessionServicePreInit;
+	static Service<SessionService> sSessionService;
 }

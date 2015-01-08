@@ -46,26 +46,16 @@ namespace std{
 	#endif
 	}
 	
-	bool WorldService::runPreinit()
+	void WorldService::runConfig()
 	{
 	#ifdef __CLIENT__
 		mWorld.reset(new World());
 	#endif
-		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.m_tRunLoad0.connect(boost::bind(&WorldService::runLoad, this));
-		initService_.m_tRunInit0.connect(boost::bind(&WorldService::runInit, this));
-		initService_.m_tRunStart0.connect(boost::bind(&WorldService::runStart, this));
-		initService_.m_tRunExit.connect(boost::bind(&WorldService::runExit, this));
-		return true;
-	}
-	
-	void WorldService::runLoad()
-	{
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
 		archiveService_.loadStream(this);
 	}
 	
-	void WorldService::runInit()
+	void WorldService::initBegin()
 	{
 	#ifdef __CLIENT__
 		mWorld->runInit();
@@ -78,7 +68,7 @@ namespace std{
 	#endif
 	}
 	
-	void WorldService::runStart()
+	void WorldService::startBegin()
 	{
 		HandleService& handleService_ = Singleton<HandleService>::instance();
 	#ifdef __CLIENT__
@@ -94,11 +84,6 @@ namespace std{
 	#endif
 	}
 	
-	void WorldService::runExit()
-	{
-		this->runClear();
-	}
-	
 	void WorldService::runClear()
 	{
 	#ifdef __SERVER__
@@ -108,13 +93,11 @@ namespace std{
 	
 	WorldService::WorldService()
 	{
-		this->runClear();
 	}
 	
 	WorldService::~WorldService()
 	{
-		this->runClear();
 	}
 	
-	static Preinit0<WorldService> sWorldServicePreInit;
+	static Service<WorldService> sWorldService;
 }

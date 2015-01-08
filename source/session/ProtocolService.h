@@ -8,7 +8,7 @@ namespace std {
 		bool runReadBlock(ReadBlockPtr& nReadBlock, SessionPtr& nSession);
 		
 		template <class __t>
-		void runRegister(__t * nProtocol)
+		void runRegister(__t * nT)
 		{
 			__i32 protocolId = __classid<__t>();
 			auto it = mProtocols.find(protocolId);
@@ -17,7 +17,7 @@ namespace std {
 				logService_.logError(log_1(protocolId));
 				return;
 			}
-			mProtocols[protocolId] = nProtocol;
+			mProtocols[protocolId] = nT;
 		}
 		
 	private:

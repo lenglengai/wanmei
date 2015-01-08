@@ -6,7 +6,7 @@ namespace std {
 	void Console::runContext()
 	{
 		TimeService& timeService_ = Singleton<TimeService>::instance();
-		__i64 startTime_ = timeService_.getStartTime();
+		__i32 startTime_ = timeService_.getStartTime();
 		if (startTime_ < 10) return;
 		if (mCommand) {
 			this->runCommandBat(__default<string>());
