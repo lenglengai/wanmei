@@ -1,5 +1,7 @@
 #pragma once
 
+#include "IProtocol.h"
+
 namespace std {
 
 	class ProtocolService : public IService

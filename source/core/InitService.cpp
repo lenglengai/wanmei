@@ -1,4 +1,5 @@
 #include "../Include.h"
+#include "Console.h"
 
 namespace std {
 

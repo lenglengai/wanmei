@@ -1,8 +1,13 @@
 #pragma once
 
+#include "IDbQuery.h"
+#include "SqlFieldId_.h"
+#include "SqlDeal_.h"
+
 #ifdef __WITHSQL__
 namespace std {
 
+	class ISqlHeadstream;
 	class SqlCommand : noncopyable
 	{
 	public:

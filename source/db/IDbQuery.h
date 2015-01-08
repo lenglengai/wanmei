@@ -16,9 +16,6 @@ namespace std {
 		virtual void runString(string& nValue) = 0;
 		virtual void runData(char *& nValue, __i16& nSize) = 0;
 		virtual bool nextRow() = 0;
-		
-	protected:
-		virtual void getValue(string& nValue) = 0;
 	};
 	
 }

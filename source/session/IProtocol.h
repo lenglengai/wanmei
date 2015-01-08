@@ -1,5 +1,7 @@
 #pragma once
 
+#include "SessionService.h"
+
 namespace std {
 
 	class IProtocol : public IService

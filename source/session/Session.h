@@ -1,5 +1,9 @@
 #pragma once
 
+#include "IPacket.h"
+#include "ReadBlock.h"
+#include "WriteBlock.h"
+
 namespace std {
 
 	struct SessionState_ 

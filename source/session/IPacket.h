@@ -1,5 +1,7 @@
 #pragma once
 
+#include "IBlock.h"
+
 namespace std {
 
 	class Player;

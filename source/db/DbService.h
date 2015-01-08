@@ -1,5 +1,7 @@
 #pragma once
 
+#include "IDataBase.h"
+
 #ifdef __WITHSQL__
 namespace std {
 

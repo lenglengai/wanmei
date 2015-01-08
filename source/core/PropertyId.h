@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Property.h"
+
 namespace std {
 
 	template<class T>

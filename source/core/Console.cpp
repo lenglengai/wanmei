@@ -1,4 +1,6 @@
 #include "../Include.h"
+#include "Console.h"
+#include "CommandBat.h"
 
 #ifdef __CONSOLE__
 namespace std {

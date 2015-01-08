@@ -1,4 +1,6 @@
 #include "../Include.h"
+#include "IoService.h"
+#include "TcpClient.h"
 
 #ifdef __TCPCLIENT__
 namespace std {

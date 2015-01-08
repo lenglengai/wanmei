@@ -1,9 +1,10 @@
 ﻿#pragma once
 
+#include "SqlCommand.h"
+
 #ifdef __WITHSQL__
 namespace std {
 
-	class SqlCommand;
     class ISqlStream : noncopyable
     {
 	public:

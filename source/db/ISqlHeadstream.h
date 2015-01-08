@@ -1,5 +1,8 @@
 ﻿#pragma once
 
+#include "ISqlStream.h"
+#include "SqlType_.h"
+
 #ifdef __WITHSQL__
 namespace std {
 

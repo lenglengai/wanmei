@@ -1,4 +1,5 @@
 #include "../Logic.h"
+#include "S2CPing.h"
 
 #ifdef __PING__
 namespace std {

@@ -9,7 +9,7 @@ namespace std {
 		nCommandArgs.runStringWriter(stringWriter_);
 		stringWriter_->startClass("result");
 		string className_(""); __i32 protocolCount_ = 0;
-		__i32 classid_ = __classinfo<IoService>(className_);
+		__i32 classid_ = __classinfo<ProtocolService>(className_);
 		protocolCount_ = static_cast<__i32>(mProtocols.size());
 		stringWriter_->runString(className_, "className");
 		stringWriter_->runInt32(classid_, "classId");

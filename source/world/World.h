@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Player.h"
+
 namespace std {
 	
 	class World : public Context

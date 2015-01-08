@@ -1,5 +1,7 @@
 #pragma once
 
+#include "PropertyId.h"
+
 namespace std {
 
 	class __funapi PropertyMgr : noncopyable

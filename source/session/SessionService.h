@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Session.h"
+
 namespace std {
 
 	class SessionService : public IService
@@ -7,7 +9,7 @@ namespace std {
 	public:
 		void removeSession(__i32 nSessionId);
 		SessionPtr& createSession();
-				
+		
 	#ifdef __CLIENT__
 		SessionPtr& getSession();
 	#endif

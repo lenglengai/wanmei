@@ -5,7 +5,6 @@ namespace std {
 	enum class RobotType_ : __i16
 	{
 		mRobot_,
-		mTourist_,
 		mPlayer_,
 		mAdministrator_,
 		mDeveloper_

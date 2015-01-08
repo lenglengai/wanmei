@@ -1,5 +1,7 @@
 #pragma once
 
+#include "PropertyMgr.h"
+
 namespace std {
 
 	class __funapi PropertySink : noncopyable

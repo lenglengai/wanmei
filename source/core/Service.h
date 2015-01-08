@@ -1,5 +1,7 @@
 #pragma once
 
+#include "InitService.h"
+
 namespace std {
 
 	template<class __t>

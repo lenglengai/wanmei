@@ -1,5 +1,7 @@
 #pragma once
 
+#include "World.h"
+
 namespace std {
 	
 	class WorldService : public IService

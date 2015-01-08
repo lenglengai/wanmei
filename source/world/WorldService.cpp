@@ -89,6 +89,9 @@ namespace std{
 	#ifdef __SERVER__
 		mWorlds.clear();
 	#endif
+	#ifdef __CLIENT__
+		mWorld->runClear();
+	#endif
 	}
 	
 	WorldService::WorldService()
