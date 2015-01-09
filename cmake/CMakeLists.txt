@@ -42,7 +42,8 @@ set( commons ${SRC_PATH}/common )
 
 set( COMMON_SRC
 	${commons}/classid.cpp
-	${commons}/versionid.cpp)
+	${commons}/versionid.cpp
+	${commons}/default.cpp)
 
 SET( COMMON_H
 	${commons}/definc.h
@@ -224,14 +225,12 @@ set(worlds ${SRC_PATH}/world )
 set( WORLD_SRC
 	${worlds}/WorldService.cpp 
 	${worlds}/World.cpp 
-	${worlds}/Robot.cpp 
 	${worlds}/Tourist.cpp 
 	${worlds}/Player.cpp )
 
 SET( WORLD_H
 	${worlds}/WorldService.h 
 	${worlds}/World.h 
-	${worlds}/Robot.h 
 	${worlds}/Tourist.h 
 	${worlds}/Player.h )
 	

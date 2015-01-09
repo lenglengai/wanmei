@@ -9,3 +9,4 @@
 #include "core/PropertySink.h"
 #include "account/AccountService.h"
 #include "session/ProtocolService.h"
+#include "world/WorldService.h"

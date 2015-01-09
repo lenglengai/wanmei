@@ -413,6 +413,16 @@ namespace std {
 		mDbQuery = nullptr;
 	}
 	
+	SqlCommand::SqlCommand()
+	{
+		this->runClear();
+	}
+	
+	SqlCommand::~SqlCommand()
+	{
+		this->runClear();
+	}
+	
 	const char * SqlCommand::mValueBegin = "'";
 	const char * SqlCommand::mValueEnd = "'";
 	const char * SqlCommand::mFieldBegin = "";

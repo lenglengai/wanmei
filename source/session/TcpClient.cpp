@@ -26,7 +26,7 @@ namespace std {
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
 		stringWriter_->startClass("result");
-		this->runLoad();
+		this->runConfig();
 		stringWriter_->runString(mAddress, "address");
 		stringWriter_->runString(mPort, "port");
 		stringWriter_->finishClass();

@@ -12,7 +12,7 @@ namespace std {
 		nSqlCommand->runInt32(mMoneyTime, "moneyTime");
 	#endif
 	#ifdef __CLIENT__
-		nSqlCommand->runString(mPassward, "passward");
+		nSqlCommand->runString(mPassward, "passward", 10);
 	#endif
 	}
 

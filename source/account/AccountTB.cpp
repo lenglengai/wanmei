@@ -20,8 +20,8 @@ namespace std {
 		nSqlCommand->runString(mProvider, "provider", 12);
 	#endif
 	#ifdef __CLIENT__
-		nSqlCommand->runInt32(accountNo, "accountNo");
-		nSqlCommand->runString(passward, "passward", 12);
+		nSqlCommand->runInt32(mAccountNo, "accountNo");
+		nSqlCommand->runString(mPassward, "passward", 12);
 	#endif
 	}
 	

@@ -57,11 +57,7 @@ namespace std {
 		return default_namespace::Default<__t>()();
 	}
 	
-	const string& __defaultstr()
-	{
-		static string value_("");
-		return value_;
-	}
+	extern const string& __defaultstr();
 	
 	template<typename __t>
 	shared_ptr<__t>& __defaultptr()

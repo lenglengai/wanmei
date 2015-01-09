@@ -24,7 +24,7 @@ namespace std {
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
 		stringWriter_->startClass("result");
-		this->runLoad();
+		this->runConfig();
 		stringWriter_->runInt32(mIoServiceCount, "ioServiceCount");
 		stringWriter_->finishClass();
 		stringWriter_->runClose();

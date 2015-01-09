@@ -13,19 +13,20 @@ namespace std {
 	}
 
 	Tourist::Tourist()
-		: Robot (RobotType_::mTourist_)
+		: mPlayerType (PlayerType_::mPlayer_)
 		, mPlayerId (0)
 	{
 	}
 	
-	Tourist::Tourist(const RobotType_ nRobotType)
-		: Robot (nRobotType)
+	Tourist::Tourist(const PlayerType_ nPlayerType)
+		: mPlayerType (nPlayerType)
 		, mPlayerId (0)
 	{
 	}
 
 	Tourist::~Tourist()
 	{
+		mPlayerType = PlayerType_::mPlayer_;
 		mPlayerId = 0;
 	}
 

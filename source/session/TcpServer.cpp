@@ -25,7 +25,7 @@ namespace std {
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
 		stringWriter_->startClass("result");
-		this->runLoad();
+		this->runConfig();
 		stringWriter_->runString(mAddress, "address");
 		stringWriter_->runString(mPort, "port");
 		stringWriter_->finishClass();
@@ -37,7 +37,7 @@ namespace std {
 	void TcpServer::handleAccept(const boost::system::error_code& nError)
 	{
 		if (nError) {
-			this->runStop();
+			this->stopEnd();
 			LogService& logService_ = Singleton<LogService>::instance();
 			logService_.logError(log_1(nError.message()));
 			return;

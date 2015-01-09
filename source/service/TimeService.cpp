@@ -47,7 +47,7 @@ namespace std {
 	{
 		chrono::system_clock::time_point timePoint_ = chrono::system_clock::now();
 		chrono::seconds timePeriod_ = chrono::duration_cast<chrono::seconds>(timePoint_ - mBegin);
-		return timePeriod_.count();
+		return static_cast<__i32>(timePeriod_.count());
 	}
 	
 	TimeService * TimeService::getTimeService()
