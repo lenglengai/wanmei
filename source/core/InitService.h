@@ -6,7 +6,7 @@ namespace std {
 	{
 	#ifdef __CONSOLE__
 	public:
-		void runCommand(const CommandArgs& nCommandArgs) const;
+		void runCommand(const CommandArgs& nCommandArgs);
 	#ifdef __CLIENT__
 		void setClientConsole(const bool nClientConsole);
 	#endif
@@ -22,7 +22,7 @@ namespace std {
 	public:
 		void registerService(__i32 nClassId, IService * nService);
 		
-		InitService * getInitService();
+		static InitService * getInitService();
 		
 		bool runPreinit() OVERRIDE FINAL;
 		

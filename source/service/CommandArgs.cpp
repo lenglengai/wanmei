@@ -18,7 +18,7 @@ namespace std {
 		if (commandArgsCount_ >= nIndex) {
 			return mCommandArgs[nIndex - 1];
 		}
-		return __default<string>();
+		return __defaultstr();
 	}
 	
 	__i32 CommandArgs::getCommandCount() const

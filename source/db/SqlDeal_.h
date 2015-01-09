@@ -12,7 +12,7 @@ namespace std {
         mWhere_,
         mInsertFD_,
         mUpdateFD_,
-        mInsertUpdate_,
+        mInsertUpdateFD_,
 		mQuery_,
 		mEnd_
     };

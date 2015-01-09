@@ -4,7 +4,7 @@
 namespace std {
 
 #ifdef __CONSOLE__
-	void InitService::runCommand(const CommandArgs& nCommandArgs) const
+	void InitService::runCommand(const CommandArgs& nCommandArgs)
 	{
 		if (mClientConsole) {
 			const string& strService_ = nCommandArgs.getService();
@@ -64,7 +64,9 @@ namespace std {
 	
 	const StringWriterPtr InitService::commandResume(const CommandArgs& nCommandArgs)
 	{
-		this->runResume();
+		this->resumeBegin();
+		this->resuming();
+		this->resumeEnd();
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
 		stringWriter_->startClass("result");
@@ -77,7 +79,9 @@ namespace std {
 	
 	const StringWriterPtr InitService::commandPause(const CommandArgs& nCommandArgs)
 	{
-		this->runPause();
+		this->pauseBegin();
+		this->pausing();
+		this->pauseEnd();
 		StringWriterPtr stringWriter_(new StringWriter());
 		nCommandArgs.runStringWriter(stringWriter_);
 		stringWriter_->startClass("result");
@@ -142,7 +146,7 @@ namespace std {
 	
 	void InitService::registerService(__i32 nClassId, IService * nService)
 	{
-		map<__i32, IService *> it = mServices.find(nClassId);
+		map<__i32, IService *>::iterator it = mServices.find(nClassId);
 		if ( it == mServices.end() ) {
 			mServices[nClassId] = nService;
 		}
@@ -160,7 +164,7 @@ namespace std {
 		this->registerCommand("findId", std::bind(&InitService::commandFindId, this, placeholders::_1));
 		this->registerCommand("initTable", std::bind(&InitService::commandInitTable, this, placeholders::_1));
 	#endif
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			if ( !service_->runPreinit() ) {
@@ -182,10 +186,8 @@ namespace std {
 		LuaService& luaService_ = Singleton<LuaService>::instance();
 		luaService_.runClass<InitService>("InitService");
 		luaService_.runFun(&InitService::getInitService, "InitService");
-		luaService_.runMethod<InitService>(&InitService::runResume, "runResume");
-		luaService_.runMethod<InitService>(&InitService::runPause, "runPause");
 		
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->runLuaApi();
@@ -195,7 +197,7 @@ namespace std {
 	
 	void InitService::runConfig()
 	{
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->runConfig();
@@ -204,7 +206,7 @@ namespace std {
 	
 	void InitService::runInitDb()
 	{
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->runInitDb();
@@ -213,7 +215,7 @@ namespace std {
 	
 	void InitService::runInitTable()
 	{
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->runInitTable();
@@ -222,7 +224,7 @@ namespace std {
 	
 	void InitService::loadBegin()
 	{
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->loadBegin();
@@ -231,7 +233,7 @@ namespace std {
 	
 	void InitService::loading()
 	{
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->loading();
@@ -240,7 +242,7 @@ namespace std {
 	
 	void InitService::loadEnd()
 	{
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->loadEnd();
@@ -249,7 +251,7 @@ namespace std {
 	
 	void InitService::initBegin()
 	{
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->initBegin();
@@ -263,7 +265,7 @@ namespace std {
 	
 	void InitService::initing()
 	{
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->initing();
@@ -272,7 +274,7 @@ namespace std {
 	
 	void InitService::initEnd()
 	{
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->initEnd();
@@ -281,7 +283,7 @@ namespace std {
 	
 	void InitService::startBegin()
 	{
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->startBegin();
@@ -290,7 +292,7 @@ namespace std {
 	
 	void InitService::starting()
 	{
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->starting();
@@ -302,7 +304,7 @@ namespace std {
 	
 	void InitService::startEnd()
 	{
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->startEnd();
@@ -311,7 +313,7 @@ namespace std {
 	
 	void InitService::runing()
 	{
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->runing();
@@ -320,7 +322,7 @@ namespace std {
 	
 	void InitService::stopBegin()
 	{
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->stopBegin();
@@ -329,7 +331,7 @@ namespace std {
 	
 	void InitService::stoping()
 	{
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->stoping();
@@ -338,7 +340,7 @@ namespace std {
 	
 	void InitService::stopEnd()
 	{
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->stopEnd();
@@ -347,7 +349,7 @@ namespace std {
 	
 	void InitService::runClear()
 	{
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->runClear();
@@ -356,7 +358,7 @@ namespace std {
 	
 	void InitService::resumeBegin()
 	{
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->resumeBegin();
@@ -365,7 +367,7 @@ namespace std {
 	
 	void InitService::resuming()
 	{
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->resuming();
@@ -374,7 +376,7 @@ namespace std {
 	
 	void InitService::resumeEnd()
 	{
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->resumeEnd();
@@ -383,7 +385,7 @@ namespace std {
 	
 	void InitService::pauseBegin()
 	{
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->pauseBegin();
@@ -392,7 +394,7 @@ namespace std {
 	
 	void InitService::pausing()
 	{
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->pausing();
@@ -405,7 +407,7 @@ namespace std {
 	
 	void InitService::pauseEnd()
 	{
-		map<__i32, IService *>::iter it = mServices.begin();
+		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
 			service_->pauseEnd();
@@ -440,35 +442,35 @@ namespace std {
 
 int main( int argc, char * argv[] )
 {
-	std::InitService& initService = 
-		std::Singleton<InitService>::instance();
-	if (!initService.runPreinit()) {
+	std::InitService& initService_ = 
+		std::Singleton<std::InitService>::instance();
+	if (!initService_.runPreinit()) {
 		return 0;
 	}
 	
-	initService.runLuaApi();
-	initService.runConfig();
-	initService.runInitDb();
+	initService_.runLuaApi();
+	initService_.runConfig();
+	initService_.runInitDb();
 	
-	initService.loadBegin();
-	initService.loading();
-	initService.loadEnd();
+	initService_.loadBegin();
+	initService_.loading();
+	initService_.loadEnd();
 	
-	initService.initBegin();
-	initService.initing();
-	initService.initEnd();
+	initService_.initBegin();
+	initService_.initing();
+	initService_.initEnd();
 	
-	initService.startBegin();
-	initService.starting();
-	initService.startEnd();
+	initService_.startBegin();
+	initService_.starting();
+	initService_.startEnd();
 	
-	initService.runing();
+	initService_.runing();
 	
-	initService.stopBegin();
-	initService.stoping();
-	initService.stopEnd();
+	initService_.stopBegin();
+	initService_.stoping();
+	initService_.stopEnd();
 	
-	initService.runClear();
+	initService_.runClear();
 	
 	return 0;
 }

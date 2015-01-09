@@ -23,8 +23,8 @@ namespace std {
 		const string& getPassward() const;
 	#endif
 	#ifdef __SERVER__
-		void setPassward(const __i64 nPassward);
-		__i64 getPassward() const;
+		void setPassward(const __i32 nPassward);
+		__i32 getPassward() const;
 	#endif
 		
 		AccountAll();

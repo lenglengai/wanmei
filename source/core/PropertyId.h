@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Property.h"
+#include "IPropertyId.h"
 
 namespace std {
 

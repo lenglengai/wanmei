@@ -97,7 +97,7 @@ namespace std {
 		return mGameDb->runSql(nSql);
 	}
 	
-#ifdef __WITHMYSQL__
+#ifdef __SERVER__
 	__i16 DbService::runLoginSql(ISqlHeadstream * nSqlHeadstream)
 	{
 		return mLoginDb->runSql(nSqlHeadstream);
@@ -124,7 +124,7 @@ namespace std {
 	#ifdef __CONSOLE__
 		this->registerCommand("info", std::bind(&DbService::commandInfo, this, placeholders::_1));
 		this->registerCommand("runSql", std::bind(&DbService::commandRunSql, this, placeholders::_1));
-	#ifdef __WITHMYSQL__
+	#ifdef __SERVER__
 		this->registerCommand("runLogSql", std::bind(&DbService::commandRunLogSql, this, placeholders::_1));
 		this->registerCommand("runLoginSql", std::bind(&DbService::commandRunLoginSql, this, placeholders::_1));
 		this->registerCommand("createDb", std::bind(&DbService::commandCreateDb, this, placeholders::_1));
@@ -135,7 +135,7 @@ namespace std {
 	
 	void DbService::runConfig()
 	{
-	#ifdef __WITHMYSQL__
+	#if defined(__SERVER__) &&  defined(__WITHMYSQL__)
 		mGameDb.reset(new MySqlDataBase());
 		mGameDb->setStreamUrl("gameDb.xml");
 		mGameDb->runLoad();
@@ -152,7 +152,7 @@ namespace std {
 	
 	void DbService::runInitDb()
 	{
-	#ifdef __WITHSQLITE__
+	#if defined(__CLIENT__) &&  defined(__WITHSQLITE__)
 		mGameDb.reset(new SqliteDataBase());
 		fstream fileHandle; bool initTable_ = true;
 		fileHandle.open(mGameDb->getDbName().c_str(), ios::in);
@@ -165,14 +165,14 @@ namespace std {
 			initService_.runInitTable();
 		}
 	#endif
-	]
+	}
 	
 	void DbService::stopEnd()
 	{
-	#ifdef __WITHSQLITE__
+	#ifdef __CLIENT__
 		mGameDb->runClose();
 	#endif
-	]
+	}
 	
 	DbService::DbService()
 	{

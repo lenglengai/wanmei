@@ -11,7 +11,7 @@ namespace std {
 		virtual __i16 runSql(ISqlHeadstream * nSqlHeadstream) = 0;
 		virtual __i16 runSql(const char * nSql) = 0;
 		
-	#ifdef __WITHMYSQL__
+	#ifdef __SERVER__
 		template<class T>
 		void headSerialize(T& nSerialize)
 		{
@@ -39,7 +39,7 @@ namespace std {
 		void setDbName(const char * nDbName);
 		const string& getDbName() const;
 		
-	#ifdef __WITHSQLITE__
+	#ifdef __CLIENT__
 		virtual bool runOpen() = 0;
 		virtual void runClose() = 0;
 	#endif
@@ -52,7 +52,7 @@ namespace std {
 		virtual ~IDataBase();
 		
 	protected:
-	#ifdef __WITHMYSQL__
+	#ifdef __SERVER__
 		string mHostName;
 		string mUserName;
 		string mPassword;

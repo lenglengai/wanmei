@@ -3,7 +3,7 @@
 #ifdef __WITHSQL__
 namespace std {
 
-#ifdef __WITHMYSQL__
+#ifdef __SERVER__
 	void IDataBase::runLoad()
 	{
 		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
@@ -63,7 +63,7 @@ namespace std {
 	
 	void IDataBase::runClear()
 	{
-	#ifdef __WITHMYSQL__
+	#ifdef __SERVER__
 		mMaxConnections = 100;
 		mMaxUsedSeconds = 10;
 		

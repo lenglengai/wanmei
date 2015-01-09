@@ -6,7 +6,7 @@ namespace std {
 	void AccountTB::runSelect(SqlCommand * nSqlCommand)
 	{
 		nSqlCommand->runInt64(mAccountId, "accountId"); 
-		nSqlCommand->runString(mAccountName, "accountName");
+		nSqlCommand->runString(mAccountName, "accountName", 6);
 	#ifdef __SERVER__
 		nSqlCommand->runInt32(mPassward, "passward");
 		nSqlCommand->runInt32(mAllRenminbi, "allRenminbi");
@@ -17,11 +17,11 @@ namespace std {
 		nSqlCommand->runInt32(mActiviteTime, "activiteTime");
 		nSqlCommand->runInt32(mPermission, "permission");
 		nSqlCommand->runInt32(mLoginType, "loginType");
-		nSqlCommand->runString(mProvider, "provider");
+		nSqlCommand->runString(mProvider, "provider", 12);
 	#endif
 	#ifdef __CLIENT__
 		nSqlCommand->runInt32(accountNo, "accountNo");
-		nSqlCommand->runString(passward, "passward");
+		nSqlCommand->runString(passward, "passward", 12);
 	#endif
 	}
 	

@@ -29,8 +29,7 @@ namespace std {
 			if (Error_::mSucess_ != errorCode_) {
 				return errorCode_;
 			}
-			sqlCommand.setDbQuery(&mySqlQuery);
-			sqlCommand.runHeadstream(nSqlHeadstream, true);
+			sqlCommand.runQuery(nSqlHeadstream, &mySqlQuery);
 		}
 		return Error_::mSucess_;
 	}

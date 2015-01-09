@@ -49,7 +49,7 @@ namespace std {
 	{
 		if ("" == nCommand) {
 			std::cout << "please input command like this: command -flag arg ..." << std::endl;
-	#if defined(__CONSOLE__) ||  defined(__CLIENT__)
+	#if defined(__CONSOLE__) &&  defined(__CLIENT__)
 		} else if ("/s" == nCommand) {
 			InitService& initService_ = Singleton<InitService>::instance();
 			initService_.setClientConsole(false);

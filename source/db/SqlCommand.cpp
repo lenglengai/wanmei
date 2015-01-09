@@ -36,7 +36,7 @@ namespace std {
 			mDbQuery->runInt32(nValue);
 		} else {
 			this->runType(nValue, "INT", nName, nSqlFieldId);
-		|
+		}
 	}
 	
     void SqlCommand::runInt64(__i64& nValue, const char * nName, __i8 nSqlFieldId)
@@ -80,12 +80,12 @@ namespace std {
 		}
 	}
 	
-	void SqlCommand::runData(char *& nValue, __i16& nSize, const char * nName, __i8 nSqlFieldId = SqlFieldId_::mNone_)
+	void SqlCommand::runData(char *& nValue, __i16& nSize, const char * nName, __i8 nSqlFieldId)
 	{
 		if ( SqlDeal_::mQuery_ == mSqlDeal ) {
 			mDbQuery->runData(nValue, nSize);
 		} else {
-			this->runType(nValue, "BLOB", nName, nSqlFieldId);
+			//this->runType(nValue, "BLOB", nName, nSqlFieldId);
 		}
 	}
 	
@@ -111,9 +111,9 @@ namespace std {
         } else if (SqlType_::mDelete_ == sqlType_) {
 			this->runDelete(nSqlStream);
         } else if (SqlType_::mUpdate_ == sqlType_) {
-			this->runUdate(nSqlStream);
+			this->runUpdate(nSqlStream);
         } else if (SqlType_::mInsertUpdate_ == sqlType_) {
-			this->runInsertUdate(nSqlStream);
+			this->runInsertUpdate(nSqlStream);
         } else {
         }
     }
@@ -157,7 +157,7 @@ namespace std {
 		nSqlHeadstream->runSelect(this);
 		mBeg = true;
 		mEnd = false;
-		mSqlDeal = SqlDeal_::mPrimary_;
+		mSqlDeal = SqlDeal_::mCreatePy_;
 		nSqlHeadstream->runSelect(this);
 		if (mEnd) {
 			mValue += ")";

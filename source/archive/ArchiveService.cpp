@@ -42,7 +42,8 @@ namespace std {
 		stringWriter_->startClass("result");
 		mArchiveWriter.runClear(); mArchives.clear(); mIsWriter = true;
 		InitService& initService_ = Singleton<InitService>::instance();
-		initService_.runLoad0(); initService_.runLoad1();
+		initService_.loadBegin(); initService_.loading();
+		initService_.loadEnd();
 		mArchiveWriter.runOpen(CONFIGUREFILE);
         mArchiveWriter.runArchives(mArchives);
         mArchiveWriter.runClose();

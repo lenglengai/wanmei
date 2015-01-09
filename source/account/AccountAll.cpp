@@ -56,12 +56,12 @@ namespace std {
 	
 	void AccountAll::setRenminbi(const __i32 nRenminbi)
 	{
-		nRenminbi = nRenminbi;
+		mRenminbi = nRenminbi;
 	}
 	
 	__i32 AccountAll::getRenminbi() const
 	{
-		return nRenminbi;
+		return mRenminbi;
 	}
 	
 #ifdef __CLIENT__
@@ -77,12 +77,12 @@ namespace std {
 #endif
 
 #ifdef __SERVER__
-	void AccountAll::setPassward(const __i64 nPassward)
+	void AccountAll::setPassward(const __i32 nPassward)
 	{
 		mPassward = nPassward;
 	}
 	
-	__i64 AccountAll::getPassward() const
+	__i32 AccountAll::getPassward() const
 	{
 		return mPassward;
 	}
@@ -90,7 +90,7 @@ namespace std {
 
 	AccountAll::AccountAll()
 		: mMoneyTime (0)
-		, mMoneyCount ("")
+		, mMoneyCount (0)
 		, mRenminbi (0)
 	#ifdef __CLIENT__
 		, mPassward ("")
@@ -104,7 +104,7 @@ namespace std {
 	AccountAll::~AccountAll()
 	{
 		mMoneyTime = 0;
-		mMoneyCount = "";
+		mMoneyCount = 0;
 		mRenminbi = 0;
 	#ifdef __CLIENT__
 		mPassward = "";

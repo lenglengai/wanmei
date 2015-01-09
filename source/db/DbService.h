@@ -11,7 +11,7 @@ namespace std {
 		__i16 runSql(ISqlHeadstream * nSqlHeadstream);
 		__i16 runSql(const char * nSql);
 		
-	#ifdef __WITHMYSQL__
+	#ifdef __SERVER__
 		__i16 runLoginSql(ISqlHeadstream * nSqlHeadstream);
 		__i16 runLoginSql(const char * nSql);
 		
@@ -23,7 +23,7 @@ namespace std {
 	#ifdef __CONSOLE__
 		const StringWriterPtr commandInfo(const CommandArgs& nCommandArgs);
 		const StringWriterPtr commandRunSql(const CommandArgs& nCommandArgs);
-	#ifdef __WITHMYSQL__
+	#ifdef __SERVER__
 		const StringWriterPtr commandRunLogSql(const CommandArgs& nCommandArgs);
 		const StringWriterPtr commandRunLoginSql(const CommandArgs& nCommandArgs);
 		const StringWriterPtr commandCreateDb(const CommandArgs& nCommandArgs);
@@ -40,7 +40,7 @@ namespace std {
 		
 	private:
 		DataBasePtr mGameDb;
-	#ifdef __WITHMYSQL__
+	#ifdef __SERVER__
 		DataBasePtr mLoginDb;
 		DataBasePtr mLogDb;
 	#endif

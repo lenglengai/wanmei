@@ -22,6 +22,7 @@ namespace std {
 	private:
 		static __t mT;
 	};
+	template<class __t>
 	__t Service<__t>::mT;
 	
 }

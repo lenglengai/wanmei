@@ -65,7 +65,6 @@ set( CORE_SRC
 	${cores}/Property.cpp 
 	${cores}/PropertyMgr.cpp 
 	${cores}/PropertySink.cpp 
-	${cores}/Console.cpp 
 	${cores}/CommandBat.cpp )
 
 SET( CORE_H
@@ -192,7 +191,6 @@ set(dbs ${SRC_PATH}/db )
 
 set( DBS_SRC
 	${dbs}/SqlCommand.cpp
-	${dbs}/IDbQuery.cpp
 	${dbs}/IDataBase.cpp
 	${dbs}/MySqlQuery.cpp
 	${dbs}/MySqlConnection.cpp
@@ -233,9 +231,9 @@ set( WORLD_SRC
 SET( WORLD_H
 	${worlds}/WorldService.h 
 	${worlds}/World.h 
-	${tcpClients}/Robot.h 
-	${tcpClients}/Tourist.h 
-	${tcpClients}/Player.h )
+	${worlds}/Robot.h 
+	${worlds}/Tourist.h 
+	${worlds}/Player.h )
 	
 file(COPY ${worlds}/worldClient.xml DESTINATION ${BIN_PATH})
 file(COPY ${worlds}/worldServer.xml DESTINATION ${BIN_PATH})
@@ -258,16 +256,15 @@ add_subdirectory(libbzlib)
 add_subdirectory(liblua)
 add_subdirectory(libsqlite)
 
-add_executable(${PROJECT_NAME}
-	${MAIN_SRC} ${MAIN_H}
+add_executable(${PROJECT_NAME} ${MAIN_H}
 	${COMMON_SRC} ${COMMON_H} 
 	${CORE_SRC} ${CORE_H}
+	${ACCOUNT_SRC} ${ACCOUNT_H}
+	${SERVICE_SRC} ${SERVICE_H}
 	${ARCHIVE_SRC} ${ARCHIVE_H}
 	${SESSION_SRC} ${SESSION_H}	
-	${TCPSERVER_SRC} ${TCPSERVER_H} 
-	${TCPCLIENT_SRC} ${TCPCLIENT_H} 
+	${DBS_SRC} ${DBS_H} 
 	${WORLD_SRC} ${WORLD_H} 
-	${PING_SRC} ${PING_H} 
-	${DBS_SRC} ${DBS_H} )
+	${PING_SRC} ${PING_H} )
 	
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} libbzlib liblua libsqlite libmysql)

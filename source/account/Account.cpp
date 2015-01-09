@@ -5,7 +5,7 @@ namespace std {
 	void Account::runSelect(SqlCommand * nSqlCommand)
 	{
 		nSqlCommand->runInt64(mAccountId, "accountId");
-		nSqlCommand->runString(mAccountName, "accountName");
+		nSqlCommand->runString(mAccountName, "accountName", 6);
 	#ifdef __SERVER__
 		nSqlCommand->runInt32(mAllRenminbi, "allRenminbi");
 	#endif

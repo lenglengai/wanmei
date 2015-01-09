@@ -16,7 +16,9 @@ namespace std {
 		__i32 classid_ = __classinfo<PingProtocol>(className_);
 		stringWriter_->runString(className_, "className");
 		stringWriter_->runInt32(classid_, "classId");
+	#ifdef __CLIENT__
 		stringWriter_->runInt32(mPing, "ping");
+	#endif
 		stringWriter_->finishClass();
 		stringWriter_->runClose();
 		return stringWriter_;

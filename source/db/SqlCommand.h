@@ -21,6 +21,7 @@ namespace std {
         void runDouble(double& nValue, const char * nName, __i8 nSqlFieldId = SqlFieldId_::mNone_);
 		void runData(char *& nValue, __i16& nSize, const char * nName, __i8 nSqlFieldId = SqlFieldId_::mNone_);
 		
+		void runQuery(ISqlHeadstream * nSqlHeadstream, IDbQuery * nDbQuery);
 		void runHeadstream(ISqlHeadstream * nSqlStream);
 		const string& getValue() const;
 		void runClear();
@@ -40,7 +41,6 @@ namespace std {
 		void runUpdate(ISqlHeadstream * nSqlHeadstream);
 		void runInsertUpdate(ISqlHeadstream * nSqlHeadstream);
 		
-		void runQuery(ISqlHeadstream * nSqlHeadstream, IDbQuery * nDbQuery);
 		
 	private:
 		void runCreateFD(const char * nValue, const char * nName, __i8 nSqlFieldId);
