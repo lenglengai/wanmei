@@ -31,7 +31,7 @@ namespace std {
 		__i32 size_ = this->readBuf(nArchive);
 		__i32 end_ = this->writeBuf(size_);
 		shared_ptr<ArchiveHash> archiveHash(new ArchiveHash());
-		CrcService& crcService = Singleton<CrcService>::instance();
+		CrcService& crcService = Service<CrcService>::instance();
 		__i32 hash_ = crcService.runCommon(nArchive);
 		archiveHash->setHash(hash_);
 		archiveHash->setBeg(beg_);
@@ -56,7 +56,7 @@ namespace std {
 	{
 		__i32 result_ = ARCHIVESIZE;
 		memset(mCompress, 0, ARCHIVESIZE);
-		CompressService& compressService = Singleton<CompressService>::instance();
+		CompressService& compressService = Service<CompressService>::instance();
 		compressService.runBZip2(mCommon, nSize, mCompress, &result_);
 		mBinWriter.runWrite(mCompress, result_);
 		return result_;

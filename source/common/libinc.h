@@ -6,7 +6,6 @@
 #endif
 
 #include <boost/algorithm/string.hpp>
-#include <boost/signals2.hpp>
 #include <boost/format.hpp>
 #include <boost/bind.hpp>
 #include <boost/array.hpp>

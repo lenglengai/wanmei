@@ -13,7 +13,7 @@ namespace std {
 			int r = mysql_real_query(&mMYSQL, strSql.c_str(), strSql.length());
 			if (0 == r) break;
 			if (i > 0) {
-				LogService& logService_ = Singleton<LogService>::instance();
+				LogService& logService_ = Service<LogService>::instance();
 				logService_.logError(log_1(mysql_error(&mMYSQL)));
 				return Error_::mDbError_;
 			}
@@ -40,7 +40,7 @@ namespace std {
 			int r = mysql_real_query(&mMYSQL, nSql, strlen(nSql));
 			if (0 == r) break;
 			if (i > 0) {
-				LogService& logService_ = Singleton<LogService>::instance();
+				LogService& logService_ = Service<LogService>::instance();
 				logService_.logError(log_1(mysql_error(&mMYSQL)));
 				return Error_::mDbError_;
 			}
@@ -76,7 +76,7 @@ namespace std {
 			return;
 		}
 		if (!mBusy) {
-			TimeService& timeService_ = Singleton<TimeService>::instance();
+			TimeService& timeService_ = Service<TimeService>::instance();
 			__i64 currentTime_ = timeService_.getLocalTime();
 			if (currentTime_ > mTimeStamp) {
 				this->runDisconnect();
@@ -89,7 +89,7 @@ namespace std {
 	{
 		if (!mConnected) {
 			internalConnect();
-			TimeService& timeService_ = Singleton<TimeService>::instance();
+			TimeService& timeService_ = Service<TimeService>::instance();
 			mTimeStamp = timeService_.getLocalTime();
 			mTimeStamp += mDataBase->getMaxUsedSeconds();
 			mConnected = true;
@@ -110,7 +110,7 @@ namespace std {
 	void MySqlConnection::internalConnect()
 	{
 	    if ( nullptr == mysql_init(&mMYSQL) ) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1("mysql_init"));
 			return;
 		}
@@ -120,7 +120,7 @@ namespace std {
 			mDataBase->getPassword().c_str(),
 			mDataBase->getDbName().c_str(),
 			mDataBase->getPort(), nullptr, 0) ) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(mysql_error(&mMYSQL)));
 			return;
 		}

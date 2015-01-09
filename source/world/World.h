@@ -8,6 +8,7 @@ namespace std {
 	{
 	public:
 		void runContext();
+		void runClear();
 		
 	#ifdef __CLIENT__
 		PlayerPtr& getPlayer();

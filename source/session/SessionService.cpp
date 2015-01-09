@@ -64,7 +64,7 @@ namespace std{
 		lock_guard<mutex> lock_(mMutex);
 		auto it = mSessions.find(nSessionId);
 		if (it == mSessions.end()) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(nSessionId));
 			return;
 		}
@@ -75,7 +75,7 @@ namespace std{
 	SessionPtr& SessionService::createSession()
 	{
 	#ifdef __SERVER__
-		IoService& ioService_ = Singleton<IoService>::instance();
+		IoService& ioService_ = Service<IoService>::instance();
 		asio::io_service& ioservice = ioService_.getIoService();
 		SessionPtr session_(new Session(++mSessionId, ioservice));
 		lock_guard<mutex> lock_(mMutex);
@@ -83,7 +83,7 @@ namespace std{
 		return mSessions[mSessionId];
 	#endif
 	#ifdef __CLIENT__
-		IoService& ioService_ = Singleton<IoService>::instance();
+		IoService& ioService_ = Service<IoService>::instance();
 		asio::io_service& ioservice = ioService_.getIoService();
 		mSession.reset(new Session(++mSessionId, ioservice));
 		return mSession;

@@ -58,7 +58,7 @@ namespace std {
 	
 	void IoService::runConfig()
 	{
-		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		ArchiveService& archiveService_ = Service<ArchiveService>::instance();
 		archiveService_.loadStream(this);
 	}
 	

@@ -8,7 +8,7 @@ namespace std {
 	{
 		MySqlConnectionPtr& mySqlConnection_ = this->getConnection();
 		if (!mySqlConnection_) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1("!mySqlConnection_"));
 			return Error_::mDbError_;
 		}
@@ -21,7 +21,7 @@ namespace std {
 	{
 		MySqlConnectionPtr& mySqlConnection_ = this->getConnection();
 		if (!mySqlConnection_) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1("!mySqlConnection_"));
 			return Error_::mDbError_;
 		}
@@ -51,7 +51,7 @@ namespace std {
 			mMySqlConnections.push_back(mySqlConnection_);
 			return mMySqlConnections.back();
 		} else {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(connectionCount_));
 			return __defaultptr<MySqlConnection>();
 		}
@@ -59,7 +59,7 @@ namespace std {
 	
 	void MySqlDataBase::runLoad()
 	{
-		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		ArchiveService& archiveService_ = Service<ArchiveService>::instance();
 		archiveService_.xmlStream(this);
 	}
 	

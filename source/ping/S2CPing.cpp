@@ -7,7 +7,7 @@ namespace std {
 #ifdef __CLIENT__
 	bool S2CPing::handleRun(SessionPtr& nSession)
 	{
-		PingProtocol& pingProtocol_ = Singleton<PingProtocol>::instance();
+		PingProtocol& pingProtocol_ = Service<PingProtocol>::instance();
 		pingProtocol_.finishPing();
 		nSession->setSecond(mSecond);
 		return true;

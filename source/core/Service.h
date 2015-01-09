@@ -13,8 +13,7 @@ namespace std {
 		}
 		
 		Service() {
-			InitService& initService_ = 
-				Singleton<InitService>::instance();
+			InitService& initService_ = Singleton<InitService>::instance();
 			__i32 classId_ = __classid<__t>();
 			initService_.registerService( classId_,(&mT) );
 		}

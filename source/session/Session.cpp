@@ -5,7 +5,7 @@ namespace std {
 	bool Session::runSend(PacketPtr& nPacket)
 	{
 		if ( SessionState_::mClosed_ == mSessionState ) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(mSessionState));
 			return false;
 		}
@@ -28,7 +28,7 @@ namespace std {
 				asio::placeholders::error,
 				asio::placeholders::bytes_transferred));
 		} catch (boost::system::system_error& e) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(e.what()));
 			this->runClose();
 		}
@@ -38,22 +38,22 @@ namespace std {
 	{
 		mReadTimer.cancel();
 		if (nError) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(nError.message()));
 			this->runClose();
 			return;
 		}
 		BlockPushType_ blockPushType_ = mReadBlock->runPush(mReadBuffer.data(), nBytes);
 		if (BlockPushType_::mError_ == blockPushType_) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1("mBlockPushTypeError_ == blockPushType_"));
 			this->runClose();
 			return;
 		}
 		if (BlockPushType_::mLength_ == blockPushType_) return;
-		ProtocolService& protocolService_ = Singleton<ProtocolService>::instance();
+		ProtocolService& protocolService_ = Service<ProtocolService>::instance();
 		if (!protocolService_.runReadBlock(mReadBlock, shared_from_this())) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1("protocolService_.runReadBlock"));
 			this->runClose();
 			return;
@@ -66,7 +66,7 @@ namespace std {
 	void Session::handleReadTimeout(const boost::system::error_code& nError)
 	{
 		if (mReadTimer.expires_at() <= asio::deadline_timer::traits_type::now()) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(nError.message()));
 			mReadTimer.expires_at(boost::posix_time::pos_infin);
 			this->runClose();
@@ -77,13 +77,13 @@ namespace std {
 	{
 		mWriteTimer.cancel();
 		if (nError) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(nError.message()));
 			this->runClose();
 			return;
 		}
 	#ifdef __CLIENT__
-		TimeService& timeService_ = Singleton<TimeService>::instance();
+		TimeService& timeService_ = Service<TimeService>::instance();
 		mSendTick = timeService_.getLocalTime();
 	#endif
 		this->internalSend();
@@ -93,7 +93,7 @@ namespace std {
 	bool Session::isSendTick()
 	{
 		if (SessionState_::mClosed_ == mSessionState)  return false;
-		TimeService& timeService_ = Singleton<TimeService>::instance();
+		TimeService& timeService_ = Service<TimeService>::instance();
 		__i64 second_ = timeService_.getLocalTime();
 		return ( (second_ - mSendTick) > 280 );
 	}
@@ -102,7 +102,7 @@ namespace std {
 	void Session::handleWriteTimeout(const boost::system::error_code& nError)
 	{
 		if (mWriteTimer.expires_at() <= asio::deadline_timer::traits_type::now()) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(nError.message()));
 			mWriteTimer.expires_at(boost::posix_time::pos_infin);
 			this->runClose();
@@ -144,13 +144,13 @@ namespace std {
 				mSocket.shutdown(asio::socket_base::shutdown_both, error_);
 				mSocket.close(error_);
 				mSecond = 0;
-				SessionService& sessionService_ = Singleton<SessionService>::instance();
+				SessionService& sessionService_ = Service<SessionService>::instance();
 				sessionService_.removeSession(mSessionId);
 			#ifdef __CLIENT__
 				mSendTick = 0;
 			#endif
 			} catch (boost::system::system_error& e) {
-				LogService& logService_ = Singleton<LogService>::instance();
+				LogService& logService_ = Service<LogService>::instance();
 				logService_.logError(log_1(e.what()));
 			}
 		}
@@ -212,7 +212,7 @@ namespace std {
 			mSending = true;
 		}
 		catch (boost::system::system_error& e) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(e.what()));
 			this->runClose();
 		}

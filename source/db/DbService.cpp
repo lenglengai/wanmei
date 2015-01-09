@@ -161,7 +161,7 @@ namespace std {
 			initTable_ = false;
 		}
 		if ( initTable_ && mGameDb->runOpen() ) {
-			InitService initService_ = Service<InitService>::instance();
+			InitService& initService_ = Singleton<InitService>::instance();
 			initService_.runInitTable();
 		}
 	#endif

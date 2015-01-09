@@ -57,7 +57,7 @@ namespace std {
     {
         auto it = mArchives.find(nArchive);
         if ( it != mArchives.end()) {
-            LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
             logService_.logError(log_1(nArchive));
             return;
         }

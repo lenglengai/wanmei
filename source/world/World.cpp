@@ -6,6 +6,10 @@ namespace std {
 	{
 	}
 	
+	void World::runClear()
+	{
+	}
+	
 #ifdef __CONSOLE__
 	void World::runStringWriter(StringWriter * nStringWriter)
 	{
@@ -56,7 +60,7 @@ namespace std {
 	
 	void World::runInit()
 	{
-		LuaService& luaService_ = Singleton<LuaService>::instance();
+		LuaService& luaService_ = Service<LuaService>::instance();
 		mLuaEngine = luaService_.createLuaEngine();
 	}
 

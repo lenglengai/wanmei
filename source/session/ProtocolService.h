@@ -15,7 +15,7 @@ namespace std {
 			__i32 protocolId = __classid<__t>();
 			auto it = mProtocols.find(protocolId);
 			if (it != mProtocols.end()) {
-				LogService& logService_ = Singleton<LogService>::instance();
+				LogService& logService_ = Service<LogService>::instance();
 				logService_.logError(log_1(protocolId));
 				return;
 			}

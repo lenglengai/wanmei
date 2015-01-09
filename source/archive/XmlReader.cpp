@@ -195,7 +195,7 @@ namespace std {
 		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
 		if (nullptr == xmlAttribute_) return;
 		char * text_ = xmlAttribute_->value();
-		CrcService& crcService = Singleton<CrcService>::instance();
+		CrcService& crcService = Service<CrcService>::instance();
 		nValue = crcService.runCommon(text_);
 	}
 
@@ -203,7 +203,7 @@ namespace std {
 	{
 		xml_node<char> * xmlNode_ = mXmlNode->first_node(nNames);
 		if (nullptr == xmlNode_) return;
-		CrcService& crcService = Singleton<CrcService>::instance();
+		CrcService& crcService = Service<CrcService>::instance();
 		xmlNode_ = xmlNode_->first_node();
 		for (; xmlNode_ != NULL; xmlNode_ = xmlNode_->next_sibling()) {
 			char * text_ = xmlNode_->value();
@@ -219,7 +219,7 @@ namespace std {
 		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(name_.c_str());
 		if (nullptr == xmlAttribute_) return;
 		char * text_ = xmlAttribute_->value();
-		CrcService& crcService = Singleton<CrcService>::instance();
+		CrcService& crcService = Service<CrcService>::instance();
 		nValue = crcService.runCommon(text_);
 	}
 
@@ -238,7 +238,7 @@ namespace std {
 	{
 		xml_attribute<char> * xmlAttribute_ = mXmlNode->first_attribute(nName);
 		if (nullptr == xmlAttribute_) return;
-		CrcService& crcService = Singleton<CrcService>::instance();
+		CrcService& crcService = Service<CrcService>::instance();
 		string text_ = xmlAttribute_->value();
 		boost::trim_if(text_, boost::is_any_of("; "));
 		list<string> splits;
@@ -483,10 +483,14 @@ namespace std {
 		}
 		return false;
 #else
-		mFileDoc.reset(new file<char>(nUrl));
-		mXmlDocument.parse<0>(mFileDoc->data());
-		mXmlNode = mXmlDocument.first_node();
-		return true;
+		try {
+			mFileDoc.reset(new file<char>(nUrl));
+			mXmlDocument.parse<0>(mFileDoc->data());
+			mXmlNode = mXmlDocument.first_node();
+			return true;
+		} catch (runtime_error&) {
+			return false;
+		}
 #endif
 	}
 

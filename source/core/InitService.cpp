@@ -7,15 +7,24 @@ namespace std {
 	void InitService::runCommand(const CommandArgs& nCommandArgs)
 	{
 		if (mClientConsole) {
+			IService * service_ = nullptr;
 			const string& strService_ = nCommandArgs.getService();
 			__i32 serviceId_ = __stringid(strService_.c_str());
-			map<__i32, IService *>::iterator it = mServices.find(serviceId_);
-			if (it == mServices.end()) {
-				LogService& logService_ = Singleton<LogService>::instance();
+			__i32 initServiceId_ = __classid<InitService>();
+			if (serviceId_ == initServiceId_) {
+				service_ = this;
+			}
+			if (nullptr != service_) {
+				map<__i32, IService *>::iterator it = mServices.find(serviceId_);
+				if (it != mServices.end()) {
+					service_ = it->second;
+				}
+			}
+			if (nullptr == service_) {
+				LogService& logService_ = Service<LogService>::instance();
 				logService_.logInfo(log_3("not find service", strService_, serviceId_));
 				return;
 			}
-			IService * service_ = it->second;
 			const StringWriterPtr stringWriter_ = service_->runCommand(nCommandArgs);
 			if (stringWriter_) {
 				std::cout << stringWriter_->getValue() << std::endl;
@@ -154,8 +163,13 @@ namespace std {
 	
 	bool InitService::runPreinit()
 	{
-		__i32 classId_ = __classid<InitService>();
-		this->registerService(classId_, this);
+		map<__i32, IService *>::iterator it = mServices.begin();
+		for (; it != mServices.end(); ++it) {
+			IService *& service_ = it->second;
+			if (!service_->runPreinit()) {
+				return false;
+			}
+		}
 	#ifdef __CONSOLE__
 		this->registerCommand("info", std::bind(&InitService::commandInfo, this, placeholders::_1));
 		this->registerCommand("resume", std::bind(&InitService::commandResume, this, placeholders::_1));
@@ -164,13 +178,6 @@ namespace std {
 		this->registerCommand("findId", std::bind(&InitService::commandFindId, this, placeholders::_1));
 		this->registerCommand("initTable", std::bind(&InitService::commandInitTable, this, placeholders::_1));
 	#endif
-		map<__i32, IService *>::iterator it = mServices.begin();
-		for ( ; it != mServices.end(); ++it ) {
-			IService *& service_ = it->second;
-			if ( !service_->runPreinit() ) {
-				return false;
-			}
-		}
 		return true;
 	}
 	
@@ -183,10 +190,9 @@ namespace std {
 	void InitService::runLuaApi()
 	{
 	#ifdef __EXPLUA__
-		LuaService& luaService_ = Singleton<LuaService>::instance();
+		LuaService& luaService_ = Service<LuaService>::instance();
 		luaService_.runClass<InitService>("InitService");
-		luaService_.runFun(&InitService::getInitService, "InitService");
-		
+		luaService_.runFun(&InitService::getInitService, "getInitService");
 		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;

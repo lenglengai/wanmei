@@ -6,7 +6,7 @@ namespace std {
 	{
 		auto it = mPacketIds.find(nPacketType);
 		if (it == mPacketIds.end()) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(nPacketType));
 			return __defaultptr<IPacketId>();
 		}
@@ -18,7 +18,7 @@ namespace std {
 		__i32 packetId_ = nPacketId->getPacketId();
 		auto it = mPacketIds.find(packetId_);
 		if (it != mPacketIds.end()) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(packetId_));
 			return;
 		}

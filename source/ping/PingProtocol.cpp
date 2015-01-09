@@ -35,7 +35,7 @@ namespace std {
 	
 	void PingProtocol::initBegin()
 	{
-		ProtocolService& protocolService_ =  Singleton<ProtocolService>::instance();
+		ProtocolService& protocolService_ = Service<ProtocolService>::instance();
 		protocolService_.runRegister(this);
 
 	#ifdef __CLIENT__
@@ -51,7 +51,7 @@ namespace std {
 	void PingProtocol::startBegin()
 	{
 	#ifdef __CLIENT__
-		HandleService& handleService_ = Singleton<HandleService>::instance();
+		HandleService& handleService_ = Service<HandleService>::instance();
 		handleService_.addContext(mPingTick, 1);
 	#endif
 	}
@@ -65,8 +65,8 @@ namespace std {
 
 	void PingProtocol::finishPing()
 	{
-		TimeService& timeService_ = Singleton<TimeService>::instance();
-		__i64 second_ = timeService_.getLocalTime();
+		TimeService& timeService_ = Service<TimeService>::instance();
+		__i32 second_ = timeService_.getLocalTime();
 		mPing = second_ - mClock;
 	}
 #endif

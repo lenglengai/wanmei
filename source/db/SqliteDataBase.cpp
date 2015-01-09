@@ -16,7 +16,7 @@ namespace std {
 		sqlite3_stmt * statement_ = nullptr;
 		int errorCode_ = sqlite3_prepare_v2(mSqlite, strSql.c_str(), -1, &statement_, &tail_);
 		if (SQLITE_OK != errorCode_) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(sqlite3_errmsg(mSqlite)));
 			return Error_::mDbError_;
 		}
@@ -24,12 +24,12 @@ namespace std {
 		if (SQLITE_DONE == errorCode_) {
 			return Error_::mSucess_;
 		} else if (SQLITE_ROW == errorCode_) {
-			SqliteQuery sqliteQuery_(mSqlite, statement_);
+			SqliteQuery sqliteQuery_(statement_, mSqlite);
 			sqlCommand.runQuery(nSqlHeadstream, &sqliteQuery_);
 			return Error_::mSucess_;
 		} else {
 			errorCode_ = sqlite3_finalize(statement_);
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(sqlite3_errmsg(mSqlite)));
 			return Error_::mDbError_;
 		}
@@ -39,7 +39,7 @@ namespace std {
 	{
 		int errorCode_ = sqlite3_exec(mSqlite, nSql, 0, 0, &mErrorMsg);
 		if (SQLITE_OK != errorCode_) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(mErrorMsg));
 			return Error_::mDbError_;
 		}
@@ -51,7 +51,7 @@ namespace std {
 	{
 		int errorCode_ = sqlite3_open(mDbName.c_str(), &mSqlite);
 		if(SQLITE_OK != errorCode_) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(sqlite3_errmsg(mSqlite)));
 			sqlite3_close(mSqlite);
 			return false;
@@ -65,7 +65,7 @@ namespace std {
 		if (mIsClosed) return;
 		int errorCode_ = sqlite3_close(mSqlite);
 		if(SQLITE_OK != errorCode_) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(sqlite3_errmsg(mSqlite)));
 		}
 	}

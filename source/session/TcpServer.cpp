@@ -38,7 +38,7 @@ namespace std {
 	{
 		if (nError) {
 			this->stopEnd();
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(nError.message()));
 			return;
 		}
@@ -49,13 +49,13 @@ namespace std {
 	void TcpServer::startAccept()
 	{
 		try {
-			SessionService& sessionService_ = Singleton<SessionService>::instance();
+			SessionService& sessionService_ = Service<SessionService>::instance();
 			mNewSession = &(sessionService_.createSession());
 			mAcceptor->async_accept((*mNewSession)->getSocket(),
 				boost::bind(&TcpServer::handleAccept, this,
 				boost::asio::placeholders::error));
 		} catch (boost::system::system_error& e) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(e.what()));
 		}
 	}
@@ -81,13 +81,13 @@ namespace std {
 
 	void TcpServer::runConfig()
 	{
-		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		ArchiveService& archiveService_ = Service<ArchiveService>::instance();
 		archiveService_.loadStream(this);
 	}
 
 	void TcpServer::startBegin()
 	{
-		IoService& ioService_ = Singleton<IoService>::instance();
+		IoService& ioService_ = Service<IoService>::instance();
 		mAcceptor.reset(new asio::ip::tcp::acceptor(ioService_.getIoService()));
 
 		asio::ip::tcp::resolver resolver_(mAcceptor->get_io_service());

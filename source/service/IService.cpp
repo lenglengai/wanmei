@@ -8,7 +8,7 @@ namespace std {
 		const string& flags_ = nCommandArgs.getFlags();
 		map<string, CommandRunPtr>::iterator it = mCommandRuns.find(flags_);
 		if ( it == mCommandRuns.end() ) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_2("not find flags", flags_));
 			return __defaultptr<StringWriter>();
 		}
@@ -21,7 +21,7 @@ namespace std {
 		string flags_(nFlags);
 		map<string, CommandRunPtr>::iterator it = mCommandRuns.find(flags_);
 		if ( it != mCommandRuns.end() ) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(nFlags));
 			return;
 		}
@@ -132,8 +132,7 @@ namespace std {
 	
 	bool IService::isPause() const
 	{
-		InitService& initService = 
-			Singleton<InitService>::instance();
+		InitService& initService = Singleton<InitService>::instance();
 		return initService.isPause();
 	}
 	

@@ -7,11 +7,11 @@ namespace std {
 
 	void Console::runContext()
 	{
-		TimeService& timeService_ = Singleton<TimeService>::instance();
+		TimeService& timeService_ = Service<TimeService>::instance();
 		__i32 startTime_ = timeService_.getStartTime();
 		if (startTime_ < 10) return;
 		if (mCommand) {
-			this->runCommandBat(__default<string>());
+			this->runCommandBat(__defaultstr());
 			mCommand = false;
 		}
 		this->runConsole();
@@ -37,7 +37,7 @@ namespace std {
 		if ("" != nStreamUrl) {
 			commandBat.setStreamUrl(nStreamUrl.c_str());
 		}
-		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		ArchiveService& archiveService_ = Service<ArchiveService>::instance();
 		archiveService_.xmlStream(&commandBat);
 		const list<string>& commands_ = commandBat.getCommands();
 		for (auto& it : commands_) {

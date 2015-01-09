@@ -8,11 +8,12 @@ namespace std {
 	{
 	public:
 		bool runSend(PacketPtr& nPacket);
+	#ifdef __SERVER__
 		void loginSession(SessionPtr& nSession);
 		void logoutSession();
 		void lookSession(SessionPtr& nSession);
 		void lookoutSession(const __i32 nSessionId);
-	
+	#endif
 		void setWireId(const __i16 nWireId);
 		__i16 getWireId() const;
 		void runSwitch();

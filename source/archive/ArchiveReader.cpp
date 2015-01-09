@@ -17,7 +17,7 @@ namespace std {
 		mBinReader.runRead(mCommon, archiveHash->getEnd());
 		(*nBuf) = new char[archiveHash->getSize()];
 		(*nSize) = archiveHash->getSize();
-		CompressService& compressService = Singleton<CompressService>::instance();
+		CompressService& compressService = Service<CompressService>::instance();
 		compressService.unBZip2(mCommon, archiveHash->getEnd(), (*nBuf), nSize);
 		return true;
 	}

@@ -53,7 +53,7 @@ namespace std {
 	{
 		mConnectTimer->cancel();
 		if (nError) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(nError.message()));
 			return;
 		}
@@ -63,11 +63,11 @@ namespace std {
 	void TcpClient::handleConnectTimeout(const boost::system::error_code& nError)
 	{
 		if (nError) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(nError.message()));
 		}
 		if (mConnectTimer->expires_at() <= asio::deadline_timer::traits_type::now()) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(nError.message()));
 			mConnectTimer->expires_at(boost::posix_time::pos_infin);
 		}
@@ -76,7 +76,7 @@ namespace std {
 	void TcpClient::startConnect()
 	{
 		try {
-			IoService& ioService_ = Singleton<IoService>::instance();
+			IoService& ioService_ = Service<IoService>::instance();
 			asio::io_service& ioservice = ioService_.getIoService();
 			asio::ip::tcp::resolver resolver_(ioservice);
 			asio::ip::tcp::resolver::query query_(mAddress, mPort);
@@ -88,7 +88,7 @@ namespace std {
 			mConnectTimer->async_wait(boost::bind(&TcpClient::handleConnectTimeout, 
 				this, boost::asio::placeholders::error));
 		} catch (boost::system::system_error& e) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(e.what()));
 		}
 	}
@@ -122,17 +122,17 @@ namespace std {
 
 	void TcpClient::runConfig()
 	{
-		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		ArchiveService& archiveService_ = Service<ArchiveService>::instance();
 		archiveService_.loadStream(this);
 	}
 
 	void TcpClient::startBegin()
 	{
-		IoService& ioService_ = Singleton<IoService>::instance();
+		IoService& ioService_ = Service<IoService>::instance();
 		asio::io_service& ioservice = ioService_.getIoService();
 		mConnectTimer.reset(new asio::deadline_timer(ioservice));
 		
-		SessionService& sessionService_ = Singleton<SessionService>::instance();
+		SessionService& sessionService_ = Service<SessionService>::instance();
 		mSession = &(sessionService_.createSession());
 		
 		this->startConnect();

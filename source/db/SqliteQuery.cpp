@@ -37,7 +37,7 @@ namespace std {
 	
 	void SqliteQuery::runFloat(float& nValue)
 	{
-		nValue = sqlite3_column_double(mStatement, mIndex);
+		nValue = static_cast<float>(sqlite3_column_double(mStatement, mIndex));
 		++mIndex;
 	}
 	
@@ -49,7 +49,7 @@ namespace std {
 	
 	void SqliteQuery::runString(string& nValue)
 	{
-		nValue = static_cast<const char *>(sqlite3_column_text(mStatement, mIndex));
+		nValue = (const char *)(sqlite3_column_text(mStatement, mIndex));
 		++mIndex;
 	}
 	
@@ -64,23 +64,23 @@ namespace std {
 
 	bool SqliteQuery::nextRow()
 	{
-		int errorCode_ = sqlite3_step(nStatement);
+		int errorCode_ = sqlite3_step(mStatement);
 		if (SQLITE_DONE == errorCode_) {
 			return false;
 		}
 		if (SQLITE_ROW == errorCode_) {
 			return true;
 		}
-		errorCode_ = sqlite3_finalize(nStatement);
+		errorCode_ = sqlite3_finalize(mStatement);
 		if (SQLITE_OK != errorCode_) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(sqlite3_errmsg(mSqlite)));
 		}
-		nStatement = nullptr;
+		mStatement = nullptr;
 		return false;
 	}
 	
-	SqliteQuery::SqliteQuery(ssqlite3_stmt * nStatement, sqlite3 * nSqlite)
+	SqliteQuery::SqliteQuery(sqlite3_stmt * nStatement, sqlite3 * nSqlite)
 		: mStatement (nStatement)
 		, mSqlite (nSqlite)
 		, mIndex (0)
@@ -90,12 +90,12 @@ namespace std {
 	SqliteQuery::~SqliteQuery()
 	{
 		if (nullptr != mStatement) {
-			int errorCode_ = sqlite3_finalize(nStatement);
+			int errorCode_ = sqlite3_finalize(mStatement);
 			if (SQLITE_OK != errorCode_) {
-				LogService& logService_ = Singleton<LogService>::instance();
+				LogService& logService_ = Service<LogService>::instance();
 				logService_.logError(log_1(sqlite3_errmsg(mSqlite)));
 			}
-			nStatement = nullptr;
+			mStatement = nullptr;
 		}
 	}
 	

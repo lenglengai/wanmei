@@ -16,11 +16,12 @@ namespace std {
 		return false;
 	}
 	
+#ifdef __SERVER__
 	void Player::loginSession(SessionPtr& nSession)
 	{
 		if (nullptr != mSession) {
 			__i32 sessionId_ = (*mSession)->getSessionId();
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(sessionId_));
 			return;
 		}
@@ -30,7 +31,7 @@ namespace std {
 	void Player::logoutSession()
 	{
 		if (nullptr == mSession) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_0());
 			return;
 		}
@@ -42,7 +43,7 @@ namespace std {
 		__i32 sessionId_ = nSession->getSessionId();
 		auto it = mSessions.find(sessionId_);
 		if ( it != mSessions.end() ) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(sessionId_));
 			return;
 		}
@@ -53,12 +54,13 @@ namespace std {
 	{
 		auto it = mSessions.find(nSessionId);
 		if ( it == mSessions.end() ) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(nSessionId));
 			return;
 		}
 		mSessions.erase(it);
 	}
+#endif
 	
 	void Player::setWireId(const __i16 nWireId)
 	{

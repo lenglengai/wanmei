@@ -7,7 +7,7 @@ namespace std {
 		__i32 propertyId_ = nPropertyId.getPropertyId();
 		auto it = mPropertys.find(propertyId_);
 		if (it == mPropertys.end()) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(propertyId_));
 			return __defaultptr<Property>();
 		}
@@ -19,7 +19,7 @@ namespace std {
 		__i32 propertyId_ = nPropertyId->getPropertyId();
 		auto it = mPropertys.find(propertyId_);
 		if (it != mPropertys.end()) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(propertyId_));
 			return;
 		}

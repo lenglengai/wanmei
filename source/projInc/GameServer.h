@@ -12,4 +12,5 @@
 #define __WITHSQL__
 #define __WITHMYSQL__
 #define __TCPSERVER__
+#define __RUNING__
 #define __PING__

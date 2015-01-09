@@ -52,14 +52,14 @@ namespace std {
 	
 	TimeService * TimeService::getTimeService()
 	{
-		TimeService& timeService_ = Singleton<TimeService>::instance();
+		TimeService& timeService_ = Service<TimeService>::instance();
 		return (&timeService_);
 	}
 	
 	void TimeService::runLuaApi()
 	{
 	#ifdef __EXPLUA__
-		LuaService& luaService_ = Singleton<LuaService>::instance();
+		LuaService& luaService_ = Service<LuaService>::instance();
 		luaService_.runClass<TimeService>("TimeService");
 		luaService_.runFun(&TimeService::getTimeService, "getTimeService");
 		luaService_.runMethod<TimeService>(&TimeService::getServerTime, "getServerTime");
@@ -85,7 +85,7 @@ namespace std {
 		time_t startTime = this->fromTime(STARTYEAR, STARTMONTH, STARTDAY);
 		chrono::system_clock::time_point startPoint = chrono::system_clock::from_time_t(startTime);
 		if (startPoint > nowPoint) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1("startPoint > nowPoint!"));
 			return false;
 		}
@@ -93,7 +93,7 @@ namespace std {
 		time_t endTime = this->fromTime(ENDYEAR, ENDMONTH, ENDDAY);
 		chrono::system_clock::time_point endPoint = chrono::system_clock::from_time_t(endTime);
 		if (nowPoint > endPoint) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1("nowPoint > endPoint!"));
 			return false;
 		}

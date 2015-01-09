@@ -120,7 +120,7 @@ namespace std {
 
 	LogService * LogService::getLogService()
 	{
-		LogService& logService_ = Singleton<LogService>::instance();
+		LogService& logService_ = Service<LogService>::instance();
 		return (&logService_);
 	}
 	
@@ -164,7 +164,7 @@ namespace std {
 	void LogService::runLuaApi()
 	{
 	#ifdef __EXPLUA__
-		LuaService& luaService_ = Singleton<LuaService>::instance();
+		LuaService& luaService_ = Service<LuaService>::instance();
 		luaService_.runClass<LogService>("LogService");
 		luaService_.runFun(&LogService::getLogService, "getLogService");
 		luaService_.runMethod<LogService>(&LogService::luaError, "logError");

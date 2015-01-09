@@ -172,7 +172,7 @@ namespace std {
 
 	__i64 CrcService::runId(const char * nName) const
 	{
-		TimeService& timeService_ = Singleton<TimeService>::instance();
+		TimeService& timeService_ = Service<TimeService>::instance();
 		__i32 seconds_ = timeService_.getLocalTime();
 		seconds_ /= 10; __i64 result_ = this->runCommon(nName);
 		result_ <<= 32; result_ += seconds_;
@@ -181,7 +181,7 @@ namespace std {
 
 	__i64 CrcService::runId(const __i32 nId) const
 	{
-		TimeService& timeService_ = Singleton<TimeService>::instance();
+		TimeService& timeService_ = Service<TimeService>::instance();
 		__i32 seconds_ = timeService_.getLocalTime();
 		seconds_ /= 10; __i64 result_ = nId;
 		result_ <<= 32; result_ += seconds_;
@@ -253,7 +253,7 @@ namespace std {
 	
 	CrcService * CrcService::getCrcService()
 	{
-		CrcService& crcService_ = Singleton<CrcService>::instance();
+		CrcService& crcService_ = Service<CrcService>::instance();
 		return (&crcService_);
 	}
 
@@ -279,7 +279,7 @@ namespace std {
 	void CrcService::runLuaApi()
 	{
 	#ifdef __EXPLUA__
-		LuaService& luaService_ = Singleton<LuaService>::instance();
+		LuaService& luaService_ = Service<LuaService>::instance();
 		luaService_.runClass<CrcService>("CrcService");
 		luaService_.runFun(&CrcService::getCrcService, "getCrcService");
 		luaService_.runMethod<CrcService>(&CrcService::runCommon, "runCommon");

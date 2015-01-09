@@ -22,7 +22,7 @@ namespace std {
 	void HandleService::addContext(ContextPtr& nContext, const __i32 nIndex)
 	{
 		if (nIndex > mHandleCount) {
-			LogService& logService_ = Singleton<LogService>::instance();
+			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(nIndex));
 			return;
 		}
@@ -55,7 +55,7 @@ namespace std {
 	
 	void HandleService::runConfig()
 	{
-		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		ArchiveService& archiveService_ = Service<ArchiveService>::instance();
 		archiveService_.loadStream(this);
 	}
 	

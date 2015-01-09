@@ -10,7 +10,7 @@ namespace std {
 	{
 		__i32 second_ = nSession->getSecond();
 		if (second_ != mSecond) return false;
-		RandomService& randomService_ = Singleton<RandomService>::instance();
+		RandomService& randomService_ = Service<RandomService>::instance();
 		second_ = randomService_.runRandom();
 		nSession->setSecond(second_);
 		PacketPtr packet_(new S2CPing(second_));

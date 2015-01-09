@@ -21,7 +21,7 @@ namespace std {
 		
 		bool nextRow() OVERRIDE FINAL;
 		
-		SqliteQuery(sqlite3_stmt * nStatement);
+		SqliteQuery(sqlite3_stmt * nStatement, sqlite3 * nSqlite);
 		~SqliteQuery();
 	
 	private:

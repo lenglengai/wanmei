@@ -72,11 +72,11 @@ namespace std {
 		mMYSQL_RES = mysql_store_result(&mMYSQL);
 		if (!mMYSQL_RES) {
 			if (0 != mysql_errno(&mMYSQL)) {
-				LogService& logService_ = Singleton<LogService>::instance();
+				LogService& logService_ = Service<LogService>::instance();
 				logService_.logError(log_1(mysql_error(&mMYSQL)));
 				return Error_::mDbError_;
 			}  else {
-				LogService& logService_ = Singleton<LogService>::instance();
+				LogService& logService_ = Service<LogService>::instance();
 				logService_.logError(log_1("mysql_store_result"));
 				return Error_::mDbError_;
 			}

@@ -51,7 +51,7 @@ namespace std{
 	#ifdef __CLIENT__
 		mWorld.reset(new World());
 	#endif
-		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		ArchiveService& archiveService_ = Service<ArchiveService>::instance();
 		archiveService_.loadStream(this);
 	}
 	
@@ -70,7 +70,7 @@ namespace std{
 	
 	void WorldService::startBegin()
 	{
-		HandleService& handleService_ = Singleton<HandleService>::instance();
+		HandleService& handleService_ = Service<HandleService>::instance();
 	#ifdef __CLIENT__
 		ContextPtr context_ = dynamic_pointer_cast<Context, World>(mWorld);
 		handleService_.addContext(context_, mWorld->getHandleId());

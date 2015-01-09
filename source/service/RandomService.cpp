@@ -59,14 +59,14 @@ namespace std {
 	
 	RandomService * RandomService::getRandomService()
 	{
-		RandomService& randomService_ = Singleton<RandomService>::instance();
+		RandomService& randomService_ = Service<RandomService>::instance();
 		return (&randomService_);
 	}
 
 	void RandomService::runLuaApi()
 	{
 	#ifdef __EXPLUA__
-		LuaService& luaService_ = Singleton<LuaService>::instance();
+		LuaService& luaService_ = Service<LuaService>::instance();
 		luaService_.runClass<RandomService>("RandomService");
 		luaService_.runFun(&RandomService::getRandomService, "getRandomService");
 		luaService_.runMethod<RandomService>(&RandomService::luaRandom, "runRandom");

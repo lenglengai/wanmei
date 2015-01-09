@@ -6,7 +6,7 @@ namespace std {
 #ifdef __SERVER__
 	void IDataBase::runLoad()
 	{
-		ArchiveService& archiveService_ = Singleton<ArchiveService>::instance();
+		ArchiveService& archiveService_ = Service<ArchiveService>::instance();
 		archiveService_.xmlStream(this);
 	}
 	
