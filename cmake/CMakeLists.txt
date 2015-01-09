@@ -35,8 +35,8 @@ set( BIN_PATH ${ROOT_PATH}/${__WORKSPACE__}/binary )
 
 set(EXECUTABLE_OUTPUT_PATH ${BIN_PATH})
 ##############################################################
-set( MAIN_SRC  ${SRC_PATH}/Main.cpp )
-set( MAIN_H  ${SRC_PATH}/Include.h )
+set( MAIN_H  ${SRC_PATH}/Include.h 
+		${SRC_PATH}/Logic.h )
 ##############################################################
 set( commons ${SRC_PATH}/common )
 
@@ -60,24 +60,7 @@ SET( COMMON_H
 set( cores ${SRC_PATH}/core )
 
 set( CORE_SRC
-	${cores}/StringWriter.cpp
-	${cores}/CommandArgs.cpp
-	${cores}/IService.cpp
-	${cores}/ServiceMgr.cpp
-	${cores}/Preinit.cpp
-	${cores}/CrcService.cpp 
-	${cores}/Context.cpp 
-	${cores}/Handle.cpp 
-	${cores}/HandleService.cpp
-	${cores}/LogService.cpp
 	${cores}/InitService.cpp
-	${cores}/TimeService.cpp
-	${cores}/DebugService.cpp
-	${cores}/LuaEngine.cpp
-	${cores}/LuaService.cpp
-	${cores}/CompressService.cpp
-	${cores}/RandomService.cpp
-	${cores}/TimeService.cpp
 	${cores}/Console.cpp 
 	${cores}/Property.cpp 
 	${cores}/PropertyMgr.cpp 
@@ -86,34 +69,66 @@ set( CORE_SRC
 	${cores}/CommandBat.cpp )
 
 SET( CORE_H
-	${cores}/StringWriter.h
-	${cores}/CommandArgs.h
-	${cores}/IService.h
-	${cores}/ServiceMgr.h
-	${cores}/Preinit.h
-	${cores}/CrcService.h 
-	${cores}/Context.h 
-	${cores}/Handle.h 
-	${cores}/HandleService.h
-	${cores}/LogService.h
+	${cores}/Service.h
 	${cores}/InitService.h
-	${cores}/TimeService.h
-	${cores}/LuaEngine.h
-	${cores}/LuaService.h
-	${cores}/CompressService.h
-	${cores}/RandomService.h
-	${cores}/TimeService.h
-	${cores}/DebugService.h
 	${cores}/Console.h 
 	${cores}/IPropertyId.h 
 	${cores}/Property.h
 	${cores}/PropertyId.h 
 	${cores}/PropertyMgr.h 
 	${cores}/PropertySink.h 
-	${cores}/Console.h 
 	${cores}/CommandBat.h )
-file(COPY ${cores}/handleServer.xml DESTINATION ${BIN_PATH})
-file(COPY ${cores}/handleClient.xml DESTINATION ${BIN_PATH})
+##############################################################
+set( accounts ${SRC_PATH}/account )
+
+set( ACCOUNT_SRC
+	${accounts}/AccountTB.cpp
+	${accounts}/AccountService.cpp 
+	${accounts}/AccountAll.cpp 
+	${accounts}/Account.cpp )
+
+SET( ACCOUNT_H
+	${accounts}/AccountTB.h
+	${accounts}/AccountService.h
+	${accounts}/AccountAll.h 
+	${accounts}/Account.h )
+##############################################################
+set( services ${SRC_PATH}/service )
+
+set( SERVICE_SRC
+	${services}/StringWriter.cpp
+	${services}/CommandArgs.cpp
+	${services}/IService.cpp
+	${services}/CrcService.cpp 
+	${services}/Context.cpp 
+	${services}/Handle.cpp 
+	${services}/HandleService.cpp
+	${services}/LogService.cpp
+	${services}/TimeService.cpp
+	${services}/DebugService.cpp
+	${services}/LuaEngine.cpp
+	${services}/LuaService.cpp
+	${services}/CompressService.cpp
+	${services}/RandomService.cpp)
+
+SET( SERVICE_H
+	${services}/StringWriter.h
+	${services}/CommandArgs.h
+	${services}/IService.h
+	${services}/CrcService.h 
+	${services}/Context.h 
+	${services}/Handle.h 
+	${services}/HandleService.h
+	${services}/LogService.h
+	${services}/TimeService.h
+	${services}/LuaEngine.h
+	${services}/LuaService.h
+	${services}/CompressService.h
+	${services}/RandomService.h
+	${services}/DebugService.h)
+	
+file(COPY ${services}/handleServer.xml DESTINATION ${BIN_PATH})
+file(COPY ${services}/handleClient.xml DESTINATION ${BIN_PATH})
 ##############################################################
 set(archives ${SRC_PATH}/archive )
 
@@ -153,7 +168,9 @@ set( SESSION_SRC
 	${sessions}/ReadBlock.cpp
 	${sessions}/WriteBlock.cpp
 	${sessions}/Session.cpp
-	${sessions}/SessionService.cpp )
+	${sessions}/SessionService.cpp 
+	${sessions}/TcpServer.cpp 
+	${sessions}/TcpClient.cpp )
 
 SET( SESSION_H
 	${sessions}/IBlock.h
@@ -164,21 +181,12 @@ SET( SESSION_H
 	${sessions}/SessionService.h
 	${sessions}/IProtocol.h
 	${sessions}/ProtocolService.h
-	${sessions}/IoService.h )
+	${sessions}/IoService.h 
+	${sessions}/TcpServer.h 
+	${sessions}/TcpClient.h )
 file(COPY ${sessions}/ioClient.xml DESTINATION ${BIN_PATH})
 file(COPY ${sessions}/ioServer.xml DESTINATION ${BIN_PATH})
-##############################################################
-set(players ${SRC_PATH}/player )
-
-set( PLAYER_SRC
-	${tcpClients}/Robot.cpp 
-	${tcpClients}/Tourist.cpp 
-	${tcpClients}/Player.cpp )
-
-SET( PLAYER_H
-	${tcpClients}/Robot.h 
-	${tcpClients}/Tourist.h 
-	${tcpClients}/Player.h )
+file(COPY ${sessions}/tcpAddress.xml DESTINATION ${BIN_PATH})
 ##############################################################
 set(dbs ${SRC_PATH}/db )
 
@@ -186,10 +194,12 @@ set( DBS_SRC
 	${dbs}/SqlCommand.cpp
 	${dbs}/IDbQuery.cpp
 	${dbs}/IDataBase.cpp
-	${dbs}/MySqlDbQuery.cpp
+	${dbs}/MySqlQuery.cpp
 	${dbs}/MySqlConnection.cpp
 	${dbs}/MySqlDataBase.cpp
-	${dbs}/DbService.cpp )
+	${dbs}/DbService.cpp 
+	${dbs}/SqliteDataBase.cpp
+	${dbs}/SqliteQuery.cpp )
 
 SET( DBS_H
 	${dbs}/SqlType_.h
@@ -200,41 +210,33 @@ SET( DBS_H
 	${dbs}/SqlCommand.h
 	${dbs}/IDbQuery.h
 	${dbs}/IDataBase.h
-	${dbs}/MySqlDbQuery.h
+	${dbs}/MySqlQuery.h
 	${dbs}/MySqlConnection.h
 	${dbs}/MySqlDataBase.h
+	${dbs}/SqliteQuery.h
+	${dbs}/SqliteDataBase.h
 	${dbs}/DbService.h)
 file(COPY ${dbs}/gameDb.xml DESTINATION ${BIN_PATH})
 file(COPY ${dbs}/loginDb.xml DESTINATION ${BIN_PATH})
 file(COPY ${dbs}/logDb.xml DESTINATION ${BIN_PATH})
 file(COPY ${dbs}/libmysql.dll DESTINATION ${BIN_PATH})
 ##############################################################
-set(tcpServers ${SRC_PATH}/tcpServer )
-
-set( TCPSERVER_SRC
-	${tcpServers}/TcpServer.cpp )
-
-SET( TCPSERVER_H
-	${tcpServers}/TcpServer.h )
-file(COPY ${tcpServers}/tcpAddress.xml DESTINATION ${BIN_PATH})
-##############################################################
-set(tcpClients ${SRC_PATH}/tcpClient )
-
-set( TCPCLIENT_SRC
-	${tcpClients}/TcpClient.cpp )
-
-SET( TCPCLIENT_H
-	${tcpClients}/TcpClient.h )
-##############################################################
 set(worlds ${SRC_PATH}/world )
 
 set( WORLD_SRC
 	${worlds}/WorldService.cpp 
-	${worlds}/World.cpp )
+	${worlds}/World.cpp 
+	${worlds}/Robot.cpp 
+	${worlds}/Tourist.cpp 
+	${worlds}/Player.cpp )
 
 SET( WORLD_H
 	${worlds}/WorldService.h 
-	${worlds}/World.h )
+	${worlds}/World.h 
+	${tcpClients}/Robot.h 
+	${tcpClients}/Tourist.h 
+	${tcpClients}/Player.h )
+	
 file(COPY ${worlds}/worldClient.xml DESTINATION ${BIN_PATH})
 file(COPY ${worlds}/worldServer.xml DESTINATION ${BIN_PATH})
 ##############################################################
@@ -254,6 +256,7 @@ SET( PING_H
 ##############################################################
 add_subdirectory(libbzlib)
 add_subdirectory(liblua)
+add_subdirectory(libsqlite)
 
 add_executable(${PROJECT_NAME}
 	${MAIN_SRC} ${MAIN_H}
@@ -267,4 +270,4 @@ add_executable(${PROJECT_NAME}
 	${PING_SRC} ${PING_H} 
 	${DBS_SRC} ${DBS_H} )
 	
-target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} libbzlib liblua libmysql)
+target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} libbzlib liblua libsqlite libmysql)
