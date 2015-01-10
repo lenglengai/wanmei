@@ -39,10 +39,10 @@ namespace std {
 		void setDbName(const char * nDbName);
 		const string& getDbName() const;
 		
-	#ifdef __CLIENT__
-		virtual bool runOpen() = 0;
+		virtual bool needCreate() = 0;
+		virtual bool runCreate() = 0;
+		virtual void runOpen() = 0;
 		virtual void runClose() = 0;
-	#endif
 	
 	private:
 		void runClear();

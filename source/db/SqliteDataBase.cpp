@@ -47,6 +47,14 @@ namespace std {
 		return Error_::mSucess_;
 	}
 
+	bool SqliteDataBase::needCreate()
+	{
+	}
+	
+	bool SqliteDataBase::runCreate()
+	{
+	}
+	
 	bool SqliteDataBase::runOpen()
 	{
 		int errorCode_ = sqlite3_open(mDbName.c_str(), &mSqlite);

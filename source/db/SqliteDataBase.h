@@ -10,9 +10,11 @@ namespace std {
 	public:
 		__i16 runSql(ISqlHeadstream * nSqlHeadstream);
 		__i16 runSql(const char * nSql);
-		bool runOpen();
+		bool needCreate();
+		bool runCreate();
+		void runOpen();
 		void runClose();
-		
+				
 	public:
 		SqliteDataBase();
 		~SqliteDataBase();

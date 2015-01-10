@@ -13,13 +13,15 @@ namespace std {
 		__i16 runSql(const char * nSql);
 		void runRecycle();
 		bool runGet();
+		bool runConnect();
+		bool runCreate();
 		void runDisconnect();
 		
 	private:
 		void runActivate(bool nForce = false);
-		void runConnect();
 		
-		void internalConnect();
+		bool internalConnect();
+		bool internalCreate();
 		void internalDisconnect();
 	
 	public:

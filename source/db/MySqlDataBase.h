@@ -11,6 +11,10 @@ namespace std {
 		__i16 runSql(ISqlHeadstream * nSqlHeadstream);
 		__i16 runSql(const char * nSql);
 		void runLoad();
+		bool needCreate();
+		bool runCreate();
+		void runOpen();
+		void runClose();
 		
 	private:
 		void recycleConnection(MySqlConnectionPtr& nMySqlConnection);

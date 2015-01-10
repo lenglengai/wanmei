@@ -26,7 +26,6 @@ namespace std {
 	#ifdef __SERVER__
 		const StringWriterPtr commandRunLogSql(const CommandArgs& nCommandArgs);
 		const StringWriterPtr commandRunLoginSql(const CommandArgs& nCommandArgs);
-		const StringWriterPtr commandCreateDb(const CommandArgs& nCommandArgs);
 	#endif
 	#endif
 	public:

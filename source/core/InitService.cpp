@@ -342,6 +342,10 @@ namespace std {
 			IService *& service_ = it->second;
 			service_->stoping();
 		}
+	#ifdef __CONSOLE__
+		mConsole->runStop();
+		mConsole->runJoin();
+	#endif
 	}
 	
 	void InitService::stopEnd()
@@ -405,10 +409,6 @@ namespace std {
 			IService *& service_ = it->second;
 			service_->pausing();
 		}
-	#ifdef __CONSOLE__
-		mConsole->runStop();
-		mConsole->runJoin();
-	#endif
 	}
 	
 	void InitService::pauseEnd()

@@ -85,16 +85,18 @@ namespace std {
 		}
 	}
 	
-	void MySqlConnection::runConnect()
+	bool MySqlConnection::runConnect()
 	{
-		if (!mConnected) {
-			internalConnect();
+		if (mConnected) return true;
+		if ( internalConnect() ) {
 			TimeService& timeService_ = Service<TimeService>::instance();
 			mTimeStamp = timeService_.getLocalTime();
 			mTimeStamp += mDataBase->getMaxUsedSeconds();
 			mConnected = true;
 			mBusy = false;
+			return true;
 		}
+		return false;
 	}
 	
 	void MySqlConnection::runDisconnect()
@@ -107,12 +109,54 @@ namespace std {
 		}
 	}
 	
-	void MySqlConnection::internalConnect()
+	bool MySqlConnection::runCreate()
+	{
+		if ( internalCreate() ) {
+			TimeService& timeService_ = Service<TimeService>::instance();
+			mTimeStamp = timeService_.getLocalTime();
+			mTimeStamp += mDataBase->getMaxUsedSeconds();
+			mConnected = true;
+			mBusy = false;
+			return true;
+		}
+		return false;
+	}
+	
+	bool MySqlConnection::internalCreate()
 	{
 	    if ( nullptr == mysql_init(&mMYSQL) ) {
 			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1("mysql_init"));
-			return;
+			return false;
+		}
+		if ( nullptr == mysql_real_connect(&mMYSQL,
+			mDataBase->getHostName().c_str(),
+			mDataBase->getUserName().c_str(),
+			mDataBase->getPassword().c_str(),
+			"",
+			mDataBase->getPort(), nullptr, 0) ) {
+			LogService& logService_ = Service<LogService>::instance();
+			logService_.logError(log_1(mysql_error(&mMYSQL)));
+			return false;
+		}
+		string strSql_ = "CREATE DATABASE ";
+		strSql_ += mDataBase->getDbName();
+		if ( Error_::mSucess_ != this->runSql(strSql_.c_str) ) {
+			return false;
+		}
+		strSql_ = "USE "; strSql_ += mDataBase->getDbName();
+		if ( Error_::mSucess_ != this->runSql(strSql_.c_str) ) {
+			return false;
+		}
+		return true;
+	}
+	
+	bool MySqlConnection::internalConnect()
+	{
+	    if ( nullptr == mysql_init(&mMYSQL) ) {
+			LogService& logService_ = Service<LogService>::instance();
+			logService_.logError(log_1("mysql_init"));
+			return false;
 		}
 		if ( nullptr == mysql_real_connect(&mMYSQL,
 			mDataBase->getHostName().c_str(),
@@ -122,8 +166,9 @@ namespace std {
 			mDataBase->getPort(), nullptr, 0) ) {
 			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(mysql_error(&mMYSQL)));
-			return;
+			return false;
 		}
+		return true;
 	}
 	
 	void MySqlConnection::internalDisconnect()

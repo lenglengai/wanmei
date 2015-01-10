@@ -30,6 +30,39 @@ namespace std {
 		return result_;
 	}
 	
+	bool MySqlDataBase::needCreate()
+	{
+		MySqlConnectionPtr mySqlConnection_(new MySqlConnection(this));
+		if (mySqlConnection_->runConnect() ) {
+			mMySqlConnections.push_back(mySqlConnection_);
+			return true;
+		}
+		return false;
+	}
+	
+	bool MySqlDataBase::runCreate()
+	{
+		MySqlConnectionPtr mySqlConnection_(new MySqlConnection(this));
+		if (mySqlConnection_->runCreate() ) {
+			mMySqlConnections.push_back(mySqlConnection_);
+			return true;
+		}
+		return false;
+	}
+	
+	void MySqlDataBase::runOpen()
+	{
+	}
+	
+	void MySqlDataBase::runClose()
+	{
+		std::lock_guard<std::mutex> lock_(mMutex);
+		for (auto& it : mMySqlConnections) {
+			it->runDisconnect();
+		}
+		mMySqlConnections.clear();
+	}
+	
 	void MySqlDataBase::recycleConnection(MySqlConnectionPtr& nMySqlConnection)
 	{
 		std::lock_guard<std::mutex> lock_(mMutex);
@@ -70,11 +103,6 @@ namespace std {
 	
 	MySqlDataBase::~MySqlDataBase()
 	{
-		std::lock_guard<std::mutex> lock_(mMutex);
-		for (auto& it : mMySqlConnections) {
-			it->runDisconnect();
-		}
-		mMySqlConnections.clear();
 	}
 	
 }

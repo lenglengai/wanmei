@@ -33,6 +33,7 @@ namespace std {
 		stringWriter_->runClose();
 		return stringWriter_;
 	}
+	
 #ifdef __SERVER__
 	const StringWriterPtr DbService::commandRunLogSql(const CommandArgs& nCommandArgs)
 	{
@@ -55,31 +56,6 @@ namespace std {
 		const string& strValue_ = nCommandArgs.getCommandArg(1);
 		__i16 result_ = this->runLoginSql(strValue_.c_str());
 		stringWriter_->runInt16(result_, "result");
-		stringWriter_->finishClass();
-		stringWriter_->runClose();
-		return stringWriter_;
-	}
-
-	const StringWriterPtr DbService::commandCreateDb(const CommandArgs& nCommandArgs)
-	{
-		StringWriterPtr stringWriter_(new StringWriter());
-		nCommandArgs.runStringWriter(stringWriter_);
-		stringWriter_->startClass("result");
-		DataBasePtr database_(new MySqlDataBase());
-		const string& streamUrl_ = nCommandArgs.getCommandArg(1);
-		database_->setStreamUrl(streamUrl_.c_str());
-		database_->runLoad();
-		string dropDb_("DROP DATABASE IF EXISTS ");
-		dropDb_ += database_->getDbName(); 
-		dropDb_ += ";";
-		string createDb_("CREATE DATABASE ");
-		createDb_ += database_->getDbName(); 
-		createDb_ += ";";
-		database_->setDbName("");
-		__i16 result_ = database_->runSql(dropDb_.c_str());
-		stringWriter_->runInt16(result_, "result0");
-		result_ = database_->runSql(createDb_.c_str());
-		stringWriter_->runInt16(result_, "result1");
 		stringWriter_->finishClass();
 		stringWriter_->runClose();
 		return stringWriter_;
@@ -127,7 +103,6 @@ namespace std {
 	#ifdef __SERVER__
 		this->registerCommand("runLogSql", std::bind(&DbService::commandRunLogSql, this, placeholders::_1));
 		this->registerCommand("runLoginSql", std::bind(&DbService::commandRunLoginSql, this, placeholders::_1));
-		this->registerCommand("createDb", std::bind(&DbService::commandCreateDb, this, placeholders::_1));
 	#endif
 	#endif
 		return true;
@@ -165,12 +140,20 @@ namespace std {
 			initService_.runInitTable();
 		}
 	#endif
+	#if defined(__SERVER__) &&  defined(__WITHMYSQL__)
+		if ( !mGameDb->runOpen() ) {
+			InitService& initService_ = Singleton<InitService>::instance();
+			initService_.runInitTable();
+		}
+	#endif
 	}
 	
 	void DbService::stopEnd()
 	{
-	#ifdef __CLIENT__
 		mGameDb->runClose();
+	#ifdef __SERVER__
+		mLoginDb->runClose();
+		mLogDb->runClose();
 	#endif
 	}
 	
