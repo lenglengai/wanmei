@@ -129,21 +129,24 @@ namespace std {
 	{
 	#if defined(__CLIENT__) &&  defined(__WITHSQLITE__)
 		mGameDb.reset(new SqliteDataBase());
-		fstream fileHandle; bool initTable_ = true;
-		fileHandle.open(mGameDb->getDbName().c_str(), ios::in);
-		if (fileHandle.is_open()) {
-			fileHandle.close();
-			initTable_ = false;
-		}
-		if ( initTable_ && mGameDb->runOpen() ) {
-			InitService& initService_ = Singleton<InitService>::instance();
-			initService_.runInitTable();
+		if ( mGameDb->needCreate() ) {
+			if ( mGameDb->runCreate() ) {
+				InitService& initService_ = Singleton<InitService>::instance();
+				initService_.runInitTable();
+			}
+		} else {
+			mGameDb->runOpen();
 		}
 	#endif
 	#if defined(__SERVER__) &&  defined(__WITHMYSQL__)
-		if ( !mGameDb->runOpen() ) {
-			InitService& initService_ = Singleton<InitService>::instance();
-			initService_.runInitTable();
+		mGameDb.reset(new SqliteDataBase());
+		if ( mGameDb->needCreate() ) {
+			if ( mGameDb->runCreate() ) {
+				InitService& initService_ = Singleton<InitService>::instance();
+				initService_.runInitTable();
+			}
+		} else {
+			mGameDb->runOpen();
 		}
 	#endif
 	}

@@ -14,7 +14,7 @@ namespace std {
 		bool runCreate();
 		void runOpen();
 		void runClose();
-				
+		
 	public:
 		SqliteDataBase();
 		~SqliteDataBase();

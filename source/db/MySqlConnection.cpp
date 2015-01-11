@@ -96,6 +96,7 @@ namespace std {
 			mBusy = false;
 			return true;
 		}
+		
 		return false;
 	}
 	
@@ -119,6 +120,7 @@ namespace std {
 			mBusy = false;
 			return true;
 		}
+		this->internalDisconnect();
 		return false;
 	}
 	

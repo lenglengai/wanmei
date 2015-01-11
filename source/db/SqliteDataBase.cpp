@@ -49,13 +49,16 @@ namespace std {
 
 	bool SqliteDataBase::needCreate()
 	{
+		fstream fileHandle;
+		fileHandle.open(mDbName.c_str(), ios::in);
+		if (fileHandle.is_open()) {
+			fileHandle.close();
+			return false;
+		}
+		return false;
 	}
 	
 	bool SqliteDataBase::runCreate()
-	{
-	}
-	
-	bool SqliteDataBase::runOpen()
 	{
 		int errorCode_ = sqlite3_open(mDbName.c_str(), &mSqlite);
 		if(SQLITE_OK != errorCode_) {
@@ -66,6 +69,18 @@ namespace std {
 		}
 		mIsClosed = false;
 		return true;
+	}
+	
+	void SqliteDataBase::runOpen()
+	{
+		int errorCode_ = sqlite3_open(mDbName.c_str(), &mSqlite);
+		if(SQLITE_OK != errorCode_) {
+			LogService& logService_ = Service<LogService>::instance();
+			logService_.logError(log_1(sqlite3_errmsg(mSqlite)));
+			sqlite3_close(mSqlite);
+			return;
+		}
+		mIsClosed = false;
 	}
 	
 	void SqliteDataBase::runClose()
