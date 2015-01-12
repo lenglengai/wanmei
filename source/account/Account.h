@@ -16,6 +16,7 @@ namespace std {
 		const string& getAccountName() const;
 		void setAccountId(const __i64 nAccountId);
 		__i64 getAccountId() const;
+		__i64 getKey() const;
 		
 		Account();
 		virtual ~Account();

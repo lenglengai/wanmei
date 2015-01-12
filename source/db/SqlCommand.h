@@ -20,6 +20,19 @@ namespace std {
         void runFloat(float& nValue, const char * nName, __i8 nSqlFieldId = SqlFieldId_::mNone_);
         void runDouble(double& nValue, const char * nName, __i8 nSqlFieldId = SqlFieldId_::mNone_);
 		void runData(char *& nValue, __i16& nSize, const char * nName, __i8 nSqlFieldId = SqlFieldId_::mNone_);
+		template<typename __t0, class __t1>
+		void runMapStream(map<__t0, shared_ptr<__t1>>& nTs)
+		{
+			if (SqlDeal_::mSelectFD_ == mSqlDeal) {
+				__t1 t1_; t1_.runSelect(this);
+			} else if (SqlDeal_::mQuery_ == mSqlDeal) {
+				if (mDbQuery->nextRow()) {
+					shared_ptr<__t1> t1_(new __t1());
+					t1_->runSelect(this);
+					nTs[t1_->getKey()] = t1_;
+				}
+			}
+		}
 		
 		void runQuery(ISqlHeadstream * nSqlHeadstream, IDbQuery * nDbQuery);
 		void runHeadstream(ISqlHeadstream * nSqlStream);

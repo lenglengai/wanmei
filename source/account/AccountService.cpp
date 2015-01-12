@@ -25,7 +25,7 @@ namespace std {
 	void AccountService::runSelect(SqlCommand * nSqlCommand)
 	{
 	#ifdef __SERVER__
-		//nSqlCommand->runMapStream(mAccounts);
+		nSqlCommand->runMapStream(mAccounts);
 	#endif
 	#ifdef __CLIENT__
 		//nSqlCommand->runStream(mAccount);
@@ -39,7 +39,7 @@ namespace std {
 		__i32 dayTime_ = timeService_.getBeforeDay(10);
 		nSqlCommand->runInt32(dayTime_, "activiteTime>");
 	#endif
-	#ifdef __SERVER__
+	#ifdef __CLIENT__
 		__i32 accountNo_ = 1;
 		nSqlCommand->runInt32(accountNo_, "accountNo=");
 	#endif

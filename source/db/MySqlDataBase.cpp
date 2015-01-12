@@ -35,9 +35,9 @@ namespace std {
 		MySqlConnectionPtr mySqlConnection_(new MySqlConnection(this));
 		if (mySqlConnection_->runConnect() ) {
 			mMySqlConnections.push_back(mySqlConnection_);
-			return true;
+			return false;
 		}
-		return false;
+		return true;
 	}
 	
 	bool MySqlDataBase::runCreate()

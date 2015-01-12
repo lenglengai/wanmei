@@ -96,7 +96,6 @@ namespace std {
 			mBusy = false;
 			return true;
 		}
-		
 		return false;
 	}
 	

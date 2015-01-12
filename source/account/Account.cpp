@@ -51,7 +51,12 @@ namespace std {
 	{
 		return mAccountId;
 	}
-	
+
+	__i64 Account::getKey() const
+	{
+		return mAccountId;
+	}
+		
 	Account::Account()
 		: mAllRenminbi (0)
 		, mAccountName ("")
