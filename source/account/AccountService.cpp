@@ -63,17 +63,23 @@ namespace std {
 		return true;
 	}
 	
-	void AccountService::runInitTable()
+	bool AccountService::runInitTable()
 	{
 		AccountTB accountTB;
 		DbService& dbService_ = Service<DbService>::instance();
-		dbService_.runSql(&accountTB);
+		if ( Error_::mSucess_ != dbService_.runSql(&accountTB) ) {
+			return false;
+		}
+		return true;
 	}
 	
-	void AccountService::loadBegin()
+	bool AccountService::loadBegin()
 	{
 		DbService& dbService_ = Service<DbService>::instance();
-		dbService_.runSql(this);
+		if ( Error_::mSucess_ != dbService_.runSql(this) ) {
+			return false;
+		}
+		return true;
 	}
 	
 	void AccountService::runClear()

@@ -23,18 +23,16 @@ namespace std {
 		const char * streamUrl() const;
 		
 		bool runPreinit() OVERRIDE FINAL;
-		void runConfig() OVERRIDE FINAL;
-		void initBegin() OVERRIDE FINAL;
+		bool runConfig() OVERRIDE FINAL;
+		bool initBegin() OVERRIDE FINAL;
 		void startBegin() OVERRIDE FINAL;
 		void stopBegin() OVERRIDE FINAL;
 		void runing() OVERRIDE FINAL;
+		void runClear() OVERRIDE FINAL;
 
 		IoService();
 		~IoService();
 		
-	private:
-		void runClear();
-
 	private:
 		typedef shared_ptr<asio::io_service> IoServicePtr;
 		typedef shared_ptr<asio::io_service::work> WorkPtr;

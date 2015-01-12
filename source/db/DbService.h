@@ -30,8 +30,8 @@ namespace std {
 	#endif
 	public:
 		bool runPreinit() OVERRIDE FINAL;
-		void runConfig() OVERRIDE FINAL;
-		void runInitDb() OVERRIDE FINAL;
+		bool runConfig() OVERRIDE FINAL;
+		bool runInitDb() OVERRIDE FINAL;
 		void stopEnd() OVERRIDE FINAL;
 		
 		DbService();

@@ -46,16 +46,21 @@ namespace std{
 	#endif
 	}
 	
-	void WorldService::runConfig()
+	bool WorldService::runPreinit()
 	{
 	#ifdef __CLIENT__
 		mWorld.reset(new World());
 	#endif
-		ArchiveService& archiveService_ = Service<ArchiveService>::instance();
-		archiveService_.loadStream(this);
+		return true;
 	}
 	
-	void WorldService::initBegin()
+	bool WorldService::runConfig()
+	{
+		ArchiveService& archiveService_ = Service<ArchiveService>::instance();
+		return archiveService_.loadStream(this);
+	}
+	
+	bool WorldService::initBegin()
 	{
 	#ifdef __CLIENT__
 		mWorld->runInit();
@@ -66,6 +71,7 @@ namespace std{
 			world_->runInit();
 		}
 	#endif
+	return true;
 	}
 	
 	void WorldService::startBegin()

@@ -38,40 +38,49 @@ namespace std {
 	{
 	}
 	
-	void IService::runConfig()
+	bool IService::runConfig()
 	{
+		return true;
 	}
 	
-	void IService::runInitDb()
+	bool IService::runInitDb()
 	{
+		return true;
 	}
 	
-	void IService::runInitTable()
+	bool IService::runInitTable()
 	{
+		return true;
 	}
 	
-	void IService::loadBegin()
+	bool IService::loadBegin()
 	{
+		return true;
 	}
 	
-	void IService::loading()
+	bool IService::loading()
 	{
+		return true;
 	}
 	
-	void IService::loadEnd()
+	bool IService::loadEnd()
 	{
+		return true;
 	}
 	
-	void IService::initBegin()
+	bool IService::initBegin()
 	{
+		return true;
 	}
 	
-	void IService::initing()
+	bool IService::initing()
 	{
+		return true;
 	}
 	
-	void IService::initEnd()
+	bool IService::initEnd()
 	{
+		return true;
 	}
 	
 	void IService::startBegin()

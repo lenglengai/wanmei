@@ -143,11 +143,11 @@ namespace std {
 		}
 		string strSql_ = "CREATE DATABASE ";
 		strSql_ += mDataBase->getDbName();
-		if ( Error_::mSucess_ != this->runSql(strSql_.c_str) ) {
+		if ( Error_::mSucess_ != this->runSql(strSql_.c_str()) ) {
 			return false;
 		}
 		strSql_ = "USE "; strSql_ += mDataBase->getDbName();
-		if ( Error_::mSucess_ != this->runSql(strSql_.c_str) ) {
+		if ( Error_::mSucess_ != this->runSql(strSql_.c_str()) ) {
 			return false;
 		}
 		return true;

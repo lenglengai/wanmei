@@ -33,7 +33,7 @@ namespace std {
 		return true;
 	}
 	
-	void PingProtocol::initBegin()
+	bool PingProtocol::initBegin()
 	{
 		ProtocolService& protocolService_ = Service<ProtocolService>::instance();
 		protocolService_.runRegister(this);
@@ -46,6 +46,7 @@ namespace std {
 	#ifdef __SERVER__
 		this->addPacketId(PacketIdPtr(new PacketId<C2SPing>()));
 	#endif
+		return true;
 	}
 
 	void PingProtocol::startBegin()

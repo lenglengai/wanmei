@@ -108,47 +108,72 @@ namespace std {
 		return true;
 	}
 	
-	void DbService::runConfig()
+	bool DbService::runConfig()
 	{
 	#if defined(__SERVER__) &&  defined(__WITHMYSQL__)
 		mGameDb.reset(new MySqlDataBase());
 		mGameDb->setStreamUrl("gameDb.xml");
-		mGameDb->runLoad();
+		if ( !mGameDb->runLoad() ) {
+			return false;
+		}
 		
 		mLoginDb.reset(new MySqlDataBase());
 		mLoginDb->setStreamUrl("loginDb.xml");
-		mLoginDb->runLoad();
+		if ( !mLoginDb->runLoad() ) {
+			return false;
+		}
 		
 		mLogDb.reset(new MySqlDataBase());
 		mLogDb->setStreamUrl("logDb.xml");
-		mLogDb->runLoad();
+		if ( !mLogDb->runLoad() ) {
+			return false;
+		}
 	#endif
+		return true;
 	}
 	
-	void DbService::runInitDb()
+	bool DbService::runInitDb()
 	{
 	#if defined(__CLIENT__) &&  defined(__WITHSQLITE__)
 		mGameDb.reset(new SqliteDataBase());
 		if ( mGameDb->needCreate() ) {
 			if ( mGameDb->runCreate() ) {
 				InitService& initService_ = Singleton<InitService>::instance();
-				initService_.runInitTable();
+				return initService_.runInitTable();
 			}
+			return false;
 		} else {
-			mGameDb->runOpen();
+			return mGameDb->runOpen();
 		}
 	#endif
 	#if defined(__SERVER__) &&  defined(__WITHMYSQL__)
-		mGameDb.reset(new SqliteDataBase());
+		bool initTable_ = false;
 		if ( mGameDb->needCreate() ) {
-			if ( mGameDb->runCreate() ) {
-				InitService& initService_ = Singleton<InitService>::instance();
-				initService_.runInitTable();
+			if ( !mGameDb->runCreate() ) {
+				return false;
 			}
-		} else {
-			mGameDb->runOpen();
+			initTable_ = true;
+		}
+		if ( mLogDb->needCreate() ) {
+			if ( !mLogDb->runCreate() ) {
+				return false;
+			}
+			initTable_ = true;
+		}
+		if ( mLoginDb->needCreate() ) {
+			if ( !mLoginDb->runCreate() ) {
+				return false;
+			}
+			initTable_ = true;
+		}
+		if ( initTable_ ) {
+			InitService& initService_ = Singleton<InitService>::instance();
+			if ( !initService_.runInitTable() ) {
+				return false;
+			}
 		}
 	#endif
+		return true;
 	}
 	
 	void DbService::stopEnd()

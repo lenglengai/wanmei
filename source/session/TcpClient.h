@@ -30,7 +30,7 @@ namespace std {
 		const char * streamUrl() const;
 		
 		bool runPreinit() OVERRIDE FINAL;
-		void runConfig() OVERRIDE FINAL;
+		bool runConfig() OVERRIDE FINAL;
 		void startBegin() OVERRIDE FINAL;
 
 		TcpClient();

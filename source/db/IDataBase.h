@@ -27,7 +27,7 @@ namespace std {
 		const char * streamName() const;
 		void setStreamUrl(const char * nStreamUrl);
 		const char * streamUrl() const;
-		void runLoad();
+		bool runLoad();
 		
 		const string& getHostName() const;
 		const string& getUserName() const;
@@ -41,7 +41,7 @@ namespace std {
 		
 		virtual bool needCreate() = 0;
 		virtual bool runCreate() = 0;
-		virtual void runOpen() = 0;
+		virtual bool runOpen() = 0;
 		virtual void runClose() = 0;
 	
 	private:

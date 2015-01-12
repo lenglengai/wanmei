@@ -4,10 +4,10 @@
 namespace std {
 
 #ifdef __SERVER__
-	void IDataBase::runLoad()
+	bool IDataBase::runLoad()
 	{
 		ArchiveService& archiveService_ = Service<ArchiveService>::instance();
-		archiveService_.xmlStream(this);
+		return archiveService_.xmlStream(this);
 	}
 	
 	__i32 IDataBase::getMaxUsedSeconds() const

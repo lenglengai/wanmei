@@ -25,7 +25,7 @@ namespace std {
 		const char * streamName() const;
 		const char * streamUrl() const;
 		bool runPreinit() OVERRIDE FINAL;
-		void runConfig() OVERRIDE FINAL;
+		bool runConfig() OVERRIDE FINAL;
 		void startBegin() OVERRIDE FINAL;
 		void stopEnd() OVERRIDE FINAL;
 

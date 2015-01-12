@@ -27,17 +27,17 @@ namespace std {
 		bool runPreinit() OVERRIDE FINAL;
 		
 		void runLuaApi() OVERRIDE FINAL;
-		void runConfig() OVERRIDE FINAL;
-		void runInitDb() OVERRIDE FINAL;
-		void runInitTable() OVERRIDE FINAL;
+		bool runConfig() OVERRIDE FINAL;
+		bool runInitDb() OVERRIDE FINAL;
+		bool runInitTable() OVERRIDE FINAL;
 		
-		void loadBegin() OVERRIDE FINAL;
-		void loading() OVERRIDE FINAL;
-		void loadEnd() OVERRIDE FINAL;
+		bool loadBegin() OVERRIDE FINAL;
+		bool loading() OVERRIDE FINAL;
+		bool loadEnd() OVERRIDE FINAL;
 		
-		void initBegin() OVERRIDE FINAL;
-		void initing() OVERRIDE FINAL;
-		void initEnd() OVERRIDE FINAL;
+		bool initBegin() OVERRIDE FINAL;
+		bool initing() OVERRIDE FINAL;
+		bool initEnd() OVERRIDE FINAL;
 		
 		void startBegin() OVERRIDE FINAL;
 		void starting() OVERRIDE FINAL;

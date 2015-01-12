@@ -19,8 +19,8 @@ namespace std {
 	
 	public:
 		bool runPreinit() OVERRIDE FINAL;
-		void runInitTable() OVERRIDE FINAL;
-		void loadBegin() OVERRIDE FINAL;
+		bool runInitTable() OVERRIDE FINAL;
+		bool loadBegin() OVERRIDE FINAL;
 		void runClear() OVERRIDE FINAL;
 		
 		AccountService();

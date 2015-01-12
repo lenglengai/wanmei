@@ -53,18 +53,19 @@ namespace std {
 		return true;
 	}
 	
-	void HandleService::runConfig()
+	bool HandleService::runConfig()
 	{
 		ArchiveService& archiveService_ = Service<ArchiveService>::instance();
-		archiveService_.loadStream(this);
+		return archiveService_.loadStream(this);
 	}
 	
-	void HandleService::initBegin()
+	bool HandleService::initBegin()
 	{
 		for (__i32 i = 0; i < mHandleCount; ++i) {
 			HandlePtr handle(new Handle());
 			mHandles[i] = handle;
 		}
+		return true;
 	}
 
 	void HandleService::starting()

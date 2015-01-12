@@ -18,7 +18,7 @@ namespace std {
 	
 	public:
 		bool runPreinit() OVERRIDE FINAL;
-		void initBegin() OVERRIDE FINAL;
+		bool initBegin() OVERRIDE FINAL;
 		void startBegin() OVERRIDE FINAL;
 
 		PingProtocol();

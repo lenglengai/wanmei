@@ -14,7 +14,7 @@ namespace std {
 			if (serviceId_ == initServiceId_) {
 				service_ = this;
 			}
-			if (nullptr != service_) {
+			if (nullptr == service_) {
 				map<__i32, IService *>::iterator it = mServices.find(serviceId_);
 				if (it != mServices.end()) {
 					service_ = it->second;
@@ -166,7 +166,7 @@ namespace std {
 		map<__i32, IService *>::iterator it = mServices.begin();
 		for (; it != mServices.end(); ++it) {
 			IService *& service_ = it->second;
-			if (!service_->runPreinit()) {
+			if ( !service_->runPreinit() ) {
 				return false;
 			}
 		}
@@ -201,90 +201,117 @@ namespace std {
 	#endif
 	}
 	
-	void InitService::runConfig()
+	bool InitService::runConfig()
 	{
 		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
-			service_->runConfig();
+			if ( !service_->runConfig() ) {
+				return false;
+			}
 		}
+		return true;
 	}
 	
-	void InitService::runInitDb()
+	bool InitService::runInitDb()
 	{
 		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
-			service_->runInitDb();
+			if ( !service_->runInitDb() ) {
+				return false;
+			}
 		}
+		return true;
 	}
 	
-	void InitService::runInitTable()
+	bool InitService::runInitTable()
 	{
 		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
-			service_->runInitTable();
+			if ( !service_->runInitTable() ) {
+				return false;
+			}
 		}
+		return true;
 	}
 	
-	void InitService::loadBegin()
+	bool InitService::loadBegin()
 	{
 		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
-			service_->loadBegin();
+			if ( !service_->loadBegin() ) {
+				return false;
+			}
 		}
+		return true;
 	}
 	
-	void InitService::loading()
+	bool InitService::loading()
 	{
 		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
-			service_->loading();
+			if ( !service_->loading() ) {
+				return false;
+			}
 		}
+		return true;
 	}
 	
-	void InitService::loadEnd()
+	bool InitService::loadEnd()
 	{
 		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
-			service_->loadEnd();
+			if ( !service_->loadEnd() ) {
+				return false;
+			}
 		}
+		return true;
 	}
 	
-	void InitService::initBegin()
+	bool InitService::initBegin()
 	{
 		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
-			service_->initBegin();
+			if ( !service_->initBegin() ) {
+				return false;
+			}
 		}
 	#ifdef __CONSOLE__
 		mConsole.reset(new Handle());
 		ContextPtr consoleContext(new Console());
 		mConsole->addContext(consoleContext);
 	#endif
+		return true;
 	}
 	
-	void InitService::initing()
+	bool InitService::initing()
 	{
 		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
-			service_->initing();
+			if ( !service_->initing() ) {
+				return false;
+			}
 		}
+		return true;
 	}
 	
-	void InitService::initEnd()
+	bool InitService::initEnd()
 	{
 		map<__i32, IService *>::iterator it = mServices.begin();
 		for ( ; it != mServices.end(); ++it ) {
 			IService *& service_ = it->second;
-			service_->initEnd();
+			if ( !service_->initEnd() ) {
+				return false;
+			}
 		}
+		return true;
 	}
 	
 	void InitService::startBegin()
@@ -448,23 +475,39 @@ namespace std {
 
 int main( int argc, char * argv[] )
 {
-	std::InitService& initService_ = 
-		std::Singleton<std::InitService>::instance();
+	using namespace std;
+	InitService& initService_ = Singleton<InitService>::instance();
 	if (!initService_.runPreinit()) {
 		return 0;
 	}
 	
 	initService_.runLuaApi();
-	initService_.runConfig();
-	initService_.runInitDb();
+	if ( !initService_.runConfig() ) {
+		return 0;
+	}
+	if ( !initService_.runInitDb() ) {
+		return 0;
+	}
 	
-	initService_.loadBegin();
-	initService_.loading();
-	initService_.loadEnd();
+	if ( !initService_.loadBegin() ) {
+		return 0;
+	}
+	if ( !initService_.loading() ) {
+		return 0;
+	}
+	if ( !initService_.loadEnd() ) {
+		return 0;
+	}
 	
-	initService_.initBegin();
-	initService_.initing();
-	initService_.initEnd();
+	if ( !initService_.initBegin() ) {
+		return 0;
+	}
+	if ( !initService_.initing() ) {
+		return 0;
+	}
+	if ( !initService_.initEnd() ) {
+		return 0;
+	}
 	
 	initService_.startBegin();
 	initService_.starting();

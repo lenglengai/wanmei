@@ -24,8 +24,8 @@ namespace std {
 		const char * streamUrl() const;
 		
 		bool runPreinit() OVERRIDE FINAL;
-		void runConfig() OVERRIDE FINAL;
-		void initBegin() OVERRIDE FINAL;
+		bool runConfig() OVERRIDE FINAL;
+		bool initBegin() OVERRIDE FINAL;
 		void starting() OVERRIDE FINAL;
 		void stoping() OVERRIDE FINAL;
 		

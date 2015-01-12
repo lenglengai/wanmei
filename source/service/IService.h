@@ -20,17 +20,17 @@ namespace std {
 		virtual bool runPreinit();
 		
 		virtual void runLuaApi();
-		virtual void runConfig();
-		virtual void runInitDb();
-		virtual void runInitTable();
+		virtual bool runConfig();
+		virtual bool runInitDb();
+		virtual bool runInitTable();
 		
-		virtual void loadBegin();
-		virtual void loading();
-		virtual void loadEnd();
+		virtual bool loadBegin();
+		virtual bool loading();
+		virtual bool loadEnd();
 		
-		virtual void initBegin();
-		virtual void initing();
-		virtual void initEnd();
+		virtual bool initBegin();
+		virtual bool initing();
+		virtual bool initEnd();
 		
 		virtual void startBegin();
 		virtual void starting();

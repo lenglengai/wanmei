@@ -56,13 +56,13 @@ namespace std {
 		return true;
 	}
 	
-	void IoService::runConfig()
+	bool IoService::runConfig()
 	{
 		ArchiveService& archiveService_ = Service<ArchiveService>::instance();
-		archiveService_.loadStream(this);
+		return archiveService_.loadStream(this);
 	}
 	
-	void IoService::initBegin()
+	bool IoService::initBegin()
 	{
 		for (__i32 i = 0; i < mIoServiceCount; ++i) {
 			IoServicePtr ioService(new asio::io_service());
@@ -70,6 +70,7 @@ namespace std {
 			mIoServices.push_back(ioService);
 			mWorks.push_back(work);
 		}
+		return true;
 	}
 	
 	void IoService::startBegin()

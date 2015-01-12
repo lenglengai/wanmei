@@ -120,10 +120,10 @@ namespace std {
 		return true;
 	}
 
-	void TcpClient::runConfig()
+	bool TcpClient::runConfig()
 	{
 		ArchiveService& archiveService_ = Service<ArchiveService>::instance();
-		archiveService_.loadStream(this);
+		return archiveService_.loadStream(this);
 	}
 
 	void TcpClient::startBegin()

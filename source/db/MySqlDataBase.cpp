@@ -50,8 +50,9 @@ namespace std {
 		return false;
 	}
 	
-	void MySqlDataBase::runOpen()
+	bool MySqlDataBase::runOpen()
 	{
+		return true;
 	}
 	
 	void MySqlDataBase::runClose()
@@ -88,12 +89,6 @@ namespace std {
 			logService_.logError(log_1(connectionCount_));
 			return __defaultptr<MySqlConnection>();
 		}
-	}
-	
-	void MySqlDataBase::runLoad()
-	{
-		ArchiveService& archiveService_ = Service<ArchiveService>::instance();
-		archiveService_.xmlStream(this);
 	}
 	
 	MySqlDataBase::MySqlDataBase()

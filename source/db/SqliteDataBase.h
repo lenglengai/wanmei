@@ -12,7 +12,7 @@ namespace std {
 		__i16 runSql(const char * nSql);
 		bool needCreate();
 		bool runCreate();
-		void runOpen();
+		bool runOpen();
 		void runClose();
 		
 	public:

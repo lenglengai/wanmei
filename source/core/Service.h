@@ -12,10 +12,14 @@ namespace std {
 			return mT;
 		}
 		
-		Service() {
+		void runInit() {
 			InitService& initService_ = Singleton<InitService>::instance();
 			__i32 classId_ = __classid<__t>();
 			initService_.registerService( classId_,(&mT) );
+		}
+		
+		Service() {
+			this->runInit();
 		}
 		
 	private:

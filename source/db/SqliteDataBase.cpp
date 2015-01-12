@@ -71,16 +71,17 @@ namespace std {
 		return true;
 	}
 	
-	void SqliteDataBase::runOpen()
+	bool SqliteDataBase::runOpen()
 	{
 		int errorCode_ = sqlite3_open(mDbName.c_str(), &mSqlite);
 		if(SQLITE_OK != errorCode_) {
 			LogService& logService_ = Service<LogService>::instance();
 			logService_.logError(log_1(sqlite3_errmsg(mSqlite)));
 			sqlite3_close(mSqlite);
-			return;
+			return false;
 		}
 		mIsClosed = false;
+		return true;
 	}
 	
 	void SqliteDataBase::runClose()

@@ -25,7 +25,7 @@ namespace std {
 		void freeBuf(char * nBuf, const __i32 nSize);
 		
 		template<class __t>
-		void archiveStream(__t * nT, char * nBuf)
+		bool archiveStream(__t * nT, char * nBuf)
 		{
 			const char * streamName_ = nT->streamName();
 			XmlReader xmlReader_;
@@ -33,10 +33,11 @@ namespace std {
 			xmlReader_.selectStream(streamName_);
 			nT->headSerialize(xmlReader_);
 			xmlReader_.runClose();
+			return true;
 		}
 		
 		template<class __t>
-		void xmlStream(__t * nT)
+		bool xmlStream(__t * nT)
 		{
 			const char * streamUrl_ = nT->streamUrl();
 			const char * streamName_ = nT->streamName();
@@ -45,31 +46,33 @@ namespace std {
 				xmlReader_.selectStream(streamName_);
 				nT->headSerialize(xmlReader_);
 				xmlReader_.runClose();
+				return true;
 			}
+			return false;
 		}
 		
 		template<class __t>
-		void loadStream(__t * nT)
+		bool loadStream(__t * nT)
 		{
 		#ifdef __CONSOLE__
 			if (mIsWriter) {
 				const char * streamUrl_ = nT->streamUrl();
 				this->registerArchive(streamUrl_);
-				return;
+				return true;
 			}
 		#endif
 			if (!mIsArchive) {
-				this->xmlStream(nT);
-				return;
+				return this->xmlStream(nT);
 			}
 			char * nBuf = nullptr; __i32 nSize = 0;
 			if (!this->loadBuf(nT, &nBuf, &nSize)) {
-				return;
+				return false;
 			}
 			this->archiveStream(nT, nBuf);
 			this->freeBuf(nBuf, nSize);
+			return true;
 		}
-				
+		
 	private:
 	#ifdef __CONSOLE__
 		const StringWriterPtr commandInfo(const CommandArgs& nCommandArgs);

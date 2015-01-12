@@ -30,8 +30,9 @@ namespace std {
 		const char * streamName() const;
 		const char * streamUrl() const;
 		
-		void runConfig() OVERRIDE FINAL;
-		void initBegin() OVERRIDE FINAL;
+		bool runPreinit() OVERRIDE FINAL;
+		bool runConfig() OVERRIDE FINAL;
+		bool initBegin() OVERRIDE FINAL;
 		void startBegin() OVERRIDE FINAL;
 		void runClear() OVERRIDE FINAL;
 		
