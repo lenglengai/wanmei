@@ -55,7 +55,7 @@ namespace std {
 			fileHandle.close();
 			return false;
 		}
-		return false;
+		return true;
 	}
 	
 	bool SqliteDataBase::runCreate()
