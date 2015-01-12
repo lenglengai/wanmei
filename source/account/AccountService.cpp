@@ -1,5 +1,7 @@
 #include "../Include.h"
 #include "AccountTB.h"
+#include "C2SLogin.h"
+#include "S2CLogin.h"
 
 namespace std {
 
@@ -79,6 +81,21 @@ namespace std {
 		if ( Error_::mSucess_ != dbService_.runSql(this) ) {
 			return false;
 		}
+		return true;
+	}
+	
+	bool AccountService::initBegin()
+	{
+		ProtocolService& protocolService_ = Service<ProtocolService>::instance();
+		protocolService_.runRegister(this);
+
+	#ifdef __CLIENT__
+		this->addPacketId(PacketIdPtr(new PacketId<S2CLogin>()));
+	#endif
+
+	#ifdef __SERVER__
+		this->addPacketId(PacketIdPtr(new PacketId<C2SLogin>()));
+	#endif
 		return true;
 	}
 	

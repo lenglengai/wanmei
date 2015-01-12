@@ -4,7 +4,7 @@
 
 namespace std {
 	
-	class AccountService : public IService, public ISqlHeadstream
+	class AccountService : public IProtocol, public ISqlHeadstream
 	{
 	public:
 	    void runSelect(SqlCommand * nSqlCommand) OVERRIDE FINAL;
@@ -20,6 +20,7 @@ namespace std {
 	public:
 		bool runPreinit() OVERRIDE FINAL;
 		bool runInitTable() OVERRIDE FINAL;
+		bool initBegin() OVERRIDE FINAL;
 		bool loadBegin() OVERRIDE FINAL;
 		void runClear() OVERRIDE FINAL;
 		
