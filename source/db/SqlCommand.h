@@ -20,6 +20,22 @@ namespace std {
         void runFloat(float& nValue, const char * nName, __i8 nSqlFieldId = SqlFieldId_::mNone_);
         void runDouble(double& nValue, const char * nName, __i8 nSqlFieldId = SqlFieldId_::mNone_);
 		void runData(char *& nValue, __i16& nSize, const char * nName, __i8 nSqlFieldId = SqlFieldId_::mNone_);
+		template<class __t>
+		void runStream(shared_ptr<__t>& nT)
+		{
+			if (!nT) {
+				nT.reset(new __t());
+			}
+			if (SqlDeal_::mSelectFD_ == mSqlDeal) {
+				nT->runSelect(this);
+			}
+			else if (SqlDeal_::mQuery_ == mSqlDeal) {
+				if (mDbQuery->nextRow()) {
+					nT->runSelect(this);
+				}
+			}
+		}
+
 		template<typename __t0, class __t1>
 		void runMapStream(map<__t0, shared_ptr<__t1>>& nTs)
 		{

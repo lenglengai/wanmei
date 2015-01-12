@@ -28,7 +28,7 @@ namespace std {
 		nSqlCommand->runMapStream(mAccounts);
 	#endif
 	#ifdef __CLIENT__
-		//nSqlCommand->runStream(mAccount);
+		nSqlCommand->runStream(mAccount);
 	#endif
 	}
 	

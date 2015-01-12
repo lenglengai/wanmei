@@ -69,6 +69,8 @@ namespace std {
 		TimeService& timeService_ = Service<TimeService>::instance();
 		__i32 second_ = timeService_.getLocalTime();
 		mPing = second_ - mClock;
+		LogService& logService_ = Service<LogService>::instance();
+		logService_.logInfo(log_1(mPing));
 	}
 #endif
 
