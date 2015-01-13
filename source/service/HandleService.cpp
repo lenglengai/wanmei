@@ -29,7 +29,7 @@ namespace std {
 		HandlePtr& handle = mHandles[nIndex - 1];
 		handle->addContext(nContext);
 	}
-
+#ifdef __GAME__
 	const char * HandleService::streamName() const
 	{
 		return "handleService";
@@ -37,13 +37,9 @@ namespace std {
 
 	const char * HandleService::streamUrl() const
 	{
-	#ifdef __CLIENT__
-		return "handleClient.xml";
-	#endif
-	#ifdef __SERVER__
 		return "handleServer.xml";
-	#endif
 	}
+#endif
 	
 	bool HandleService::runPreinit()
 	{
@@ -53,11 +49,13 @@ namespace std {
 		return true;
 	}
 	
+#ifdef __GAME__
 	bool HandleService::runConfig()
 	{
 		ArchiveService& archiveService_ = Service<ArchiveService>::instance();
-		return archiveService_.loadStream(this);
+		return archiveService_.loadStream(this);		
 	}
+#endif
 	
 	bool HandleService::initBegin()
 	{

@@ -34,7 +34,7 @@ namespace std {
 		return stringWriter_;
 	}
 	
-#ifdef __SERVER__
+#ifdef __GAME__
 	const StringWriterPtr DbService::commandRunLogSql(const CommandArgs& nCommandArgs)
 	{
 		StringWriterPtr stringWriter_(new StringWriter());
@@ -42,19 +42,6 @@ namespace std {
 		stringWriter_->startClass("result");
 		const string& strValue_ = nCommandArgs.getCommandArg(1);
 		__i16 result_ = this->runLogSql(strValue_.c_str());
-		stringWriter_->runInt16(result_, "result");
-		stringWriter_->finishClass();
-		stringWriter_->runClose();
-		return stringWriter_;
-	}
-
-	const StringWriterPtr DbService::commandRunLoginSql(const CommandArgs& nCommandArgs)
-	{
-		StringWriterPtr stringWriter_(new StringWriter());
-		nCommandArgs.runStringWriter(stringWriter_);
-		stringWriter_->startClass("result");
-		const string& strValue_ = nCommandArgs.getCommandArg(1);
-		__i16 result_ = this->runLoginSql(strValue_.c_str());
 		stringWriter_->runInt16(result_, "result");
 		stringWriter_->finishClass();
 		stringWriter_->runClose();
@@ -73,17 +60,7 @@ namespace std {
 		return mGameDb->runSql(nSql);
 	}
 	
-#ifdef __SERVER__
-	__i16 DbService::runLoginSql(ISqlHeadstream * nSqlHeadstream)
-	{
-		return mLoginDb->runSql(nSqlHeadstream);
-	}
-	
-	__i16 DbService::runLoginSql(const char * nSql)
-	{
-		return mLoginDb->runSql(nSql);
-	}
-	
+#ifdef __GAME__
 	__i16 DbService::runLogSql(ISqlHeadstream * nSqlHeadstream)
 	{
 		return mLogDb->runSql(nSqlHeadstream);
@@ -100,9 +77,8 @@ namespace std {
 	#ifdef __CONSOLE__
 		this->registerCommand("info", std::bind(&DbService::commandInfo, this, placeholders::_1));
 		this->registerCommand("runSql", std::bind(&DbService::commandRunSql, this, placeholders::_1));
-	#ifdef __SERVER__
+	#ifdef __GAME__
 		this->registerCommand("runLogSql", std::bind(&DbService::commandRunLogSql, this, placeholders::_1));
-		this->registerCommand("runLoginSql", std::bind(&DbService::commandRunLoginSql, this, placeholders::_1));
 	#endif
 	#endif
 		return true;
@@ -110,22 +86,22 @@ namespace std {
 	
 	bool DbService::runConfig()
 	{
-	#if defined(__SERVER__) &&  defined(__WITHMYSQL__)
+	#if defined(__GAME__) &&  defined(__WITHMYSQL__)
 		mGameDb.reset(new MySqlDataBase());
 		mGameDb->setStreamUrl("gameDb.xml");
 		if ( !mGameDb->runLoad() ) {
 			return false;
 		}
-		
-		mLoginDb.reset(new MySqlDataBase());
-		mLoginDb->setStreamUrl("loginDb.xml");
-		if ( !mLoginDb->runLoad() ) {
-			return false;
-		}
-		
 		mLogDb.reset(new MySqlDataBase());
 		mLogDb->setStreamUrl("logDb.xml");
 		if ( !mLogDb->runLoad() ) {
+			return false;
+		}
+	#endif
+	#if defined(__LOGIN__) &&  defined(__WITHMYSQL__)
+		mGameDb.reset(new MySqlDataBase());
+		mGameDb->setStreamUrl("loginDb.xml");
+		if ( !mGameDb->runLoad() ) {
 			return false;
 		}
 	#endif
@@ -154,18 +130,14 @@ namespace std {
 			}
 			initTable_ = true;
 		}
+	#ifdef __GAME__
 		if ( mLogDb->needCreate() ) {
 			if ( !mLogDb->runCreate() ) {
 				return false;
 			}
 			initTable_ = true;
 		}
-		if ( mLoginDb->needCreate() ) {
-			if ( !mLoginDb->runCreate() ) {
-				return false;
-			}
-			initTable_ = true;
-		}
+	#endif
 		if ( initTable_ ) {
 			InitService& initService_ = Singleton<InitService>::instance();
 			if ( !initService_.runInitTable() ) {
@@ -179,8 +151,7 @@ namespace std {
 	void DbService::stopEnd()
 	{
 		mGameDb->runClose();
-	#ifdef __SERVER__
-		mLoginDb->runClose();
+	#ifdef __GAME__
 		mLogDb->runClose();
 	#endif
 	}

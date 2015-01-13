@@ -99,6 +99,11 @@ namespace std {
 			this->startConnect();
 		}
 	}
+	
+	void TcpClient::runClose()
+	{
+		(*mSession)->runClose();
+	}
 
 	const char * TcpClient::streamName() const
 	{

@@ -69,9 +69,16 @@ namespace std {
 	{
 		AccountTB accountTB;
 		DbService& dbService_ = Service<DbService>::instance();
+	#ifdef __CLIENT__
 		if ( Error_::mSucess_ != dbService_.runSql(&accountTB) ) {
 			return false;
 		}
+	#endif
+	#ifdef __SERVER____
+		if ( Error_::mSucess_ != dbService_.runLoginSql(&accountTB) ) {
+			return false;
+		}
+	#endif
 		return true;
 	}
 	

@@ -4,9 +4,11 @@
 
 namespace std {
 
+#ifdef __GAME__
 	class Player;
 	typedef weak_ptr<Player> PlayerWtr;
     typedef shared_ptr<Player> PlayerPtr;
+#endif
 	class Session;
 	typedef weak_ptr<Session> SessionWtr;
 	typedef shared_ptr<Session> SessionPtr;
@@ -14,13 +16,15 @@ namespace std {
 	{
 	public:
 		virtual bool handleRun(SessionPtr& nSession);
+	#ifdef __GAME__
 		virtual bool handleRun(PlayerPtr& nPlayer);
+	#endif
 		virtual bool runBlock(BlockPtr& nBlock) = 0;
 		void setHeader(const __i32 nProtocol, const __i32 nPacketId);
 		bool runHeader(BlockPtr& nBlock);
 		__i32 getProtocolId() const;
 		__i32 getPacketId() const;
-	#ifdef __SERVER__
+	#ifdef __GAME__
 		void setPlayer(PlayerPtr& nPlayer);
 		PlayerPtr * getPlayer() const;
 	#endif
@@ -60,7 +64,7 @@ namespace std {
 	typedef weak_ptr<IPacketId> PacketIdWtr;
 	typedef shared_ptr<IPacketId> PacketIdPtr;
 
-	template<class T>
+	template<class __t>
 	class PacketId : public IPacketId
 	{
 	public:
@@ -72,14 +76,14 @@ namespace std {
 		static __i32 getClassId()
 		{
 			if (0 == mPacketId) {
-				mPacketId = __classid<T>();
+				mPacketId = __classid<__t>();
 			}
 			return mPacketId;
 		}
 
 		PacketPtr createPacket() const
 		{
-			return PacketPtr(new T());
+			return PacketPtr(new __t());
 		}
 
 		PacketId()
@@ -92,7 +96,7 @@ namespace std {
 	private:
 		static __i32 mPacketId;;
 	};
-	template<class T>
-	__i32 PacketId<T>::mPacketId = 0;
+	template<class __t>
+	__i32 PacketId<__t>::mPacketId = 0;
 
 }

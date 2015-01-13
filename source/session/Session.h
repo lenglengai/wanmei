@@ -35,9 +35,11 @@ namespace std {
 		void setSecond(const __i32 nSecond);
 		__i32 getSecond() const;
 		
+	#ifdef __GAME__
 		void setPlayer(PlayerPtr& nPlayer);
 		PlayerPtr * getPlayer() const;
 		bool isInLook() const;
+	#endif
 		
 		explicit Session(__i32 nSessionId, asio::io_service& nIoService);
 		~Session();
@@ -66,8 +68,10 @@ namespace std {
 		asio::deadline_timer mWriteTimer;
 		WriteBlockPtr mWriteBlock;
 		
+	#ifdef __GAME__
 		PlayerPtr * mMainPlayer;
 		PlayerPtr * mSecondPlayer;
+	#endif
 		
 		__i32 mSessionId;
 		

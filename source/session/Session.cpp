@@ -223,6 +223,7 @@ namespace std {
 		return mSocket;
 	}
 	
+#ifdef __GAME__
 	void Session::setPlayer(PlayerPtr& nPlayer)
 	{
 		if (nullptr == mMainPlayer) {
@@ -244,6 +245,7 @@ namespace std {
 	{
 		return (nullptr != mSecondPlayer);
 	}
+#endif
 	
 	Session::Session(__i32 nSessionId, asio::io_service& nIoService)
 		: mSessionState(SessionState_::mClosed_)
@@ -253,8 +255,10 @@ namespace std {
 		, mReadTimer(nIoService)
 		, mWriteTimer(nIoService)
 		, mSending(false)
+	#ifdef __GAME__
 		, mMainPlayer(nullptr)
 		, mSecondPlayer(nullptr)
+	#endif
 		, mSessionId(nSessionId)
 		, mSecond(0)
 	#ifdef __CLIENT__
@@ -273,8 +277,10 @@ namespace std {
 		mReadBuffer.fill(0);
 		mSending = false;
 		mPackets.clear();
+	#ifdef __GAME__
 		mMainPlayer = nullptr;
 		mSecondPlayer = nullptr;
+	#endif
 		mSessionId = 0;
 		mSecond = 0;
 	#ifdef __CLIENT__

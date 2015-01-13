@@ -2,6 +2,7 @@
 
 #define APPNAME "gameServer"
 
+#define __GAME__
 #define __SERVER__
 #define __OVERRIDE__
 #define __FINAL__

@@ -10,6 +10,7 @@ namespace std {
 		void handleConnectTimeout(const boost::system::error_code& nError);
 		void startConnect();
 		void reconnect();
+		void runClose();
 		
 	private:
 	#ifdef __CONSOLE__
