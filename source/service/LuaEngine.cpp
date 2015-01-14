@@ -1,5 +1,6 @@
 #include "../Include.h"
 
+#ifdef __EXPLUA__
 namespace std {
 
 	void LuaEngine::runUrl(const char * nUrl)
@@ -23,3 +24,4 @@ namespace std {
 	}
 
 }
+#endif

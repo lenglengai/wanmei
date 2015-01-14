@@ -20,7 +20,7 @@ namespace std {
 	}
 #endif
 
-#ifdef __CLIENT__
+#ifdef __CLIENTTIME__
 	void TimeService::setServerTime(const __i32 nServerTime)
 	{
 		mCurrent = nServerTime - this->getLocalTime();
@@ -29,10 +29,10 @@ namespace std {
 
 	__i32 TimeService::getServerTime() const
 	{
-	#ifdef __CLIENT__
+	#ifdef __CLIENTTIME__
 		return (this->getLocalTime() + mCurrent);
 	#endif
-	#ifdef __SERVER__
+	#ifdef __SERVERTIME__
 		return this->getLocalTime();
 	#endif
 	}

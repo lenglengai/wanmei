@@ -30,7 +30,7 @@ namespace std {
 		
 	private:
 		IDataBase * mDataBase;
-		__i64 mTimeStamp;
+		__i32 mTimeStamp;
 		bool mConnected;
 		bool mBusy;
 		

@@ -1,5 +1,6 @@
 #include "../Include.h"
 
+#ifdef __EXPLUA__
 namespace std {
 
 	LuaEnginePtr LuaService::createLuaEngine()
@@ -37,3 +38,4 @@ namespace std {
 	static Service<LuaService> sLuaService;
 
 }
+#endif

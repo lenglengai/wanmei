@@ -86,22 +86,34 @@ namespace std {
 	
 	bool DbService::runConfig()
 	{
-	#if defined(__GAME__) &&  defined(__WITHMYSQL__)
+	#ifdef __WITHMYSQL__
 		mGameDb.reset(new MySqlDataBase());
+	#endif
+	#ifdef __WITHSQLITE__
+		mGameDb.reset(new SqliteDataBase());
+	#endif
+	#ifdef __GAME__
 		mGameDb->setStreamUrl("gameDb.xml");
 		if ( !mGameDb->runLoad() ) {
 			return false;
 		}
-		mLogDb.reset(new MySqlDataBase());
-		mLogDb->setStreamUrl("logDb.xml");
-		if ( !mLogDb->runLoad() ) {
+	#endif
+	#ifdef __LOGIN__
+		mGameDb->setStreamUrl("loginDb.xml");
+		if ( !mGameDb->runLoad() ) {
 			return false;
 		}
 	#endif
-	#if defined(__LOGIN__) &&  defined(__WITHMYSQL__)
-		mGameDb.reset(new MySqlDataBase());
-		mGameDb->setStreamUrl("loginDb.xml");
+	#ifdef __CENTER__
+		mGameDb->setStreamUrl("centerDb.xml");
 		if ( !mGameDb->runLoad() ) {
+			return false;
+		}
+	#endif
+	#if defined(__GAME__)
+		mLogDb.reset(new MySqlDataBase());
+		mLogDb->setStreamUrl("logDb.xml");
+		if ( !mLogDb->runLoad() ) {
 			return false;
 		}
 	#endif
@@ -110,8 +122,7 @@ namespace std {
 	
 	bool DbService::runInitDb()
 	{
-	#if defined(__CLIENT__) &&  defined(__WITHSQLITE__)
-		mGameDb.reset(new SqliteDataBase());
+	#ifdef __CLIENT__
 		if ( mGameDb->needCreate() ) {
 			if ( mGameDb->runCreate() ) {
 				InitService& initService_ = Singleton<InitService>::instance();
@@ -122,7 +133,7 @@ namespace std {
 			return mGameDb->runOpen();
 		}
 	#endif
-	#if defined(__SERVER__) &&  defined(__WITHMYSQL__)
+	#ifdef __SERVER__
 		bool initTable_ = false;
 		if ( mGameDb->needCreate() ) {
 			if ( !mGameDb->runCreate() ) {

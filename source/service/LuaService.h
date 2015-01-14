@@ -2,6 +2,7 @@
 
 #include "LuaEngine.h"
 
+#ifdef __EXPLUA__
 namespace std {
 
 	class __funapi LuaService : public IService
@@ -46,3 +47,4 @@ namespace std {
 	};
 
 }
+#endif

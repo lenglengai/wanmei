@@ -15,7 +15,7 @@ namespace std {
 	#endif
 	
 	public:
-	#ifdef __GAME__
+	#if defined(__GAME__) || defined(__CENTER__)
 		template<class __t>
 		void headSerialize(__t& nT)
 		{
@@ -26,7 +26,7 @@ namespace std {
 	#endif
 		
 		bool runPreinit() OVERRIDE FINAL;
-	#ifdef __GAME__
+	#if defined(__GAME__) || defined(__CENTER__)
 		bool runConfig() OVERRIDE FINAL;
 	#endif
 		bool initBegin() OVERRIDE FINAL;

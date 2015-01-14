@@ -2,6 +2,7 @@
 
 #include "../../dependence/lua/lua_tinker.h"
 
+#ifdef __EXPLUA__
 namespace std {
 
 	class __funapi LuaEngine : noncopyable
@@ -27,3 +28,4 @@ namespace std {
 	typedef weak_ptr<LuaEngine> LuaEngineWtr;
 
 }
+#endif

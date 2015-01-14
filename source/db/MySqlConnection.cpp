@@ -77,7 +77,7 @@ namespace std {
 		}
 		if (!mBusy) {
 			TimeService& timeService_ = Service<TimeService>::instance();
-			__i64 currentTime_ = timeService_.getLocalTime();
+			__i32 currentTime_ = timeService_.getLocalTime();
 			if (currentTime_ > mTimeStamp) {
 				this->runDisconnect();
 				this->runConnect();

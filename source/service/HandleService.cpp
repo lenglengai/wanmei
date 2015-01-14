@@ -29,7 +29,7 @@ namespace std {
 		HandlePtr& handle = mHandles[nIndex - 1];
 		handle->addContext(nContext);
 	}
-#ifdef __GAME__
+#if defined(__GAME__) || defined(__CENTER__)
 	const char * HandleService::streamName() const
 	{
 		return "handleService";
@@ -49,7 +49,7 @@ namespace std {
 		return true;
 	}
 	
-#ifdef __GAME__
+#if defined(__GAME__) || defined(__CENTER__)
 	bool HandleService::runConfig()
 	{
 		ArchiveService& archiveService_ = Service<ArchiveService>::instance();

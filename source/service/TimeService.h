@@ -5,7 +5,7 @@ namespace std {
 	class __funapi TimeService : public IService
 	{
 	public:
-	#ifdef __CLIENT__
+	#ifdef __CLIENTTIME__
 		void setServerTime(const __i32 nServerTime);
 	#endif
 		__i32 getBeforeDay(__i32 nDays) const;
