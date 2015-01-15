@@ -4,7 +4,7 @@
 
 namespace std {
 
-#ifdef __GAME__
+#ifdef __WORLD__
 	class Player;
 	typedef weak_ptr<Player> PlayerWtr;
     typedef shared_ptr<Player> PlayerPtr;
@@ -16,7 +16,7 @@ namespace std {
 	{
 	public:
 		virtual bool handleRun(SessionPtr& nSession);
-	#ifdef __GAME__
+	#ifdef __WORLD__
 		virtual bool handleRun(PlayerPtr& nPlayer);
 	#endif
 		virtual bool runBlock(BlockPtr& nBlock) = 0;
@@ -24,7 +24,7 @@ namespace std {
 		bool runHeader(BlockPtr& nBlock);
 		__i32 getProtocolId() const;
 		__i32 getPacketId() const;
-	#ifdef __GAME__
+	#ifdef __WORLD__
 		void setPlayer(PlayerPtr& nPlayer);
 		PlayerPtr * getPlayer() const;
 	#endif
@@ -35,7 +35,7 @@ namespace std {
 		virtual ~IPacket();
 		
 	protected:
-	#ifdef __SERVER__
+	#ifdef __WORLD__
 		PlayerPtr * mPlayer;
 	#endif
 		__i16 mVersion;

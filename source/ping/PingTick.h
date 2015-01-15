@@ -8,7 +8,7 @@ namespace std {
 	{
 	public:
 		void runContext();
-
+		
 		PingTick();
 		~PingTick();
 	};

@@ -7,7 +7,7 @@ namespace std {
 		return true;
 	}
 	
-#ifdef __GAME__
+#ifdef __WORLD__
 	bool IPacket::handleRun(PlayerPtr& nPlayer)
 	{
 		return true;
@@ -38,7 +38,7 @@ namespace std {
 		return mPacketId;
 	}
 	
-#ifdef __GAME__
+#ifdef __WORLD__
 	void IPacket::setPlayer(PlayerPtr& nPlayer)
 	{
 		mPlayer = &nPlayer;
@@ -58,7 +58,7 @@ namespace std {
 	IPacket::IPacket()
 		: mProtocol(0)
 		, mPacketId(0)
-	#ifdef __GAME__
+	#ifdef __WORLD__
 		, mPlayer(nullptr)
 	#endif
 	{
@@ -67,7 +67,7 @@ namespace std {
 
 	IPacket::~IPacket()
 	{
-	#ifdef __GAME__
+	#ifdef __WORLD__
 		mPlayer = nullptr;
 	#endif
 		mProtocol = 0;

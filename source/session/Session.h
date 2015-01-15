@@ -17,9 +17,7 @@ namespace std {
 		enum { write_timeout = 150 };
 		enum { read_timeout = 300 };
 		
-	#ifdef __CLIENT__
 		bool isSendTick();
-	#endif
 
 		bool runSend(PacketPtr& nPacket);
 		
@@ -35,7 +33,7 @@ namespace std {
 		void setSecond(const __i32 nSecond);
 		__i32 getSecond() const;
 		
-	#ifdef __GAME__
+	#if defined(__WORLD__) && defined(__SERVER__)
 		void setPlayer(PlayerPtr& nPlayer);
 		PlayerPtr * getPlayer() const;
 		bool isInLook() const;
@@ -68,7 +66,7 @@ namespace std {
 		asio::deadline_timer mWriteTimer;
 		WriteBlockPtr mWriteBlock;
 		
-	#ifdef __GAME__
+	#if defined(__WORLD__) && defined(__SERVER__)
 		PlayerPtr * mMainPlayer;
 		PlayerPtr * mSecondPlayer;
 	#endif
